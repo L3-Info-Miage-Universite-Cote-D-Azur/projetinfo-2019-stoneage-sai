@@ -76,7 +76,7 @@ Avoir un gagnant en fin de partie.*
 *Le Vendredi 29 Novembre*
 
 ----------------------------------------------- 
-### 6. ITÉRATION:   Livraison le Vendredi 06/12.
+### 6. ITÉRATION:  
 Lancement d'une partie entres 2-3 joueurs en ajoutant :
 - [X] Une ou deux IA avec (1 ou 2 bots) avec chacun une manière de jouer différente.
 
