@@ -104,7 +104,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>jeu421.UnePartieDe421
+                    <mainClass>stoneage.Partie
                     </mainClass>  <!-- à changer : classe avec point d'entrée pour votre projet -->
                     <!-- argument de la commande java (en plus du nom de la classe et du classpath -->
 
