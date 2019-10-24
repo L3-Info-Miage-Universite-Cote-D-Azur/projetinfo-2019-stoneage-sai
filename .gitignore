@@ -33,4 +33,5 @@
 # pour les mac...
 **/.DS_Store
 
-
+#pour linux
+.Rhistory
