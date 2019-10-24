@@ -1,7 +1,7 @@
 package stoneage;
 
-public class Game {
-	public Game() {
+public class Partie {
+	public Partie() {
 		int inv=0;
 	}
 	public int getStuff() {
@@ -10,7 +10,7 @@ public class Game {
 	
 	
 	public static final void main(String [] args) {
-		Game game=new Game();
-		System.out.println(game.getStuff());
+		Partie partie = new Partie();
+		System.out.println(partie.getStuff());
 	}
 }

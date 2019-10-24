@@ -1,4 +1,4 @@
-package src.main.java.stoneage;
+package stoneage;
 
 public class Joueur {
 	int zone = 1;
