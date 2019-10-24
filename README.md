@@ -7,8 +7,8 @@ Lancement d'une partie (un tour) avec :
 - [X] Une zone Foret (gains Bois= résultat dés /3)
 - [X] Un joueur qui possède une figurine(ouvrier)
 #### Démo de jeu :
-*Début de la partie : un joueur pose une figurine sur zone Foret.
-Fin de la partie : on affiche le gains du joueur en Bois.*
+* Début de la partie : un joueur pose une figurine sur zone Foret.
+* Fin de la partie : on affiche le gains du joueur en Bois.
 #### Date prévue : 
 *Le Vendredi 25 Octobre*
 
@@ -25,11 +25,11 @@ Lancement d'une partie en ajoutant :
 - [X] Score du joueur (négative, positive)
 
 #### Démo de jeu :
--Début de la partie : Le joueur (une IA) pose ses cinq figurines sur les zones qu'il choisit.
+* Début de la partie : Le joueur (une IA) pose ses cinq figurines sur les zones qu'il choisit.
 Chaque zone possède un nombre de place maximal. 
 Un nombre de dé est jeté en fonction du nombre des figurines placées sur les zones. 
--Fin de Tour : lorsque le joueur fini de poser tous ses figurines, on affiche les gains récupérer. 
-Fin de partie : Si joueur décide d’arrêter la partie en fin de tour (max 5 tours), on affiche le score calculer. *
+* Fin de Tour : lorsque le joueur fini de poser tous ses figurines, on affiche les gains récupérer. 
+* Fin de partie : Si joueur décide d’arrêter la partie en fin de tour (max 5 tours), on affiche le score calculer. *
 #### Date prévue : 
 *Le Vendredi 08 Novembre*
 
@@ -46,10 +46,10 @@ Lancement d'une partie entres 2 joueurs en ajoutant :
 - [X] La Condition Victoire (le joueur qui possède le score le plus élevé)
 - [X] Condition de fin de partie : lorsqu'il reste moins que 4 cartes civilisation ou bien l'une des piles de tuiles bâtiment est vide.
 #### Démo de jeu :
-*-Début de la partie : les joueurs (IA) posent leurs figurines sur les zones qu'ils choisirent.
--Fin du tour : Lorsque les joueurs ont posé toute leurs figurines. Ils récupèrent les gains. 
+* Début de la partie : les joueurs (IA) posent leurs figurines sur les zones qu'ils choisirent.
+* Fin du tour : Lorsque les joueurs ont posé toute leurs figurines. Ils récupèrent les gains. 
 A la fin du tour, les figurines de chaque joueur sont nourries avec la nourriture qu’il possède, les ressources ou bien son score sera diminué de 10 points. 
--Fin de partie : S’il y a plus de carte civilisation, on affiche le vainqueur. *
+* Fin de partie : S’il y a plus de carte civilisation, on affiche le vainqueur. 
 #### Date prévue : 
 *Le Vendredi 15 Novembre*
 
@@ -63,10 +63,10 @@ Lancement d'une partie entres deux joueurs en ajoutant :
 
 
 #### Démo de jeu :
-*-Début de la partie : les joueurs (IA) posent leurs figurines sur les zones qu'ils choisirent.
--Fin du tour : Lorsque les joueurs ont posé toute leurs figurines. Ils récupèrent les gains. 
+* Début de la partie : les joueurs (IA) posent leurs figurines sur les zones qu'ils choisirent.
+* Fin du tour : Lorsque les joueurs ont posé toute leurs figurines. Ils récupèrent les gains. 
 Les cartes civilisation et tuile bâtiment sont garder pour la fin de la partie pour chaque joueur.
--Fin de partie : lorsqu'il reste moins que 2 piles tuiles bâtiment ou s’il y a plus de carte civilisation.
+* Fin de partie : lorsqu'il reste moins que 2 piles tuiles bâtiment ou s’il y a plus de carte civilisation.
 #### Date prévue : 
 *Le Vendredi 22 Novembre*
 
@@ -88,7 +88,7 @@ Lancement d'une partie entres 2-3 joueurs en ajoutant :
 - [X] Une ou deux IA avec (1 ou 2 bots) avec chacun une manière de jouer différente.
 
 #### Démo de jeu:
-On observe les joueur qui commence une partie entre bots. 
+*On observe les joueur qui commence une partie entre bots. 
 Avoir un gagnant en fin de partie et les scores finaux.*
 #### Date prévue : 
 *Le Vendredi 06 Decembre*
