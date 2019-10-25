@@ -8,12 +8,13 @@ package stoneage;
 /**
  *
  * @author Ossama
+ * @author Yasmine 
  */
 public class Zone {
     private int nbOuvriersPlacés = 0;
     private int niveauZone = 3;
     private int constante;
-    private int ouvrierDispo = 1;
+
     
     public Zone(int niveau) {
         this.niveauZone = niveau;
@@ -24,13 +25,13 @@ public class Zone {
     }
     public void placerOuvrier(int nbOuvriers){
         nbOuvriersPlacés=nbOuvriers;
-        ouvrierDispo --;
     }
-    public void resoudre(int constante){ 
-        int nb_ressources=constante/3;
+    public int resoudre(int constante){ 
+        return constante/3;
     }
-
-    public boolean ouvrierDispo(){
-        return (ouvrierDispo > 0);
+    public String NomZone(){
+    	String[] nomZone={"Agriculture","Chasse","foret"};
+    	String nom=nomZone[niveauZone - 1];
+    	return nom;
     }
 }

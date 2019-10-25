@@ -1,16 +1,35 @@
 package stoneage;
-
+/**
+*
+* @author Yasmine 
+*/
 public class Partie {
-	public Partie() {
-		int inv=0;
+    private final Joueur joueur;
+    private final Zone zone;
+
+	public Partie(){
+		joueur = new Joueur();
+		zone= new Zone(3); //zone foret
+		
+
 	}
-	public int getStuff() {
-		return -1;
+	protected void jouer(int constante){
+		Choix choix = joueur.placerOuvriers(1,1);
+		int gains = zone.resoudre(constante);
+		System.out.println("Le joueur à placée "+choix.nbOuvriersJouer+" ouvrier(s) dans la zone "+ zone.NomZone() +".");
+		System.out.println("Le joueur gagne avec "+gains + " bois(s).");
 	}
+
 	
 	
 	public static final void main(String [] args) {
+		System.out.println("**** Debut de la Partie ****");
 		Partie partie = new Partie();
-		System.out.println(partie.getStuff());
-	}
+		partie.jouer(6); //Choix d'une constante qui represente le dé.
+		System.out.println("**** fin de la ¨Partie ****");
+		
+
+
+
+}
 }
