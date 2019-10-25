@@ -23,15 +23,22 @@ public class Zone {
         this.niveauZone = niveau;
         this.constante=constante;
     }
+
     public void placerOuvrier(int nbOuvriers){
         nbOuvriersPlacés=nbOuvriers;
     }
+
     public int resoudre(int constante){ 
         return constante/3;
     }
+
     public String NomZone(){
     	String[] nomZone={"Agriculture","Chasse","foret"};
     	String nom=nomZone[niveauZone - 1];
     	return nom;
+    }
+
+    public boolean ouvrierPlace(int nbOuvriers){
+        return (nbOuvriersPlacés == nbOuvriers);
     }
 }
