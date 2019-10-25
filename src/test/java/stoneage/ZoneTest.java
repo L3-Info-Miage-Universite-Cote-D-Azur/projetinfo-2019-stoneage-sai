@@ -12,9 +12,10 @@ public class ZoneTest {
     void setUp(){
         zone3 = new Zone(3);
     }
+
     @Test
     public void placerOuvrier() {
         zone3.placerOuvrier(1);
-        assertFalse(zone3.ouvrierDispo());
+        assertTrue(zone3.ouvrierPlace(1));
     }
 }
