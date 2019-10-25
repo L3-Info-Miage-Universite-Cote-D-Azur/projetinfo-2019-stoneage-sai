@@ -16,8 +16,8 @@ public class Partie {
 	protected void jouer(int constante){
 		Choix choix = joueur.placerOuvriers(1,1);
 		int gains = zone.resoudre(constante);
-		System.out.println("Le joueur à placée "+choix.nbOuvriersJouer+" ouvrier(s) dans la zone "+ zone.NomZone() +".");
-		System.out.println("Le joueur gagne avec "+gains + " bois(s).");
+		System.out.println("Le joueur a placé "+choix.nbOuvriersJouer+" ouvrier(s) dans la zone "+ zone.NomZone() +".");
+		System.out.println("Le joueur gagne avec "+gains + " bois.");
 	}
 
 	
@@ -26,7 +26,7 @@ public class Partie {
 		System.out.println("**** Debut de la Partie ****");
 		Partie partie = new Partie();
 		partie.jouer(6); //Choix d'une constante qui represente le dé.
-		System.out.println("**** fin de la ¨Partie ****");
+		System.out.println("**** fin de la Partie ****");
 		
 
 
