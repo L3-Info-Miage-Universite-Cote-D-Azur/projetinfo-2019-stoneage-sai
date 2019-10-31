@@ -43,7 +43,7 @@ public class Inventaire {
 		nbOuvrierDispo -= i;
 	}
 	
-	public boolean ouvrierDispo(int nbOuvrierDispo) {
+	public boolean ouvrierDispo() {
 		return (nbOuvrierDispo > 0);
 	}
 	
