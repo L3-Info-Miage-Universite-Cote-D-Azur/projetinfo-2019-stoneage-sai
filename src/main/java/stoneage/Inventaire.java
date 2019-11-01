@@ -9,44 +9,48 @@ package stoneage;
  */
 
 public class Inventaire {
-	public static final int NB_INITIAL_OUVRIERS = 5;
+	private static final int NB_INITIAL_OUVRIERS = 5;
 	
-	private int nbOuvrier = 1;
+	private int nbOuvrier = 1; //Minimum 1 ouvrier pour pouvoir jouer
 	private int nbRessource = 0;
 	private int nbOuvrierDispo = 0;
 	
-	private int nbBois = 0;
-	private int nbArgile = 0;
-	private int nbPierre = 0;
-	private int nbOr = 0;
-	
-	
+	private int nbBois;
+	private int nbArgile;
+	private int nbPierre;
+	private int nbOr;
+	private int score;
+
 	public Inventaire() {  //Initialisation d'un Inventaire vide
-		
+
 		setNbOuvrier(NB_INITIAL_OUVRIERS); //Initialisation du nombre d'ouvrier 
-		
-		setNbBois(0);		// Initialisation à 0 du nombre de bois 
-		setNbArgile(0);		// Initialisation à 0 du nombre d'argile
-		setNbPierre(0);		// Initialisation à 0 du nombre de pierre
-		setNbOr(0);			// Initialisation à 0 du nombre d'or
-		
-		// Initialisation du nombre total de ressources en ajoutant les différentes ressources ensemble
-		setNbRessource(getNbBois() + getNbArgile() + getNbOr() + getNbPierre());
+
+		// Initialisation à 0 des ressources et du score
+		setNbBois(0);
+		setNbArgile(0);
+		setNbPierre(0);
+		setNbOr(0);
+		setNbRessource(0);
+		setScore(0);
+
+		resetAvailableWorkers();
 	}
-	
-	
-	public void addWorkers(int i) {
+
+	public void addAvailableWorkers(int i) {
 		nbOuvrierDispo += i;
 	}
-	
-	public void removeWorkers(int i) {
-		nbOuvrierDispo -= i;
+	public void removeAvailableWorkers(int i) {
+		nbOuvrierDispo -= i; }
+	public void updateScore(){
+		//Pour l'instant le score est seulement calculé par le nombre total de ressource
+		setScore(getNbRessource());
 	}
-	
+	public void resetAvailableWorkers() {
+		nbOuvrierDispo = getNbOuvrier();
+	}
 	public boolean ouvrierDispo() {
 		return (nbOuvrierDispo > 0);
 	}
-	
 	
 	/* ****************************************
 	   * Getter and setter des champs privés  * 
@@ -98,5 +102,13 @@ public class Inventaire {
 
 	public void setNbOr(int nbOr) {
 		this.nbOr = nbOr;
-	}	
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
 }
