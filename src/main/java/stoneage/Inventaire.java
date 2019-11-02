@@ -36,6 +36,12 @@ public class Inventaire {
 		resetAvailableWorkers();
 	}
 
+    public Inventaire(Inventaire toCopy) {
+        setNbOuvrier(toCopy.getNbOuvrier());
+        setNbRessource(toCopy.getNbRessource());
+        resetAvailableWorkers();
+    }
+
 	public void addAvailableWorkers(int i) {
 		nbOuvrierDispo += i;
 	}
