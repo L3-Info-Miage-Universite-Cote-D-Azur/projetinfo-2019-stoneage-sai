@@ -13,32 +13,47 @@ package stoneage;
 public class Zone {
     private int nbOuvriersPlacés = 0;
     private int niveauZone = 3;
-    private int constante;
+    private Dé dé;
 
     
     public Zone(int niveau) {
         this.niveauZone = niveau;
+        dé=new Dé();
     }
-    public Zone(int niveau,int constante){
+    public Zone(int niveau,Dé dé){
         this.niveauZone = niveau;
-        this.constante=constante;
+        this.dé=dé;
+    }
+    
+    
+    public void placerOuvrier(Inventaire inventaireJoueur,int nbOuvriers){
+        inventaireJoueur.removeAvailableWorkers(nbOuvriers);//pour placer un nbOuvrier il faut les retirer d'abord de l'inventaire du joueur  
+        nbOuvriersPlacés=nbOuvriers;                        
     }
 
-    public void placerOuvrier(int nbOuvriers){
-        nbOuvriersPlacés=nbOuvriers;
-    }
-
-    public int resoudre(int constante){ 
-        return constante/3;
+    public int resoudre(int nbOuvriersPlacés){ 
+        return lancéDeDés(nbOuvriersPlacés)/niveauZone;
     }
 
     public String NomZone(){
-    	String[] nomZone={"Agriculture","Chasse","foret"};
+    	String[] nomZone={"Agriculture","Chasse","foret","glaisière","carrière","rivière"};//ajout des zones glaisière,carrière,rivière
     	String nom=nomZone[niveauZone - 1];
     	return nom;
     }
-
-    public boolean ouvrierPlace(int nbOuvriers){
+    
+    //retourne une valeur booléenne pour vérifier si tous les ouvrier ont était placer ou non.
+    public boolean ouvrierPlace(int nbOuvriers){ 
         return (nbOuvriersPlacés == nbOuvriers);
+    }
+    
+    /*on lance autant de Dés que des nbOuvriersPlacés
+    et on retourne la somme des Dés jetées divisé par niveauZone
+    */
+    private int lancéDeDés(int nbOuvriersPlacés){  
+        int sommeDés=0;                            
+        for (int i = 0; i < nbOuvriersPlacés; i++) {
+            sommeDés+=dé.Lancer();
+        }
+        return sommeDés / niveauZone;
     }
 }
