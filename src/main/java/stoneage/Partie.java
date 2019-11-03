@@ -14,7 +14,7 @@ public class Partie {
 	protected void jouer(){
         ArrayList<Zone> listeZonesDispo = new ArrayList<>();
         ArrayList<Zone> listeZonesJouer = new ArrayList<>();
-        for (int i=3;i <= NbZone+3;i++ ){
+        for (int i=3;i <= NbZone+2;i++ ){
         	Zone zone= new Zone(i);
         	listeZonesDispo.add(zone);
         } //remplire la liste des zones
@@ -30,6 +30,7 @@ public class Partie {
         System.out.println("Le joueur gagne avec "+inventaireDuJoueur.getNbRessource()+ " ressource(s).");
 
 	}
+	
     protected void phaseAction(ArrayList<Zone> listeZonesJouées) {
         while (listeZonesJouées.size() > 0 )
         {
@@ -38,13 +39,11 @@ public class Partie {
             choix.resoudre(inventaireDuJoueur);
 
             System.out.println("Le joueur reprend ses ouvriers de la zone "+choix.NomZone());
-
         }
     }
     protected void phasePlacement(ArrayList<Zone> listeZonesDispo, ArrayList<Zone> listeZonesJouées){
     	while (inventaireDuJoueur.ouvrierDispo()){
-    		Inventaire inventaireTemp = new Inventaire(inventaireDuJoueur);
-    		Choix choix = joueur.placerOuvriers(listeZonesDispo, inventaireTemp);
+    		Choix choix = joueur.placerOuvriers(listeZonesDispo, inventaireDuJoueur);
     		listeZonesDispo.remove(choix.zoneChoisie);
     		listeZonesJouées.add(choix.zoneChoisie);
     		choix.zoneChoisie.placerOuvrier(inventaireDuJoueur, choix.nbOuvriersChoisie);

@@ -57,6 +57,9 @@ public class Inventaire {
 	public boolean ouvrierDispo() {
 		return (nbOuvrierDispo > 0);
 	}
+	public int getNbOuvrierDispo() {
+        return nbOuvrierDispo;
+    }
 	
 	/* ****************************************
 	   * Getter and setter des champs privés  * 
