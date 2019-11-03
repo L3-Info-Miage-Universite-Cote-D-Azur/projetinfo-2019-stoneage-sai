@@ -5,30 +5,41 @@ public class Partie {
     private final Inventaire inventaireDuJoueur;
     private final int NbZone;
 
-
 	public Partie(){
 		joueur = new Joueur();
 		inventaireDuJoueur = new Inventaire();
 		NbZone=4;
 	}
 	protected void jouer(){
-        ArrayList<Zone> listeZonesDispo = new ArrayList<>();
-        ArrayList<Zone> listeZonesJouer = new ArrayList<>();
-        for (int i=3;i <= NbZone+2;i++ ){
-        	Zone zone= new Zone(i);
-        	listeZonesDispo.add(zone);
-        } //remplire la liste des zones
-        
-        inventaireDuJoueur.resetAvailableWorkers(); //remettre a jour le nombre d'ouvrier disponnible
-        System.out.println("**** phase de placement ****");
-        phasePlacement(listeZonesDispo, listeZonesJouer);
-
-        System.out.println("**** phase de résolution des ouvriers ****");
-        phaseAction(listeZonesJouer);
-
-        System.out.println("**** fin du jeu ****");
+		String newLine = System.getProperty("line.separator");
+		System.out.println("***************** Debut de la Partie *****************"+newLine);
+        for (int z=0 ; z < 5;z++){
+        	System.out.println("**** Debut du Tour N° "+ (z+1) +" ****");
+        	unTour();
+	        System.out.println("**** Fin du Tour N° "+ (z+1) +" ****"+newLine);
+        }
+		System.out.println("***************** fin de la Partie *****************");		
+        System.out.println("Resources en Bois: "+inventaireDuJoueur.getNbBois());
+        System.out.println("Resources en Argile: "+inventaireDuJoueur.getNbArgile());
+        System.out.println("Resources en Pierre: "+inventaireDuJoueur.getNbPierre());
+        System.out.println("Resources en Or: "+inventaireDuJoueur.getNbOr());    
         System.out.println("Le joueur gagne avec "+inventaireDuJoueur.getNbRessource()+ " ressource(s).");
 
+	}
+	protected void unTour(){
+		 ArrayList<Zone> listeZonesDispo = new ArrayList<>();
+	        ArrayList<Zone> listeZonesJouer = new ArrayList<>();
+	        for (int i=3;i <= NbZone+2;i++ ){
+	        	Zone zone= new Zone(i);
+	        	listeZonesDispo.add(zone);
+	        } //remplire la liste des zones
+	        
+	        inventaireDuJoueur.resetAvailableWorkers(); //remettre a jour le nombre d'ouvrier disponnible
+	        System.out.println("**** Phase de placement ****");
+	        phasePlacement(listeZonesDispo, listeZonesJouer);
+
+	        System.out.println("**** Phase de résolution des ouvriers ****");
+	        phaseAction(listeZonesJouer);
 	}
 	
     protected void phaseAction(ArrayList<Zone> listeZonesJouées) {
@@ -37,7 +48,6 @@ public class Partie {
             Zone choix = listeZonesJouées.get(0);
             listeZonesJouées.remove(choix);
             choix.resoudre(inventaireDuJoueur);
-
             System.out.println("Le joueur reprend ses ouvriers de la zone "+choix.NomZone());
         }
     }
@@ -52,9 +62,7 @@ public class Partie {
 	}
         
 	public static final void main(String [] args) {
-		System.out.println("**** Debut de la Partie ****");
 		Partie partie = new Partie();
 		partie.jouer(); 
-		System.out.println("**** fin de la Partie ****");		
 	}
 }
