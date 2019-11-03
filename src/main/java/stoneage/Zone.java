@@ -27,6 +27,24 @@ public class Zone {
     	//recuperer les ressources gagner
     	inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
     	//ajouter les nouveau ressources a l'inventaire du joueur 
+    	switch(niveauZone)
+    	{
+    		case 3:
+    			inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()+nbRessources);
+    			break;
+    		case 4: 
+    			inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()+nbRessources);
+    			break;
+    		case 5:
+    			inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()+nbRessources);
+    			break;
+    		
+    		case 6:
+    			inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()+nbRessources);
+    			break;
+    		default:
+    			break;			
+    	}
         inventaireJoueur.addAvailableWorkers(nbOuvriersPlacés);
         //recuperer les ouvriers 
         nbOuvriersPlacés=0;
