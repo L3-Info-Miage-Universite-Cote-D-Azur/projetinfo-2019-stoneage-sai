@@ -1,12 +1,12 @@
 package stoneage;
 
 public class Choix {
-	public int zoneJouer;
-	public int nbOuvriersJouer;
+	public Zone zoneChoisie;
+	public int nbOuvriersChoisie;
 	
-	public Choix(int zoneJouer, int nbOuvriersJouer) {
-		this.zoneJouer = zoneJouer;
-		this.nbOuvriersJouer = nbOuvriersJouer;
+	public Choix(Zone zoneJouer, int nbOuvriersJouer) { //constructeur qui fait :
+		this.zoneChoisie = zoneJouer;               //l'affectation de la zoneChoisie 
+		this.nbOuvriersChoisie = nbOuvriersJouer;   //l'affectation des nbOuvriersChoisie
 	}
 	
 	
@@ -14,7 +14,7 @@ public class Choix {
 	     if (o instanceof Choix) {
 	    	 
 	         Choix c = (Choix) o;
-	            return (c.nbOuvriersJouer == nbOuvriersJouer) && (c.zoneJouer == zoneJouer);
+	            return (c.nbOuvriersChoisie == nbOuvriersChoisie) && (c.zoneChoisie == zoneChoisie);
 	        }
 	        else return false;
 	    }
