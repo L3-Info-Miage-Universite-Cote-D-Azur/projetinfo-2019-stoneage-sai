@@ -22,8 +22,15 @@ public class Zone {
         nbOuvriersPlacés=nbOuvriers;                        
     }
 
-    public int resoudre(int nbOuvriersPlacés){ 
-        return lancéDeDés(nbOuvriersPlacés)/niveauZone;
+    public void resoudre(Inventaire inventaireJoueur) { 
+    	int nbRessources= lancéDeDés(nbOuvriersPlacés);
+    	//recuperer les ressources gagner
+    	inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
+    	//ajouter les nouveau ressources a l'inventaire du joueur 
+        inventaireJoueur.addAvailableWorkers(nbOuvriersPlacés);
+        //recuperer les ouvriers 
+        nbOuvriersPlacés=0;
+        
     }
 
     public String NomZone(){
