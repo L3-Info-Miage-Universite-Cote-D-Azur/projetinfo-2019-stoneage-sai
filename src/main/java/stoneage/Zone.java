@@ -74,4 +74,8 @@ public class Zone {
         }
         return sommeDés / niveauZone;
     }
+    @Override
+    public String toString(){
+        return NomZone();
+    }
 }
