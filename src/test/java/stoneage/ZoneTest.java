@@ -31,10 +31,7 @@ public class ZoneTest {
     }
 
     /* TEST 1: placement des ouvriers
-     * On ne doit pas pouvoir placer plus de 5 ouvriers sur les zones
-     * car on a maximum 5ouvrier .
-     * Et on ne doit pas pouvoir placer 0 ouvrier sur une zone.
-     *
+     * On doit pouvoir placer entre 1 et 5 ouvriers sur les zones.
      *
      * TEST 2: resoudre:
      * Avoir un nombre de ressources correspondant à la zone et au nombre d'ouvriers
@@ -43,14 +40,9 @@ public class ZoneTest {
     @Test
     public void placerOuvrier() {
         for(Zone zone : listZone){
-            for(int j=0; j<7 ;j++){
+            for(int j=1; j<6;j++){
                 zone.placerOuvrier(inventaire, j);
-                if((j <= 5) && ( j> 0)){
-                    assertTrue(zone.ouvrierPlace(j));
-                }
-                else{
-                    assertFalse(zone.ouvrierPlace(j));
-                }
+                assertTrue(zone.ouvrierPlace(j));
             }
         }
     }
