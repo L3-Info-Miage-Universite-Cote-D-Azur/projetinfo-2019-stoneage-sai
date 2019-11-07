@@ -8,13 +8,11 @@ public class Choix {
 		this.zoneChoisie = zoneJouer;               //l'affectation de la zoneChoisie 
 		this.nbOuvriersChoisie = nbOuvriersJouer;   //l'affectation des nbOuvriersChoisie
 	}
-	
-	
 	 public boolean equals(Object o) {
 	     if (o instanceof Choix) {
 	    	 
 	         Choix c = (Choix) o;
-	            return (c.nbOuvriersChoisie == nbOuvriersChoisie) && (c.zoneChoisie == zoneChoisie);
+	            return (c.nbOuvriersChoisie == nbOuvriersChoisie) && (c.zoneChoisie.niveauZone == zoneChoisie.niveauZone);
 	        }
 	        else return false;
 	    }
