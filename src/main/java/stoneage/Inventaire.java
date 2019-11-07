@@ -60,7 +60,14 @@ public class Inventaire {
 	public int getNbOuvrierDispo() {
         return nbOuvrierDispo;
     }
-	
+
+    public void resetInventory(){
+		setNbArgile(0);
+		setNbBois(0);
+		setNbOr(0);
+		setNbPierre(0);
+		setNbRessource(0);
+	}
 	/* ****************************************
 	   * Getter and setter des champs privés  * 
 	   **************************************** */
