@@ -23,14 +23,14 @@ public class InventaireTest {
 	
 	
 	@Test public void TestAvecValeurs() {
-		inv.setNbOuvrier(6);				//On définit 6 ouvriers dans l'inventaire inv
+		inv.setNbOuvrier(4);				//On définit 4 ouvriers dans l'inventaire inv
         inv.setNbRessource(2);				//On ajoute 2 ressource
         
         
         Inventaire invCopie = new Inventaire(inv);	//On definit un nouveau invCopie (copie de inv)
         
         assertEquals(2, invCopie.getNbRessource());		//On vérifie les champs initialisé dans inv
-        assertEquals(6, invCopie.getNbOuvrier());
+        assertEquals(4, invCopie.getNbOuvrier());
         
         inv.setNbRessource(20);							//On definit 20 ressource dans inv
         assertEquals(2, invCopie.getNbRessource());		//Le nombre de ressource ne doit pas changer dans invCopie (rester a 2)
