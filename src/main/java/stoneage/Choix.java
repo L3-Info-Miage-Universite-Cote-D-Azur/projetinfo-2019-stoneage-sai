@@ -16,4 +16,8 @@ public class Choix {
 	        }
 	        else return false;
 	    }
+        @Override
+         public String toString(){
+             return "nbOuvriersChoisie="+nbOuvriersChoisie+"  zoneChoisie="+zoneChoisie;
+         }
 }

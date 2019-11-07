@@ -9,7 +9,7 @@ package stoneage;
  */
 
 public class Inventaire {
-	private static final int NB_INITIAL_OUVRIERS = 5;
+	public static final int NB_INITIAL_OUVRIERS = 5;
 	
 	private int nbOuvrier = 1; //Minimum 1 ouvrier pour pouvoir jouer
 	private int nbRessource = 0;
