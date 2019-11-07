@@ -3,7 +3,7 @@ package stoneage;
 
 public class Zone {
     private int nbOuvriersPlacés = 0;
-    private int niveauZone = 3;
+    public int niveauZone = 3;
     private Dé dé;
 
     
@@ -18,8 +18,10 @@ public class Zone {
     
     
     public void placerOuvrier(Inventaire inventaireJoueur,int nbOuvriers){
-        inventaireJoueur.removeAvailableWorkers(nbOuvriers);//pour placer un nbOuvrier il faut les retirer d'abord de l'inventaire du joueur  
-        nbOuvriersPlacés=nbOuvriers;                        
+    	if (nbOuvriers>=1 && nbOuvriers <=5){
+    		inventaireJoueur.removeAvailableWorkers(nbOuvriers);//pour placer un nbOuvrier il faut les retirer d'abord de l'inventaire du joueur  
+    		nbOuvriersPlacés=nbOuvriers;   
+    	}
     }
 
     public void resoudre(Inventaire inventaireJoueur) { 
