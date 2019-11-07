@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package stoneage;
 
 import java.util.ArrayList;
@@ -13,92 +9,41 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- *
- * @author Ossama
- */
 public class PartieTest {
-    
-    public PartieTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
+	private  Partie partie;
+    private Inventaire inv=new Inventaire();
+	private int nbZone;
+    private  ArrayList<Zone> listeZonesDispo = new ArrayList<>();   
+    private  ArrayList<Zone> listeZonesJouer = new ArrayList<>(); 
+   
     @BeforeEach
-    public void setUp() {
+    void setUp(){
+    	inv.removeAvailableWorkers(2);
+    	//retirer 2 ouvrier de ouvrier dispo pour le teste de PhaseAction
+    	partie =new Partie();
+    	nbZone=4;
+        for (int i=3;i <= nbZone+2;i++ ){
+        	Zone zone= new Zone(i);
+        	listeZonesDispo.add(zone);
+        } //remplir la liste des zones Disponnibre pris comme exemple pour ce teste
+        
+        for (int i=3;i <= nbZone;i++ ){
+        	Zone zone= new Zone(i);
+        	listeZonesJouer.add(zone);
+        } //remplir la liste des zones Jouer pris comme exemple (contient 2 zones)
     }
-    
-    @AfterEach
-    public void tearDown() {
-    }
+	@Test	
+	public void testPhaseAction() {	
+		assertEquals(listeZonesDispo.size(),5);
+		partie.phaseAction(listeZonesDispo);
+		// cette phase prend chaque zone dans la liste et l'efface apres avoir fini avec 
+		assertEquals(listeZonesDispo.size(),0); //verifier si cette methode a bien vider la liste 		
+		assertEquals(inv.getNbOuvrierDispo(),5); //tester s'il a bien reprie les ouvrier 
+	}
 
-    /**
-     * Test of jouer method, of class Partie.
-     */
-    @Test
-    public void testJouer() {
-        System.out.println("jouer");
-        Partie instance = new Partie();
-        instance.jouer();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+	@Test
+	public void testPhasePlacement() {
 
-    /**
-     * Test of unTour method, of class Partie.
-     */
-    @Test
-    public void testUnTour() {
-        System.out.println("unTour");
-        Partie instance = new Partie();
-        instance.unTour();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+	}
 
-    /**
-     * Test of phaseAction method, of class Partie.
-     */
-    @Test
-    public void testPhaseAction() {
-        System.out.println("phaseAction");
-        ArrayList<Zone> listeZonesJouées = null;
-        Partie instance = new Partie();
-        instance.phaseAction(listeZonesJouées);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of phasePlacement method, of class Partie.
-     */
-    @Test
-    public void testPhasePlacement() {
-        System.out.println("phasePlacement");
-        ArrayList<Zone> listeZonesDispo = null;
-        ArrayList<Zone> listeZonesJouées = null;
-        Partie instance = new Partie();
-        instance.phasePlacement(listeZonesDispo, listeZonesJouées);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of main method, of class Partie.
-     */
-    @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        Partie.main(args);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
 }
