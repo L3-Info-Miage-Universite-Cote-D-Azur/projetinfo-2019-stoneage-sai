@@ -9,7 +9,7 @@ package stoneage;
  */
 
 public class Inventaire {
-	private static final int NB_INITIAL_OUVRIERS = 5;
+	public static final int NB_INITIAL_OUVRIERS = 5;
 	
 	private int nbOuvrier = 1; //Minimum 1 ouvrier pour pouvoir jouer
 	private int nbRessource = 0;
@@ -60,7 +60,14 @@ public class Inventaire {
 	public int getNbOuvrierDispo() {
         return nbOuvrierDispo;
     }
-	
+
+    public void resetInventory(){
+		setNbArgile(0);
+		setNbBois(0);
+		setNbOr(0);
+		setNbPierre(0);
+		setNbRessource(0);
+	}
 	/* ****************************************
 	   * Getter and setter des champs privés  * 
 	   **************************************** */

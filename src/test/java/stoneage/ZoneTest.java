@@ -5,7 +5,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Disabled;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.* ;
 
@@ -17,16 +17,16 @@ public class ZoneTest {
     private Zone zone6; // zone Rivière (7 places)
     private Zone[] listZone;
     Inventaire inventaire = new Inventaire();
-    @Mock
-    Dé unDéTruqué;
 
+    @Mock
+    Dé dice = new Dé();
 
     @BeforeEach
     void setUp(){
-        zone3 = new Zone(3);
-        zone4 = new Zone(4);
-        zone5 = new Zone(5);
-        zone6 = new Zone(6);
+        zone3 = new Zone(3, dice);
+        zone4 = new Zone(4, dice);
+        zone5 = new Zone(5, dice);
+        zone6 = new Zone(6, dice);
         listZone = new Zone[]{zone3, zone4, zone5, zone6};
     }
 
@@ -44,6 +44,34 @@ public class ZoneTest {
                 zone.placerOuvrier(inventaire, j);
                 assertTrue(zone.ouvrierPlace(j));
             }
+        }
+    }
+
+    @Test
+    public void resoudre(){
+        when(dice.Lancer()).thenReturn(6);
+        for(int i=1 ; i<6; i++) {
+            zone3.placerOuvrier(inventaire, i);
+            zone3.resoudre(inventaire);
+            assertEquals((i*6)/3, inventaire.getNbBois());
+
+            inventaire.resetInventory();
+
+            zone4.placerOuvrier(inventaire, i);
+            zone4.resoudre(inventaire);
+            assertEquals((i*6)/4, inventaire.getNbArgile());
+
+            inventaire.resetInventory();
+
+            zone5.placerOuvrier(inventaire, i);
+            zone5.resoudre(inventaire);
+            assertEquals((i*6)/5, inventaire.getNbPierre());
+
+            inventaire.resetInventory();
+
+            zone6.placerOuvrier(inventaire, i);
+            zone6.resoudre(inventaire);
+            assertEquals((i*6)/6, inventaire.getNbOr());
         }
     }
 }
