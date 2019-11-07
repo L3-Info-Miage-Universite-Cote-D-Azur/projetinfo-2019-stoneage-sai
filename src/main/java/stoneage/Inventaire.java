@@ -1,5 +1,4 @@
 package stoneage;
-
 /*
  * 	public class Inventaire contient:
  *  Un nombre d'ouvriers, 
@@ -7,14 +6,11 @@ package stoneage;
  *  Methodes qui permettent d'attribuer des valeur et accéder à ces valeurs 
  *  
  */
-
 public class Inventaire {
 	public static final int NB_INITIAL_OUVRIERS = 5;
-	
 	private int nbOuvrier = 1; //Minimum 1 ouvrier pour pouvoir jouer
 	private int nbRessource = 0;
 	private int nbOuvrierDispo = 0;
-	
 	private int nbBois;
 	private int nbArgile;
 	private int nbPierre;
@@ -22,9 +18,7 @@ public class Inventaire {
 	private int score;
 
 	public Inventaire() {  //Initialisation d'un Inventaire vide
-
 		setNbOuvrier(NB_INITIAL_OUVRIERS); //Initialisation du nombre d'ouvrier 
-
 		// Initialisation à 0 des ressources et du score
 		setNbBois(0);
 		setNbArgile(0);
@@ -32,7 +26,6 @@ public class Inventaire {
 		setNbOr(0);
 		setNbRessource(0);
 		setScore(0);
-
 		resetAvailableWorkers();
 	}
 
@@ -95,11 +88,9 @@ public class Inventaire {
 	public void setNbBois(int nbBois) {
 		this.nbBois = nbBois;
 	}
-
 	public int getNbArgile() {
 		return nbArgile;
 	}
-
 	public void setNbArgile(int nbArgile) {
 		this.nbArgile = nbArgile;
 	}
@@ -119,11 +110,9 @@ public class Inventaire {
 	public void setNbOr(int nbOr) {
 		this.nbOr = nbOr;
 	}
-
 	public int getScore() {
 		return score;
 	}
-
 	public void setScore(int score) {
 		this.score = score;
 	}
