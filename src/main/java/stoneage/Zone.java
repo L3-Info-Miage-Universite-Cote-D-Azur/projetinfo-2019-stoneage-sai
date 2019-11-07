@@ -5,8 +5,6 @@ public class Zone {
     private int nbOuvriersPlacés = 0;
     public int niveauZone = 3;
     private Dé dé;
-
-    
     public Zone(int niveau) {
         this.niveauZone = niveau;
         dé=new Dé();
@@ -15,8 +13,6 @@ public class Zone {
         this.niveauZone = niveau;
         this.dé=dé;
     }
-    
-    
     public void placerOuvrier(Inventaire inventaireJoueur,int nbOuvriers){
     	if (nbOuvriers>=1 && nbOuvriers <=5){
     		inventaireJoueur.removeAvailableWorkers(nbOuvriers);//pour placer un nbOuvrier il faut les retirer d'abord de l'inventaire du joueur  

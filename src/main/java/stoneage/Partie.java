@@ -6,9 +6,9 @@ public class Partie {
     private final int NbZone;
 
     public Partie(){
-	joueur = new Joueur();
-	inventaireDuJoueur = new Inventaire();
-	NbZone=4;
+    	joueur = new Joueur();
+    	inventaireDuJoueur = new Inventaire();
+    	NbZone=4;
     }
     protected void jouer(){
         String newLine = System.getProperty("line.separator");
@@ -18,7 +18,7 @@ public class Partie {
             unTour();
 	    System.out.println("**** Fin du Tour N° "+ (z+1) +" ****"+newLine);
         }
-	System.out.println("***************** fin de la Partie *****************");		
+        System.out.println("***************** fin de la Partie *****************");		
         System.out.println("Resources en Bois: "+inventaireDuJoueur.getNbBois());
         System.out.println("Resources en Argile: "+inventaireDuJoueur.getNbArgile());
         System.out.println("Resources en Pierre: "+inventaireDuJoueur.getNbPierre());
@@ -28,18 +28,17 @@ public class Partie {
 	}
     protected void unTour(){
         ArrayList<Zone> listeZonesDispo = new ArrayList<>();
-	ArrayList<Zone> listeZonesJouer = new ArrayList<>();
-	for (int i=3;i <= NbZone+2;i++ ){
-	    Zone zone= new Zone(i);
-	    listeZonesDispo.add(zone);
-	} //remplire la liste des zones
+        ArrayList<Zone> listeZonesJouer = new ArrayList<>();
+        for (int i=3;i <= NbZone+2;i++ ){
+        	Zone zone= new Zone(i);
+        	listeZonesDispo.add(zone);
+        } //remplire la liste des zones
 	        
-	inventaireDuJoueur.resetAvailableWorkers(); //remettre a jour le nombre d'ouvrier disponnible
-	System.out.println("**** Phase de placement ****");
-	phasePlacement(listeZonesDispo, listeZonesJouer);
-
-	System.out.println("**** Phase de résolution des ouvriers ****");
-	phaseAction(listeZonesJouer);
+		inventaireDuJoueur.resetAvailableWorkers(); //remettre a jour le nombre d'ouvrier disponnible
+		System.out.println("**** Phase de placement ****");
+		phasePlacement(listeZonesDispo, listeZonesJouer);
+		System.out.println("**** Phase de résolution des ouvriers ****");
+		phaseAction(listeZonesJouer);
     }
 	
     protected void phaseAction(ArrayList<Zone> listeZonesJouées) {
