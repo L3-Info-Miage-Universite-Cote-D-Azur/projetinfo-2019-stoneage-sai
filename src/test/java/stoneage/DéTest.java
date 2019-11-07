@@ -9,7 +9,7 @@ public class DéTest {
         D= new Dé();
 	}
 	@Test public void test() {
-		for (int i =0 ;i>100; i++){ 
+		for (int i =0 ;i<100; i++){ 
 			int de=  D.Lancer();
 			assertTrue(de >=1 && de <= 6 );
 		}// on lance le Dé 100 fois pour verifier si les valeur retourner sont bien entre 1 et6
