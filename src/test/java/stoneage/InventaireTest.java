@@ -8,7 +8,6 @@ import stoneage.*;
 
 public class InventaireTest {
 
-	private static final int NB_INITIAL_OUVRIERS = 5;    //Pour le test, car non visible dans la class Inventaire (private)
 	private Inventaire inv;
 
 	@BeforeEach
@@ -19,7 +18,7 @@ public class InventaireTest {
 
 	@Test public void TestAVide() {
 		assertEquals(0, inv.getNbRessource());					//Au debut le nombre de ressource doit etre a 0
-		assertEquals(NB_INITIAL_OUVRIERS, inv.getNbOuvrier());  //AU debut le nombre d'ouvriers est initialisé a 5 (dans le constructeur)
+		assertEquals(inv.NB_INITIAL_OUVRIERS, inv.getNbOuvrier());  //AU debut le nombre d'ouvriers est initialisé a 5 (dans le constructeur)
 	}
 	
 	
