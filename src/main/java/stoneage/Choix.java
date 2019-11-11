@@ -10,9 +10,6 @@ public class Choix {
 		this.nbOuvriersChoisie = nbOuvriersJouer;   //l'affectation des nbOuvriersChoisie
 		
 	}
-	public Choix(int nbOutils){
-		this.nbOutils=nbOutils;		
-	}
 	 
 	 public boolean equals(Object o) {
 	     if (o instanceof Choix) {
