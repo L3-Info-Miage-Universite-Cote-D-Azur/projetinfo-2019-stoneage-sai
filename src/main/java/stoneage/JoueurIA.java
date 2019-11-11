@@ -15,7 +15,8 @@ public class JoueurIA {
     	
     	if ((nbRessources % zoneChoisi.niveauZone)<inventaireJoueur.getNbOutils())
     	{
-    		nbRessources+=nbRessources % zoneChoisi.niveauZone;
+    		nbRessources+=(nbRessources % zoneChoisi.niveauZone);
+    		nbRessources=nbRessources / zoneChoisi.niveauZone;
     		inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()-(nbRessources % zoneChoisi.niveauZone));	
     	}
     		
@@ -24,6 +25,12 @@ public class JoueurIA {
     	//ajouter les nouveau ressources a l'inventaire du joueur 
     	switch(zoneChoisi.niveauZone)
     	{
+    		case 1:
+    			inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()+1);
+    			break;
+    		case 2:
+    			inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+nbRessources);
+    			break;
     		case 3:
     			inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()+nbRessources);
     			break;
@@ -43,7 +50,7 @@ public class JoueurIA {
         inventaireJoueur.addAvailableWorkers(zoneChoisi.getNbOuvriersPlaces());
         //recuperer les ouvriers 
         zoneChoisi.resetNbOuvriersPlaces();
-        
+        zoneChoisi.setNbPlaceDispo(zoneChoisi.getNbPlaceZone());//quand on recupere les ouvriers,toutes les places deviennent disponibles.    
     }
     
 	public Choix placerOuvriers(ArrayList<Zone> listeZonesDispo, Inventaire inv){
