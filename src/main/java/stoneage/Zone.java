@@ -27,8 +27,16 @@ public class Zone {
     public int getNbPlaceZone(){
         return nbPlaceZone;
     }
+    public void setNbPlaceZone(int nbPlaceZone)
+    {
+    	this.nbPlaceZone=nbPlaceZone;
+    }
     public int getNbPlaceDispo(){
         return nbPlaceDispo;
+    }
+    public void setNbPlaceDispo(int nbPlaceDispo)
+    {
+    	this.nbPlaceDispo=nbPlaceDispo;
     }
     public void placerOuvrier(Inventaire inventaireJoueur,int nbOuvriers){
     	if (nbOuvriers>=1 && nbOuvriers <=nbPlaceDispo){
@@ -38,36 +46,11 @@ public class Zone {
     	}
     }
 
-    public void resoudre(Inventaire inventaireJoueur){ 
-    	int nbRessources= lancéDeDés(nbOuvriersPlacés);
-    	//recuperer les ressources gagner
-    	inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
-    	//ajouter les nouveau ressources a l'inventaire du joueur 
-    	switch(niveauZone){
-                case 1:
-                        inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()+1);
-                case 2:
-                        inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+nbRessources);
-    		case 3:
-    			inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()+nbRessources);
-    			break;
-    		case 4: 
-    			inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()+nbRessources);
-    			break;
-    		case 5:
-    			inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()+nbRessources);
-    			break;
-    		
-    		case 6:
-    			inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()+nbRessources);
-    			break;
-    		default:
-    			break;			
-    	}
-        inventaireJoueur.addAvailableWorkers(nbOuvriersPlacés);
-        //recuperer les ouvriers 
-        nbOuvriersPlacés=0;
-        nbPlaceDispo=nbPlaceZone;//quand on recupere les ouvriers,toutes les places deviennent disponibles.
+    public int getNbOuvriersPlaces(){
+    	return nbOuvriersPlacés;
+    }
+    public void resetNbOuvriersPlaces(){
+    	nbOuvriersPlacés=0;
     }
 
     public String NomZone(){
@@ -84,12 +67,12 @@ public class Zone {
     /*on lance autant de Dés que des nbOuvriersPlacés
     et on retourne la somme des Dés jetées divisé par niveauZone
     */
-    private int lancéDeDés(int nbOuvriersPlacés){  
+    public int lancéDeDés(int nbOuvriersPlacés){  
         int sommeDés=0;                            
         for (int i = 0; i < nbOuvriersPlacés; i++) {
             sommeDés+=dé.Lancer();
         }
-        return sommeDés / niveauZone;
+        return sommeDés ;
     }
     @Override
     public String toString(){
