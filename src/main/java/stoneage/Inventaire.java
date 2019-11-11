@@ -15,6 +15,8 @@ public class Inventaire {
 	private int nbArgile;
 	private int nbPierre;
 	private int nbOr;
+	private int nbNourriture;
+	private int nbOutils;
 	private int score;
 
 	public Inventaire() {  //Initialisation d'un Inventaire vide
@@ -24,7 +26,9 @@ public class Inventaire {
 		setNbArgile(0);
 		setNbPierre(0);
 		setNbOr(0);
+		setNourriture(15);
 		setNbRessource(0);
+		setNbOutils(0);
 		setScore(0);
 		resetAvailableWorkers();
 	}
@@ -60,6 +64,8 @@ public class Inventaire {
 		setNbOr(0);
 		setNbPierre(0);
 		setNbRessource(0);
+		setNourriture(15);
+		setNbOutils(0);
 	}
 	/* ****************************************
 	   * Getter and setter des champs privés  * 
@@ -109,6 +115,18 @@ public class Inventaire {
 
 	public void setNbOr(int nbOr) {
 		this.nbOr = nbOr;
+	}
+	public int getNourriture() {
+		return nbNourriture;
+	}
+	public void setNourriture(int nbNourriture) {
+		this.nbNourriture = nbNourriture;
+	}
+	public void setNbOutils(int nbOutils){
+		this.nbOutils=nbOutils;
+	}
+	public int getNbOutils(){
+		return nbOutils;
 	}
 	public int getScore() {
 		return score;
