@@ -1,11 +1,8 @@
 package stoneage;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class JoueurIA {
 
-	Random rand = new Random();
-	//Zone zone ;
     ArrayList<Integer> indZonesDispo = new ArrayList<>();
     public void recupeRes(Inventaire inventaireJoueur, Zone zoneChoisi) { 
     	int nbRessources= zoneChoisi.lancéDeDés(zoneChoisi.getNbOuvriersPlaces());
