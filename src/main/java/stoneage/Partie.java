@@ -42,19 +42,42 @@ public class Partie {
         	Zone zone= new Zone(i);
         	listeZonesDispo1.add(zone);
         	listeZonesDispo2.add(zone);
-            } //remplire la liste des zones
+        } //remplire la liste des zones
 	        
 		inventaireDuJoueur1.resetAvailableWorkers(); //remettre a jour le nombre d'ouvrier disponnible
 		inventaireDuJoueur2.resetAvailableWorkers();
-		System.out.println("**** Phase de placement ****");		
+		System.out.println("**** Phase de placement ****");
 		
-		phasePlacement(listeZonesDispo1, listeZonesJouer1, inventaireDuJoueur1, joueur1, 1);
-		phasePlacement(listeZonesDispo2, listeZonesJouer2, inventaireDuJoueur2, joueur2, 2);
-						
+		
+		while (inventaireDuJoueur1.ouvrierDispo() || inventaireDuJoueur2.ouvrierDispo()){
+			if (inventaireDuJoueur1.getNbOuvrierDispo() == 0) {
+				phasePlacement(listeZonesDispo2, listeZonesJouer2, inventaireDuJoueur2, joueur2, 2);
+			}
+			else if (inventaireDuJoueur2.getNbOuvrierDispo() == 0) {
+				phasePlacement(listeZonesDispo1, listeZonesJouer1, inventaireDuJoueur1, joueur1, 1);
+			}
+			else {
+				phasePlacement(listeZonesDispo1, listeZonesJouer1, inventaireDuJoueur1, joueur1, 1);
+				phasePlacement(listeZonesDispo2, listeZonesJouer2, inventaireDuJoueur2, joueur2, 2);
+				
+			}
+			System.out.println();
+		}
 		System.out.println("**** Phase de résolution des ouvriers ****");
-                
-		phaseAction(listeZonesJouer1,inventaireDuJoueur1, 1);
-		phaseAction(listeZonesJouer2,inventaireDuJoueur2, 2);			
+		
+		while ((listeZonesJouer1.size() > 0) && (listeZonesJouer2.size() > 0)) {
+			if (listeZonesJouer1.size() == 0) {
+				phaseAction(listeZonesJouer2,inventaireDuJoueur2, 2);
+			}
+			else if (listeZonesJouer2.size() == 0) {
+				phaseAction(listeZonesJouer1,inventaireDuJoueur1, 1);
+			}
+			else {
+				phaseAction(listeZonesJouer1,inventaireDuJoueur1, 1);
+				phaseAction(listeZonesJouer2,inventaireDuJoueur2, 2);
+			}
+		}
+		System.out.println();
     }
     
     
