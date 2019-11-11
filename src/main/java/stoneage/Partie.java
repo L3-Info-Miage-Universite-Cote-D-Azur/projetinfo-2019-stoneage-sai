@@ -1,7 +1,8 @@
 package stoneage;
 import java.util.ArrayList;
 public class Partie {
-    private final Joueur joueur1, joueur2;
+    private final Joueur joueur1;
+    JoueurIA joueur2;
     
     private final Inventaire inventaireDuJoueur1, inventaireDuJoueur2;
     private final int NbZone;
@@ -10,7 +11,7 @@ public class Partie {
 
     public Partie(){
     	joueur1 = new Joueur();
-    	joueur2 = new Joueur();
+    	joueur2 = new JoueurIA();
     	
     	inventaireDuJoueur1 = new Inventaire();
     	inventaireDuJoueur2 = new Inventaire();
@@ -67,14 +68,14 @@ public class Partie {
 		
 		while ((listeZonesJouer1.size() > 0) && (listeZonesJouer2.size() > 0)) {
 			if (listeZonesJouer1.size() == 0) {
-				phaseAction(listeZonesJouer2,inventaireDuJoueur2, 2);
+				phaseAction(listeZonesJouer2,inventaireDuJoueur2,joueur2,2);
 			}
 			else if (listeZonesJouer2.size() == 0) {
-				phaseAction(listeZonesJouer1,inventaireDuJoueur1, 1);
+				phaseAction(listeZonesJouer1,inventaireDuJoueur1,joueur1,1);
 			}
 			else {
-				phaseAction(listeZonesJouer1,inventaireDuJoueur1, 1);
-				phaseAction(listeZonesJouer2,inventaireDuJoueur2, 2);
+				phaseAction(listeZonesJouer1,inventaireDuJoueur1,joueur1,1);
+				phaseAction(listeZonesJouer2,inventaireDuJoueur2,joueur2,2);
 			}
 		}
 		System.out.println();
@@ -84,17 +85,17 @@ public class Partie {
     
     
 	
-    protected void phaseAction(ArrayList<Zone> listeZonesJouées, Inventaire  inventaireDuJoueur, int joueurCourant) {
+    protected void phaseAction(ArrayList<Zone> listeZonesJouées, Inventaire  inventaireDuJoueur,Joueurs joueur,int joueurCourant) {
             Zone choix = listeZonesJouées.get(0);
             listeZonesJouées.remove(choix);
-            choix.resoudre(inventaireDuJoueur);
+            joueur.recupeRes(inventaireDuJoueur,choix);
             System.out.println("Le joueur " + joueurCourant + " reprend ses ouvriers de la zone "+choix.NomZone());
     }
     
     
     
     
-    protected void phasePlacement(ArrayList<Zone> listeZonesDispo, ArrayList<Zone> listeZonesJouées, Inventaire  inventaireDuJoueur, Joueur joueur, int joueurCourant) {
+    protected void phasePlacement(ArrayList<Zone> listeZonesDispo, ArrayList<Zone> listeZonesJouées, Inventaire  inventaireDuJoueur, Joueurs joueur, int joueurCourant) {
     	Choix choix = joueur.placerOuvriers(listeZonesDispo, inventaireDuJoueur);
 
     	listeZonesDispo.remove(choix.zoneChoisie);
