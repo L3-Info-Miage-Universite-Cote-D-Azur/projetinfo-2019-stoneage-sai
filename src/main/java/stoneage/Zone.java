@@ -24,12 +24,9 @@ public class Zone {
         this.niveauZone = niveau;
         this.dé=dé;
     }
+    
     public int getNbPlaceZone(){
         return nbPlaceZone;
-    }
-    public void setNbPlaceZone(int nbPlaceZone)
-    {
-    	this.nbPlaceZone=nbPlaceZone;
     }
     public int getNbPlaceDispo(){
         return nbPlaceDispo;
