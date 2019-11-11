@@ -86,24 +86,25 @@ public class Partie {
     
 	
     protected void phaseAction(ArrayList<Zone> listeZonesJouées, Inventaire  inventaireDuJoueur,Joueurs joueur,int joueurCourant) {
+        while (listeZonesJouées.size() > 0 ){
             Zone choix = listeZonesJouées.get(0);
-            listeZonesJouées.remove(choix);
             joueur.recupeRes(inventaireDuJoueur,choix);
+            listeZonesJouées.remove(choix);
             System.out.println("Le joueur " + joueurCourant + " reprend ses ouvriers de la zone "+choix.NomZone());
+        }
     }
     
     
     
     
-    protected void phasePlacement(ArrayList<Zone> listeZonesDispo, ArrayList<Zone> listeZonesJouées, Inventaire  inventaireDuJoueur, Joueurs joueur, int joueurCourant) {
-    	Choix choix = joueur.placerOuvriers(listeZonesDispo, inventaireDuJoueur);
-
-    	listeZonesDispo.remove(choix.zoneChoisie);
-    		
-    	listeZonesJouées.add(choix.zoneChoisie);
-    	choix.zoneChoisie.placerOuvrier(inventaireDuJoueur, choix.nbOuvriersChoisie);
-    		
-    	System.out.println("Le joueur " + joueurCourant + " a choisi la zone "+(choix.zoneChoisie).NomZone()+" pour y placer "+choix.nbOuvriersChoisie+" ouvrier(s)");
+    protected void phasePlacement(ArrayList<Zone> listeZonesDispo, ArrayList<Zone> listeZonesJouées, Inventaire  inventaireDuJoueur, Joueurs joueur, int joueurCourant){
+        while (inventaireDuJoueur.ouvrierDispo()){
+            Choix choix = joueur.placerOuvriers(listeZonesDispo, inventaireDuJoueur);
+            listeZonesDispo.remove(choix.zoneChoisie);   		
+            listeZonesJouées.add(choix.zoneChoisie);
+            choix.zoneChoisie.placerOuvrier(inventaireDuJoueur, choix.nbOuvriersChoisie);    		
+            System.out.println("Le joueur " + joueurCourant + " a choisi la zone "+(choix.zoneChoisie).NomZone()+" pour y placer "+choix.nbOuvriersChoisie+" ouvrier(s)");
+        }
     }
         
     
