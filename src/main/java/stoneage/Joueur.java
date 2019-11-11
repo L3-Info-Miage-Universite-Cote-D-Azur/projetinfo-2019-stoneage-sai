@@ -2,8 +2,9 @@ package stoneage;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Joueur {
+public class Joueur implements Joueurs {
 	Random rand = new Random();
+        @Override
     public void recupeRes(Inventaire inventaireJoueur, Zone zoneChoisi) { 
     	int nbRessources= zoneChoisi.lancéDeDés(zoneChoisi.getNbOuvriersPlaces());
 
@@ -44,6 +45,7 @@ public class Joueur {
         zoneChoisi.setNbPlaceDispo(zoneChoisi.getNbPlaceZone());//quand on recupere les ouvriers,toutes les places deviennent disponibles.    
     }
     
+        @Override
 	public Choix placerOuvriers(ArrayList<Zone> listeZonesDispo, Inventaire inv){
 		if ((listeZonesDispo != null) && (listeZonesDispo.size() > 0))
 			{

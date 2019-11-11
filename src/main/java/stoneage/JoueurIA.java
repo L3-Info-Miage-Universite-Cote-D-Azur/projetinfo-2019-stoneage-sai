@@ -1,9 +1,10 @@
 package stoneage;
 import java.util.ArrayList;
 
-public class JoueurIA {
+public class JoueurIA implements Joueurs {
 
     ArrayList<Integer> indZonesDispo = new ArrayList<>();
+    @Override
     public void recupeRes(Inventaire inventaireJoueur, Zone zoneChoisi) { 
     	int nbRessources= zoneChoisi.lancéDeDés(zoneChoisi.getNbOuvriersPlaces());
     	
@@ -50,6 +51,7 @@ public class JoueurIA {
         zoneChoisi.setNbPlaceDispo(zoneChoisi.getNbPlaceZone());//quand on recupere les ouvriers,toutes les places deviennent disponibles.    
     }
     
+    @Override
 	public Choix placerOuvriers(ArrayList<Zone> listeZonesDispo, Inventaire inv){
 	    for (int i=0;i < listeZonesDispo.size();i++ ){
 	    	indZonesDispo.add((listeZonesDispo.get(i)).niveauZone);
