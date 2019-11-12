@@ -98,13 +98,13 @@ public class Partie {
     
     
     protected void phasePlacement(ArrayList<Zone> listeZonesDispo, ArrayList<Zone> listeZonesJouées, Inventaire  inventaireDuJoueur, Joueurs joueur, int joueurCourant){
-        while (inventaireDuJoueur.ouvrierDispo()){
+       // while (inventaireDuJoueur.ouvrierDispo()){
             Choix choix = joueur.placerOuvriers(listeZonesDispo, inventaireDuJoueur);
             listeZonesDispo.remove(choix.zoneChoisie);   		
             listeZonesJouées.add(choix.zoneChoisie);
             choix.zoneChoisie.placerOuvrier(inventaireDuJoueur, choix.nbOuvriersChoisie);    		
             System.out.println("Le joueur " + joueurCourant + " a choisi la zone "+(choix.zoneChoisie).NomZone()+" pour y placer "+choix.nbOuvriersChoisie+" ouvrier(s)");
-        }
+       // }
     }
         
     
