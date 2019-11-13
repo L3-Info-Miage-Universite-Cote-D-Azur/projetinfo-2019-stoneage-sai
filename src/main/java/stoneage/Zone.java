@@ -39,7 +39,7 @@ public class Zone {
     	if (nbOuvriers>=1 && nbOuvriers <=nbPlaceDispo && nbOuvriers<=5 ){
     		inventaireJoueur.removeAvailableWorkers(nbOuvriers);//pour placer un nbOuvrier il faut les retirer d'abord de l'inventaire du joueur  
     		nbOuvriersPlacés=nbOuvriers;   
-                nbPlaceDispo=nbPlaceZone-nbOuvriersPlacés;
+            nbPlaceDispo=nbPlaceDispo-nbOuvriersPlacés;
     	}
     }
 
