@@ -31,15 +31,12 @@ public class Inventaire {
 		setNbArgile(0);
 		setNbPierre(0);
 		setNbOr(0);
-		setNourriture(15);
+		setNourriture(5);
 		setNbRessource(0);
 		setNbOutils(0);
 		setScore(0);
 		resetAvailableWorkers();
-        for (int i=1;i <= 6;i++ ){
-        	Zone zone= new Zone(i);
-        	listeZonesDispo.add(zone);
-        } //remplire la liste des zones
+		restartListeZoneDispo();
 	}
 
     public Inventaire(Inventaire toCopy) {
@@ -149,5 +146,8 @@ public class Inventaire {
 	}
 	public void setScore(int score) {
 		this.score = score;
+	}
+	public int calcScore() {
+		return score+nbRessource;
 	}
 }
