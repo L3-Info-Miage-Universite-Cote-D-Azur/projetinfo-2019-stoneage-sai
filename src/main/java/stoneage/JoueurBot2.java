@@ -67,7 +67,7 @@ public class JoueurBot2 implements Joueurs {
 		
 		if ((inv.listeZonesDispo != null) && (inv.listeZonesDispo.size() > 0))
 		{
-			if (inv.getNourriture() >= 3  && inv.getNourriture() < 5)
+			if (inv.getNourriture() >= 3  && inv.getNourriture() < 5)//Chasse
 			{	
 				return new Choix(inv.listeZonesDispo.get(1), 1);
 			}
@@ -75,20 +75,19 @@ public class JoueurBot2 implements Joueurs {
 				return new Choix(inv.listeZonesDispo.get(1), 3);
 			}
 			else {
-				if (zonesDispo.contains(1)) {
+				if (zonesDispo.contains(1)) { //Fabrication d'outils
 					return new Choix(inv.listeZonesDispo.get(0), 1);
 				}
-				
-				else if(zonesDispo.contains(5) && inv.getNbPierre() < 4 &&  inv.getNbOuvrierDispo() >= 4) {
-					return new Choix(inv.listeZonesDispo.get(4), 4);
-				}
-				else if(zonesDispo.contains(6) && inv.getNbOr() < 2 &&  inv.getNbOuvrierDispo() == 5) {
+				else if(zonesDispo.contains(6) && inv.getNbOr() < 4 &&  inv.getNbOuvrierDispo() == 5) {//Riviere
 					return new Choix(inv.listeZonesDispo.get(5), 5);
 				}
-				else if(zonesDispo.contains(4) && inv.getNbArgile() < 6 &&  inv.getNbOuvrierDispo() >= 3) {
+				else if(zonesDispo.contains(5) && inv.getNbPierre() < 4 &&  inv.getNbOuvrierDispo() >= 4) { //Carriere
+					return new Choix(inv.listeZonesDispo.get(4), 4);
+				}
+				else if(zonesDispo.contains(4) && inv.getNbArgile() < 6 &&  inv.getNbOuvrierDispo() >= 3) { //Glaisiere
 					return new Choix(inv.listeZonesDispo.get(3), 3);
 				}
-				else if(zonesDispo.contains(3) && inv.getNbBois() < 10 && inv.getNbOuvrierDispo() >= 2) {
+				else if(zonesDispo.contains(3) && inv.getNbBois() < 10 && inv.getNbOuvrierDispo() >= 2) {//Foret
 					return new Choix(inv.listeZonesDispo.get(2), 2);
 				}
 				else if(zonesDispo.contains(3) && zonesDispo.contains(4) && zonesDispo.contains(5) && zonesDispo.contains(6) && inv.ouvrierDispo()){
