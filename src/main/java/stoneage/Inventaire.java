@@ -1,4 +1,7 @@
 package stoneage;
+
+import java.util.ArrayList;
+
 /*
  * 	public class Inventaire contient:
  *  Un nombre d'ouvriers, 
@@ -18,6 +21,8 @@ public class Inventaire {
 	private int nbNourriture;
 	private int nbOutils;
 	private int score;
+    public ArrayList<Zone> listeZonesDispo = new ArrayList<>();
+    public ArrayList<Zone> listeZonesJouer = new ArrayList<>();
 
 	public Inventaire() {  //Initialisation d'un Inventaire vide
 		setNbOuvrier(NB_INITIAL_OUVRIERS); //Initialisation du nombre d'ouvrier 
@@ -31,6 +36,10 @@ public class Inventaire {
 		setNbOutils(0);
 		setScore(0);
 		resetAvailableWorkers();
+        for (int i=1;i <= 6;i++ ){
+        	Zone zone= new Zone(i);
+        	listeZonesDispo.add(zone);
+        } //remplire la liste des zones
 	}
 
     public Inventaire(Inventaire toCopy) {
@@ -39,6 +48,13 @@ public class Inventaire {
         resetAvailableWorkers();
     }
 
+	public void restartListeZoneDispo() {
+	    listeZonesDispo = new ArrayList<>();
+        for (int i=1;i <= 6;i++ ){
+        	Zone zone= new Zone(i);
+        	listeZonesDispo.add(zone);
+        } //remplire la liste des zones
+	}
 	public void addAvailableWorkers(int i) {
 		nbOuvrierDispo += i;
 	}
