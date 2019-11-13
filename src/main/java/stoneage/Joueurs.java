@@ -13,5 +13,5 @@ import java.util.ArrayList;
  */
 public interface Joueurs {
     public void recupeRes(Inventaire inventaireJoueur, Zone zoneChoisi);
-    public Choix placerOuvriers(ArrayList<Zone> listeZonesDispo, Inventaire inv);
+    public Choix placerOuvriers( Inventaire inv);
 }
