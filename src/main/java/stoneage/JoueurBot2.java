@@ -5,10 +5,18 @@ import java.util.Random;
 public class JoueurBot2 implements Joueurs {
 	Random rand = new Random();
 	ArrayList<Integer> zonesDispo = new ArrayList<>();
+	
 	@Override
 	public void recupeRes(Inventaire inventaireJoueur, Zone zoneChoisi) {
 		
 		int nbRessources = zoneChoisi.lancéDeDés(zoneChoisi.getNbOuvriersPlaces());
+		
+		if ((zoneChoisi.niveauZone-(nbRessources % zoneChoisi.niveauZone))<=inventaireJoueur.getNbOutils())
+    	{
+    		nbRessources+=(zoneChoisi.niveauZone-(nbRessources % zoneChoisi.niveauZone));
+    		nbRessources=(nbRessources / zoneChoisi.niveauZone);
+    		inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()-(nbRessources % zoneChoisi.niveauZone));	
+    	}
 		
 		switch(zoneChoisi.niveauZone)
     	{
@@ -40,6 +48,9 @@ public class JoueurBot2 implements Joueurs {
     		default:
     			break;			
     	}
+		 inventaireJoueur.addAvailableWorkers(zoneChoisi.getNbOuvriersPlaces());
+	     zoneChoisi.resetNbOuvriersPlaces();
+	     zoneChoisi.setNbPlaceDispo(zoneChoisi.getNbPlaceZone());
 	}
 	
 /*  **************************************************************************************** 
@@ -55,32 +66,43 @@ public class JoueurBot2 implements Joueurs {
 		
 		if ((inv.listeZonesDispo != null) && (inv.listeZonesDispo.size() > 0))
 		{
-			if (inv.getNourriture() >= 3  && inv.getNourriture() < 5)
-			{	
+			if (inv.getNourriture() >= 3  && inv.getNourriture() < 5 && inv.ouvrierDispo() && (zonesDispo.contains(2))){	
 				return new Choix(inv.listeZonesDispo.get(1), 1);
 			}
-			else if (inv.getNourriture() < 3) {
-				return new Choix(inv.listeZonesDispo.get(1), 3);
+			else if (inv.getNourriture() < 3 && inv.getNbOuvrierDispo() >= 3) {
+				return new Choix(inv.listeZonesDispo.get(1), 2);
 			}
 			else {
-				if (inv.listeZonesDispo.contains(0)) {
-					return new Choix(inv.listeZonesDispo.get(0), 1);
+				if (zonesDispo.contains(1) && inv.ouvrierDispo()) {
+					return new Choix(inv.listeZonesDispo.get(1), 1);
 				}
-				else if(inv.listeZonesDispo.contains(2) && inv.getNbBois() < 10 && inv.getNbOuvrierDispo() >= 2) {
-					return new Choix(inv.listeZonesDispo.get(2), 2);
+				else if(zonesDispo.contains(6) && inv.getNbOr() < 3 &&  inv.getNbOuvrierDispo() == 5) {
+					return new Choix(inv.listeZonesDispo.get(6), 6);
 				}
-				else if(inv.listeZonesDispo.contains(3) && inv.getNbArgile() < 6 &&  inv.getNbOuvrierDispo() >= 3) {
-					return new Choix(inv.listeZonesDispo.get(3), 3);
+				else if(zonesDispo.contains(5) && inv.getNbPierre() < 4 &&  inv.getNbOuvrierDispo() >= 4) {
+					return new Choix(inv.listeZonesDispo.get(5), 4);
 				}
-				else if(inv.listeZonesDispo.contains(4) && inv.getNbPierre() < 4 &&  inv.getNbOuvrierDispo() >= 4) {
-					return new Choix(inv.listeZonesDispo.get(4), 4);
+				else if(zonesDispo.contains(4) && inv.getNbArgile() < 6 &&  inv.getNbOuvrierDispo() >= 3) {
+					return new Choix(inv.listeZonesDispo.get(4), 3);
 				}
-				else if(inv.listeZonesDispo.contains(5) && inv.getNbOr() < 2 &&  inv.getNbOuvrierDispo() == 5) {
-					return new Choix(inv.listeZonesDispo.get(5), 5);
+				
+				else if(zonesDispo.contains(3) && inv.getNbBois() < 10 && inv.getNbOuvrierDispo() >= 2) {
+					return new Choix(inv.listeZonesDispo.get(3), 2);
 				}
-				else if(inv.listeZonesDispo.contains(2) && inv.listeZonesDispo.contains(3) && inv.listeZonesDispo.contains(4) && inv.listeZonesDispo.contains(5) && inv.ouvrierDispo()){
-					return new Choix (inv.listeZonesDispo.get(rand.nextInt(4) + 2), inv.getNbOuvrierDispo());
+				
+				
+		/*		else if(zonesDispo.contains(3) && zonesDispo.contains(4) && zonesDispo.contains(5) && zonesDispo.contains(6) && inv.ouvrierDispo()){
+					return new Choix (inv.listeZonesDispo.get(rand.nextInt(4) + 3), inv.getNbOuvrierDispo());
 				}
+				else if(zonesDispo.contains(4) && zonesDispo.contains(5) && zonesDispo.contains(6) && inv.ouvrierDispo()){
+					return new Choix (inv.listeZonesDispo.get(rand.nextInt(3) + 4), inv.getNbOuvrierDispo());
+				}
+				else if(zonesDispo.contains(5) && zonesDispo.contains(6) && inv.ouvrierDispo()){
+					return new Choix (inv.listeZonesDispo.get(rand.nextInt(2) + 5), inv.getNbOuvrierDispo());
+				}
+				else if(zonesDispo.contains(6) && inv.ouvrierDispo()){
+					return new Choix (inv.listeZonesDispo.get(6), inv.getNbOuvrierDispo());
+				}*/
 			}
 		}
 		return null;
