@@ -7,15 +7,12 @@ public class Joueur implements Joueurs {
         @Override
     public void recupeRes(Inventaire inventaireJoueur, Zone zoneChoisi) { 
     	int nbRessources= zoneChoisi.lancéDeDés(zoneChoisi.getNbOuvriersPlaces());
-
-    	if ((nbRessources % zoneChoisi.niveauZone)<inventaireJoueur.getNbOutils())
-    	{
-    		nbRessources+=nbRessources % zoneChoisi.niveauZone;
-    		nbRessources=nbRessources / zoneChoisi.niveauZone;
-    		inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()-(nbRessources % zoneChoisi.niveauZone));	   	
-    	}    		
+    	int OutilChoisie = rand.nextInt(inventaireJoueur.getNbOutils()+1); 
+		
+    	nbRessources=nbRessources +OutilChoisie;
+    	nbRessources=nbRessources / zoneChoisi.niveauZone;
+    	inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()-OutilChoisie);	   	   		
     	//recuperer les ressources gagner
-    	inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
     	//ajouter les nouveau ressources a l'inventaire du joueur 
     	switch(zoneChoisi.niveauZone)
     	{
@@ -25,16 +22,24 @@ public class Joueur implements Joueurs {
     			inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+nbRessources);
     		case 3:
     			inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()+nbRessources);
+    			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
+    	    	
     			break;
     		case 4: 
     			inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()+nbRessources);
+    			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
+    	    	
     			break;
     		case 5:
     			inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()+nbRessources);
+    			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
+    	    	
     			break;
 
     		case 6:
     			inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()+nbRessources);
+    			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
+    	    	
     			break;
     		default:
     			break;			
@@ -46,14 +51,15 @@ public class Joueur implements Joueurs {
     }
     
         @Override
-	public Choix placerOuvriers(ArrayList<Zone> listeZonesDispo, Inventaire inv){
-		if ((listeZonesDispo != null) && (listeZonesDispo.size() > 0))
+	public Choix placerOuvriers(Inventaire inv){
+		if ((inv.listeZonesDispo != null) && (inv.listeZonesDispo.size() > 0))
 			{
-			 	int zoneChoisie = rand.nextInt(listeZonesDispo.size()); 
+			 	int zoneChoisie = rand.nextInt(inv.listeZonesDispo.size()); 
 				//IA simple qui choisit une zone au hazard
-				int nbOuvChoisie= rand.nextInt(inv.getNbOuvrierDispo())+1;
+				int nbOuvChoisie= rand.nextInt(Math.min(inv.getNbOuvrierDispo(),(inv.listeZonesDispo.get(zoneChoisie).getNbPlaceZone()-1)))+1;
 				//IA simple qui choisit nombre d'ouvrier qu'elle va poser sur cette zone au hazard 
-	            return new Choix(listeZonesDispo.get(zoneChoisie), nbOuvChoisie);
+				//le nombre doit etres inferieur au nombre de place disponnible de la zone et inferieur au nombre d'ouvrier dispo de la zone 
+	            return new Choix(inv.listeZonesDispo.get(zoneChoisie), nbOuvChoisie);
 			}
 	     else 
 	    	 {
