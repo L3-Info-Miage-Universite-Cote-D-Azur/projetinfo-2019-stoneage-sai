@@ -37,11 +37,11 @@ Un nombre de dé est jeté en fonction du nombre de figurines placées sur les z
 -----------------------------------------------
 
 ### [Itération 3](https://github.com/L3-Info-Miage-Universite-Cote-D-Azur/projetinfo-2019-stoneage-sai/milestone/3)
-Lancement d'une partie entres 2 joueurs en ajoutant :
+Lancement d'une partie entres 4 joueurs en ajoutant :
 - [X] Une zone Chasse (gains Nourriture= résultat dés /2)
-- [X] Ajouter un nouveau joueur et améliorer l’IA du premier joueur. 
+- [X] Ajouter un 3 nouveau joueurs parmis les quelles deux joueurs IA avec chacun une manière de jouer différente.
 - [X] Une zone Fabrication d'outils
-- [X] Les Tuiles Outils 1/2/3/4
+- [X] Les Tuiles Outils 
 - [X] Nourrir les figurines en fin de tour
 - [X] La Condition Victoire (le joueur qui possède le score le plus élevé)
 #### Démo de jeu :
@@ -54,7 +54,7 @@ A la fin du tour, les figurines de chaque joueur sont nourries avec la nourritur
 
 -----------------------------------------------
 ### [Itération 4](https://github.com/L3-Info-Miage-Universite-Cote-D-Azur/projetinfo-2019-stoneage-sai/milestone/4)
-Lancement d'une partie entre deux joueurs en ajoutant :
+Lancement d'une partie entre 4 joueurs en ajoutant :
 - [X] Zone Agriculture (piste score et le champ)
 - [X] Les cartes civilisations (carte jaune)
 - [X] Condition de fin de partie : lorsqu'il reste moins de cartes civilisation que le nombre des joueurs (ici 2)
@@ -70,9 +70,9 @@ Les cartes civilisation et tuile bâtiment sont gardé pour la fin de la partie 
 -----------------------------------------------
 
 ### [Itération 5](https://github.com/L3-Info-Miage-Universite-Cote-D-Azur/projetinfo-2019-stoneage-sai/milestone/5)
-Lancement d'une partie (plusieurs tours) entre 2 joueurs en ajoutant :
-- [X] Les cartes civilisations (carte jaune)
-- [X] Tuiles Bâtiments 
+Lancement d'une partie entre 4 joueurs en ajoutant :
+- [X] Les cartes civilisations (carte vert)
+- [X] Quelqes Tuiles Bâtiments 
 - [X] Condition de fin de partie : lorsqu'il reste moins que 2 piles tuiles bâtiment ou s’il reste moins de cartes civilisation que le nombre des joueurs
 #### Démo de jeu :
 * La partie débute et à chaque tour on voit l’avancement des joueurs et leurs gains. Le joueur peut aussi poser ses ouvriers sur les cartes Tuiles Bâtiments.
@@ -83,9 +83,13 @@ On a un gagnant et on affiche les scores de chaque joueur.
 
 ----------------------------------------------- 
 ### [Itération 6](https://github.com/L3-Info-Miage-Universite-Cote-D-Azur/projetinfo-2019-stoneage-sai/milestone/6)
-Lancement d'une partie entres 2-3 joueurs en ajoutant :
+- [X] Developper le code permettant de lancer 500 parties 
+- [X] Statistique
+Lancement d'une partie entres 4 joueurs en ajoutant :
 - [X] Zone Hutte
+- [X] Plus de Tuiles Bâtiments 
 - [X] Plus de figurines si le joueur pose deux figurines sur la zone hutte dans un tour (jusqu'à 10 max)
+ 
 
 #### Démo de jeu:
 * La partie débute et à chaque tour on voit l’avancement des joueurs et leurs gains. Le joueur peut aussi poser deux ouvriers sur la zone hutte pour avoir un nouvel ouvrier en fin de tour.
@@ -96,8 +100,7 @@ On a un gagnant et on affiche les scores de chaque joueur.
 
 
 ### [Itération 7](https://github.com/L3-Info-Miage-Universite-Cote-D-Azur/projetinfo-2019-stoneage-sai/milestone/7)
-Lancement d'une partie entre 2-3 joueurs en ajoutant :
-- [X] Une ou deux IA avec (1 ou 2 bots) avec chacun une manière de jouer différente.
+- [X] Toutes les Tuiles Bâtiments 
 - [X] Régler les derniers Bug. 
 
 #### Démo de jeu:
