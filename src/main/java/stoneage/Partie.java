@@ -178,7 +178,7 @@ public class Partie {
 		}
     			
     	    			
-		System.out.println("**** Phase Nourrir les ouvriers ****"+ "\n");
+		System.out.println("**** Phase Nourrir les ouvriers ****"+ "\n");              
 		for (int i=0 ; i<=nbJoueurs;i++){
 			phaseNourrire( listeDesInventaires.get(i), listeDesJoueurs.get(i), i+1);
 		}
@@ -208,19 +208,60 @@ public class Partie {
         
 
     protected void phaseNourrire( Inventaire  inv, Joueurs joueur, int joueurCourant){
-    	if (inv.getNourriture()>=inv.getNbOuvrierDispo())
-    	{
-    		inv.setNourriture(inv.getNourriture()-inv.getNbOuvrierDispo());
+        int nm=inv.getNbOuvrierDispo()-inv.getNourriture();//nourriture qui manque
+    	if (inv.getNourriture()>=inv.getNbOuvrierDispo()){
+            inv.setNourriture(inv.getNourriture()-inv.getNbOuvrierDispo());
             System.out.println("Le joueur " + joueurCourant + " va nourrir ses ouvriers avec la nourritue qu'il possede. ");
 
     	}
-    	else 
-    	{
-    		inv.setScore(inv.getScore()-10);
+        else if(inv.getNourriture()<inv.getNbOuvrierDispo()  && Integer.sum(Integer.sum(Integer.sum(inv.getNbBois(),inv.getNbArgile()),inv.getNbPierre()),inv.getNbOr())>=nm ){
+            inv.setNourriture(inv.getNourriture()-inv.getNourriture());
+            inv.setNbRessource(inv.getNbRessource()-nm);
+            if (nm!=0) {
+                if (nm-inv.getNbBois()>0) {
+                    nm=nm-inv.getNbBois();
+                    inv.setNbBois(inv.getNbBois()-inv.getNbBois());      
+                }     
+                else{
+                    nm=nm-nm;
+                    inv.setNbBois(inv.getNbBois()-nm);
+                }
+            }
+            if (nm!=0) {
+                if (nm-inv.getNbArgile()>0) {
+                    nm=nm-inv.getNbArgile();
+                    inv.setNbArgile(inv.getNbArgile()-inv.getNbArgile());      
+                }     
+                else{
+                    nm=nm-nm;
+                    inv.setNbArgile(inv.getNbArgile()-nm);  
+                }
+            }
+            if (nm!=0) {
+                if (nm-inv.getNbPierre()>0) {
+                    nm=nm-inv.getNbPierre();
+                    inv.setNbPierre(inv.getNbPierre()-inv.getNbPierre());      
+                }     
+                else{
+                    nm=nm-nm;
+                    inv.setNbPierre(inv.getNbPierre()-nm);  
+                }
+            }
+            if (nm!=0) {
+                if (nm-inv.getNbOr()>0) {
+                    nm=nm-inv.getNbOr();
+                    inv.setNbOr(inv.getNbOr()-inv.getNbOr());      
+                }     
+                else{
+                    nm=nm-nm;
+                    inv.setNbPierre(inv.getNbPierre()-nm);  
+                }
+            }
+            System.out.println("Le joueur " + joueurCourant + " n'a pas assez de nourriture ,il utilise donc la nourriture qu'il possede et ses ressources" );
+        }
+    	else {
+            inv.setScore(inv.getScore()-10);
             System.out.println("Le joueur " + joueurCourant + " n'a pas assez de nourriture, son score est diminuer de 10 points. ");
-    	}
-    	
+    	}	
     }
-      
-
 }
