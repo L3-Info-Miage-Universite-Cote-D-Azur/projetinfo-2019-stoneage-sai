@@ -74,4 +74,15 @@ public class ZoneTest {
             assertEquals((i*6)/6, inventaire.getNbOr());
         }
     }
+
+    @Test
+    public void throwDice() {
+        when(dice.Lancer()).thenReturn(6);
+        for(int i=1 ; i<6; i++) {
+            assertEquals(6*i, zone3.lancéDeDés(i));
+            assertEquals(6*i, zone4.lancéDeDés(i));
+            assertEquals(6*i, zone5.lancéDeDés(i));
+            assertEquals(6*i, zone6.lancéDeDés(i));
+        }
+    }
 }
