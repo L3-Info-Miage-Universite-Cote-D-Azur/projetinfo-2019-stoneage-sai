@@ -4,13 +4,14 @@ public class Partie {
     private final JoueurIA joueurIA = new JoueurIA();
     private final ArrayList<Joueurs> listeDesJoueurs ; //une liste qui va contenir tous les joueurs de la partie
     private final ArrayList<Inventaire> listeDesInventaires ; //une liste qui va contenir d=toues les inventaire de la partie
-    private int nbJoueurs=3;  // A part le joueur IA 
+    private int nbJoueurs;  // A part le joueur IA 
     
 	
 
-    public Partie(){
+    public Partie(int nbJ){
     	
     	//On choisie le nombre des joueures dans cette partie
+    	this.nbJoueurs=nbJ-1;
     	listeDesJoueurs = new ArrayList<>();
     	listeDesInventaires = new ArrayList<>();
     	listeDesJoueurs.add(joueurIA); 
