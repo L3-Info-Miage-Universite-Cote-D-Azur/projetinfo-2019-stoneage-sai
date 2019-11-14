@@ -8,6 +8,7 @@ public class Zone {
 
     private static ArrayList<Zone> listeZone = new ArrayList<Zone>();
     private static ArrayList<Boolean> listeZoneDispo = new ArrayList<Boolean>();
+    private static ArrayList<Boolean> listeZoneJouee = new ArrayList<Boolean>();
     private static ArrayList<Integer> placeDispoParZone = new ArrayList<Integer>();
 
     private Zone zone1;
@@ -16,12 +17,12 @@ public class Zone {
     private Zone zone4;
     private Zone zone5;
     private Zone zone6;
-
     public Zone(int niveau) {
         initializeZone();
         this.niveauZone = niveau;
         dice = new Dé();
     }
+
     public Zone(int niveau, Dé dice){
         initializeZone();
         this.niveauZone = niveau;
@@ -37,6 +38,7 @@ public class Zone {
 
         for(int i=0; i< 6 ;i++) {
             listeZoneDispo.add(true); //true si disponible, false sinon
+            listeZoneJouee.add(false);
         }
 
         placeDispoParZone.add(1);
@@ -54,7 +56,6 @@ public class Zone {
             removeZoneDispo();
         }
     }
-
     public void removeZoneDispo(){
         // On mets false quand une zone est complete
         // pour ne pas supprimer et garder les indices dans le bon ordre
@@ -66,6 +67,7 @@ public class Zone {
     public int getNbOuvriersPlaces(){
     	return nbOuvriersPlacés;
     }
+
     public void resetNbOuvriersPlaces(){
     	nbOuvriersPlacés=0;
     }
@@ -74,15 +76,15 @@ public class Zone {
     	String nom=nomZone[niveauZone - 1];
     	return nom;
     }
-
     //retourne une valeur booléenne pour vérifier si tous les ouvriers ont été placés ou non.
+
     public boolean ouvrierPlace(int nbOuvriers){
         return (nbOuvriersPlacés == nbOuvriers);
     }
-
     /*on lance autant de Dés que des nbOuvriersPlacés
     et on retourne la somme des Dés jetées divisé par niveauZone
     */
+
     public int lancéDeDés(int nbOuvriersPlacés){
         int sommeDés=0;
         for (int i = 0; i < nbOuvriersPlacés; i++) {
@@ -90,7 +92,6 @@ public class Zone {
         }
         return sommeDés ;
     }
-
     public static ArrayList<Zone> getListeZone() {
         return listeZone;
     }
@@ -101,6 +102,10 @@ public class Zone {
 
     public static ArrayList<Boolean> getListeZoneDispo() {
         return listeZoneDispo;
+    }
+
+    public static ArrayList<Boolean> getListeZoneJouee() {
+        return listeZoneJouee;
     }
 
     @Override
