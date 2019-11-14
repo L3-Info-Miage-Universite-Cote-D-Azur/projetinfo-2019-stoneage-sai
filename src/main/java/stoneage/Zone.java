@@ -51,6 +51,15 @@ public class Zone {
     		inventaireJoueur.removeAvailableWorkers(nbOuvriers);//pour placer un nbOuvrier il faut les retirer d'abord de l'inventaire du joueur
             placeDispoParZone.set(niveauZone - 1, placeDispoParZone.get(niveauZone - 1) - nbOuvriers);
             nbOuvriersPlacés = nbOuvriers;
+            removeZoneDispo();
+        }
+    }
+
+    public void removeZoneDispo(){
+        // On mets false quand une zone est complete
+        // pour ne pas supprimer et garder les indices dans le bon ordre
+        if (placeDispoParZone.get(niveauZone - 1) <= 0){
+            listeZoneDispo.set(niveauZone - 1,false);
         }
     }
 
