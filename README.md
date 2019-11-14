@@ -85,6 +85,7 @@ On a un gagnant et on affiche les scores de chaque joueur.
 ### [Itération 6](https://github.com/L3-Info-Miage-Universite-Cote-D-Azur/projetinfo-2019-stoneage-sai/milestone/6)
 - [X] Developper le code permettant de lancer 500 parties 
 - [X] Statistique
+
 Lancement d'une partie entres 4 joueurs en ajoutant :
 - [X] Zone Hutte
 - [X] Plus de Tuiles Bâtiments 
