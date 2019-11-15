@@ -3,8 +3,21 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Joueur implements Joueurs {
+	public int gains;
+	public String TypeGains;
+
+
+
+	public int getGains(){
+		return gains;
+	}
+	public String TypeGains(){
+		return  TypeGains;
+		
+	}
 	Random rand = new Random();
-        @Override
+
+
     public void recupeRes(Inventaire inventaireJoueur, Zone zoneChoisi) { 
     	int nbRessources= zoneChoisi.lancéDeDés(zoneChoisi.getNbOuvriersPlaces());
     	int OutilChoisie = rand.nextInt(inventaireJoueur.getNbOutils()+1); 
@@ -18,33 +31,47 @@ public class Joueur implements Joueurs {
     	{
     		case 1:
     			inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()+1);
-    			System.out.println("\n Le joueur  gagne Un Outil.");
+
+    			gains=1;
+    			TypeGains="Outils";
+    			break;
     		case 2:
     			inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+nbRessources);
-    			System.out.println("\n Le joueur  gagne : "+nbRessources+" Nourritures");
+
+    			gains=nbRessources;
+    			TypeGains="Nourriture";
+    			break;
     		case 3:
     			inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()+nbRessources);
     			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
-    			System.out.println("\n Le joueur  gagne : "+nbRessources+" Bois");
+
+    			gains=nbRessources;
+    			TypeGains="Bois";
     	    	
     			break;
     		case 4: 
     			inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()+nbRessources);
     			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
-    			System.out.println("\n Le joueur  gagne : "+nbRessources+" Argile");
+
+    			gains=nbRessources;
+    			TypeGains="Argile";
     	    	
     			break;
     		case 5:
     			inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()+nbRessources);
     			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
-    			System.out.println("\n  Le joueur  gagne : "+nbRessources+" Pierre");
+
+    			gains=nbRessources;
+    			TypeGains="Pierre";
     	    	
     			break;
 
     		case 6:
     			inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()+nbRessources);
     			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
-    			System.out.println("\n  Le joueur gagne : "+nbRessources+" Or");
+
+    			gains=nbRessources;
+    			TypeGains="Or";
     	    	
     			break;
     		default:
@@ -70,6 +97,6 @@ public class Joueur implements Joueurs {
 	     else 
 	    	 {
 	    	 return null;
-	    	 }
+	    }
 	}
 }
