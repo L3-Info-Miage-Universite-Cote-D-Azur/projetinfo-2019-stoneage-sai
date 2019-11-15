@@ -21,10 +21,11 @@ public class Inventaire {
 	private int nbNourriture;
 	private int nbOutils;
 	private int score;
+    public ArrayList<Zone> listeZonesDispo = new ArrayList<>();
+    public ArrayList<Zone> listeZonesJouer = new ArrayList<>();
 
-	private ArrayList<Boolean> listeZonesJouees = new ArrayList<Boolean>();
 	public Inventaire() {  //Initialisation d'un Inventaire vide
-		setNbOuvrier(NB_INITIAL_OUVRIERS); //Initialisation du nombre d'ouvrier
+		setNbOuvrier(NB_INITIAL_OUVRIERS); //Initialisation du nombre d'ouvrier 
 		// Initialisation à 0 des ressources et du score
 		setNbBois(0);
 		setNbArgile(0);
@@ -34,11 +35,8 @@ public class Inventaire {
 		setNbRessource(0);
 		setNbOutils(0);
 		setScore(0);
-		for(int i = 0; i< 6 ; i++){
-			listeZonesJouees.add(false);
-		}
 		resetAvailableWorkers();
-		//restartListeZoneDispo();
+		restartListeZoneDispo();
 	}
 
     public Inventaire(Inventaire toCopy) {
@@ -47,18 +45,16 @@ public class Inventaire {
         resetAvailableWorkers();
     }
 
-/*
 	public void restartListeZoneDispo() {
 	    listeZonesDispo = new ArrayList<>();
         for (int i=1;i <= 6;i++ ){
         	Zone zone= new Zone(i);
         	listeZonesDispo.add(zone);
         } //remplire la liste des zones
-	}*/
+	}
 	public void addAvailableWorkers(int i) {
 		nbOuvrierDispo += i;
 	}
-
 	public void removeAvailableWorkers(int i) {
 		nbOuvrierDispo -= i; }
 	public void updateScore(){
@@ -74,6 +70,7 @@ public class Inventaire {
 	public int getNbOuvrierDispo() {
         return nbOuvrierDispo;
     }
+
     public void resetInventory(){
 		setNbArgile(0);
 		setNbBois(0);
@@ -83,22 +80,22 @@ public class Inventaire {
 		setNourriture(15);
 		setNbOutils(0);
 	}
-
 	/* ****************************************
-	   * Getter and setter des champs privés  *
+	   * Getter and setter des champs privés  * 
 	   **************************************** */
+	
 	public int getNbOuvrier() {
 		return nbOuvrier;
 	}
-
+	
 	public void setNbOuvrier(int nbOuvrier) {
 		this.nbOuvrier = nbOuvrier;
 	}
-
+	
 	public int getNbRessource() {
 		return nbRessource;
 	}
-
+	
 	public void setNbRessource(int nbRessource) {
 		this.nbRessource = nbRessource;
 	}
@@ -110,13 +107,13 @@ public class Inventaire {
 	public void setNbBois(int nbBois) {
 		this.nbBois = nbBois;
 	}
-
 	public int getNbArgile() {
 		return nbArgile;
 	}
 	public void setNbArgile(int nbArgile) {
 		this.nbArgile = nbArgile;
 	}
+
 	public int getNbPierre() {
 		return nbPierre;
 	}
@@ -132,7 +129,6 @@ public class Inventaire {
 	public void setNbOr(int nbOr) {
 		this.nbOr = nbOr;
 	}
-
 	public int getNourriture() {
 		return nbNourriture;
 	}
@@ -145,11 +141,6 @@ public class Inventaire {
 	public int getNbOutils(){
 		return nbOutils;
 	}
-
-	public ArrayList<Boolean> getListeZonesJouees() {
-		return listeZonesJouees;
-	}
-
 	public int getScore() {
 		return score;
 	}
