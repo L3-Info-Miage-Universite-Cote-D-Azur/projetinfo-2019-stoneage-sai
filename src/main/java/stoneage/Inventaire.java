@@ -44,7 +44,9 @@ public class Inventaire {
         setNbRessource(toCopy.getNbRessource());
         resetAvailableWorkers();
     }
-
+    public void vidertListeZoneJouer() {
+    	listeZonesJouer  = new ArrayList<>();
+	}
 	public void restartListeZoneDispo() {
 	    listeZonesDispo = new ArrayList<>();
         for (int i=1;i <= 6;i++ ){
