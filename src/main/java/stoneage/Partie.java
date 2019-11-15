@@ -193,9 +193,16 @@ public class Partie {
             Zone choix = inv.listeZonesJouer.get(0);
             joueur.recupeRes(inv,choix);
             inv.listeZonesJouer.remove(choix);
+            
             inv.listeZonesDispo.add(choix);
+            
+            
+            
             System.out.println("Le joueur " + joueurCourant + " reprend ses ouvriers de la zone "+choix.NomZone());
+			System.out.println("Il gagne : "+joueur.getGains() +" " +joueur.TypeGains()  + ". \n");
         }
+        inv.vidertListeZoneJouer();
+        inv.restartListeZoneDispo();
     }
     
     
@@ -207,6 +214,8 @@ public class Partie {
             inv.listeZonesJouer.add(choix.zoneChoisie);
             choix.zoneChoisie.placerOuvrier(inv, choix.nbOuvriersChoisie);    		
             System.out.println("Le joueur " + joueurCourant + " a choisi la zone "+(choix.zoneChoisie).NomZone()+" pour y placer "+choix.nbOuvriersChoisie+" ouvrier(s)");
+            
+   
     }
         
 
