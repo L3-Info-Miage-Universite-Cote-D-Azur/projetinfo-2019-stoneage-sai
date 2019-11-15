@@ -4,6 +4,16 @@ import java.util.Random;
 
 public class JoueurBot2 implements Joueurs {
 	Random rand = new Random();
+	public int gains;
+	public String TypeGains;
+
+	public int getGains(){
+		return gains;
+	}
+	public String TypeGains(){
+		return  TypeGains;
+		
+	}
 	ArrayList<Integer> zonesDispo = new ArrayList<>();
 	
 	@Override
@@ -22,29 +32,48 @@ public class JoueurBot2 implements Joueurs {
     	{
     		case 1:
     			inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()+1);
+
+    			gains=1;
+    			TypeGains="Outils";
     			break;
     		case 2:
     			inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+nbRessources);
+
+    			gains=nbRessources;
+    			TypeGains="Nourriture";
     			break;
     		case 3:
     			inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()+nbRessources);
     			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
+
+    			gains=nbRessources;
+    			TypeGains="Bois";
+    	    	
     			break;
     		case 4: 
     			inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()+nbRessources);
     			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
+
+    			gains=nbRessources;
+    			TypeGains="Argile";
     	    	
     			break;
     		case 5:
     			inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()+nbRessources);
     			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
+
+    			gains=nbRessources;
+    			TypeGains="Pierre";
     	    	
     			break;
-    		
+
     		case 6:
     			inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()+nbRessources);
     			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
-    			break;
+
+    			gains=nbRessources;
+    			TypeGains="Or";
+     			break;
     		default:
     			break;			
     	}
