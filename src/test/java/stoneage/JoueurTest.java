@@ -23,7 +23,7 @@ public class JoueurTest {
         }
         j = new Joueur();
 	inventaire = new Inventaire();      
-        choix2=j.placerOuvriers(listeZone, inventaire);
+        choix2=j.placerOuvriers(inventaire);
         choix = new Choix(choix2.zoneChoisie,choix2.nbOuvriersChoisie);//je crée un objet avec les valeurs 
         //zoneChoisie et nbOuvriersChoisie renvoyé par j.placerOuvriers(listeZone, inventaire)par ce que 
         //leur création se fait avec un random et c'est le seul moyen de les recupérées .

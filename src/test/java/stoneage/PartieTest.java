@@ -12,33 +12,34 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PartieTest {
 	private  Partie partie;
 	private int nbZone;
-    private  ArrayList<Zone> listeZonesDispo = new ArrayList<>();   
-    private  ArrayList<Zone> listeZonesJouer = new ArrayList<>(); 
+
+    private Inventaire  inv;
+    private Joueurs joueur;
    
     @BeforeEach
     void setUp(){
-    	//retirer 2 ouvrier de ouvrier dispo pour le teste de PhaseAction
-    	partie =new Partie();
+    	inv=new Inventaire();
+    	joueur=new Joueur();
     	nbZone=4;
-        for (int i=3;i <= nbZone+2;i++ ){
-        	Zone zone= new Zone(i);
-        	listeZonesDispo.add(zone);
-        } //remplir la liste des zones Disponnibre pris comme exemple pour ce teste
+    	//retirer 2 ouvrier de ouvrier dispo pour le teste de PhaseAction
+    	partie =new Partie(nbZone);
     }
+
 	@Test	
 	public void testPhaseAction() {	
-		assertEquals(listeZonesDispo.size(),4); 
-		partie.phaseAction(listeZonesDispo);
+		assertEquals(inv.listeZonesDispo.size(),4); 
+		partie.phaseAction(inv,joueur,1);
 		// cette phase prend chaque zone dans la liste et l'efface apres avoir fini avec 
-		assertEquals(listeZonesDispo.size(),0); //verifier si cette methode a bien vider la liste 		
+		assertEquals(inv.listeZonesDispo.size(),0); //verifier si cette methode a bien vider la liste 		
 	}
 
 	@Test
 	public void testPhasePlacement() {
-		assertEquals(listeZonesDispo.size(),4); 
-		assertEquals(listeZonesJouer.size(),0); 
-		partie.phasePlacement(listeZonesDispo,listeZonesJouer);
-		assertTrue(4-listeZonesDispo.size()==listeZonesJouer.size()); 
+		assertEquals(inv.listeZonesDispo.size(),4); 
+		assertEquals(inv.listeZonesJouer.size(),0); 
+
+		partie.phasePlacement(inv,joueur,1);
+		assertTrue(4-inv.listeZonesDispo.size()==inv.listeZonesJouer.size()); 
 	}
 
 }
