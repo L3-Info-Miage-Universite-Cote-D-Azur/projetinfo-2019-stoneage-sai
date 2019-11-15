@@ -26,4 +26,9 @@
      - Déterminer le gagnant de la partie (le joueur qui possède le score le plus élevé).
 -----------------------------------------------
 
- *Le travail qu’on avait prévu dans la troisième itération a été réalisé. *
+ * Dans cette iteration on a remis un travail non complet car notre code contient deux bugs, pour lesquelles on a pas trouvé de solution a temps. 
+ - [X] Bug 1: Les joueures peuvent utilisé des zones meme si elles ont plus de place disponnible dedans. 
+     - Hypothese pour une Solution :les Joueures ont chacun une liste de zone alors qu'il devrait avoir une seul liste pour tout le monde, chaque joueur peut avoir une liste qui contient des booleenne pour chaque zone( zone prise) a la place d'une liste de zone.
+
+- [X] Bug 2: Les joeurs peuvent posé plus de figurine sur une zone que le nombre de place qu'elle posséde. 
+     - Hypothese pour une Solution : Pour ce bug, si on regle le 1er bug celui ci va etres corrigé automatiquement.
