@@ -22,7 +22,7 @@ public class Partie {
     	listeDesInventaires.add(new Inventaire());
     	LesZones=new ArrayList<>();
     	  // c'est la liste general des zone pour le jeu 
-    	    for(int i=1; i<7;i++){
+    	    for(int i=0; i<7;i++){
     	    	Zone zone = new Zone(i);
     	    	LesZones.add(zone);
     	    }
@@ -75,7 +75,7 @@ public class Partie {
     	}
  
     		if (Egalite == true) {
-    			System.out.println("Les Joueurs ont des scores egaux! Il n'ya pas de gagagnt");
+    			System.out.println("Les Joueurs ont des scores egaux! Il n'ya pas de gagnant");
     		}
     		else {
     			System.out.println("Le joueur ** "+Gagnant+" ** emporte la partie avec : " + ScoreGagnant + " Points");
@@ -91,7 +91,7 @@ public class Partie {
 
         } //remplire la liste des zones
         */
-    	for (int i=0 ; i<nbJoueurs;i++)
+    	for (int i=0 ; i<=nbJoueurs;i++)
     	{
     		listeDesInventaires.get(i).resetAvailableWorkers(); //remettre a jour le nombre d'ouvrier disponnible
    
