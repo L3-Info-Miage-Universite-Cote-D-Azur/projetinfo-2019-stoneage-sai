@@ -11,16 +11,16 @@ public class Choix {
 		
 	}
 	 
-	/* public boolean equals(Object o) {
+	public boolean equals(Object o) {
 	     if (o instanceof Choix) {
 	    	 
 	         Choix c = (Choix) o;
-	            return (c.nbOuvriersChoisie == nbOuvriersChoisie) && (c.zoneChoisie.niveauZone == zoneChoisie.niveauZone);
+	            return (c.nbOuvriersChoisie == nbOuvriersChoisie) && (c.zoneChoisie == zoneChoisie);
 	        }
 	        else return false;
-	    }*/
+	    }
         @Override
          public String toString(){
-             return "nbOuvriersChoisie="+nbOuvriersChoisie+"  zoneChoisie="+zoneChoisie;
+             return "nbOuvriersChoisie="+nbOuvriersChoisie+"  Indice de la zone Choisie="+(zoneChoisie+1);
          }
 }
