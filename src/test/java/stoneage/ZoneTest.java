@@ -28,12 +28,12 @@ public class ZoneTest {
 
     @BeforeEach
     void setUp(){
-        zone1 = new Zone(1);
-        zone2 = new Zone(2);
-        zone3 = new Zone(3);
-        zone4 = new Zone(4);
-        zone5 = new Zone(5);
-        zone6 = new Zone(6);
+        zone1 = new Zone(1, dice);
+        zone2 = new Zone(2, dice);
+        zone3 = new Zone(3, dice);
+        zone4 = new Zone(4, dice);
+        zone5 = new Zone(5, dice);
+        zone6 = new Zone(6, dice);
 
         listeZone[0] = zone1;
         listeZone[1] = zone2;
@@ -71,6 +71,12 @@ public class ZoneTest {
     }
 
     @Test
-    public void throwingDice() {
+    public void throwDice() {
+        when(dice.Lancer()).thenReturn(6);
+        for(Zone zones : listeZone) {
+            for (int i = 1; i < 6; i++) {
+                assertEquals(6 * i, zones.lancéDeDés(i));
+            }
+        }
     }
 }
