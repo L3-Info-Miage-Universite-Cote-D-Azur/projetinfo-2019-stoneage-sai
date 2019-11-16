@@ -1,6 +1,8 @@
 package stoneage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -49,6 +51,12 @@ public class JoueurIATest {
     @Test
     void placerOuvrierNourritureSuffisante() {
         inventaire.setNourriture(5);
+        actualChoice = joueurIA.placerOuvriers(listeZones, inventaire);
+        assertTrue(actualChoice.nbOuvriersChoisie >=0);
+        assertTrue(actualChoice.nbOuvriersChoisie <=5);
+        assertTrue(actualChoice.nbOuvriersChoisie <=inventaire.getNbOuvrierDispo());
+        assertTrue(actualChoice.nbOuvriersChoisie <= listeZones.get(actualChoice.zoneChoisie).getNbPlaceDispo());
+
     }
 
     @Test
@@ -57,7 +65,6 @@ public class JoueurIATest {
     	zone1 = new Zone(1);
     	joueurIA.recupeRes(inventaire, zone1);
     	assertEquals(inventaire.getNbOutils(), 1); //Si on choisi la zone 1, alors on a un outil en plus.
-    	
     }
 }
 
