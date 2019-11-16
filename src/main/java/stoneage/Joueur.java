@@ -84,7 +84,7 @@ public class Joueur implements Joueurs {
     }
 
 	public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv){
-		if ( (inv.getNbZoneJouer() < 6)){
+		if ( (inv.getNbZoneJouer() < 6&&inv.ouvrierDispo())){
 			 	int zoneChoisie = rand.nextInt(6);
 			 	while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0){
 			 		zoneChoisie = rand.nextInt(6);
