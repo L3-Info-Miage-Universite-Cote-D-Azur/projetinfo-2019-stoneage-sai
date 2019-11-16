@@ -247,8 +247,8 @@ public class Partie {
                     inv.setNbBois(inv.getNbBois()-inv.getNbBois());      
                 }     
                 else{
-                    nm=nm-nm;
                     inv.setNbBois(inv.getNbBois()-nm);
+                    nm=nm-nm;
                 }
             }
             if (nm!=0) {
@@ -257,8 +257,8 @@ public class Partie {
                     inv.setNbArgile(inv.getNbArgile()-inv.getNbArgile());      
                 }     
                 else{
-                    nm=nm-nm;
                     inv.setNbArgile(inv.getNbArgile()-nm);  
+                    nm=nm-nm;
                 }
             }
             if (nm!=0) {
@@ -267,8 +267,8 @@ public class Partie {
                     inv.setNbPierre(inv.getNbPierre()-inv.getNbPierre());      
                 }     
                 else{
-                    nm=nm-nm;
                     inv.setNbPierre(inv.getNbPierre()-nm);  
+                    nm=nm-nm;
                 }
             }
             if (nm!=0) {
@@ -277,8 +277,8 @@ public class Partie {
                     inv.setNbOr(inv.getNbOr()-inv.getNbOr());      
                 }     
                 else{
-                    nm=nm-nm;
                     inv.setNbPierre(inv.getNbPierre()-nm);  
+                    nm=nm-nm;
                 }
             }
             System.out.println("Le joueur " + joueurCourant + " n'a pas assez de nourriture ,il utilise donc la nourriture qu'il possede et ses ressources" );
