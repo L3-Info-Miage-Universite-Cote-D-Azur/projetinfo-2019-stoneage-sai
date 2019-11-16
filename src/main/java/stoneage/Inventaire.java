@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class Inventaire {
 	public static final int NB_INITIAL_OUVRIERS = 5;
-	private int nbOuvrier = 1; //Minimum 1 ouvrier pour pouvoir jouer
+	private int nbOuvrier = 5; //Minimum 1 ouvrier pour pouvoir jouer
 	private int nbRessource = 0;
 	private int nbOuvrierDispo = 0;
 	private int nbBois;
@@ -21,8 +21,8 @@ public class Inventaire {
 	private int nbNourriture;
 	private int nbOutils;
 	private int score;
-    public ArrayList<Zone> listeZonesDispo = new ArrayList<>();
-    public ArrayList<Zone> listeZonesJouer = new ArrayList<>();
+    public ArrayList<Integer> listeZonesDispo = new ArrayList<>();
+    public ArrayList<Boolean> listeZonesJouer = new ArrayList<>();//eviter
 
 	public Inventaire() {  //Initialisation d'un Inventaire vide
 		setNbOuvrier(NB_INITIAL_OUVRIERS); //Initialisation du nombre d'ouvrier 
@@ -36,7 +36,12 @@ public class Inventaire {
 		setNbOutils(0);
 		setScore(0);
 		resetAvailableWorkers();
-		restartListeZoneDispo();
+		listeZonesJouer  = new ArrayList<>();
+	    listeZonesDispo = new ArrayList<>();
+        for (int i=1;i <= 6;i++ ){
+        	listeZonesDispo.add(i);
+        	listeZonesJouer.add(false);
+        } //remplire la liste des zones
 	}
 
     public Inventaire(Inventaire toCopy) {
@@ -44,16 +49,16 @@ public class Inventaire {
         setNbRessource(toCopy.getNbRessource());
         resetAvailableWorkers();
     }
-    public void vidertListeZoneJouer() {
-    	listeZonesJouer  = new ArrayList<>();
+
+	public int getNbZoneJouer(){
+		int nb=0;
+		for (int i=0;i<6; i++){
+			if(listeZonesJouer.get(i)==true)
+				nb++;
+		}
+		return nb;	
 	}
-	public void restartListeZoneDispo() {
-	    listeZonesDispo = new ArrayList<>();
-        for (int i=1;i <= 6;i++ ){
-        	Zone zone= new Zone(i);
-        	listeZonesDispo.add(zone);
-        } //remplire la liste des zones
-	}
+	
 	public void addAvailableWorkers(int i) {
 		nbOuvrierDispo += i;
 	}

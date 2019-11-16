@@ -14,8 +14,6 @@ public class JoueurIA implements Joueurs {
 		return  TypeGains;
 		
 	}
-    ArrayList<Integer> indZonesDispo = new ArrayList<>();
-    @Override
     public void recupeRes(Inventaire inventaireJoueur, Zone zoneChoisi) { 
     	int nbRessources= zoneChoisi.lancéDeDés(zoneChoisi.getNbOuvriersPlaces());
     	
@@ -86,38 +84,33 @@ public class JoueurIA implements Joueurs {
         zoneChoisi.setNbPlaceDispo(zoneChoisi.getNbPlaceZone());//quand on recupere les ouvriers,toutes les places deviennent disponibles.    
     }
     
-    @Override
-	public Choix placerOuvriers( Inventaire inv){
-	    for (int i=0;i < inv.listeZonesDispo.size();i++ ){
-	    	indZonesDispo.add((inv.listeZonesDispo.get(i)).niveauZone);
-	    } //remplire la liste des zones
-		if ((inv.listeZonesDispo != null) && (inv.listeZonesDispo.size() > 0))
-		{
-			if ((indZonesDispo.contains(2))&& inv.getNourriture()<5 &&inv.getNbOuvrierDispo()==5 ) 
+    public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv){
+
+	    if ( (inv.getNbZoneJouer() < 7)){
+			if (inv.listeZonesJouer.get(2)==false&& inv.getNourriture()<5 &&inv.getNbOuvrierDispo()==5 ) 
 				// si la zone chasse est disponnible et que le nombre de nourriture disponnible ne suffit pas pour nourrire les ouvriers
 	    	{	
 				int nbOuvChoisie= 5 - inv.getNourriture() ;
 				// on choisit la zone de chasse si on a pas assez de nourriture 
-				return new Choix(inv.listeZonesDispo.get(1), nbOuvChoisie);
+				return new Choix(1, nbOuvChoisie);
 			}
-			/*else if (indZonesDispo.contains(1))				
-			{
-				return new Choix(inv.listeZonesDispo.get(0), 1);	 //choisir zone fabrication outil 
-	    	}*/
 			else 
 			{
-				int zoneChoisie = rand.nextInt(inv.listeZonesDispo.size()); 
-				int nbOuvChoisie= rand.nextInt(Math.min(inv.getNbOuvrierDispo(),(inv.listeZonesDispo.get(zoneChoisie).getNbPlaceZone()-1)))+1;
-
-	            return new Choix(inv.listeZonesDispo.get(zoneChoisie), nbOuvChoisie);
-				
-			}		
+				int zoneChoisie = rand.nextInt(6);
+			 	while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0){
+			 		zoneChoisie = rand.nextInt(6);
+			 	}
+				//IA simple qui choisit une zone au hazard
+				int nbOuvChoisie= rand.nextInt(Math.min(inv.getNbOuvrierDispo(),LesZones.get(zoneChoisie).getNbPlaceDispo()))+1;
+				//IA simple qui choisit nombre d'ouvrier qu'elle va poser sur cette zone au hazard 
+				//le nombre doit etres inferieur au nombre de place disponnible de la zone et inferieur au nombre d'ouvrier dispo de la zone 
+	            return new Choix(zoneChoisie, nbOuvChoisie);
+			}
 		}
-		else 
-			{
-			return null;
+		else{
+	    	 return null;
 		    }
 	}
 	
-
+  
 }

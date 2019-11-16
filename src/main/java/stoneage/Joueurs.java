@@ -15,5 +15,5 @@ public interface Joueurs {
 	public int getGains();
 	public String TypeGains();
     public void recupeRes(Inventaire inventaireJoueur, Zone zoneChoisi);
-    public Choix placerOuvriers( Inventaire inv);
+    public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv);
 }

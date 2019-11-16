@@ -1,5 +1,6 @@
 package stoneage;
 
+import java.util.ArrayList;
 
 public class Zone {
     private int nbOuvriersPlacés = 0;
@@ -7,6 +8,7 @@ public class Zone {
     private Dé dé;
     private int nbPlaceZone ;
     private int nbPlaceDispo;
+    public ArrayList<Zone> listeZones = new ArrayList<>();
     public Zone(int niveau) {
         this.niveauZone = niveau;
         dé=new Dé();
@@ -25,6 +27,16 @@ public class Zone {
         this.dé=dé;
     }
     
+    /*******/
+    public void ListeZones(){ // c'est la liste general des zone pour le jeu 
+    	for(int i=1; i<7;i++){
+    		Zone zone = new Zone(i);
+    		listeZones.add(zone);
+    	}
+    }
+    
+    /******/
+    
     public int getNbPlaceZone(){
         return nbPlaceZone;
     }
@@ -34,12 +46,14 @@ public class Zone {
     public void setNbPlaceDispo(int nbPlaceDispo)
     {
     	this.nbPlaceDispo=nbPlaceDispo;
-    }
+    }// le nombre de place disponnible par zone 
+    
     public void placerOuvrier(Inventaire inventaireJoueur,int nbOuvriers){
-    	if (nbOuvriers>=1 && nbOuvriers <=nbPlaceDispo && nbOuvriers<=5 ){
+    	if (nbOuvriers>=1 && nbOuvriers <=nbPlaceDispo && nbOuvriers<=inventaireJoueur.getNbOuvrierDispo() ){
     		inventaireJoueur.removeAvailableWorkers(nbOuvriers);//pour placer un nbOuvrier il faut les retirer d'abord de l'inventaire du joueur  
-    		nbOuvriersPlacés=nbOuvriers;   
-            nbPlaceDispo=nbPlaceDispo-nbOuvriersPlacés;
+    		nbOuvriersPlacés=nbOuvriers;
+            nbPlaceDispo=nbPlaceDispo-nbOuvriers; //le nombre de place disponnible dans la zone diminue
+             //le nombre d'ouvrier placer dans la zone augmente
     	}
     }
 

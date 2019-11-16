@@ -1,16 +1,17 @@
 package stoneage;
 import java.util.ArrayList;
 public class Partie {
-    private final JoueurIA joueurIA = new JoueurIA();
-    private final JoueurBot2 joueurBot = new JoueurBot2();
+	
+    private final Joueur joueurIA = new Joueur();
+    //private final JoueurBot2 joueurBot = new JoueurBot2();
+    private final Joueur joueurBot = new Joueur();
     private final ArrayList<Joueurs> listeDesJoueurs ; //une liste qui va contenir tous les joueurs de la partie
     private final ArrayList<Inventaire> listeDesInventaires ; //une liste qui va contenir d=toues les inventaire de la partie
     private int nbJoueurs;  // A part le joueur IA 
+    public Zone zone;
+    private final ArrayList<Zone> LesZones ;
     
-	
-
     public Partie(int nbJ){
-    	
     	//On choisie le nombre des joueures dans cette partie
     	this.nbJoueurs=nbJ-1;
     	listeDesJoueurs = new ArrayList<>();
@@ -19,17 +20,19 @@ public class Partie {
        	listeDesJoueurs.add(joueurBot);
     	listeDesInventaires.add(new Inventaire());
     	listeDesInventaires.add(new Inventaire());
-    	
+    	LesZones=new ArrayList<>();
+    	  // c'est la liste general des zone pour le jeu 
+    	    for(int i=1; i<7;i++){
+    	    	Zone zone = new Zone(i);
+    	    	LesZones.add(zone);
+    	    }
+
     	// ajoute en premier le joueurIA 
     	//puis les autres joueurs normaux
-    	for (int i=0;i < nbJoueurs;i++){
+    	for (int i=0;i < nbJoueurs-1;i++){
     		listeDesJoueurs.add(new Joueur());
     		listeDesInventaires.add(new Inventaire());
     	}
-
-
-
-    	
 
     }
     protected void jouer(){
@@ -79,7 +82,7 @@ public class Partie {
     		}
     }
     protected void unTour(){
-        ArrayList<Zone> listeZonesDispo = new ArrayList<>();
+        /*ArrayList<Zone> listeZonesDispo = new ArrayList<>();
 
         
         for (int i=1;i <= 6;i++ ){
@@ -87,15 +90,16 @@ public class Partie {
         	listeZonesDispo.add(zone);
 
         } //remplire la liste des zones
-    	for (int i=0 ; i<=nbJoueurs;i++)
+        */
+    	for (int i=0 ; i<nbJoueurs;i++)
     	{
     		listeDesInventaires.get(i).resetAvailableWorkers(); //remettre a jour le nombre d'ouvrier disponnible
    
 
     	}
 		System.out.println("**** Phase de placement ****");
-    	while (listeDesInventaires.get(0).ouvrierDispo() || listeDesInventaires.get(1).ouvrierDispo()|| listeDesInventaires.get(2).ouvrierDispo()|| listeDesInventaires.get(3).ouvrierDispo()){
-    		
+		while (listeDesInventaires.get(0).ouvrierDispo() || listeDesInventaires.get(1).ouvrierDispo()|| listeDesInventaires.get(2).ouvrierDispo()|| listeDesInventaires.get(3).ouvrierDispo()){
+    			
     		for (int i=0 ; i<=nbJoueurs;i++){
     			if (listeDesInventaires.get(i).getNbOuvrierDispo() != 0)
     			{
@@ -137,17 +141,18 @@ public class Partie {
     	}
     	
 
-		System.out.println("**** Phase de résolution des ouvriers **** \n");
-		
-		while ((listeDesInventaires.get(2).listeZonesJouer.size() > 0) && (listeDesInventaires.get(3).listeZonesJouer.size() > 0)&&(listeDesInventaires.get(0).listeZonesJouer.size() > 0) && (listeDesInventaires.get(1).listeZonesJouer.size() > 0)) {
+		System.out.println("**** Phase de résolution des ouvriers **** \n");		
+
+		while ((listeDesInventaires.get(0).getNbZoneJouer() > 0) || (listeDesInventaires.get(1).getNbZoneJouer() > 0)||(listeDesInventaires.get(2).getNbZoneJouer() > 0) || (listeDesInventaires.get(3).getNbZoneJouer() > 0)) {
+			
 			for (int i=0 ; i<=nbJoueurs;i++){
-    			if (listeDesInventaires.get(i).listeZonesJouer.size()  != 0)
+    			if (listeDesInventaires.get(i).getNbZoneJouer()  != 0)
     			{
     				phaseAction( listeDesInventaires.get(i), listeDesJoueurs.get(i), i+1);
     			}
     			else {
     	    		for (int j=0 ; j<=nbJoueurs;j++){
-    	    			if (listeDesInventaires.get(j).listeZonesJouer.size()!= 0 &&listeDesInventaires.get(i).listeZonesJouer.size() != 0)
+    	    			if (listeDesInventaires.get(j).getNbZoneJouer()!= 0 &&listeDesInventaires.get(i).getNbZoneJouer() != 0)
     	    			{
     	    				phaseAction( listeDesInventaires.get(i), listeDesJoueurs.get(i), i+1);
     	    				phaseAction( listeDesInventaires.get(j), listeDesJoueurs.get(j), j+1);
@@ -155,7 +160,7 @@ public class Partie {
 	
     	    			else {
     	    	    		for (int k=0 ; k<=nbJoueurs;k++){
-    	    	    			if (listeDesInventaires.get(k).getNbOuvrierDispo() != 0 && listeDesInventaires.get(j).getNbOuvrierDispo() != 0 &&listeDesInventaires.get(i).getNbOuvrierDispo() != 0)
+    	    	    			if (listeDesInventaires.get(k).getNbZoneJouer() != 0 && listeDesInventaires.get(j).getNbZoneJouer()!= 0 &&listeDesInventaires.get(i).getNbZoneJouer() != 0)
     	    	    			{
     	    	    				phaseAction( listeDesInventaires.get(i), listeDesJoueurs.get(i), i+1);
     	    	    				phaseAction( listeDesInventaires.get(j), listeDesJoueurs.get(j), j+1);
@@ -163,7 +168,7 @@ public class Partie {
     	    	    			}
     	    	    			else {
     	    	    	    		for (int l=0 ; l<=nbJoueurs;l++){
-    	    	    	    			if (listeDesInventaires.get(l).getNbOuvrierDispo() != 0 && listeDesInventaires.get(k).getNbOuvrierDispo() != 0 && listeDesInventaires.get(j).getNbOuvrierDispo() != 0 &&listeDesInventaires.get(i).getNbOuvrierDispo() != 0)
+    	    	    	    			if (listeDesInventaires.get(l).getNbZoneJouer() != 0 && listeDesInventaires.get(k).getNbZoneJouer() != 0 && listeDesInventaires.get(j).getNbZoneJouer() != 0 &&listeDesInventaires.get(i).getNbOuvrierDispo() != 0)
     	    	    	    				 
     	    	    	    			{
     	    	    	    				phaseAction( listeDesInventaires.get(i), listeDesJoueurs.get(i), i+1);
@@ -188,37 +193,25 @@ public class Partie {
 		
     }
 
-    protected void phaseAction( Inventaire  inv,Joueurs joueur,int joueurCourant) {
-        while (inv.listeZonesJouer.size() > 0 ){
-            Zone choix = inv.listeZonesJouer.get(0);
-            joueur.recupeRes(inv,choix);
-            inv.listeZonesJouer.remove(choix);
-            
-            inv.listeZonesDispo.add(choix);
-            
-            
-            
-            System.out.println("Le joueur " + joueurCourant + " reprend ses ouvriers de la zone "+choix.NomZone());
-			System.out.println("Il gagne : "+joueur.getGains() +" " +joueur.TypeGains()  + ". \n");
+    protected void phaseAction(  Inventaire  inv,Joueurs joueur,int joueurCourant) {
+        for(int i =0;i<6;i++){
+        	if (inv.listeZonesJouer.get(i)==true){
+        		Zone choix = LesZones.get(i);
+        		joueur.recupeRes(inv,choix);
+        		inv.listeZonesJouer.set(i,false);
+        		System.out.println("Le joueur " + joueurCourant + " reprend ses ouvriers de la zone "+choix.NomZone());
+        		System.out.println("Il gagne : "+joueur.getGains() +" " +joueur.TypeGains()  + ". \n");
+        	}            
         }
-        inv.vidertListeZoneJouer();
-        inv.restartListeZoneDispo();
     }
-    
-    
-    
-    
-    protected void phasePlacement( Inventaire  inv, Joueurs joueur, int joueurCourant){
-            Choix choix = joueur.placerOuvriers( inv);
-            inv.listeZonesDispo.remove(choix.zoneChoisie);   		
-            inv.listeZonesJouer.add(choix.zoneChoisie);
-            choix.zoneChoisie.placerOuvrier(inv, choix.nbOuvriersChoisie);    		
-            System.out.println("Le joueur " + joueurCourant + " a choisi la zone "+(choix.zoneChoisie).NomZone()+" pour y placer "+choix.nbOuvriersChoisie+" ouvrier(s)");
-            
    
+    protected void phasePlacement( Inventaire  inv, Joueurs joueur, int joueurCourant){
+            Choix choix = joueur.placerOuvriers( LesZones,inv);
+            inv.listeZonesJouer.set(choix.zoneChoisie,true);
+            LesZones.get(choix.zoneChoisie).placerOuvrier(inv, choix.nbOuvriersChoisie);    		
+            System.out.println("Le joueur " + joueurCourant + " a choisi la zone "+(LesZones.get(choix.zoneChoisie)).NomZone()+" pour y placer "+choix.nbOuvriersChoisie+" ouvrier(s)");  
     }
-        
-
+    
     protected void phaseNourrir(Inventaire  inv, Joueurs joueur, int joueurCourant){
         int nm=inv.getNbOuvrierDispo()-inv.getNourriture();//nourriture qui manque
     	if (inv.getNourriture()>=inv.getNbOuvrierDispo()){

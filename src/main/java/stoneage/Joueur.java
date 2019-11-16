@@ -79,24 +79,25 @@ public class Joueur implements Joueurs {
     	}
         inventaireJoueur.addAvailableWorkers(zoneChoisi.getNbOuvriersPlaces());
         //recuperer les ouvriers 
-        zoneChoisi.resetNbOuvriersPlaces();
+        zoneChoisi.resetNbOuvriersPlaces(); // 
         zoneChoisi.setNbPlaceDispo(zoneChoisi.getNbPlaceZone());//quand on recupere les ouvriers,toutes les places deviennent disponibles.    
     }
-    
-        @Override
-	public Choix placerOuvriers(Inventaire inv){
-		if ((inv.listeZonesDispo != null) && (inv.listeZonesDispo.size() > 0))
-			{
-			 	int zoneChoisie = rand.nextInt(inv.listeZonesDispo.size()); 
+
+	public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv){
+		if ( (inv.getNbZoneJouer() < 7)){
+			 	int zoneChoisie = rand.nextInt(6);
+			 	while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0){
+			 		zoneChoisie = rand.nextInt(6);
+			 	}
 				//IA simple qui choisit une zone au hazard
-				int nbOuvChoisie= rand.nextInt(Math.min(inv.getNbOuvrierDispo(),(inv.listeZonesDispo.get(zoneChoisie).getNbPlaceZone()-1)))+1;
+				int nbOuvChoisie= rand.nextInt(Math.min(inv.getNbOuvrierDispo(),LesZones.get(zoneChoisie).getNbPlaceDispo()))+1;
 				//IA simple qui choisit nombre d'ouvrier qu'elle va poser sur cette zone au hazard 
 				//le nombre doit etres inferieur au nombre de place disponnible de la zone et inferieur au nombre d'ouvrier dispo de la zone 
-	            return new Choix(inv.listeZonesDispo.get(zoneChoisie), nbOuvChoisie);
+	            return new Choix(zoneChoisie, nbOuvChoisie);
 			}
-	     else 
-	    	 {
+	     else{
 	    	 return null;
 	    }
 	}
+	
 }
