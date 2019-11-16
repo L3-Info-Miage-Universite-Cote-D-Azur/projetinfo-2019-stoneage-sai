@@ -2,9 +2,9 @@ package stoneage;
 import java.util.ArrayList;
 public class Partie {
 	
-    private final Joueur joueurIA = new Joueur();
-    //private final JoueurBot2 joueurBot = new JoueurBot2();
-    private final Joueur joueurBot = new Joueur();
+    private final JoueurIA joueurIA = new JoueurIA();
+    private final JoueurBot2 joueurBot = new JoueurBot2();
+    //private final Joueur joueurBot = new Joueur();
     private final ArrayList<Joueurs> listeDesJoueurs ; //une liste qui va contenir tous les joueurs de la partie
     private final ArrayList<Inventaire> listeDesInventaires ; //une liste qui va contenir d=toues les inventaire de la partie
     private int nbJoueurs;  // A part le joueur IA 
