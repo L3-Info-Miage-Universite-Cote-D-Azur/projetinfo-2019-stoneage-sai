@@ -277,7 +277,7 @@ public class Partie {
                     inv.setNbOr(inv.getNbOr()-inv.getNbOr());      
                 }     
                 else{
-                    inv.setNbPierre(inv.getNbPierre()-nm);  
+                    inv.setNbOr(inv.getNbOr()-nm);  
                     nm=nm-nm;
                 }
             }
