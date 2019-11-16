@@ -12,12 +12,14 @@ public class Zone {
     public Zone(int niveau) {
         this.niveauZone = niveau;
         dé=new Dé();
-        switch(niveau){
-            case 1:
+        if(niveau==1){
                 nbPlaceZone=1;
-            case 2:
+        }
+        else if (niveau== 2){
                 nbPlaceZone=100;//le nombre de place dans la zone chasse est illimité
-            case 3:case 4:case 5:case 6:
+        }
+        else if (niveau== 3||(niveau== 4)||(niveau== 5)||(niveau== 6)){
+
                 nbPlaceZone=7;  
         }
         nbPlaceDispo=nbPlaceZone;//au début le nombre de place disponible = au nombre place max de la zone

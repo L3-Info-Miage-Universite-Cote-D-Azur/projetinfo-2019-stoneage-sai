@@ -22,7 +22,7 @@ public class Partie {
     	listeDesInventaires.add(new Inventaire());
     	LesZones=new ArrayList<>();
     	  // c'est la liste general des zone pour le jeu 
-    	    for(int i=0; i<7;i++){
+    	    for(int i=1; i<7;i++){
     	    	Zone zone = new Zone(i);
     	    	LesZones.add(zone);
     	    }
@@ -198,7 +198,7 @@ public class Partie {
         	if (inv.listeZonesJouer.get(i)==true){
         		Zone choix = LesZones.get(i);
         		joueur.recupeRes(inv,choix);
-        		inv.listeZonesJouer.set(i,false);
+        		inv.listeZonesJouer.set(i,false); //la zone n'es pluas etuliser donc elle devient false pour le joueur (disponnible a nouveau)
         		System.out.println("Le joueur " + joueurCourant + " reprend ses ouvriers de la zone "+choix.NomZone());
         		System.out.println("Il gagne : "+joueur.getGains() +" " +joueur.TypeGains()  + ". \n");
         	}            
@@ -207,7 +207,7 @@ public class Partie {
    
     protected void phasePlacement( Inventaire  inv, Joueurs joueur, int joueurCourant){
             Choix choix = joueur.placerOuvriers( LesZones,inv);
-            inv.listeZonesJouer.set(choix.zoneChoisie,true);
+            inv.listeZonesJouer.set(choix.zoneChoisie,true); //la zone choisie est utliser donc devient true dans l'inventaire du joueur 
             LesZones.get(choix.zoneChoisie).placerOuvrier(inv, choix.nbOuvriersChoisie);    		
             System.out.println("Le joueur " + joueurCourant + " a choisi la zone "+(LesZones.get(choix.zoneChoisie)).NomZone()+" pour y placer "+choix.nbOuvriersChoisie+" ouvrier(s)");  
     }

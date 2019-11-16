@@ -84,13 +84,20 @@ public class Joueur implements Joueurs {
     }
 
 	public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv){
-		if ( (inv.getNbZoneJouer() < 7)){
+		if ( (inv.getNbZoneJouer() < 6)){
 			 	int zoneChoisie = rand.nextInt(6);
+			 	System.out.println(inv.listeZonesJouer.get(zoneChoisie));
+			 	System.out.println(LesZones.get(zoneChoisie).getNbPlaceDispo());
+			 	System.out.println("zone:"+zoneChoisie);
 			 	while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0){
 			 		zoneChoisie = rand.nextInt(6);
 			 	}
 				//IA simple qui choisit une zone au hazard
 				int nbOuvChoisie= rand.nextInt(Math.min(inv.getNbOuvrierDispo(),LesZones.get(zoneChoisie).getNbPlaceDispo()))+1;
+				/*while (nbOuvChoisie>LesZones.get(zoneChoisie).getNbPlaceDispo()){
+					nbOuvChoisie= rand.nextInt(Math.min(inv.getNbOuvrierDispo(),LesZones.get(zoneChoisie).getNbPlaceDispo()))+1;
+					
+				}*/
 				//IA simple qui choisit nombre d'ouvrier qu'elle va poser sur cette zone au hazard 
 				//le nombre doit etres inferieur au nombre de place disponnible de la zone et inferieur au nombre d'ouvrier dispo de la zone 
 	            return new Choix(zoneChoisie, nbOuvChoisie);

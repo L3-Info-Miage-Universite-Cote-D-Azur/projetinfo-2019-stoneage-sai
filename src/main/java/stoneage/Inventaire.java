@@ -31,7 +31,7 @@ public class Inventaire {
 		setNbArgile(0);
 		setNbPierre(0);
 		setNbOr(0);
-		setNourriture(5);
+		setNourriture(15);
 		setNbRessource(0);
 		setNbOutils(0);
 		setScore(0);
