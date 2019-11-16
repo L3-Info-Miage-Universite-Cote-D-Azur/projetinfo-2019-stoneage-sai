@@ -7,19 +7,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ChoixTest {
 	private int nbOuvriersJouer;
-	private Zone zone;
+	private int zone;
 	private Choix choix;
 	
 	@BeforeEach
 	void setUp() {
 		nbOuvriersJouer= 4;
-		zone=new Zone(2);
+		zone=2;
 		choix= new Choix(zone, nbOuvriersJouer);
 		
 	}
 	@Test public void test() {
-		assertTrue(choix.equals( new Choix(new Zone(2),4)));
-		
+		assertTrue(choix.equals(new Choix(2,4)));	
 	}
-
 }
