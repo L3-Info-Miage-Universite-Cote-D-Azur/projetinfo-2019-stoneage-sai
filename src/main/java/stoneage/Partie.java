@@ -1,5 +1,6 @@
 package stoneage;
 import java.util.ArrayList;
+import java.util.Collections ;
 public class Partie {
 	
     private final JoueurIA joueurIA = new JoueurIA();
@@ -47,39 +48,57 @@ public class Partie {
             unTour();
 	    System.out.println("**** Fin du Tour N° "+ (z+1) +" ****\n");
         }
-        System.out.println("***************** fin de la Partie *****************");		
+        System.out.println("***************** fin de la Partie *****************");	
         gagner();
 	}
     
     public void gagner() {
-    	boolean Egalite = false;
-    	//Egalite.add(2);
+        ArrayList<Integer> listScore= new ArrayList<>();
+        listScore.add(listeDesInventaires.get(0).calcScore());
+        listScore.add(listeDesInventaires.get(1).calcScore());
+        listScore.add(listeDesInventaires.get(2).calcScore());
+        listScore.add(listeDesInventaires.get(3).calcScore());
     	int Gagnant=0;
     	int ScoreGagnant=0;
-    	for (int i=0 ; i<=nbJoueurs;i++)
-    	{
+    	for (int i=0 ; i<=nbJoueurs;i++){
     		System.out.println("Resources en Bois du joueur ** "+ (i+1) +" ** : " +listeDesInventaires.get(i).getNbBois());
     		System.out.println("Resources en Argile du joueur ** "+ (i+1) +" ** : " +listeDesInventaires.get(i).getNbArgile());
     		System.out.println("Resources en Pierre du joueur ** "+ (i+1) +" ** : " +listeDesInventaires.get(i).getNbPierre());
     		System.out.println("Resources en Or du joueur ** "+ (i+1) +" ** : " +listeDesInventaires.get(i).getNbOr() );
     		System.out.println("Le Score final  du joueur ** "+ (i+1) +" ** : " +listeDesInventaires.get(i).calcScore() + "\n");
+                
     		if ( listeDesInventaires.get(i).calcScore()>ScoreGagnant){
     			Gagnant=i+1; //si le score du joueur corant est le plus elever alors on change les deux variables.
     			ScoreGagnant=listeDesInventaires.get(i).calcScore();
-    		}
-    		else if (listeDesInventaires.get(i).calcScore()== ScoreGagnant)
-    		{
-    			Egalite=!Egalite; // nous permet de savoir si les 4 joueurs ont des score egaux
-    		}
-
-    	}
- 
-    		if (Egalite == true) {
-    			System.out.println("Les Joueurs ont des scores egaux! Il n'ya pas de gagnant");
-    		}
+    		}       
+        }        
+                int a=0;
+                int j=1;
+                if (listeDesInventaires.get(a).calcScore()== listeDesInventaires.get(a+1).calcScore() && listeDesInventaires.get(a+1).calcScore()==listeDesInventaires.get(a+2).calcScore() && listeDesInventaires.get(a+2).calcScore()==listeDesInventaires.get(a+3).calcScore()){
+                    System.out.println("Les Joueurs ont des scores egaux! Il n'y a pas de gagnant");// nous permet de savoir si les 4 joueurs ont des score egaux
+    		}  	
+                else if (listeDesInventaires.get(a).calcScore()== listeDesInventaires.get(a+1).calcScore() &&listeDesInventaires.get(a).calcScore()>=Collections.max(listScore)){//scorejoueur1==scorejoueur2
+                        System.out.println("Les joueurs" +(j)+" et"+(j+1)+"gagnent");
+                    } 
+                else if (listeDesInventaires.get(a).calcScore()== listeDesInventaires.get(a+2).calcScore() &&listeDesInventaires.get(a).calcScore()>=Collections.max(listScore)){//scorejoueur1==scorejoueur3
+                        System.out.println("Les joueurs" +j+" et"+(j+2)+"gagnent");
+                    } 
+                else if (listeDesInventaires.get(a).calcScore()== listeDesInventaires.get(a+3).calcScore() &&listeDesInventaires.get(a).calcScore()>=Collections.max(listScore)){//scorejoueur1==scorejoueur3
+                        System.out.println("Les joueurs" +j+" et"+(j+3)+"gagnent");
+                    } 
+                else if (listeDesInventaires.get(a+1).calcScore()== listeDesInventaires.get(a+2).calcScore() &&listeDesInventaires.get(a+1).calcScore()>=Collections.max(listScore)){//scorejoueur2==scorejoueur3
+                        System.out.println("Les joueurs" +(j+1)+" et"+(j+2)+"gagnent");
+                    } 
+                else if (listeDesInventaires.get(a+1).calcScore()== listeDesInventaires.get(a+3).calcScore() &&listeDesInventaires.get(a+1).calcScore()>=Collections.max(listScore)){//scorejoueur2==scorejoueur4
+                        System.out.println("Les joueurs" +(j+1)+" et"+(j+3)+"gagnent");
+                    } 
+                else if (listeDesInventaires.get(a+2).calcScore()== listeDesInventaires.get(a+3).calcScore() &&listeDesInventaires.get(a+2).calcScore()>=Collections.max(listScore)){//scorejoueur2==scorejoueur4
+                        System.out.println("Les joueurs" +(j+2)+" et"+(j+3)+"gagnent");
+                    } 
+                                      		
     		else {
     			System.out.println("Le joueur ** "+Gagnant+" ** emporte la partie avec : " + ScoreGagnant + " Points");
-    		}
+    		}              
     }
     protected void unTour(){
         /*ArrayList<Zone> listeZonesDispo = new ArrayList<>();
