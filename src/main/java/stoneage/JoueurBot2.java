@@ -119,14 +119,6 @@ public class JoueurBot2 implements Joueurs {
 				else if(inv.listeZonesJouer.get(2)==false && LesZones.get(2).getNbPlaceDispo()>2 && inv.getNbBois() < 10 && inv.getNbOuvrierDispo() >= 2) {//Foret
 					return new Choix(2, 2);
 				}
-				else if(inv.listeZonesJouer.get(3)==false  && inv.listeZonesJouer.get(4)==false   && inv.listeZonesJouer.get(5)==false  && inv.listeZonesJouer.get(2)==false   && inv.ouvrierDispo())
-				{
-					int zoneChoisie = (rand.nextInt(4) + 2);
-					int nbOuvChoisie= (Math.min(inv.getNbOuvrierDispo(),LesZones.get(zoneChoisie).getNbPlaceDispo()));
-					System.out.println(zoneChoisie);
-					return new Choix (zoneChoisie, nbOuvChoisie);
-
-				}
 				else {
 					int zoneChoisie = (rand.nextInt(4) + 2);
 					int nbOuvChoisie= (Math.min(inv.getNbOuvrierDispo(),LesZones.get(zoneChoisie).getNbPlaceDispo()));
