@@ -90,7 +90,7 @@ public class JoueurBot2 implements Joueurs {
 
 	public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv){
 		
-		if ( (inv.getNbZoneJouer() < 6)){
+		if ( (inv.getNbZoneJouer() < 6&&inv.ouvrierDispo())){
 
 			if (inv.listeZonesJouer.get(1)==false&&inv.getNourriture() >= 3  && LesZones.get(1).getNbPlaceDispo()>1&& inv.getNourriture() < 5)//Chasse
 			{	//SI la zone fabrication d'outil n'est pas etuliser 
@@ -102,36 +102,43 @@ public class JoueurBot2 implements Joueurs {
 			else if (inv.listeZonesJouer.get(1)==false&&inv.getNourriture() < 3&& LesZones.get(1).getNbPlaceDispo()>3) {
 				return new Choix(1, 3);
 			}
-			else if (inv.listeZonesJouer.get(0)==false&& LesZones.get(0).getNbPlaceDispo()>1) { //Fabrication d'outils
+			else {
+				if (inv.listeZonesJouer.get(0)==false&& LesZones.get(0).getNbPlaceDispo()>1) { //Fabrication d'outils
+				
 					return new Choix(0, 1);
 				}
-			else if(inv.listeZonesJouer.get(5)==false&& LesZones.get(5).getNbPlaceDispo()>5 && inv.getNbOr() < 4 &&  inv.getNbOuvrierDispo() == 5) {//Riviere
-				return new Choix(5, 5);
-			}
-			else if(inv.listeZonesJouer.get(4)==false && inv.getNbPierre() < 4 && LesZones.get(4).getNbPlaceDispo()>4&&  inv.getNbOuvrierDispo() >= 4) { //Carriere
-				return new Choix(4, 4);
-			}
-			else if(inv.listeZonesJouer.get(3)==false && inv.getNbArgile() < 6 && LesZones.get(3).getNbPlaceDispo()>3&&  inv.getNbOuvrierDispo() >= 3) { //Glaisiere
-				return new Choix(3, 3);
-			}
-			else if(inv.listeZonesJouer.get(2)==false && LesZones.get(2).getNbPlaceDispo()>2 && inv.getNbBois() < 10 && inv.getNbOuvrierDispo() >= 2) {//Foret
-				return new Choix(2, 2);
-			}
-			else {
-				if (inv.ouvrierDispo()){
+				else if(inv.listeZonesJouer.get(5)==false&& LesZones.get(5).getNbPlaceDispo()>5 && inv.getNbOr() < 4 &&  inv.getNbOuvrierDispo() == 5) {//Riviere
+					return new Choix(5, 5);
+				}
+				else if(inv.listeZonesJouer.get(4)==false && inv.getNbPierre() < 4 && LesZones.get(4).getNbPlaceDispo()>4&&  inv.getNbOuvrierDispo() >= 4) { //Carriere
+					return new Choix(4, 4);
+				}
+				else if(inv.listeZonesJouer.get(3)==false && inv.getNbArgile() < 6 && LesZones.get(3).getNbPlaceDispo()>3&&  inv.getNbOuvrierDispo() >= 3) { //Glaisiere
+					return new Choix(3, 3);
+				}
+				else if(inv.listeZonesJouer.get(2)==false && LesZones.get(2).getNbPlaceDispo()>2 && inv.getNbBois() < 10 && inv.getNbOuvrierDispo() >= 2) {//Foret
+					return new Choix(2, 2);
+				}
+				else if(inv.listeZonesJouer.get(3)==false  && inv.listeZonesJouer.get(4)==false   && inv.listeZonesJouer.get(5)==false  && inv.listeZonesJouer.get(2)==false   && inv.ouvrierDispo())
+				{
 					int zoneChoisie = (rand.nextInt(4) + 2);
-					int nbOuvChoisie= rand.nextInt(Math.min(inv.getNbOuvrierDispo(),LesZones.get(zoneChoisie).getNbPlaceDispo()))+1;
-					System.out.println(nbOuvChoisie);
+					int nbOuvChoisie= (Math.min(inv.getNbOuvrierDispo(),LesZones.get(zoneChoisie).getNbPlaceDispo()));
+					System.out.println(zoneChoisie);
 					return new Choix (zoneChoisie, nbOuvChoisie);
+
 				}
-				else{
-					return null;
+				else {
+					int zoneChoisie = (rand.nextInt(4) + 2);
+					int nbOuvChoisie= (Math.min(inv.getNbOuvrierDispo(),LesZones.get(zoneChoisie).getNbPlaceDispo()));
+					System.out.println(zoneChoisie);
+					return new Choix (zoneChoisie, nbOuvChoisie);
+					
 				}
 			}
 		}
-		else {
-			return null;
-		}
+		
+		return null;
+		
 	}
 
 }
