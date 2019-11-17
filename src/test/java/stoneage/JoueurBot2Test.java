@@ -86,14 +86,14 @@ public class JoueurBot2Test {
         }
     }
 
-	    @Test
-	    void recupRes() {
-	    	// si zone = 1 recupere 1 outil
-	    	inventaire.setNbOutils(1);
-	    	zone = new Zone(1);
-	    	j.recupeRes(inventaire2, zone);
-	    	assertEquals(inventaire.getNbOutils(),inventaire2.getNbOutils());
-	    }
+    @Test
+    void recupRes() {
+    	inventaire.resetInventory();
+    	zone1 = new Zone(1);
+    	joueurBot.recupeRes(inventaire, zone1);
+    	assertEquals(inventaire.getNbOutils(), 1);
+    	
+    }
 
 }
 
