@@ -1,12 +1,11 @@
 package stoneage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class JoueurBot2Test {
@@ -14,7 +13,7 @@ public class JoueurBot2Test {
     Zone zone1, zone2, zone3, zone4, zone5, zone6;
     Choix actualChoice ,expectedChoice;
     JoueurBot2 joueurBot;
-    Inventaire inventaire;
+    Inventaire inventaire,inventaireCopy;
 
 
     @BeforeEach
@@ -35,6 +34,7 @@ public class JoueurBot2Test {
 
         joueurBot = new JoueurBot2();
         inventaire = new Inventaire();
+        inventaireCopy = new Inventaire();
     }
 
 
@@ -56,7 +56,7 @@ public class JoueurBot2Test {
     }
 
     @Test
-    void placerOuvrierNourritureSuffisante() {
+    void placerOuvrierNourritureSuffisanteETOutilsDispo() {
         inventaire.setNourriture(6);
         if(zone1.getNbPlaceZone() == 1){
             expectedChoice = new Choix(0, 1);
@@ -64,7 +64,28 @@ public class JoueurBot2Test {
             assertEquals(expectedChoice, actualChoice);
         }
     }
-    /*
+    @Test
+    void placerOuvrierNourritureSuffisanteETOutilsIndispo() {
+        inventaire.setNourriture(6);
+        zone1.setNbPlaceDispo(0);
+
+        for(int i=0 ; i< 2; i++){ //2fois pour tester les 2 conditions
+            if (zone6.getNbPlaceDispo()>= 5 && inventaire.getNbOuvrierDispo() == 5){
+                System.out.println("Test1");
+                expectedChoice = new Choix(5, 5);
+                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
+                assertEquals(expectedChoice, actualChoice);
+                zone6.setNbPlaceDispo(4); // pour passer dans la 2e condition
+            }
+            else {
+                System.out.println("Test2");
+                expectedChoice = new Choix(5, 5);
+                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
+                assertNotEquals(expectedChoice, actualChoice);
+            }
+        }
+    }
+
 	    @Test
 	    void recupRes() {
 	    	// si zone = 1 recupere 1 outil
@@ -72,7 +93,7 @@ public class JoueurBot2Test {
 	    	zone = new Zone(1);
 	    	j.recupeRes(inventaire2, zone);
 	    	assertEquals(inventaire.getNbOutils(),inventaire2.getNbOutils());
-	    }*/
+	    }
 
 }
 
