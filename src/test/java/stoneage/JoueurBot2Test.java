@@ -2,11 +2,8 @@ package stoneage;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
-
 
 public class JoueurBot2Test {
     ArrayList<Zone> listeZones = new ArrayList<Zone>();
@@ -20,10 +17,10 @@ public class JoueurBot2Test {
     void setUp(){
         zone1 = new Zone(1);
         zone2 = new Zone(2);
-        zone3 = new Zone(3);
-        zone4 = new Zone(4);
-        zone5 = new Zone(5);
-        zone6 = new Zone(6);
+        zone3 = new Zone(3); //Foret
+        zone4 = new Zone(4); //Glaisiere
+        zone5 = new Zone(5); //Carriere
+        zone6 = new Zone(6); //riviere
 
         listeZones.add(zone1);
         listeZones.add(zone2);
@@ -71,14 +68,12 @@ public class JoueurBot2Test {
 
         for(int i=0 ; i< 2; i++){ //2fois pour tester les 2 conditions
             if (zone6.getNbPlaceDispo()>= 5 && inventaire.getNbOuvrierDispo() == 5){
-                System.out.println("Test1");
                 expectedChoice = new Choix(5, 5);
                 actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
                 assertEquals(expectedChoice, actualChoice);
                 zone6.setNbPlaceDispo(4); // pour passer dans la 2e condition
             }
             else {
-                System.out.println("Test2");
                 expectedChoice = new Choix(5, 5);
                 actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
                 assertNotEquals(expectedChoice, actualChoice);
@@ -91,7 +86,7 @@ public class JoueurBot2Test {
     void placerOuvrierNourritureSuffisanteETOutilsIndispo2() {
         inventaire.setNourriture(6);
         zone1.setNbPlaceDispo(0);
-        zone6.setNbPlaceDispo(0);
+        zone6.setNbPlaceDispo(4);
         
         for(int i=0 ; i< 2; i++){
         	if (zone5.getNbPlaceDispo()>= 5 && inventaire.getNbOuvrierDispo() == 5){
@@ -108,27 +103,8 @@ public class JoueurBot2Test {
         }
     }
 
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     @Test
-    void placerOuvrierGlaisieree() {
+    void placerOuvrierNourritureSuffisanteETOutilsIndispo3() {
         inventaire.setNourriture(6);
         zone1.setNbPlaceDispo(0);
         zone6.setNbPlaceDispo(4);
@@ -147,66 +123,65 @@ public class JoueurBot2Test {
             }
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+    @Test
+    void placerOuvrierNourritureSuffisanteETOutilsIndispo4() {
+        inventaire.setNourriture(6);
+        zone1.setNbPlaceDispo(0);
+        zone6.setNbPlaceDispo(4);
+        zone5.setNbPlaceDispo(3);
+        zone4.setNbPlaceDispo(2);
+
+        for(int i=0 ; i< 2; i++){ //2fois pour tester les 2 conditions
+            if (zone3.getNbPlaceDispo()>= 2 && inventaire.getNbOuvrierDispo() >= 2 && inventaire.getNbBois() < 10){
+                expectedChoice = new Choix(2, 2);
+                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
+                assertEquals(expectedChoice, actualChoice);
+                zone3.setNbPlaceDispo(1); // pour passer dans la 2e condition
+            }
+            else {
+                expectedChoice = new Choix(2, 2);
+                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
+                assertNotEquals(expectedChoice, actualChoice);
+            }
+        }
+    }
+
     @Test
     void recupRes() {
-    	inventaire.resetInventory();
-    	zone1 = new Zone(1);
-    	joueurBot.recupeRes(inventaire, zone1);
-    	assertEquals(inventaire.getNbOutils(), 1);
-    	
+        inventaire.resetInventory();
+        zone1 = new Zone(1);
+        joueurBot.recupeRes(inventaire, zone1);
+        assertEquals(inventaire.getNbOutils(), 1);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
