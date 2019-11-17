@@ -85,6 +85,28 @@ public class JoueurBot2Test {
             }
         }
     }
+    
+    
+    @Test
+    void placerOuvrierNourritureSuffisanteETOutilsIndispo2() {
+        inventaire.setNourriture(6);
+        zone1.setNbPlaceDispo(0);
+        zone6.setNbPlaceDispo(0);
+        
+        for(int i=0 ; i< 2; i++){
+        	if (zone5.getNbPlaceDispo()>= 5 && inventaire.getNbOuvrierDispo() == 5){
+                expectedChoice = new Choix(4, 4);
+                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
+                assertEquals(expectedChoice, actualChoice);
+                zone5.setNbPlaceDispo(3);
+        	}
+        	else {
+                expectedChoice = new Choix(4, 4);
+                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
+                assertNotEquals(expectedChoice, actualChoice);
+        	}
+        }
+    }
 
     @Test
     void recupRes() {
