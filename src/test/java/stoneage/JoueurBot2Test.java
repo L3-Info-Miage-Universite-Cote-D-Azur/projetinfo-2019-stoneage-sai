@@ -86,6 +86,98 @@ public class JoueurBot2Test {
         }
     }
 
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    @Test
+    void placerOuvrierGlaisieree() {
+        inventaire.setNourriture(6);
+        zone1.setNbPlaceDispo(0);
+        zone6.setNbPlaceDispo(4);
+        zone5.setNbPlaceDispo(3);
+        for(int i=0 ; i< 2; i++){ //2fois pour tester les 2 conditions
+            if (zone4.getNbPlaceDispo()>= 3 && inventaire.getNbOuvrierDispo() >= 3){
+                expectedChoice = new Choix(3, 3);
+                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
+                assertEquals(expectedChoice, actualChoice);
+                zone4.setNbPlaceDispo(2); // pour passer dans la 2e condition
+            }
+            else {
+                expectedChoice = new Choix(3, 3);
+                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
+                assertNotEquals(expectedChoice, actualChoice);
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     @Test
     void recupRes() {
     	inventaire.resetInventory();
@@ -94,6 +186,5 @@ public class JoueurBot2Test {
     	assertEquals(inventaire.getNbOutils(), 1);
     	
     }
-
 }
 
