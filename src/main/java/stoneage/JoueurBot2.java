@@ -107,16 +107,16 @@ public class JoueurBot2 implements Joueurs {
 				
 					return new Choix(0, 1);
 				}
-				else if(inv.listeZonesJouer.get(5)==false&& LesZones.get(5).getNbPlaceDispo()>5 && inv.getNbOr() < 4 &&  inv.getNbOuvrierDispo() == 5) {//Riviere
+				else if(inv.listeZonesJouer.get(5)==false&& LesZones.get(5).getNbPlaceDispo()>=5 && inv.getNbOr() < 4 &&  inv.getNbOuvrierDispo() == 5) {//Riviere
 					return new Choix(5, 5);
 				}
-				else if(inv.listeZonesJouer.get(4)==false && inv.getNbPierre() < 4 && LesZones.get(4).getNbPlaceDispo()>4&&  inv.getNbOuvrierDispo() >= 4) { //Carriere
+				else if(inv.listeZonesJouer.get(4)==false && inv.getNbPierre() < 4 && LesZones.get(4).getNbPlaceDispo()>= 4&&  inv.getNbOuvrierDispo() >= 4) { //Carriere
 					return new Choix(4, 4);
 				}
-				else if(inv.listeZonesJouer.get(3)==false && inv.getNbArgile() < 6 && LesZones.get(3).getNbPlaceDispo()>3&&  inv.getNbOuvrierDispo() >= 3) { //Glaisiere
+				else if(inv.listeZonesJouer.get(3)==false && inv.getNbArgile() < 6 && LesZones.get(3).getNbPlaceDispo()>= 3&&  inv.getNbOuvrierDispo() >= 3) { //Glaisiere
 					return new Choix(3, 3);
 				}
-				else if(inv.listeZonesJouer.get(2)==false && LesZones.get(2).getNbPlaceDispo()>2 && inv.getNbBois() < 10 && inv.getNbOuvrierDispo() >= 2) {//Foret
+				else if(inv.listeZonesJouer.get(2)==false && LesZones.get(2).getNbPlaceDispo()>= 2 && inv.getNbBois() < 10 && inv.getNbOuvrierDispo() >= 2) {//Foret
 					return new Choix(2, 2);
 				}
 				else {
