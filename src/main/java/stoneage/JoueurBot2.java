@@ -103,7 +103,7 @@ public class JoueurBot2 implements Joueurs {
 				return new Choix(1, 3);
 			}
 			else {
-				if (inv.listeZonesJouer.get(0)==false&& LesZones.get(0).getNbPlaceDispo()>1) { //Fabrication d'outils
+				if (inv.listeZonesJouer.get(0)==false&& LesZones.get(0).getNbPlaceDispo()>=1) { //Fabrication d'outils
 				
 					return new Choix(0, 1);
 				}
