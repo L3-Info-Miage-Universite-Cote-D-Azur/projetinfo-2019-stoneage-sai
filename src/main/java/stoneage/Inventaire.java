@@ -1,6 +1,8 @@
 package stoneage;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /*
  * 	public class Inventaire contient:
@@ -21,10 +23,17 @@ public class Inventaire {
 	private int nbNourriture;
 	private int nbOutils;
 	private int scoreChamp;
+	private int nbPaysan;// va etre multiplier par le scoreChamp pour le score final
+	private int nbFabricant;// va etre multiplier par le nombre d'outil pour le score final
+	private int nbConstructeur;// va etre multiplier par le nombre de tuile batiment  pour le score final
+	private int nbChamane; // va etre multiplier par le nombre de figurine pour le score final
+	private int nbCarteVert;
+	private int nbCarteCiv;
+	private Set<Integer> setTypeCarteCivVerte ;//= new LinkedHashSet<>(); //cette ensemble va contenir les differant type de carte civilisation verte que le joueur va prendre
 	private int score;
-    public ArrayList<CarteCivilisation> listeDesCarteCivilisation = new ArrayList<>(); 
-    public ArrayList<Integer> listeZonesDispo = new ArrayList<>(); 
-    public ArrayList<Boolean> listeZonesJouer = new ArrayList<>();
+    public ArrayList<CarteCivilisation> listeDesCarteCivilisation;// = new ArrayList<>(); 
+    public ArrayList<Integer> listeZonesDispo;// = new ArrayList<>(); 
+    public ArrayList<Boolean> listeZonesJouer;// = new ArrayList<>();
 	public Inventaire() {  //Initialisation d'un Inventaire vide
 		setNbOuvrier(NB_INITIAL_OUVRIERS); //Initialisation du nombre d'ouvrier 
 		// Initialisation à 0 des ressources et du score
@@ -38,6 +47,8 @@ public class Inventaire {
 		setScore(0);
 		setScoreChamp(0);
 		resetAvailableWorkers();
+		listeDesCarteCivilisation = new ArrayList<>();
+		setTypeCarteCivVerte = new LinkedHashSet<>();	
 		listeZonesJouer  = new ArrayList<>();
 	    listeZonesDispo = new ArrayList<>();
         for (int i=1;i <= 6;i++ ){
@@ -92,7 +103,25 @@ public class Inventaire {
 	/* ****************************************
 	   * Getter and setter des champs privés  * 
 	   **************************************** */
-	
+
+	public void addNbPaysan(int nb) {
+		nbPaysan+=nb;
+	}
+	public void addNbFabricant(int nb) {
+		nbFabricant+=nb;
+	}
+	public void addNbConstructeur(int nb) {
+		nbConstructeur+=nb;
+	}
+	public void addNbChamane(int nb) {
+		nbPaysan+=nb;
+	}
+	public void addNbCarteVert() {
+		nbCarteVert++;
+	}
+	public void addTypeCarteCivVerte(int type) {
+		setTypeCarteCivVerte.add(type);
+	}
 	public int getNbOuvrier() {
 		return nbOuvrier;
 	}
