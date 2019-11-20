@@ -8,13 +8,13 @@ public class Zone {
     private Dé dé;
     private int nbPlaceZone ;
     private int nbPlaceDispo;
-	public int gains; //le nombre des gains du joueur 
-	public String TypeGains; //le nom du gain par exemple bois...
+    public int gains; //le nombre des gains du joueur 
+    public String TypeGains; //le nom du gain par exemple bois...
     Random rand = new Random();
     public Zone(int niveau) {
         this.niveauZone = niveau;
         dé=new Dé();
-        if(niveau==1){
+        if(niveau==1||(niveau==7)){
                 nbPlaceZone=1;
         }
         else if (niveau== 2){
@@ -40,7 +40,7 @@ public class Zone {
     }
 
     public String NomZone(){
-    	String[] nomZone={"Fabrication d'Outils","Chasse","foret","glaisière","carrière","rivière"};//ajout des zones glaisière,carrière,rivière
+    	String[] nomZone={"Fabrication d'Outils","Chasse","foret","glaisière","carrière","rivière","champ"};//ajout des zones glaisière,carrière,rivière
     	String nom=nomZone[niveauZone - 1];
     	return nom;
     }
@@ -118,6 +118,10 @@ public class Zone {
     			TypeGains="Or";
     	    	
     			break;
+                case 7:
+                        inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+inventaireJoueur.getScoreChamp());
+                        break;
+                        
     		default:
     			break;			
     	}
@@ -130,18 +134,13 @@ public class Zone {
     
     
     
-	public int getGains(){
-		return gains;
-	}
-	public String TypeGains(){
-		return  TypeGains;
-		
-	}
+    public int getGains(){
+	return gains;
+    }
+    public String TypeGains(){
+	return  TypeGains;	
+    }
 	
-    
-    
-
-    
     public boolean ouvrierPlace(int nbOuvriers){
         return (nbOuvriersPlacés == nbOuvriers);
     }//retourne une valeur booléenne pour vérifier si tous les ouvrier ont été placés ou non.
