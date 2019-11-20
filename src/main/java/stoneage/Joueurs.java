@@ -12,8 +12,6 @@ import java.util.ArrayList;
  * @author Ossama
  */
 public interface Joueurs {
-	public int getGains();
-	public String TypeGains();
-    public void recupeRes(Inventaire inventaireJoueur, Zone zoneChoisi);
+	public int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) ;
     public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv);
 }

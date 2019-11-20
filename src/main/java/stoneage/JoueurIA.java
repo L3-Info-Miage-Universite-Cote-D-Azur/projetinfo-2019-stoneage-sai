@@ -4,86 +4,27 @@ import java.util.Random;
 
 public class JoueurIA implements Joueurs {
 	Random rand = new Random();
-	public int gains;
-	public String TypeGains;
 
-	public int getGains(){
-		return gains;
-	}
-	public String TypeGains(){
-		return  TypeGains;
-		
-	}
-    public void recupeRes(Inventaire inventaireJoueur, Zone zoneChoisi) { 
-    	int nbRessources= zoneChoisi.lancéDeDés(zoneChoisi.getNbOuvriersPlaces());
+    public int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) { 
+
+    	int OutilChoisie ;
+ 
+
+    	/*Ici le joueur va choisir s'il peut ou pas placer des outils lorsqu'il recupere ses gains.
+    	si par exemple il a une somme de des egale a 8 dans la zone foret il peut rajouter un outils 
+    	pour avoir 9 et donc 3 bois au lieu de 2.*/
     	
-    	/*Ici le joueur va chosir s'il peut ou pas placer des outils lorsqu'il recupere ses gains.
-    	si par exemple il a une somme de des egale a 8 dans la zone foret il peut rajouter un outils pour avoir 9 et donc 3 bois au lieu de 2.*/
-    	
-    	if ((zoneChoisi.niveauZone-(nbRessources % zoneChoisi.niveauZone))<=inventaireJoueur.getNbOutils())
+    	if ((zoneChoisi.niveauZone-(nbRessources % zoneChoisi.niveauZone))<=nbOutils)
     	{
-    		nbRessources+=(zoneChoisi.niveauZone-(nbRessources % zoneChoisi.niveauZone));
-    		nbRessources=(nbRessources / zoneChoisi.niveauZone);
-    		inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()-(nbRessources % zoneChoisi.niveauZone));	
+    		OutilChoisie =(zoneChoisi.niveauZone-(nbRessources % zoneChoisi.niveauZone));
+
     	}
-    		
-    	//recuperer les ressources gagner
-    	//ajouter les nouveau ressources a l'inventaire du joueur 
-    	switch(zoneChoisi.niveauZone)
-    	{
-    		case 1:
-    			inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()+1);
-
-    			gains=1;
-    			TypeGains="Outils";
-    			break;
-    		case 2:
-    			inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+nbRessources);
-
-    			gains=nbRessources;
-    			TypeGains="Nourriture";
-    			break;
-    		case 3:
-    			inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()+nbRessources);
-    			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
-
-    			gains=nbRessources;
-    			TypeGains="Bois";
-    	    	
-    			break;
-    		case 4: 
-    			inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()+nbRessources);
-    			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
-
-    			gains=nbRessources;
-    			TypeGains="Argile";
-    	    	
-    			break;
-    		case 5:
-    			inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()+nbRessources);
-    			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
-
-    			gains=nbRessources;
-    			TypeGains="Pierre";
-    	    	
-    			break;
-
-    		case 6:
-    			inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()+nbRessources);
-    			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
-
-    			gains=nbRessources;
-    			TypeGains="Or";
-     			break;
-    		default:
-    			break;			
+    	else {
+    	    OutilChoisie = rand.nextInt(nbOutils+1); 
     	}
-        inventaireJoueur.addAvailableWorkers(zoneChoisi.getNbOuvriersPlaces());
-        //recuperer les ouvriers 
-        zoneChoisi.resetNbOuvriersPlaces();
-        zoneChoisi.setNbPlaceDispo(zoneChoisi.getNbPlaceZone());//quand on recupere les ouvriers,toutes les places deviennent disponibles.    
-    }
-    
+    	return OutilChoisie;
+    }	
+
     public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv){
 
 	    if ( (inv.getNbZoneJouer() < 6 &&inv.ouvrierDispo())){

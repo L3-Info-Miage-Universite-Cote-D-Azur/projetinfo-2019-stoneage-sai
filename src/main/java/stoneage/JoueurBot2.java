@@ -15,71 +15,18 @@ public class JoueurBot2 implements Joueurs {
 		
 	}
 
-
-	public void recupeRes(Inventaire inventaireJoueur, Zone zoneChoisi) {
-		
-		int nbRessources = zoneChoisi.lancéDeDés(zoneChoisi.getNbOuvriersPlaces());
-		
-		if ((zoneChoisi.niveauZone-(nbRessources % zoneChoisi.niveauZone))<=inventaireJoueur.getNbOutils())
+	 public int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) { 
+	    int OutilChoisie ;	
+		if ((zoneChoisi.niveauZone-(nbRessources % zoneChoisi.niveauZone))<=nbOutils)
     	{
-    		nbRessources+=(zoneChoisi.niveauZone-(nbRessources % zoneChoisi.niveauZone));
-    		nbRessources=(nbRessources / zoneChoisi.niveauZone);
-    		inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()-(nbRessources % zoneChoisi.niveauZone));	
+			OutilChoisie =(zoneChoisi.niveauZone-(nbRessources % zoneChoisi.niveauZone));
     	}
+    	else {
+    	    OutilChoisie = rand.nextInt(nbOutils+1); 
+    	}
+    	return OutilChoisie;
+    }	
 		
-		switch(zoneChoisi.niveauZone)
-    	{
-    		case 1:
-    			inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()+1);
-
-    			gains=1;
-    			TypeGains="Outils";
-    			break;
-    		case 2:
-    			inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+nbRessources);
-
-    			gains=nbRessources;
-    			TypeGains="Nourriture";
-    			break;
-    		case 3:
-    			inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()+nbRessources);
-    			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
-
-    			gains=nbRessources;
-    			TypeGains="Bois";
-    	    	
-    			break;
-    		case 4: 
-    			inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()+nbRessources);
-    			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
-
-    			gains=nbRessources;
-    			TypeGains="Argile";
-    	    	
-    			break;
-    		case 5:
-    			inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()+nbRessources);
-    			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
-
-    			gains=nbRessources;
-    			TypeGains="Pierre";
-    	    	
-    			break;
-
-    		case 6:
-    			inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()+nbRessources);
-    			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
-
-    			gains=nbRessources;
-    			TypeGains="Or";
-     			break;
-    		default:
-    			break;			
-    	}
-		 inventaireJoueur.addAvailableWorkers(zoneChoisi.getNbOuvriersPlaces());
-	     zoneChoisi.resetNbOuvriersPlaces();
-	     zoneChoisi.setNbPlaceDispo(zoneChoisi.getNbPlaceZone());
-	}
 	
 /*  **************************************************************************************** 
  	* Place un ouvrier en fonction de ses ressources et de son nombre d'ouvrier dispo      *
@@ -122,7 +69,6 @@ public class JoueurBot2 implements Joueurs {
 				else {
 					int zoneChoisie = (rand.nextInt(4) + 2);
 					int nbOuvChoisie= (Math.min(inv.getNbOuvrierDispo(),LesZones.get(zoneChoisie).getNbPlaceDispo()));
-					System.out.println(zoneChoisie);
 					return new Choix (zoneChoisie, nbOuvChoisie);
 					
 				}
