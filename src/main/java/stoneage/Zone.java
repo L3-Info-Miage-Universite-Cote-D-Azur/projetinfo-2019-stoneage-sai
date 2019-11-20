@@ -14,7 +14,7 @@ public class Zone {
     public Zone(int niveau) {
         this.niveauZone = niveau;
         dé=new Dé();
-        if(niveau==1||(niveau==7)){
+        if(niveau==1||niveau==7||niveau==8||niveau==9||niveau==10||niveau==11){
                 nbPlaceZone=1;
         }
         else if (niveau== 2){
@@ -29,6 +29,7 @@ public class Zone {
     public Zone(int niveau,Dé dé){
         this.niveauZone = niveau;
         this.dé=dé;
+        //this.type=carte
     }
     public void placerOuvrier(Inventaire inventaireJoueur,int nbOuvriers){
     	if (nbOuvriers>=1 && nbOuvriers <=nbPlaceDispo && nbOuvriers<=inventaireJoueur.getNbOuvrierDispo() ){
@@ -118,9 +119,16 @@ public class Zone {
     			TypeGains="Or";
     	    	
     			break;
-                case 7:
-                        inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+inventaireJoueur.getScoreChamp());
-                        break;
+    		case 7:
+    			inventaireJoueur.setScoreChamp(inventaireJoueur.getScoreChamp()+1);
+                inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+inventaireJoueur.getScoreChamp());
+                break;
+    		case 8:case 9: case 10: case 11:
+    			
+    			CarteCivilisation.getAllCards().get(0);
+    			inventaireJoueur.setScoreChamp(inventaireJoueur.getScoreChamp()+1);
+                inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+inventaireJoueur.getScoreChamp());
+                break;
                         
     		default:
     			break;			
