@@ -1,11 +1,16 @@
 package stoneage;
 
+import java.util.Random;
+
 public class Zone {
     private int nbOuvriersPlacés = 0;
     public int niveauZone ;
     private Dé dé;
     private int nbPlaceZone ;
     private int nbPlaceDispo;
+	public int gains; //le nombre des gains du joueur 
+	public String TypeGains; //le nom du gain par exemple bois...
+    Random rand = new Random();
     public Zone(int niveau) {
         this.niveauZone = niveau;
         dé=new Dé();
@@ -33,19 +38,13 @@ public class Zone {
              //le nombre d'ouvrier placer dans la zone augmente
     	}
     }
-    public void resetNbOuvriersPlaces(){
-    	nbOuvriersPlacés=0;
-    }
+
     public String NomZone(){
     	String[] nomZone={"Fabrication d'Outils","Chasse","foret","glaisière","carrière","rivière"};//ajout des zones glaisière,carrière,rivière
     	String nom=nomZone[niveauZone - 1];
     	return nom;
     }
 
-    //retourne une valeur booléenne pour vérifier si tous les ouvrier ont été placés ou non.
-    public boolean ouvrierPlace(int nbOuvriers){
-        return (nbOuvriersPlacés == nbOuvriers);
-    }
 
     /*on lance autant de Dés que des nbOuvriersPlacés
     et on retourne la somme des Dés jetés, divisé par niveauZone
@@ -56,6 +55,99 @@ public class Zone {
             sommeDés+=dé.Lancer();
         }
         return sommeDés ;
+    }
+    
+    /* cette methode va nous permettre de distribuer
+     *  les resources gagner a chaque joueur , ainsi son inventaire va etre modifier
+     *   et la zone sera liberer quand il recupere ses ouvrier */
+    
+    public void recupeRes(Inventaire inventaireJoueur, Joueurs J) { 
+    	int nbRessources= this.lancéDeDés(this.getNbOuvriersPlaces());
+    	int nbOutilsDuJoueur=inventaireJoueur.getNbOutils();
+    	int outilChoisie=J.placerOutils(nbOutilsDuJoueur,nbRessources,this);
+		
+    	nbRessources=nbRessources +outilChoisie;
+    	nbRessources=nbRessources / this.niveauZone;
+    	inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()-outilChoisie);	   	   		
+    	//recuperer les ressources gagner
+    	//ajouter les nouveau ressources a l'inventaire du joueur 
+    	switch(this.niveauZone)
+    	{
+    		case 1:
+    			inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()+1);
+
+    			gains=1;
+    			TypeGains="Outils";
+    			break;
+    		case 2:
+    			inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+nbRessources);
+
+    			gains=nbRessources;
+    			TypeGains="Nourriture";
+    			break;
+    		case 3:
+    			inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()+nbRessources);
+    			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
+
+    			gains=nbRessources;
+    			TypeGains="Bois";
+    	    	
+    			break;
+    		case 4: 
+    			inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()+nbRessources);
+    			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
+
+    			gains=nbRessources;
+    			TypeGains="Argile";
+    	    	
+    			break;
+    		case 5:
+    			inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()+nbRessources);
+    			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
+
+    			gains=nbRessources;
+    			TypeGains="Pierre";
+    	    	
+    			break;
+
+    		case 6:
+    			inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()+nbRessources);
+    			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
+
+    			gains=nbRessources;
+    			TypeGains="Or";
+    	    	
+    			break;
+    		default:
+    			break;			
+    	}
+        inventaireJoueur.addAvailableWorkers(this.getNbOuvriersPlaces());
+        //recuperer les ouvriers 
+        this.resetNbOuvriersPlaces(); // 
+        this.setNbPlaceDispo(this.getNbPlaceZone());//quand on recupere les ouvriers,toutes les places deviennent disponibles.    
+    }
+
+    
+    
+    
+	public int getGains(){
+		return gains;
+	}
+	public String TypeGains(){
+		return  TypeGains;
+		
+	}
+	
+    
+    
+
+    
+    public boolean ouvrierPlace(int nbOuvriers){
+        return (nbOuvriersPlacés == nbOuvriers);
+    }//retourne une valeur booléenne pour vérifier si tous les ouvrier ont été placés ou non.
+    
+    public void resetNbOuvriersPlaces(){
+    	nbOuvriersPlacés=0;
     }
 
     public int getNbPlaceZone(){
