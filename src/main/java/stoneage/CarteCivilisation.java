@@ -12,7 +12,7 @@ public class CarteCivilisation {
        21-22-23-24-25: Agriculture
        26-27-28-29-30: Outils
        31-32-33-34-35: Figurine  */
-    private ArrayList<CarteCivilisation> allCards;
+    private static ArrayList<CarteCivilisation> allCards;
     private int nbBuilderOnIt;
     /*  0:Pour les cartes fond verts
         1 ou 2 ou 3: Nb Builder present sur chaque carte */
@@ -38,8 +38,13 @@ public class CarteCivilisation {
     public void ajouterDansInventaire(Inventaire inventaire){
         inventaire.addCarteCiv(this);
     }
-
-    public void initialiseCards(){
+    public void initialiseDeck(){
+        shuffleCards(allCards);
+    }
+    public void shuffleCards(ArrayList<CarteCivilisation> allCards){
+        /* @TODO */
+    }
+    public void addCardsToList(){
         //  FOND VERT
         allCards.add(new CarteCivilisation(0,0,1,0));
         allCards.add(new CarteCivilisation(0,1,6,0));
@@ -79,11 +84,9 @@ public class CarteCivilisation {
         allCards.add(new CarteCivilisation(1,34,2,1));
         allCards.add(new CarteCivilisation(1,35,2,1));
     }
-
     public int getFondDeCarte() {
         return fondDeCarte;
     }
-
     public int getNumeroCarte() {
         return numeroCarte;
     }
@@ -93,7 +96,7 @@ public class CarteCivilisation {
     public int getPartieSuperieur() {
         return partieSuperieur;
     }
-    public ArrayList<CarteCivilisation> getAllCards() {
+    public static ArrayList<CarteCivilisation> getAllCards() {
         return allCards;
     }
 }
