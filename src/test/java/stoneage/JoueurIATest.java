@@ -63,7 +63,7 @@ public class JoueurIATest {
     void recupeRes() {
     	inventaire.resetInventory();
     	zone1 = new Zone(1);
-    	joueurIA.recupeRes(inventaire, zone1);
+    	zone1.recupeRes(inventaire, joueurIA);
     	assertEquals(inventaire.getNbOutils(), 1); //Si on choisi la zone 1, alors on a un outil en plus.
     }
 }

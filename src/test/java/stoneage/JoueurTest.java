@@ -29,7 +29,7 @@ public class JoueurTest {
         /*je crée un objet avec les valeurs zoneChoisie et nbOuvriersChoisie
          *  renvoyé par j.placerOuvriers(listeZone, inventaire)par ce que 
          * leur création se fait avec un random et c'est le seul moyen de les recupérées . */
-        j.recupeRes( inventaire,listeZone.get(choix.zoneChoisie));
+        zone.recupeRes( inventaire,j);
    
     }
 	@Test
