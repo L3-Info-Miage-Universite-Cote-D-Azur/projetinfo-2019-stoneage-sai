@@ -12,12 +12,13 @@ public class CarteCivilisation {
        20-21-22-23-24:  Agriculture
        25-26-27-28-29: Outils
        30-31-32-33-34-35: Figurine  */
-    private ArrayList<Integer> partieInferieure = new ArrayList<Integer>();
-    private ArrayList<Integer> partieInferieureNbBuilderDessus = new ArrayList<Integer>();
+    private int partieInferieure;
+    private int nbBuilderOnIt;
+
     /*  0:Pour les cartes fond verts
         1 ou 2 ou 3: Nb Builder present sur chaque carte */
+    private int partieSuperieur;
 
-    private ArrayList<Integer> partieSuperieur;
     /*  0: Point de victoire
         1: Nourriture
         2: Ressources
@@ -27,14 +28,31 @@ public class CarteCivilisation {
         6: Lancer de dé suivant le nombre de joueurs: 4joueurs = 4lancer de dé
         7: 2 dés + ressources (memes conditions que les lancer pour gagner des ressources)
         8: Pioche une carte civilisation */
-
-    public CarteCivilisation(int fondDeCarte, int numeroCarte) {
+    public CarteCivilisation(int fondDeCarte, int numeroCarte, int partieInferieure, int nbBuilderOnIt, int partieSuperieur) {
         this.fondDeCarte = fondDeCarte;
         this.numeroCarte = numeroCarte;
+        this.partieInferieure = partieInferieure;
+        this.nbBuilderOnIt = nbBuilderOnIt;
+        this.partieSuperieur = partieSuperieur;
     }
-
 
     public void ajouterDansInventaire(Inventaire inventaire){
         inventaire.addCard(this);
+    }
+
+    public int getFondDeCarte() {
+        return fondDeCarte;
+    }
+    public int getNumeroCarte() {
+        return numeroCarte;
+    }
+    public int getPartieInferieure() {
+        return partieInferieure;
+    }
+    public int getNbBuilderOnIt() {
+        return nbBuilderOnIt;
+    }
+    public int getPartieSuperieur() {
+        return partieSuperieur;
     }
 }
