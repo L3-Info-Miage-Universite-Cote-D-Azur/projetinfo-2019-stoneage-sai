@@ -151,7 +151,7 @@ public class JoueurBot2Test {
     void recupRes() {
         inventaire.resetInventory();
         zone1 = new Zone(1);
-        joueurBot.recupeRes(inventaire, zone1);
+        zone1.recupeRes(inventaire, joueurBot);
         assertEquals(inventaire.getNbOutils(), 1);
     }
 }
