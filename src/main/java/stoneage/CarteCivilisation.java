@@ -37,7 +37,7 @@ public class CarteCivilisation {
     }
 
     public void ajouterDansInventaire(Inventaire inventaire){
-        inventaire.addCard(this);
+        inventaire.addCarteCiv(this);
     }
 
     public int getFondDeCarte() {

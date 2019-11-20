@@ -20,10 +20,11 @@ public class Inventaire {
 	private int nbOr;
 	private int nbNourriture;
 	private int nbOutils;
+	private int scoreChamp;
 	private int score;
-    public ArrayList<Integer> listeZonesDispo = new ArrayList<>();
-    public ArrayList<Boolean> listeZonesJouer = new ArrayList<>();//eviter
-
+    public ArrayList<CarteCivilisation> listeDesCarteCivilisation = new ArrayList<>(); 
+    public ArrayList<Integer> listeZonesDispo = new ArrayList<>(); 
+    public ArrayList<Boolean> listeZonesJouer = new ArrayList<>();
 	public Inventaire() {  //Initialisation d'un Inventaire vide
 		setNbOuvrier(NB_INITIAL_OUVRIERS); //Initialisation du nombre d'ouvrier 
 		// Initialisation à 0 des ressources et du score
@@ -35,6 +36,7 @@ public class Inventaire {
 		setNbRessource(0);
 		setNbOutils(0);
 		setScore(0);
+		setScoreChamp(0);
 		resetAvailableWorkers();
 		listeZonesJouer  = new ArrayList<>();
 	    listeZonesDispo = new ArrayList<>();
@@ -148,6 +150,17 @@ public class Inventaire {
 	public int getNbOutils(){
 		return nbOutils;
 	}
+	public void setScoreChamp(int niveauChamp) {
+		scoreChamp=niveauChamp;
+	}
+	public int getScoreChamp() {
+		return scoreChamp;
+	}
+	
+	public void addCarteCiv(CarteCivilisation Carte) {
+		listeDesCarteCivilisation.add(Carte);
+	}
+	
 	public int getScore() {
 		return score;
 	}
