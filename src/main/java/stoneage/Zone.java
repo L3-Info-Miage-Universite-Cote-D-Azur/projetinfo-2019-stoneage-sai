@@ -123,9 +123,68 @@ public class Zone {
     			inventaireJoueur.setScoreChamp(inventaireJoueur.getScoreChamp()+1);
                 inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+inventaireJoueur.getScoreChamp());
                 break;
+                
     		case 8:case 9: case 10: case 11:
-    			
-    			CarteCivilisation.getAllCards().get(0);
+    			if(this.niveauZone==8) {
+    				inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
+    			}
+    			CarteCivilisation carte=CarteCivilisation.getAllCards().get(0);
+    			if (carte.getFondDeCarte()==0) { //cartes verte
+    				
+    				inventaireJoueur.addNbCarteVert();
+    				if (carte.getNumeroCarte()<2) {//potery
+    					
+    					inventaireJoueur.addTypeCarteCivVerte(1); //type de la carte verte 
+    					if (carte.getNumeroCarte()==0) {
+    						inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+7);
+    		    			gains=7;
+    		    			TypeGains="Nourriture";
+    						//la carte 0 permet au joueur de gagner 7 nourriture 
+    					}
+    					else {
+    						
+    						
+    					}
+    				}
+       				if (carte.getNumeroCarte()>1 && carte.getNumeroCarte()<4) {//art
+    					inventaireJoueur.addTypeCarteCivVerte(2);
+    				}
+       				if (carte.getNumeroCarte()>3 && carte.getNumeroCarte()<6) {//ecriture
+    					inventaireJoueur.addTypeCarteCivVerte(3);
+    				}
+       				if (carte.getNumeroCarte()>5 && carte.getNumeroCarte()<8) {//medecine
+    					inventaireJoueur.addTypeCarteCivVerte(4);
+    				}
+       				if (carte.getNumeroCarte()>7 && carte.getNumeroCarte()<10) {//cadran
+    					inventaireJoueur.addTypeCarteCivVerte(5);
+    				}
+       				if (carte.getNumeroCarte()>9 && carte.getNumeroCarte()<12) {//transport
+    					inventaireJoueur.addTypeCarteCivVerte(6);
+    				}
+       				if (carte.getNumeroCarte()>11 && carte.getNumeroCarte()<14) {//musique
+    					inventaireJoueur.addTypeCarteCivVerte(7);
+    				}
+       				if (carte.getNumeroCarte()>13 && carte.getNumeroCarte()<16) {//tissage
+    					inventaireJoueur.addTypeCarteCivVerte(8);
+    				}
+    			}
+    			else {//carte jaune
+    				if (carte.getNumeroCarte()>15 && carte.getNumeroCarte()<21){//batiment
+    					inventaireJoueur.addNbConstructeur(1); 
+    				}
+       				if (carte.getNumeroCarte()>20 && carte.getNumeroCarte()<26) {//agriculture
+    					inventaireJoueur.addNbPaysan(1);
+    				}
+       				if (carte.getNumeroCarte()>25 && carte.getNumeroCarte()<31) {//outils
+    					inventaireJoueur.addNbFabricant(1);
+    				}
+       				if (carte.getNumeroCarte()>30 && carte.getNumeroCarte()<36) {//figurine
+    					inventaireJoueur.addNbChamane(1);
+    				}
+    				
+    			}
+   
+    			// ajoute daans inventaire tous ce qui va etres modifier avec la carte ++ pour la fin et ++ pour le debut  
     			inventaireJoueur.setScoreChamp(inventaireJoueur.getScoreChamp()+1);
                 inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+inventaireJoueur.getScoreChamp());
                 break;
