@@ -34,21 +34,26 @@ public class Partie {
     }
     
     protected void phaseNourrir(Inventaire  inv, Joueurs joueur, int joueurCourant){
+        System.out.println("Le joueur a " +inv.getNourriture()+" nourriture et " + inv.getNbRessource() +" ressources");
         int nm=inv.getNbOuvrierDispo()-inv.getNourriture();//nourriture qui manque
     	if (inv.getNourriture()>=inv.getNbOuvrierDispo()){
             inv.setNourriture(inv.getNourriture()-inv.getNbOuvrierDispo());
             System.out.println("Le joueur " + joueurCourant + " va nourrir ses ouvriers avec la nourritue qu'il possede. ");
 
     	}
-        else if(inv.getNourriture()<inv.getNbOuvrierDispo()  && Integer.sum(Integer.sum(Integer.sum(inv.getNbBois(),inv.getNbArgile()),inv.getNbPierre()),inv.getNbOr())>=nm ){
+        else if(inv.getNourriture()<inv.getNbOuvrierDispo() && nm>inv.getNourriture() && inv.getNbRessource()>=nm ){
+            System.out.println("Le joueur " + joueurCourant + " n'a pas assez de nourriture,il lui manque " + nm + " nourritures" + ",il utilise donc les " +inv.getNourriture()+ " nourriture qu'il possede et ses ressources" );
+            nm=nm-inv.getNourriture();//on enleve de la nourriture qui manque la nourriture que le jouuer possede deja
             inv.setNourriture(inv.getNourriture()-inv.getNourriture());
             inv.setNbRessource(inv.getNbRessource()-nm);
             if (nm!=0) {
                 if (nm-inv.getNbBois()>0) {
                     nm=nm-inv.getNbBois();
-                    inv.setNbBois(inv.getNbBois()-inv.getNbBois());      
+                    System.out.println("Le joueur " + joueurCourant + " n'a pas assez de nourriture ,il nourrit ses figurines avec " + inv.getNbBois() + " bois");
+                    inv.setNbBois(inv.getNbBois()-inv.getNbBois());                         
                 }     
                 else{
+                    System.out.println("Le joueur " + joueurCourant + " n'a pas assez de nourriture ,il nourrit ses figurines avec uniquement " + nm + " bois");
                     inv.setNbBois(inv.getNbBois()-nm);
                     nm=nm-nm;
                 }
@@ -56,9 +61,11 @@ public class Partie {
             if (nm!=0) {
                 if (nm-inv.getNbArgile()>0) {
                     nm=nm-inv.getNbArgile();
+                    System.out.println("Le joueur " + joueurCourant + " n'a pas assez de nourriture ,il nourrit ses figurines avec " + inv.getNbArgile() + " argile");
                     inv.setNbArgile(inv.getNbArgile()-inv.getNbArgile());      
                 }     
                 else{
+                    System.out.println("Le joueur " + joueurCourant + " n'a pas assez de nourriture ,il nourrit ses figurines avec " + nm + " argile");
                     inv.setNbArgile(inv.getNbArgile()-nm);  
                     nm=nm-nm;
                 }
@@ -66,9 +73,11 @@ public class Partie {
             if (nm!=0) {
                 if (nm-inv.getNbPierre()>0) {
                     nm=nm-inv.getNbPierre();
+                    System.out.println("Le joueur " + joueurCourant + " n'a pas assez de nourriture ,il nourrit ses figurines avec " + inv.getNbPierre() + " pierre");
                     inv.setNbPierre(inv.getNbPierre()-inv.getNbPierre());      
                 }     
                 else{
+                    System.out.println("Le joueur " + joueurCourant + " n'a pas assez de nourriture ,il nourrit ses figurines avec " + inv.getNbPierre() + " pierre");
                     inv.setNbPierre(inv.getNbPierre()-nm);  
                     nm=nm-nm;
                 }
@@ -76,18 +85,19 @@ public class Partie {
             if (nm!=0) {
                 if (nm-inv.getNbOr()>0) {
                     nm=nm-inv.getNbOr();
+                    System.out.println("Le joueur " + joueurCourant + " n'a pas assez de nourriture ,il nourrit ses figurines avec " + inv.getNbOr() + " or");
                     inv.setNbOr(inv.getNbOr()-inv.getNbOr());      
                 }     
                 else{
                     inv.setNbOr(inv.getNbOr()-nm);  
+                    System.out.println("Le joueur " + joueurCourant + " n'a pas assez de nourriture ,il nourrit ses figurines avec " + inv.getNbBois() + " or");
                     nm=nm-nm;
                 }
-            }
-            System.out.println("Le joueur " + joueurCourant + " n'a pas assez de nourriture ,il utilise donc la nourriture qu'il possede et ses ressources" );
+            }           
         }
     	else {
             inv.setScore(inv.getScore()-10);
-            System.out.println("Le joueur " + joueurCourant + " n'a pas assez de nourriture, son score est diminuer de 10 points. ");
+            System.out.println("Le joueur " + joueurCourant + " n'a pas assez de nourriture et ses ressources ne sont pas suffisantes pour nourrir ses figurines, son score diminue donc de 10 points. ");
     	}	
     }
 }
