@@ -43,7 +43,6 @@ public class Partie {
     	}
         else if(inv.getNourriture()<inv.getNbOuvrierDispo() && nm>inv.getNourriture() && inv.getNbRessource()>=nm ){
             System.out.println("Le joueur " + joueurCourant + " n'a pas assez de nourriture,il lui manque " + nm + " nourritures" + ",il utilise donc les " +inv.getNourriture()+ " nourriture qu'il possede et ses ressources. \n " );
-            nm=nm-inv.getNourriture();//on enleve de la nourriture qui manque la nourriture que le jouuer possede deja
             inv.setNourriture(inv.getNourriture()-inv.getNourriture());
             inv.setNbRessource(inv.getNbRessource()-nm);
             if (nm!=0) {
