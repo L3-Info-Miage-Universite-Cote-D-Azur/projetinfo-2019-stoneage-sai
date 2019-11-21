@@ -13,7 +13,7 @@ public class StoneAge {
  	public Zone zone;
 
 	public static final void main(String [] args) {
-		StoneAge stoneAge = new StoneAge(4);
+		StoneAge stoneAge = new StoneAge(3);
 		stoneAge.jouer();
 		 
 	}
@@ -59,8 +59,14 @@ public class StoneAge {
     	}
     	
 		System.out.println("**** Phase de placement ****");
-		while (listeDesInventaires.get(0).ouvrierDispo() || listeDesInventaires.get(1).ouvrierDispo()|| listeDesInventaires.get(2).ouvrierDispo()|| listeDesInventaires.get(3).ouvrierDispo()){
-    			
+		boolean placer=false;
+    	for (int i=0 ; i<=nbJoueurs;i++)
+    	{
+    		if ( listeDesInventaires.get(i).ouvrierDispo()==true) {
+    			placer=true;
+    		}
+    	}
+		while (placer) {	
     		for (int i=0 ; i<=nbJoueurs;i++){
     			if (listeDesInventaires.get(i).getNbOuvrierDispo() != 0)
     			{
@@ -99,12 +105,24 @@ public class StoneAge {
 	
     			}
     		}
+    		placer=false;
+        	for (int i=0 ; i<=nbJoueurs;i++)
+        	{
+        		if ( listeDesInventaires.get(i).ouvrierDispo()==true) {
+        			placer=true;
+        		}
+        	}
     	}
     	
 		System.out.println("**** Phase de résolution des ouvriers **** \n");		
-
-		while ((listeDesInventaires.get(0).getNbZoneJouer() > 0) || (listeDesInventaires.get(1).getNbZoneJouer() > 0)||(listeDesInventaires.get(2).getNbZoneJouer() > 0) || (listeDesInventaires.get(3).getNbZoneJouer() > 0)) {
-			
+		boolean recuperer=false;
+    	for (int i=0 ; i<=nbJoueurs;i++)
+    	{
+    		if ( (listeDesInventaires.get(i).getNbZoneJouer() > 0) ) {
+    			recuperer=true;
+    		}
+    	}
+		while (recuperer) {			
 			for (int i=0 ; i<=nbJoueurs;i++){
     			if (listeDesInventaires.get(i).getNbZoneJouer()  != 0)
     			{
@@ -143,6 +161,13 @@ public class StoneAge {
     	    		}
     			}
 			}
+			recuperer=false;
+	    	for (int i=0 ; i<=nbJoueurs;i++)
+	    	{
+	    		if ( (listeDesInventaires.get(i).getNbZoneJouer() > 0) ) {
+	    			recuperer=true;
+	    		}
+	    	}
 		}
     			
     	    			
@@ -150,14 +175,15 @@ public class StoneAge {
 		for (int i=0 ; i<=nbJoueurs;i++){
 			partie.phaseNourrir( listeDesInventaires.get(i), listeDesJoueurs.get(i), i+1);
 		}
+	
 		
     }
 	 public void gagner() {
 	        ArrayList<Integer> listScore= new ArrayList<>();
-	        listScore.add(listeDesInventaires.get(0).calcScore());
-	        listScore.add(listeDesInventaires.get(1).calcScore());
-	        listScore.add(listeDesInventaires.get(2).calcScore());
-	        listScore.add(listeDesInventaires.get(3).calcScore());
+			for (int i=0 ; i<=nbJoueurs;i++){
+				listScore.add(listeDesInventaires.get(i).calcScore());
+			}
+
 	    	int Gagnant=0;
 	    	int ScoreGagnant=0;
 	    	for (int i=0 ; i<=nbJoueurs;i++){
