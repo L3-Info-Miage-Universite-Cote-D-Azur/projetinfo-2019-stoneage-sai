@@ -4,9 +4,14 @@ import java.util.Collections ;
 public class Partie {
     public Zone zone;
     private final ArrayList<Zone> LesZones ;
+	public CarteCivilisation carte=new CarteCivilisation();
+    private  ArrayList<CarteCivilisation> listeDesCartes ;
     
     public Partie(){
 	LesZones=new ArrayList<>();
+	listeDesCartes=new ArrayList<CarteCivilisation>();
+	listeDesCartes=carte.getAllCards();
+	
 	  // c'est la liste general des zone pour le jeu 
 		for(int i=1; i<12;i++){
 			Zone zone = new Zone(i);
@@ -18,7 +23,7 @@ public class Partie {
         for(int i =0;i<11;i++){
         	if (inv.listeZonesJouer.get(i)==true){
         		Zone choix = LesZones.get(i);
-        		choix.recupeRes(inv,joueur);
+        		choix.recupeRes(listeDesCartes,inv,joueur);
         		inv.listeZonesJouer.set(i,false); //la zone n'es pluas etuliser donc elle devient false pour le joueur (disponnible a nouveau)
         		System.out.println("Le joueur " + joueurCourant + " reprend ses ouvriers de la zone "+choix.NomZone());
         		
@@ -34,7 +39,9 @@ public class Partie {
             LesZones.get(choix.zoneChoisie).placerOuvrier(inv, choix.nbOuvriersChoisie);    		
             System.out.println("Le joueur " + joueurCourant + " a choisi la zone "+(LesZones.get(choix.zoneChoisie)).NomZone()+" pour y placer "+choix.nbOuvriersChoisie+" ouvrier(s)");  
     }
-    
+    public  int getNbCarteDispo() { 
+        return (listeDesCartes).size();
+    }// cette methode va retourner le nombre des carte disponnible 
     protected void phaseNourrir(Inventaire  inv, Joueurs joueur, int joueurCourant){
         System.out.println("Le joueur " + joueurCourant+ " a "+inv.getNourriture()+" nourriture et " + inv.getNbRessource() +" ressources");
         int nm=inv.getNbOuvrierDispo()-inv.getNourriture();//nourriture qui manque
