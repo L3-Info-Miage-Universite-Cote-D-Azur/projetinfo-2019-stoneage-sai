@@ -291,7 +291,9 @@ public class Zone {
     					if (carte.getNumeroCarte()==18) {
     					//carte constructeur 18 : gagner 2 constructeur et 2 nourriture
         					inventaireJoueur.addNbConstructeur(2);
-    						inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+2);      					
+    						inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+2);    
+    		    			gains=2;
+    		    			TypeGains=" Nourriture ";
     					}
     					if (carte.getNumeroCarte()==19) {
         				//carte constructeur 19 : gagner 2 constructeur et  1 type de ressource
@@ -305,7 +307,9 @@ public class Zone {
     					if (carte.getNumeroCarte()==20) {
         				//carte constructeur 20 : gagner 3 constructeur et 3 pts dans score final
         					inventaireJoueur.addNbConstructeur(3);
-        					inventaireJoueur.setScore(inventaireJoueur.getScore()+3);	
+        					inventaireJoueur.setScore(inventaireJoueur.getScore()+3);
+    		    			gains=3;
+    		    			TypeGains=" point dans le score ";
 
     					}
     				}
