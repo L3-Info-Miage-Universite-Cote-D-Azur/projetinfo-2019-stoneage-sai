@@ -4,7 +4,16 @@ import java.util.Random;
 
 public class JoueurIA implements Joueurs {
 	Random rand = new Random();
-
+        String name;
+	int num;
+	JoueurIA(String name,int num){
+            this.name=name;
+            this.num=num;
+        }
+        @Override
+        public int getNum(){
+            return num;
+        }
     public int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) { 
     	int OutilChoisie ;
     	/*Ici le joueur va choisir s'il peut ou pas placer des outils lorsqu'il recupere ses gains.
