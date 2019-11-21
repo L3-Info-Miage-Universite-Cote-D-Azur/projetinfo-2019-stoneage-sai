@@ -8,14 +8,14 @@ public class Partie {
     public Partie(){
 	LesZones=new ArrayList<>();
 	  // c'est la liste general des zone pour le jeu 
-		for(int i=1; i<7;i++){
+		for(int i=1; i<12;i++){
 			Zone zone = new Zone(i);
 			LesZones.add(zone);
 		}
     }
     
     protected void phaseAction(  Inventaire  inv,Joueurs joueur,int joueurCourant) {
-        for(int i =0;i<6;i++){
+        for(int i =0;i<11;i++){
         	if (inv.listeZonesJouer.get(i)==true){
         		Zone choix = LesZones.get(i);
         		choix.recupeRes(inv,joueur);
