@@ -1,8 +1,10 @@
 package stoneage;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Zone {
+
     private int nbOuvriersPlacés = 0;
     public int niveauZone ;
     private Dé dé;
@@ -11,6 +13,8 @@ public class Zone {
     public int gains; //le nombre des gains du joueur 
     public String TypeGains; //le nom du gain par exemple bois...
     Random rand = new Random();
+
+
     public Zone(int niveau) {
         this.niveauZone = niveau;
         dé=new Dé();
@@ -62,7 +66,7 @@ public class Zone {
      *  les resources gagner a chaque joueur , ainsi son inventaire va etre modifier
      *   et la zone sera liberer quand il recupere ses ouvrier */
     
-    public void recupeRes(Inventaire inventaireJoueur, Joueurs J) { 
+    public void recupeRes(ArrayList<CarteCivilisation> listeDesCartes,Inventaire inventaireJoueur, Joueurs J) { 
     	int nbRessources= this.lancéDeDés(this.getNbOuvriersPlaces());
     	int nbOutilsDuJoueur=inventaireJoueur.getNbOutils();
     	int outilChoisie=J.placerOutils(nbOutilsDuJoueur,nbRessources,this);
@@ -120,8 +124,7 @@ public class Zone {
     		case 8:case 9: case 10: case 11:
     			int coutCarte=this.niveauZone-7; // carte 1 vaut 1 / carte 2 vaut 2/ carte 3 vaut 3...
     			boolean payer=false;   			
-        		CarteCivilisation cartes= new CarteCivilisation();
-        		CarteCivilisation carte=cartes.allCards.get(this.niveauZone-8); // si niveau de zone = 8 alors carte 1 sinon carte 2 sinon...
+        		CarteCivilisation carte=listeDesCartes.get(this.niveauZone-8); // si niveau de zone = 8 alors carte 1 sinon carte 2 sinon...
     			
     			/* Si le joueur paye la carte (il a assez de resource pour la payer et choisi de la prendre ) elle s'eneleve de a liste 
     			 *  sinon elle sera rendu a la liste  */ 
@@ -433,7 +436,7 @@ public class Zone {
         					}   					
     				}   				
     			}
-    			cartes.allCards.remove(this.niveauZone-8);
+    			carte.removeCard(this.niveauZone-8);
     			TypeGains+=" avec la carte Civilisation. ";
                 break;
     		}
@@ -478,6 +481,7 @@ public class Zone {
     public void setNbPlaceDispo(int nbPlaceDispo) {
         this.nbPlaceDispo=nbPlaceDispo;
     }// le nombre de place disponible par zone
+
 
     @Override
     public String toString(){
