@@ -28,7 +28,7 @@ public class Inventaire {
 	private int nbConstructeur;// va etre multiplier par le nombre de tuile batiment  pour le score final
 	private int nbChamane; // va etre multiplier par le nombre de figurine pour le score final
 	private int nbCarteVert;
-	private int nbCarteCiv;
+	private int nbCarteCiv; //nb =0/1 carte existe 1 seul dans la partie
 	private Set<Integer> setTypeCarteCivVerte ;//= new LinkedHashSet<>(); //cette ensemble va contenir les differant type de carte civilisation verte que le joueur va prendre
 	private int score;
     public ArrayList<CarteCivilisation> listeDesCarteCivilisation;// = new ArrayList<>(); 
@@ -51,7 +51,7 @@ public class Inventaire {
 		setTypeCarteCivVerte = new LinkedHashSet<>();	
 		listeZonesJouer  = new ArrayList<>();
 	    listeZonesDispo = new ArrayList<>();
-        for (int i=1;i <= 6;i++ ){
+        for (int i=1;i <= 11;i++ ){
         	listeZonesDispo.add(i);
         	listeZonesJouer.add(false);
         } //remplire la liste des zones
@@ -65,7 +65,7 @@ public class Inventaire {
 
 	public int getNbZoneJouer(){
 		int nb=0;
-		for (int i=0;i<6; i++){
+		for (int i=0;i<11; i++){
 			if(listeZonesJouer.get(i)==true)
 				nb++;
 		}
@@ -118,6 +118,10 @@ public class Inventaire {
 	}
 	public void addNbCarteVert() {
 		nbCarteVert++;
+	}
+	public void addNbcarteCiv() {
+		//cette carte est la carte joker, il existe qu'une seul durent la partie et elle sert seuelemnt dans le score final 
+		nbCarteCiv++;
 	}
 	public void addTypeCarteCivVerte(int type) {
 		setTypeCarteCivVerte.add(type);
@@ -197,6 +201,17 @@ public class Inventaire {
 		this.score = score;
 	}
 	public int calcScore() {
-		return score+nbRessource;
+		return score+nbRessource+(nbOuvrier*nbChamane+nbFabricant*nbOutils+nbConstructeur*1+nbPaysan*scoreChamp)+((int)Math.pow(setTypeCarteCivVerte.size(),2))+(nbCarteVert-setTypeCarteCivVerte.size());
+		/* Le score finale contient :
+		 * Le niveau de score 
+		 * le nombre des ressource 
+		 * Le nombre d'ouvrier * le nombre carte Chamane
+		 * Le nombre d'outil * le nombre de carte Fabricant
+		 * Le nombre de batiment * le nombre de carte constructeur 
+			//nb batiment = 1 pour l'instant carte pas de carte batiment a l'iteration 4
+		 * Le nombre de carte payson * le niveau de champ
+		 * Le nombre de type de carte verte **2 
+		 * le nombre du reste des carte verte 
+		 */
 	}
 }
