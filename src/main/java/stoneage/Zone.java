@@ -41,7 +41,7 @@ public class Zone {
     }
 
     public String NomZone(){
-    	String[] nomZone={"Fabrication d'Outils","Chasse","foret","glaisière","carrière","rivière","champ"};//ajout des zones glaisière,carrière,rivière
+    	String[] nomZone={"Fabrication d'Outils","Chasse","foret","glaisière","carrière","rivière","champ","Carte 1","Carte 2","Carte 3","Carte 4"};//ajout des zones glaisière,carrière,rivière
     	String nom=nomZone[niveauZone - 1];
     	return nom;
     }
@@ -72,8 +72,7 @@ public class Zone {
     	inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()-outilChoisie);	   	   		
     	//recuperer les ressources gagner
     	//ajouter les nouveau ressources a l'inventaire du joueur 
-    	switch(this.niveauZone)
-    	{
+    	switch(this.niveauZone){
     		case 1:
     			inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()+1);
 
@@ -125,69 +124,269 @@ public class Zone {
                 break;
                 
     		case 8:case 9: case 10: case 11:
-    			if(this.niveauZone==8) {
-    				inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
+    			boolean payer=false;
+    			int typeCout= J.choixTypeRes(3,4,5,6);
+    			int coutCarte=this.niveauZone-7; // carte 1 vaut 1 / carte 2 vaut 2/ carte 3 vaut 3...
+    			if (typeCout==3 && inventaireJoueur.getNbBois()>coutCarte) {
+    				inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()-coutCarte);
+    				inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);
+    				payer=true;
     			}
-    			CarteCivilisation carte=CarteCivilisation.getAllCards().get(0);
-    			if (carte.getFondDeCarte()==0) { //cartes verte
-    				
+    			if (typeCout==4&& inventaireJoueur.getNbArgile()>coutCarte) {
+    				inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()-coutCarte);
+    				inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);
+    				payer=true;
+    			}
+    			if (typeCout==5&& inventaireJoueur.getNbPierre()>coutCarte) {
+    				inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()-coutCarte);
+    				inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);
+    				payer=true;
+    			}
+    			if (typeCout==6&& inventaireJoueur.getNbOr()>coutCarte) {
+    				inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()-coutCarte);
+    				inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);
+    				payer=true;
+    			}
+
+    			CarteCivilisation cartes= new CarteCivilisation();
+    			CarteCivilisation carte=cartes.getAllCards().get(0);
+    		if (payer==true) {
+    			if (carte.getFondDeCarte()==0) { 
+    			//cartes vertes
     				inventaireJoueur.addNbCarteVert();
-    				if (carte.getNumeroCarte()<2) {//potery
-    					
+    				if (carte.getNumeroCarte()<2) {
+    				//potery
     					inventaireJoueur.addTypeCarteCivVerte(1); //type de la carte verte 
     					if (carte.getNumeroCarte()==0) {
+    					//carte potery 0
     						inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+7);
     		    			gains=7;
     		    			TypeGains="Nourriture";
     						//la carte 0 permet au joueur de gagner 7 nourriture 
     					}
-    					else {
-    						
-    						
+    					else { 
+    					// Carte poterie 1 
+    						//lancement de 4 dé avec une methode dans joeur pour que les joueur choisi quelle ressource il veut 
+
     					}
     				}
-       				if (carte.getNumeroCarte()>1 && carte.getNumeroCarte()<4) {//art
+       				if (carte.getNumeroCarte()>1 && carte.getNumeroCarte()<4) {
+       				//Art
     					inventaireJoueur.addTypeCarteCivVerte(2);
-    				}
-       				if (carte.getNumeroCarte()>3 && carte.getNumeroCarte()<6) {//ecriture
+    					if (carte.getNumeroCarte()==2) {
+    					// carte Art 2
+    						inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()+1);
+    		    			gains=1;
+    		    			TypeGains="Outil";
+    					}
+    					else {
+    					// carte Art 3
+    						//LANCEMENT 2 DEE OR
+    						int gainsOr=this.lancéDeDés(2)/6;
+    						inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()+gainsOr);
+    		    			gains=gainsOr;
+    		    			TypeGains="Or";
+    					}
+       				}
+       				if (carte.getNumeroCarte()>3 && carte.getNumeroCarte()<6) {
+       				//Ecriture
     					inventaireJoueur.addTypeCarteCivVerte(3);
+    					if (carte.getNumeroCarte()==4) {
+        				// carte Ecriture 4 : c'est une carte civilisation qui sert que pour calcile Score final 
+    						inventaireJoueur.addNbcarteCiv();
+    					}
+    					else {
+    					// carte Ecriture 5
+    							
+    						//lancement de 4 dé avec une methode dans joueur pour que les joueures choisient quelle ressouces il veut 
+    					}
     				}
-       				if (carte.getNumeroCarte()>5 && carte.getNumeroCarte()<8) {//medecine
+       				if (carte.getNumeroCarte()>5 && carte.getNumeroCarte()<8) {
+       				//Medecine
     					inventaireJoueur.addTypeCarteCivVerte(4);
+    					if (carte.getNumeroCarte()==6) {
+    					//carte Medecine 6 
+    						//permet au joueur de choisir 2 resource 
+    						//methode choix dans jouer 
+    					}
+    					else {
+    					//carte Medecine 7: ajoute 5 nourriture au joueur
+    						inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+5);	
+    					}
     				}
-       				if (carte.getNumeroCarte()>7 && carte.getNumeroCarte()<10) {//cadran
+       				if (carte.getNumeroCarte()>7 && carte.getNumeroCarte()<10) {
+       				// carte cadran solaire
     					inventaireJoueur.addTypeCarteCivVerte(5);
+    					if (carte.getNumeroCarte()==8) {
+    					// carte cadran solaire 8:  gagner 1 score champ donc niveau champ +1
+    						inventaireJoueur.setScoreChamp(inventaireJoueur.getScoreChamp()+1);	
+    					}
+    					else {
+    					// carte cadan solaire 9: lancer 4 dés 
+    						//chois de ressouces entre les 4 
+    					}
     				}
-       				if (carte.getNumeroCarte()>9 && carte.getNumeroCarte()<12) {//transport
+       				if (carte.getNumeroCarte()>9 && carte.getNumeroCarte()<12) {
+       				//transport
     					inventaireJoueur.addTypeCarteCivVerte(6);
+    					if (carte.getNumeroCarte()==10) {
+    					// carte transport 10: 
+    						//lancer 4 dé 
+    						//chois de ressouces entre les 4 
+    					}
+    					else {
+    					// carte transport 11:  gagner 2 pierres
+    						inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()+2);	
+    					}
     				}
-       				if (carte.getNumeroCarte()>11 && carte.getNumeroCarte()<14) {//musique
+       				if (carte.getNumeroCarte()>11 && carte.getNumeroCarte()<14) {
+       				//musique
     					inventaireJoueur.addTypeCarteCivVerte(7);
+    					//carte musique 12 : gagner 3 pts dans le score 
+    					//carte musique 13 : gagner 3 pts dans le score
+    					inventaireJoueur.setScore(inventaireJoueur.getScore()+3);	
     				}
-       				if (carte.getNumeroCarte()>13 && carte.getNumeroCarte()<16) {//tissage
+       				if (carte.getNumeroCarte()>13 && carte.getNumeroCarte()<16) {
+       				//tissage
     					inventaireJoueur.addTypeCarteCivVerte(8);
+    					if (carte.getNumeroCarte()==14) {
+       					//carte Tissage 14 : gagner 3 nourriture 
+    						inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+3);				
+    					}
+    					else {
+        				//carte TISSAGE 15 : gagner 1 nourriture
+    						inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+1);	
+    					}
     				}
     			}
-    			else {//carte jaune
-    				if (carte.getNumeroCarte()>15 && carte.getNumeroCarte()<21){//batiment
-    					inventaireJoueur.addNbConstructeur(1); 
+    			else {//Carte Jaune
+    				if (carte.getNumeroCarte()>15 && carte.getNumeroCarte()<21){
+    				// Cartes Constructeur
+    					if (carte.getNumeroCarte()==16) {
+           				//carte constructeur 16 : gagner 1 constructeur et  4 nourriture
+        						inventaireJoueur.addNbConstructeur(1);
+        						inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+4);				
+        					}
+    					if (carte.getNumeroCarte()==17) {
+            			//carte constructeur 17 : gagner 1 constructeur  et  1 type de ressource
+        						inventaireJoueur.addNbConstructeur(1);
+        						//lancememnt de 4 dé et choix de ressource avec methode choix de joueur 
+       						
+        					}
+    					if (carte.getNumeroCarte()==18) {
+    					//carte constructeur 18 : gagner 2 constructeur et 2 nourriture
+        					inventaireJoueur.addNbConstructeur(2);
+    						inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+2);      					
+    					}
+    					if (carte.getNumeroCarte()==19) {
+        				//carte constructeur 19 : gagner 2 constructeur et  1 type de ressource
+        					inventaireJoueur.addNbConstructeur(2);
+    						//lancememnt de 4 dé et choix de ressource avec methode choix de joueur 
+
+        					
+    					}
+    					if (carte.getNumeroCarte()==20) {
+        				//carte constructeur 20 : gagner 3 constructeur et 3 pts dans score final
+        					inventaireJoueur.addNbConstructeur(3);
+        					inventaireJoueur.setScore(inventaireJoueur.getScore()+3);	
+
+    					}
     				}
-       				if (carte.getNumeroCarte()>20 && carte.getNumeroCarte()<26) {//agriculture
-    					inventaireJoueur.addNbPaysan(1);
+       				if (carte.getNumeroCarte()>20 && carte.getNumeroCarte()<26) {
+       				//Paysan      				
+    					if (carte.getNumeroCarte()==21) {
+            			//carte Paysan 21 : gagner 1 Paysan et 1 pierre
+    						inventaireJoueur.addNbPaysan(1);
+        					inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()+1);	
+
+    					}
+    					if (carte.getNumeroCarte()==22) {
+            			//carte Paysan 22 : gagner 1 Paysan et 1 pts dans Niveau champ
+    						inventaireJoueur.addNbPaysan(1);
+        					inventaireJoueur.setScoreChamp(inventaireJoueur.getScoreChamp()+1);	
+
+    					}
+    					if (carte.getNumeroCarte()==23) {
+            			//carte Paysan 23 : gagner 1 Paysan et 1 TYPE DES resources parmie les 4 dé
+    						inventaireJoueur.addNbPaysan(1);	
+    						//lancer les 4 dé et choisir une ressource avec methode chois 
+    					}
+    					if (carte.getNumeroCarte()==24) {
+            			//carte Paysan 24 : gagner 2 Paysan et 1 TYPE DES resources parmie les 4 dé
+    						inventaireJoueur.addNbPaysan(2);
+    						//lancer les 4 dé et choisir une ressource avec methode chois 
+    					}
+    					if (carte.getNumeroCarte()==25) {
+            			//carte Paysan 25 : gagner 2 Paysan et 3 nourriture
+    						inventaireJoueur.addNbPaysan(2);
+        					inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+3);	
+    					}
     				}
-       				if (carte.getNumeroCarte()>25 && carte.getNumeroCarte()<31) {//outils
-    					inventaireJoueur.addNbFabricant(1);
+       				if (carte.getNumeroCarte()>25 && carte.getNumeroCarte()<31) {
+       				// FABRICANT D'outils
+    					if (carte.getNumeroCarte()==26) {
+                		//carte Fabricant 26 : gagner 1 Fabricant et 3 outil
+        					inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()+3);	
+    						inventaireJoueur.addNbFabricant(1);
+    					}
+    					if (carte.getNumeroCarte()==27) {
+                    	//carte Fabricant 27 : gagner 1 Fabricant et 4 outil
+        					inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()+4);	
+        					inventaireJoueur.addNbFabricant(1);    						
+    					}
+    					if (carte.getNumeroCarte()==28) {
+                    	//carte Fabricant 28 : gagner 2 Fabricant et 2 OUTIL
+        					inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()+2);	
+        					inventaireJoueur.addNbFabricant(2);   						
+    					}
+    					if (carte.getNumeroCarte()==29) {
+                    	//carte Fabricant 29 : gagner 2 Fabricant et 1 type de ressouce au choix 
+    						inventaireJoueur.addNbFabricant(2);	
+    						//lancer les 4 dé et choisir une ressource avec methode chois   						
+    					}
+    					if (carte.getNumeroCarte()==30) {
+                    	//carte Fabricant 30 : gagner 2 Fabricant et 1 type de ressource au choix 
+    						//lancer les 4 dé et choisir une ressource avec methode chois 
+        					inventaireJoueur.addNbFabricant(2);	
+    					}
     				}
-       				if (carte.getNumeroCarte()>30 && carte.getNumeroCarte()<36) {//figurine
-    					inventaireJoueur.addNbChamane(1);
-    				}
-    				
+       				//if (carte.getNumeroCarte()>30 && carte.getNumeroCarte()<36) {
+       				else {
+       				//Chamane
+    					if (carte.getNumeroCarte()==31) {
+                        //carte chamane 31 : gagner 1 Chamane  et 1 PIERRE
+    						inventaireJoueur.addNbChamane(1);
+        					inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()+1);	
+    					}
+    					if (carte.getNumeroCarte()==32) {
+                        //carte chamane 32 : gagner 1 Chamane  et 1 OR 
+        					inventaireJoueur.addNbChamane(1);
+            				inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()+1);	
+        					}
+    					if (carte.getNumeroCarte()==33) {
+                        //carte chamane 33 : gagner 1 Chamane  et lancer 2 dé pierre
+        					inventaireJoueur.setNbPierre((this.lancéDeDés(2)/5 )+inventaireJoueur.getNbPierre());	
+        					inventaireJoueur.addNbChamane(1);
+        					}
+    					if (carte.getNumeroCarte()==34) {
+                        //carte chamane 34 : gagner 2 Chamane  et 1 argile
+        					inventaireJoueur.addNbChamane(2);
+            				inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()+1);	
+
+        					}
+    					else {//(carte.getNumeroCarte()==35) {
+                        //carte chamane 35 : gagner 2 Chamane  et 1 lancer 2 dé bois
+        					inventaireJoueur.addNbChamane(2);
+        					inventaireJoueur.setNbBois((this.lancéDeDés(2)/3 )+inventaireJoueur.getNbBois());	
+        					}   					
+    				}   				
     			}
-   
-    			// ajoute daans inventaire tous ce qui va etres modifier avec la carte ++ pour la fin et ++ pour le debut  
-    			inventaireJoueur.setScoreChamp(inventaireJoueur.getScoreChamp()+1);
-                inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+inventaireJoueur.getScoreChamp());
                 break;
+    		}
+    		else {
+    			System.out.println("Le joueur decide d'abandonner sa carte.");
+    			break;
+    		}
                         
     		default:
     			break;			
@@ -197,10 +396,7 @@ public class Zone {
         this.resetNbOuvriersPlaces(); // 
         this.setNbPlaceDispo(this.getNbPlaceZone());//quand on recupere les ouvriers,toutes les places deviennent disponibles.    
     }
-
-    
-    
-    
+  
     public int getGains(){
 	return gains;
     }
