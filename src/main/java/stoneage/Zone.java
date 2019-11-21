@@ -75,20 +75,17 @@ public class Zone {
     	switch(this.niveauZone){
     		case 1:
     			inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()+1);
-
     			gains=1;
     			TypeGains="Outils";
     			break;
     		case 2:
     			inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+nbRessources);
-
     			gains=nbRessources;
     			TypeGains="Nourriture";
     			break;
     		case 3:
     			inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()+nbRessources);
     			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
-
     			gains=nbRessources;
     			TypeGains="Bois";
     	    	
@@ -96,7 +93,6 @@ public class Zone {
     		case 4: 
     			inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()+nbRessources);
     			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
-
     			gains=nbRessources;
     			TypeGains="Argile";
     	    	
@@ -104,7 +100,6 @@ public class Zone {
     		case 5:
     			inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()+nbRessources);
     			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
-
     			gains=nbRessources;
     			TypeGains="Pierre";
     	    	
@@ -113,7 +108,6 @@ public class Zone {
     		case 6:
     			inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()+nbRessources);
     			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
-
     			gains=nbRessources;
     			TypeGains="Or";
     	    	
@@ -124,32 +118,36 @@ public class Zone {
                 break;
                 
     		case 8:case 9: case 10: case 11:
-    			boolean payer=false;
-    			int typeCout= J.choixTypeRes(3,4,5,6);
     			int coutCarte=this.niveauZone-7; // carte 1 vaut 1 / carte 2 vaut 2/ carte 3 vaut 3...
-    			if (typeCout==3 && inventaireJoueur.getNbBois()>coutCarte) {
+    			boolean payer=false;   			
+        		CarteCivilisation cartes= new CarteCivilisation();
+        		CarteCivilisation carte=cartes.allCards.get(this.niveauZone-8); // si niveau de zone = 8 alors carte 1 sinon carte 2 sinon...
+    			
+    			/* Si le joueur paye la carte (il a assez de resource pour la payer et choisi de la prendre ) elle s'eneleve de a liste 
+    			 *  sinon elle sera rendu a la liste  */ 
+    			int typeCout= J.choixTypeRes(coutCarte,inventaireJoueur,3,4,5,6);
+    			
+    			if (typeCout==3 ) {
     				inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()-coutCarte);
     				inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);
     				payer=true;
     			}
-    			if (typeCout==4&& inventaireJoueur.getNbArgile()>coutCarte) {
+    			else if (typeCout==4) {
     				inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()-coutCarte);
     				inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);
     				payer=true;
     			}
-    			if (typeCout==5&& inventaireJoueur.getNbPierre()>coutCarte) {
+    			else if (typeCout==5) {
     				inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()-coutCarte);
     				inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);
     				payer=true;
     			}
-    			if (typeCout==6&& inventaireJoueur.getNbOr()>coutCarte) {
+    			else if (typeCout==6) {
     				inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()-coutCarte);
     				inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);
     				payer=true;
     			}
 
-    			CarteCivilisation cartes= new CarteCivilisation();
-    			CarteCivilisation carte=cartes.getAllCards().get(0);
     		if (payer==true) {
     			if (carte.getFondDeCarte()==0) { 
     			//cartes vertes
@@ -167,6 +165,8 @@ public class Zone {
     					else { 
     					// Carte poterie 1 
     						//lancement de 4 dé avec une methode dans joeur pour que les joueur choisi quelle ressource il veut 
+    		    			gains=00;
+    		    			TypeGains=" Rien (pas fini) ";
 
     					}
     				}
@@ -194,6 +194,8 @@ public class Zone {
     					if (carte.getNumeroCarte()==4) {
         				// carte Ecriture 4 : c'est une carte civilisation qui sert que pour calcile Score final 
     						inventaireJoueur.addNbcarteCiv();
+    		    			gains=1;
+    		    			TypeGains=" Carte Civilisation";
     					}
     					else {
     					// carte Ecriture 5
@@ -207,11 +209,16 @@ public class Zone {
     					if (carte.getNumeroCarte()==6) {
     					//carte Medecine 6 
     						//permet au joueur de choisir 2 resource 
-    						//methode choix dans jouer 
+    						//methode choix dans jouer  
+    		    			gains=00;
+    		    			TypeGains=" Rien (pas fini) ";
+    						
     					}
     					else {
     					//carte Medecine 7: ajoute 5 nourriture au joueur
     						inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+5);	
+    		    			gains=5;
+    		    			TypeGains="Nourriture";
     					}
     				}
        				if (carte.getNumeroCarte()>7 && carte.getNumeroCarte()<10) {
@@ -220,10 +227,14 @@ public class Zone {
     					if (carte.getNumeroCarte()==8) {
     					// carte cadran solaire 8:  gagner 1 score champ donc niveau champ +1
     						inventaireJoueur.setScoreChamp(inventaireJoueur.getScoreChamp()+1);	
+    		    			gains=1;
+    		    			TypeGains="Niveau Champ ";
     					}
     					else {
     					// carte cadan solaire 9: lancer 4 dés 
     						//chois de ressouces entre les 4 
+    		    			gains=00;
+    		    			TypeGains=" Rien (pas fini) ";
     					}
     				}
        				if (carte.getNumeroCarte()>9 && carte.getNumeroCarte()<12) {
@@ -233,10 +244,14 @@ public class Zone {
     					// carte transport 10: 
     						//lancer 4 dé 
     						//chois de ressouces entre les 4 
+    		    			gains=00;
+    		    			TypeGains=" Rien (pas fini) ";
     					}
     					else {
     					// carte transport 11:  gagner 2 pierres
     						inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()+2);	
+    		    			gains=2;
+    		    			TypeGains="Pierre ";
     					}
     				}
        				if (carte.getNumeroCarte()>11 && carte.getNumeroCarte()<14) {
@@ -282,6 +297,8 @@ public class Zone {
         				//carte constructeur 19 : gagner 2 constructeur et  1 type de ressource
         					inventaireJoueur.addNbConstructeur(2);
     						//lancememnt de 4 dé et choix de ressource avec methode choix de joueur 
+    		    			gains=00;
+    		    			TypeGains=" Rien (pas fini) ";
 
         					
     					}
@@ -310,11 +327,15 @@ public class Zone {
             			//carte Paysan 23 : gagner 1 Paysan et 1 TYPE DES resources parmie les 4 dé
     						inventaireJoueur.addNbPaysan(1);	
     						//lancer les 4 dé et choisir une ressource avec methode chois 
+    		    			gains=00;
+    		    			TypeGains=" Rien (pas fini) ";
     					}
     					if (carte.getNumeroCarte()==24) {
             			//carte Paysan 24 : gagner 2 Paysan et 1 TYPE DES resources parmie les 4 dé
     						inventaireJoueur.addNbPaysan(2);
     						//lancer les 4 dé et choisir une ressource avec methode chois 
+    		    			gains=00;
+    		    			TypeGains=" Rien (pas fini) ";
     					}
     					if (carte.getNumeroCarte()==25) {
             			//carte Paysan 25 : gagner 2 Paysan et 3 nourriture
@@ -342,11 +363,15 @@ public class Zone {
     					if (carte.getNumeroCarte()==29) {
                     	//carte Fabricant 29 : gagner 2 Fabricant et 1 type de ressouce au choix 
     						inventaireJoueur.addNbFabricant(2);	
-    						//lancer les 4 dé et choisir une ressource avec methode chois   						
+    						//lancer les 4 dé et choisir une ressource avec methode chois 
+    		    			gains=00;
+    		    			TypeGains=" Rien (pas fini) ";
     					}
     					if (carte.getNumeroCarte()==30) {
                     	//carte Fabricant 30 : gagner 2 Fabricant et 1 type de ressource au choix 
     						//lancer les 4 dé et choisir une ressource avec methode chois 
+    		    			gains=00;
+    		    			TypeGains=" Rien (pas fini) ";
         					inventaireJoueur.addNbFabricant(2);	
     					}
     				}
@@ -377,10 +402,12 @@ public class Zone {
     					else {//(carte.getNumeroCarte()==35) {
                         //carte chamane 35 : gagner 2 Chamane  et 1 lancer 2 dé bois
         					inventaireJoueur.addNbChamane(2);
-        					inventaireJoueur.setNbBois((this.lancéDeDés(2)/3 )+inventaireJoueur.getNbBois());	
+        					int gains =this.lancéDeDés(2)/3;
+        					inventaireJoueur.setNbBois((gains )+inventaireJoueur.getNbBois());	
         					}   					
     				}   				
     			}
+    			cartes.allCards.remove(this.niveauZone-8);
                 break;
     		}
     		else {

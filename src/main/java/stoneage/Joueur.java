@@ -1,19 +1,51 @@
 package stoneage;           //**************ajout de 2 methode choix entre 4 ressource ou entre 2 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class Joueur implements Joueurs {
 	Random rand = new Random();
+	Dé dee= new Dé();
 	
-	/* cette methode va permettre au joueur de choisir le nombre d'outil d'il va utilisier*/
     public int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) { 
+    /* cette methode va permettre au joueur de choisir le nombre d'outil d'il va utilisier*/
 	    int OutilChoisie = rand.nextInt(nbOutils+1); 
     	return OutilChoisie;
     }
-    public int choixTypeRes(int...typeDispo) {
-    	int i=rand.nextInt((typeDispo.length));
-    	return typeDispo[i];
-    	
+    public int choixTypeRes(int cout,Inventaire inv, int...typeDispo) { 
+    /* cette methode permet au joueure de choisir la resource qu'il va utiliser pour payer ses dettes */
+    	ArrayList<Integer> listTypeDispo = new ArrayList(); //transforme le tableau en liste
+    	for (int i=0 ; i<typeDispo.length; i++) {
+    		listTypeDispo.add(typeDispo[i]);
+    	}
+    	/* le joueur retourne :
+    	 * -1: s'il ne veut pas prendre la carte 
+    	 * 3: s'il choisi de la payer avec bois 
+    	 * 4:  Argile 
+    	 * 5: Pierre 
+    	 * 6: Or 
+    	 */
+    	if ( inv.getNbBois()<cout) {// s'il ya pas assez de bois on enleve l'indice de cette zone de la liste 
+    		listTypeDispo.remove(0);
+		}
+		else if ( inv.getNbArgile()<cout) {
+			listTypeDispo.remove(1);
+		}
+		else if ( inv.getNbPierre()>cout) {
+			listTypeDispo.remove(2);
+		}
+		else if (inv.getNbOr()>cout) {
+			listTypeDispo.remove(3);
+		}    	
+    	if(listTypeDispo.size()>0) {
+    		int i=rand.nextInt((listTypeDispo.size()));
+    		return listTypeDispo.get(i);
+    	}
+    	else {
+    		return (-1);
+    	}
     }
 
 	public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv){
