@@ -16,7 +16,7 @@ public class StoneAge {
  	
  	/****** Choisir un Nombre de Joueure Pour commencer une Partie ( entre 2 et 4 )******/
 	public static final void main(String [] args) {
-		StoneAge stoneAge = new StoneAge(2);  
+		StoneAge stoneAge = new StoneAge(4);  
 		stoneAge.jouer();
 	}
 	 public StoneAge(int nbJ){
@@ -49,8 +49,8 @@ public class StoneAge {
             System.out.println("Joueur "+(i)+" : JoueurNormal");
         }
         int nbDeTour=1;
-        while (partie.getNbCarteDispo()>nbJoueurs+1) {
-        
+        while ( partie.getNbCarteDispo()>nbJoueurTotal && nbDeTour<50) { 
+        	// Nombre de partie ay max est 50 sinon le jeu s'arrete lorsqu'il ya plus de carte Civ        
             System.out.println("\n**** Debut du Tour N° "+ (nbDeTour) +" ****");
             unTour();
             System.out.println("**** Fin du Tour N° "+ (nbDeTour) +" ****\n");
@@ -58,8 +58,7 @@ public class StoneAge {
         }
         System.out.println("***************** fin de la Partie *****************");	
         gagner();
-	}
-	
+	}	
     protected void unTour(){
     	for (int i=0 ; i<=nbJoueurs;i++)
     	{

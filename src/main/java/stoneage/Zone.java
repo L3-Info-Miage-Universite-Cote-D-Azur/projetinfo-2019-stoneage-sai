@@ -170,7 +170,6 @@ public class Zone {
     						//lancement de 4 dé avec une methode dans joeur pour que les joueur choisi quelle ressource il veut 
     		    			gains=00;
     		    			TypeGains=" Rien (pas fini) ";
-
     					}
     				}
        				if (carte.getNumeroCarte()>1 && carte.getNumeroCarte()<4) {
@@ -436,24 +435,23 @@ public class Zone {
         					}   					
     				}   				
     			}
-    			carte.removeCard(this.niveauZone-8);
+    			listeDesCartes.remove(this.niveauZone-8);
     			TypeGains+=" avec la carte Civilisation. ";
                 break;
     		}
     		else {
+    			
     			System.out.println("Le joueur decide d'abandonner sa carte civilisation .");
     			break;
-    		}
-                        
-    		default:
+    		}                       
+    		default:   			
     			break;			
     	}
         inventaireJoueur.addAvailableWorkers(this.getNbOuvriersPlaces());
         //recuperer les ouvriers 
         this.resetNbOuvriersPlaces(); // 
         this.setNbPlaceDispo(this.getNbPlaceZone());//quand on recupere les ouvriers,toutes les places deviennent disponibles.    
-    }
-  
+    }  
     public int getGains(){
 	return gains;
     }
@@ -481,7 +479,6 @@ public class Zone {
     public void setNbPlaceDispo(int nbPlaceDispo) {
         this.nbPlaceDispo=nbPlaceDispo;
     }// le nombre de place disponible par zone
-
 
     @Override
     public String toString(){
