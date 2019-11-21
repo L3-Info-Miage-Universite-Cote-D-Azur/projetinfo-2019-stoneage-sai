@@ -94,16 +94,16 @@ public class JoueurBot2 implements Joueurs {
 					}
 				else 
 				{
-					int zoneChoisie = rand.nextInt(6);
+					int zoneChoisie = rand.nextInt(11);
 				 	while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0){
-				 		zoneChoisie = rand.nextInt(6);
+				 		zoneChoisie = rand.nextInt(11);
 				 	}
 					
 					int nbOuvChoisie= rand.nextInt(Math.min(inv.getNbOuvrierDispo(),LesZones.get(zoneChoisie).getNbPlaceDispo()))+1;
 					
 		            return new Choix(zoneChoisie, nbOuvChoisie);
 				}
-				}
+			}
 			
 			
 			return null;
