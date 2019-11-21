@@ -5,8 +5,8 @@ import java.util.Collections;
 
 public class StoneAge {
 	Partie partie = new Partie(); //nombre de joueur choisie est 4 le nombre de joueur minimal est 1 
-	private final JoueurIA joueurIA = new JoueurIA();
-	private final JoueurBot2 joueurBot = new JoueurBot2();
+	private final JoueurIA joueurIA = new JoueurIA("ossama",1);
+	private final JoueurBot2 joueurBot = new JoueurBot2("sebastien",2);
 	private final ArrayList<Joueurs> listeDesJoueurs ; //une liste qui va contenir tous les joueurs de la partie
 	private final ArrayList<Inventaire> listeDesInventaires ; //une liste qui va contenir d=toues les inventaire de la partie
  	private int nbJoueurs;  // A part le joueur IA
@@ -32,8 +32,10 @@ public class StoneAge {
 
 	    	// ajoute en premier le joueurIA 
 	    	//puis les autres joueurs normaux
+                listeDesJoueurs.add(new Joueur("yasmine",3));
+                listeDesJoueurs.add(new Joueur("jeremy",4));
 	    	for (int i=0;i < nbJoueurs-1;i++){
-	    		listeDesJoueurs.add(new Joueur());
+	    		//listeDesJoueurs.add(new Joueur());
 	    		listeDesInventaires.add(new Inventaire());
 	    	}
 
@@ -60,11 +62,9 @@ public class StoneAge {
         gagner();
 	}	
     protected void unTour(){
-    	for (int i=0 ; i<=nbJoueurs;i++)
-    	{
+    	for (int i=0 ; i<=nbJoueurs;i++){
     		listeDesInventaires.get(i).resetAvailableWorkers(); //remettre a jour le nombre d'ouvrier disponnible
     	}
-    	
 		System.out.println("**** Phase de placement ****");
 		boolean placer=false;
     	for (int i=0 ; i<=nbJoueurs;i++)
@@ -75,35 +75,30 @@ public class StoneAge {
     	}
 		while (placer) {	
     		for (int i=0 ; i<=nbJoueurs;i++){
-    			if (listeDesInventaires.get(i).getNbOuvrierDispo() != 0)
-    			{
-    				partie.phasePlacement( listeDesInventaires.get(i), listeDesJoueurs.get(i), i+1);
+    			if (listeDesInventaires.get(i).getNbOuvrierDispo() != 0){
+    				partie.phasePlacement( listeDesInventaires.get(i), listeDesJoueurs.get(i));                               
     			}
     			else {
     	    		for (int j=0 ; j<=nbJoueurs;j++){
-    	    			if (listeDesInventaires.get(j).getNbOuvrierDispo() != 0 &&listeDesInventaires.get(i).getNbOuvrierDispo() != 0)
-    	    			{
-    	    				partie.phasePlacement( listeDesInventaires.get(i), listeDesJoueurs.get(i), i+1);
-    	    				partie.phasePlacement( listeDesInventaires.get(j), listeDesJoueurs.get(j), j+1);
+    	    			if (listeDesInventaires.get(j).getNbOuvrierDispo() != 0 &&listeDesInventaires.get(i).getNbOuvrierDispo() != 0){
+    	    				partie.phasePlacement( listeDesInventaires.get(i), listeDesJoueurs.get(i));
+    	    				partie.phasePlacement( listeDesInventaires.get(j), listeDesJoueurs.get(j));
     	    			}
     	    			else {
     	    	    		for (int k=0 ; k<=nbJoueurs;k++){
-    	    	    			if (listeDesInventaires.get(k).getNbOuvrierDispo() != 0 && listeDesInventaires.get(j).getNbOuvrierDispo() != 0 &&listeDesInventaires.get(i).getNbOuvrierDispo() != 0)
-    	    	    			{
-    	    	    				partie.phasePlacement( listeDesInventaires.get(i), listeDesJoueurs.get(i), i+1);
-    	    	    				partie.phasePlacement( listeDesInventaires.get(j), listeDesJoueurs.get(j), j+1);
-    	    	    				partie.phasePlacement( listeDesInventaires.get(k), listeDesJoueurs.get(k), k+1);
+    	    	    			if (listeDesInventaires.get(k).getNbOuvrierDispo() != 0 && listeDesInventaires.get(j).getNbOuvrierDispo() != 0 &&listeDesInventaires.get(i).getNbOuvrierDispo() != 0){
+    	    	    				partie.phasePlacement( listeDesInventaires.get(i), listeDesJoueurs.get(i));
+    	    	    				partie.phasePlacement( listeDesInventaires.get(j), listeDesJoueurs.get(j));
+    	    	    				partie.phasePlacement( listeDesInventaires.get(k), listeDesJoueurs.get(k));
     	    	    			}
     	    	    			else {
     	    	    	    		for (int l=0 ; l<=nbJoueurs;l++){
-    	    	    	    			if (listeDesInventaires.get(l).getNbOuvrierDispo() != 0 && listeDesInventaires.get(k).getNbOuvrierDispo() != 0 && listeDesInventaires.get(j).getNbOuvrierDispo() != 0 &&listeDesInventaires.get(i).getNbOuvrierDispo() != 0)
-    	    	    	    				 
-    	    	    	    			{
-    	    	    	    				partie.phasePlacement( listeDesInventaires.get(i), listeDesJoueurs.get(i), i+1);
-    	    	    	    				partie.phasePlacement( listeDesInventaires.get(j), listeDesJoueurs.get(j), j+1);
-    	    	    	    				partie.phasePlacement( listeDesInventaires.get(k), listeDesJoueurs.get(k), k+1);
-    	    	    	    				partie.phasePlacement( listeDesInventaires.get(l), listeDesJoueurs.get(l), l+1);
-    	    	    	    			}
+    	    	    	    			if (listeDesInventaires.get(l).getNbOuvrierDispo() != 0 && listeDesInventaires.get(k).getNbOuvrierDispo() != 0 && listeDesInventaires.get(j).getNbOuvrierDispo() != 0 &&listeDesInventaires.get(i).getNbOuvrierDispo() != 0){
+    	    	    	    				partie.phasePlacement( listeDesInventaires.get(i), listeDesJoueurs.get(i));
+    	    	    	    				partie.phasePlacement( listeDesInventaires.get(j), listeDesJoueurs.get(j));
+    	    	    	    				partie.phasePlacement( listeDesInventaires.get(k), listeDesJoueurs.get(k));
+    	    	    	    				partie.phasePlacement( listeDesInventaires.get(l), listeDesJoueurs.get(l));
+                                                }
     	    	    	    		}
     	    	    			}
     	    	    		}
@@ -131,31 +126,26 @@ public class StoneAge {
     	}
 		while (recuperer) {			
 			for (int i=0 ; i<=nbJoueurs;i++){
-    			if (listeDesInventaires.get(i).getNbZoneJouer()  != 0)
-    			{
+    			if (listeDesInventaires.get(i).getNbZoneJouer()  != 0){
     				partie.phaseAction( listeDesInventaires.get(i), listeDesJoueurs.get(i), i+1);
     			}
     			else {
     	    		for (int j=0 ; j<=nbJoueurs;j++){
-    	    			if (listeDesInventaires.get(j).getNbZoneJouer()!= 0 &&listeDesInventaires.get(i).getNbZoneJouer() != 0)
-    	    			{
+    	    			if (listeDesInventaires.get(j).getNbZoneJouer()!= 0 &&listeDesInventaires.get(i).getNbZoneJouer() != 0){
     	    				partie.phaseAction( listeDesInventaires.get(i), listeDesJoueurs.get(i), i+1);
     	    				partie.phaseAction( listeDesInventaires.get(j), listeDesJoueurs.get(j), j+1);
     	    			}
 	
     	    			else {
     	    	    		for (int k=0 ; k<=nbJoueurs;k++){
-    	    	    			if (listeDesInventaires.get(k).getNbZoneJouer() != 0 && listeDesInventaires.get(j).getNbZoneJouer()!= 0 &&listeDesInventaires.get(i).getNbZoneJouer() != 0)
-    	    	    			{
+    	    	    			if (listeDesInventaires.get(k).getNbZoneJouer() != 0 && listeDesInventaires.get(j).getNbZoneJouer()!= 0 &&listeDesInventaires.get(i).getNbZoneJouer() != 0){
     	    	    				partie.phaseAction( listeDesInventaires.get(i), listeDesJoueurs.get(i), i+1);
     	    	    				partie.phaseAction( listeDesInventaires.get(j), listeDesJoueurs.get(j), j+1);
     	    	    				partie.phaseAction( listeDesInventaires.get(k), listeDesJoueurs.get(k), k+1);
     	    	    			}
     	    	    			else {
     	    	    	    		for (int l=0 ; l<=nbJoueurs;l++){
-    	    	    	    			if (listeDesInventaires.get(l).getNbZoneJouer() != 0 && listeDesInventaires.get(k).getNbZoneJouer() != 0 && listeDesInventaires.get(j).getNbZoneJouer() != 0 &&listeDesInventaires.get(i).getNbOuvrierDispo() != 0)
-    	    	    	    				 
-    	    	    	    			{
+    	    	    	    			if (listeDesInventaires.get(l).getNbZoneJouer() != 0 && listeDesInventaires.get(k).getNbZoneJouer() != 0 && listeDesInventaires.get(j).getNbZoneJouer() != 0 &&listeDesInventaires.get(i).getNbOuvrierDispo() != 0){
     	    	    	    				partie.phaseAction( listeDesInventaires.get(i), listeDesJoueurs.get(i), i+1);
     	    	    	    				partie.phaseAction( listeDesInventaires.get(j), listeDesJoueurs.get(j), j+1);
     	    	    	    				partie.phaseAction( listeDesInventaires.get(k), listeDesJoueurs.get(k), k+1);
@@ -182,6 +172,17 @@ public class StoneAge {
 		for (int i=0 ; i<=nbJoueurs;i++){
 			partie.phaseNourrir( listeDesInventaires.get(i), listeDesJoueurs.get(i), i+1);
 		}
+                
+                
+                Collections.swap(listeDesInventaires,0,1);
+                Collections.swap(listeDesInventaires,1,2);
+                Collections.swap(listeDesInventaires,2,3);
+
+                             
+                Collections.swap(listeDesJoueurs,0,1);
+                Collections.swap(listeDesJoueurs,1,2);
+                Collections.swap(listeDesJoueurs,2,3);
+
 	
 		
     }
