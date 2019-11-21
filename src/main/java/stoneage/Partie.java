@@ -22,7 +22,7 @@ public class Partie {
         		inv.listeZonesJouer.set(i,false); //la zone n'es pluas etuliser donc elle devient false pour le joueur (disponnible a nouveau)
         		System.out.println("Le joueur " + joueurCourant + " reprend ses ouvriers de la zone "+choix.NomZone());
         		
-        		System.out.println("Il gagne : "+choix.getGains() +" " +choix.TypeGains()  + ". \n");
+        		System.out.println("Il gagne  "+choix.getGains() +" " +choix.TypeGains()  + ". \n");
         	}            
         }
         inv.resetAvailableWorkers();
