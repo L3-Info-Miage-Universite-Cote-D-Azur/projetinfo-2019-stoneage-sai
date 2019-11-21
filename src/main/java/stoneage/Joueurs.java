@@ -14,5 +14,6 @@ import java.util.ArrayList;
 public interface Joueurs {
 	public int choixTypeRes(int cout,Inventaire inv, int...typeDispo) ;
 	public int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) ;
-    public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv);
+        public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv);
+        public int getNum();
 }
