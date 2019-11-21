@@ -8,7 +8,16 @@ import java.util.Set;
 public class Joueur implements Joueurs {
 	Random rand = new Random();
 	Dé dee= new Dé();
-	
+        String name;
+	int num;
+	Joueur(String name,int num){
+            this.name=name;
+            this.num=num;
+        }
+        @Override
+        public int getNum(){
+            return num;
+        }
     public int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) { 
     /* cette methode va permettre au joueur de choisir le nombre d'outil d'il va utilisier*/
 	    int OutilChoisie = rand.nextInt(nbOutils+1); 
@@ -64,5 +73,9 @@ public class Joueur implements Joueurs {
 	    	 return null;
 	    }
 	}
+        @Override
+        public String toString(){
+            return name;
+        }
 	
 }
