@@ -21,9 +21,11 @@ public class Partie {
         		choix.recupeRes(inv,joueur);
         		inv.listeZonesJouer.set(i,false); //la zone n'es pluas etuliser donc elle devient false pour le joueur (disponnible a nouveau)
         		System.out.println("Le joueur " + joueurCourant + " reprend ses ouvriers de la zone "+choix.NomZone());
+        		
         		System.out.println("Il gagne : "+choix.getGains() +" " +choix.TypeGains()  + ". \n");
         	}            
         }
+        inv.resetAvailableWorkers();
     }
    
     protected void phasePlacement( Inventaire  inv, Joueurs joueur, int joueurCourant){
@@ -41,7 +43,7 @@ public class Partie {
             System.out.println("Le joueur " + joueurCourant + " va nourrir ses ouvriers avec la nourritue qu'il possede. \n ");
 
     	}
-        else if(inv.getNourriture()<inv.getNbOuvrierDispo() && nm>inv.getNourriture() && inv.getNbRessource()>=nm ){
+        else if(inv.getNourriture()<inv.getNbOuvrierDispo() && inv.getNbRessource()>=nm ){
             System.out.println("Le joueur " + joueurCourant + " n'a pas assez de nourriture,il lui manque " + nm + " nourritures" + ",il utilise donc les " +inv.getNourriture()+ " nourriture qu'il possede et ses ressources. \n " );
             inv.setNourriture(inv.getNourriture()-inv.getNourriture());
             inv.setNbRessource(inv.getNbRessource()-nm);
@@ -76,7 +78,7 @@ public class Partie {
                     inv.setNbPierre(inv.getNbPierre()-inv.getNbPierre());      
                 }     
                 else{
-                    System.out.println("Le joueur " + joueurCourant + " n'a pas assez de nourriture ,il nourrit ses figurines avec " + inv.getNbPierre() + " pierre. \n");
+                    System.out.println("Le joueur " + joueurCourant + " n'a pas assez de nourriture ,il nourrit ses figurines avec " + nm + " pierre. \n");
                     inv.setNbPierre(inv.getNbPierre()-nm);  
                     nm=nm-nm;
                 }
@@ -89,7 +91,7 @@ public class Partie {
                 }     
                 else{
                     inv.setNbOr(inv.getNbOr()-nm);  
-                    System.out.println("Le joueur " + joueurCourant + " n'a pas assez de nourriture ,il nourrit ses figurines avec " + inv.getNbBois() + " or. \n");
+                    System.out.println("Le joueur " + joueurCourant + " n'a pas assez de nourriture ,il nourrit ses figurines avec " + nm + " or. \n");
                     nm=nm-nm;
                 }
             }           
