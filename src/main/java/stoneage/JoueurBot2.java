@@ -6,7 +6,16 @@ public class JoueurBot2 implements Joueurs {
 	Random rand = new Random();
 	public int gains;
 	public String TypeGains;
-
+        String name;
+	int num;
+	JoueurBot2(String name,int num){
+            this.name=name;
+            this.num=num;
+        }
+        @Override
+        public int getNum(){
+            return num;
+        }
 	public int getGains(){
 		return gains;
 	}
