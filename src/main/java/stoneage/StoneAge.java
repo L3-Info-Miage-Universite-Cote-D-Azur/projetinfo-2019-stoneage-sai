@@ -198,14 +198,27 @@ public class StoneAge {
 	    			ScoreGagnant=listeDesInventaires.get(i).calcScore();
 	    		}       
 	        }        
-	                int a=0;
-	                int j=1;
-	                if (listeDesInventaires.get(a).calcScore()== listeDesInventaires.get(a+1).calcScore() && listeDesInventaires.get(a+1).calcScore()==listeDesInventaires.get(a+2).calcScore() && listeDesInventaires.get(a+2).calcScore()==listeDesInventaires.get(a+3).calcScore()){
-	                    System.out.println("Les Joueurs ont des scores egaux! Il n'y a pas de gagnant");// nous permet de savoir si les 4 joueurs ont des score egaux
-	    		}  	
+    		int nbScoreEgaux=0;
+    	    ArrayList<Integer>  joueurGagnant=new ArrayList();
+	    	for (int i=0 ; i<=nbJoueurs;i++){
+	    		if (listeDesInventaires.get(i).calcScore()== ScoreGagnant) {
+	    			nbScoreEgaux++;
+	    			joueurGagnant.add(i+1);
+	    		}
+	    	}
+	    	if (nbScoreEgaux==nbJoueurs+1) {
+				System.out.println("Les Joueurs ont des scores egaux! Il n'y a pas de gagnant.");// nous permet de savoir si les 4 joueurs ont des score egaux
+	    	} 
+	    	else if (nbScoreEgaux==2) {
+                 System.out.println("Les joueurs ** " +(joueurGagnant.get(0))+" ** et ** "+(joueurGagnant.get(1))+" ** gagnent.");
+            } 
+	    	else if  (nbScoreEgaux==1){
+	    		System.out.println("Le joueur *** "+Gagnant+" *** emporte la partie avec : " + ScoreGagnant + " Points");
+	    	}        
+	               /*  	
 	                else if (listeDesInventaires.get(a).calcScore()== listeDesInventaires.get(a+1).calcScore() &&listeDesInventaires.get(a).calcScore()>=Collections.max(listScore)){//scorejoueur1==scorejoueur2
-	                        System.out.println("Les joueurs" +(j)+" et"+(j+1)+"gagnent");
-	                    } 
+                        System.out.println("Les joueurs" +(j)+" et"+(j+1)+"gagnent");
+                    } 
 	                else if (listeDesInventaires.get(a).calcScore()== listeDesInventaires.get(a+2).calcScore() &&listeDesInventaires.get(a).calcScore()>=Collections.max(listScore)){//scorejoueur1==scorejoueur3
 	                        System.out.println("Les joueurs" +j+" et"+(j+2)+"gagnent");
 	                    } 
@@ -224,6 +237,7 @@ public class StoneAge {
 	                                      		
 	    		else {
 	    			System.out.println("Le joueur ** "+Gagnant+" ** emporte la partie avec : " + ScoreGagnant + " Points");
-	    		}              
-	    }
+	    		} 
+	    		*/             	    
+	 }
 }
