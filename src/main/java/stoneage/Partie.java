@@ -33,18 +33,20 @@ public class Partie {
         inv.resetAvailableWorkers();
     }
    
-    protected void phasePlacement( Inventaire  inv, Joueurs joueur, int joueurCourant){
+    protected void phasePlacement( Inventaire  inv, Joueurs joueur){
             Choix choix = joueur.placerOuvriers( LesZones,inv);
             inv.listeZonesJouer.set(choix.zoneChoisie,true); //la zone choisie est utliser donc devient true dans l'inventaire du joueur 
-            LesZones.get(choix.zoneChoisie).placerOuvrier(inv, choix.nbOuvriersChoisie);    		
-            System.out.println("Le joueur " + joueurCourant + " a choisi la zone "+(LesZones.get(choix.zoneChoisie)).NomZone()+" pour y placer "+choix.nbOuvriersChoisie+" ouvrier(s)");  
+            LesZones.get(choix.zoneChoisie).placerOuvrier(inv, choix.nbOuvriersChoisie);   
+            System.out.println("Le joueur " + joueur.getNum() + " a choisi la zone "+(LesZones.get(choix.zoneChoisie)).NomZone()+" pour y placer "+choix.nbOuvriersChoisie+" ouvrier(s)");  
     }
+
     public  int getNbCarteDispo() { 
         return (listeDesCartes).size();
     }// cette methode va retourner le nombre des carte disponnible 
     protected void phaseNourrir(Inventaire  inv, Joueurs joueur, int joueurCourant){
         System.out.println("Le joueur " + joueurCourant+ " a "+inv.getNourriture()+" nourriture et " + inv.getNbRessource() +" ressources");
         int nm=inv.getNbOuvrierDispo()-inv.getNourriture();//nourriture qui manque
+        System.out.println("Le joueur a  "+ joueurCourant +  +inv.getNourriture()+" nourriture et " + inv.getNbRessource() +" ressources et il lui manque " +nm +" nourritures");
     	if (inv.getNourriture()>=inv.getNbOuvrierDispo()){
             inv.setNourriture(inv.getNourriture()-inv.getNbOuvrierDispo());
             System.out.println("Le joueur " + joueurCourant + " va nourrir ses ouvriers avec la nourritue qu'il possede. \n ");
