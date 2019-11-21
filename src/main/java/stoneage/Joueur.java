@@ -1,4 +1,4 @@
-package stoneage;
+package stoneage;           //**************ajout de 2 methode choix entre 4 ressource ou entre 2 
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -10,12 +10,17 @@ public class Joueur implements Joueurs {
 	    int OutilChoisie = rand.nextInt(nbOutils+1); 
     	return OutilChoisie;
     }
+    public int choixTypeRes(int...typeDispo) {
+    	int i=rand.nextInt((typeDispo.length));
+    	return typeDispo[i];
+    	
+    }
 
 	public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv){
 		if ( (inv.getNbZoneJouer() < 6&&inv.ouvrierDispo())){
-			 	int zoneChoisie = rand.nextInt(6);
+			 	int zoneChoisie = rand.nextInt(11);
 			 	while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0){
-			 		zoneChoisie = rand.nextInt(6);
+			 		zoneChoisie = rand.nextInt(11);
 			 	}
 				//IA simple qui choisit une zone au hazard
 				int nbOuvChoisie= rand.nextInt(Math.min(inv.getNbOuvrierDispo(),LesZones.get(zoneChoisie).getNbPlaceDispo()))+1;
