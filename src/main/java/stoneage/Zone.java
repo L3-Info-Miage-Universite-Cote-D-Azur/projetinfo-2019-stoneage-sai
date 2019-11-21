@@ -315,12 +315,15 @@ public class Zone {
             			//carte Paysan 21 : gagner 1 Paysan et 1 pierre
     						inventaireJoueur.addNbPaysan(1);
         					inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()+1);	
-
+    		    			gains=1;
+    		    			TypeGains=" Pierre ";
     					}
     					if (carte.getNumeroCarte()==22) {
             			//carte Paysan 22 : gagner 1 Paysan et 1 pts dans Niveau champ
     						inventaireJoueur.addNbPaysan(1);
         					inventaireJoueur.setScoreChamp(inventaireJoueur.getScoreChamp()+1);	
+    		    			gains=1;
+    		    			TypeGains=" Niveau Champ ";
 
     					}
     					if (carte.getNumeroCarte()==23) {
@@ -341,6 +344,8 @@ public class Zone {
             			//carte Paysan 25 : gagner 2 Paysan et 3 nourriture
     						inventaireJoueur.addNbPaysan(2);
         					inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+3);	
+    		    			gains=3;
+    		    			TypeGains=" Nourriture ";
     					}
     				}
        				if (carte.getNumeroCarte()>25 && carte.getNumeroCarte()<31) {
@@ -349,16 +354,22 @@ public class Zone {
                 		//carte Fabricant 26 : gagner 1 Fabricant et 3 outil
         					inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()+3);	
     						inventaireJoueur.addNbFabricant(1);
+    		    			gains=3;
+    		    			TypeGains=" Outils ";
     					}
     					if (carte.getNumeroCarte()==27) {
                     	//carte Fabricant 27 : gagner 1 Fabricant et 4 outil
         					inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()+4);	
-        					inventaireJoueur.addNbFabricant(1);    						
+        					inventaireJoueur.addNbFabricant(1);  
+    		    			gains=4;
+    		    			TypeGains=" Outils ";
     					}
     					if (carte.getNumeroCarte()==28) {
                     	//carte Fabricant 28 : gagner 2 Fabricant et 2 OUTIL
         					inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()+2);	
-        					inventaireJoueur.addNbFabricant(2);   						
+        					inventaireJoueur.addNbFabricant(2); 
+    		    			gains=2;
+    		    			TypeGains=" Outils ";
     					}
     					if (carte.getNumeroCarte()==29) {
                     	//carte Fabricant 29 : gagner 2 Fabricant et 1 type de ressouce au choix 
@@ -382,36 +393,48 @@ public class Zone {
                         //carte chamane 31 : gagner 1 Chamane  et 1 PIERRE
     						inventaireJoueur.addNbChamane(1);
         					inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()+1);	
+    		    			gains=1;
+    		    			TypeGains=" Pierre ";
     					}
     					if (carte.getNumeroCarte()==32) {
                         //carte chamane 32 : gagner 1 Chamane  et 1 OR 
         					inventaireJoueur.addNbChamane(1);
             				inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()+1);	
+    		    			gains=1;
+    		    			TypeGains=" Or ";
         					}
     					if (carte.getNumeroCarte()==33) {
                         //carte chamane 33 : gagner 1 Chamane  et lancer 2 dé pierre
-        					inventaireJoueur.setNbPierre((this.lancéDeDés(2)/5 )+inventaireJoueur.getNbPierre());	
+    						int gain =this.lancéDeDés(2)/5 ;
+        					inventaireJoueur.setNbPierre((gain)+inventaireJoueur.getNbPierre());	
         					inventaireJoueur.addNbChamane(1);
+    		    			gains=gain;
+    		    			TypeGains=" Pierre ";
         					}
     					if (carte.getNumeroCarte()==34) {
                         //carte chamane 34 : gagner 2 Chamane  et 1 argile
         					inventaireJoueur.addNbChamane(2);
             				inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()+1);	
+    		    			gains=2;
+    		    			TypeGains=" Argile ";
 
         					}
     					else {//(carte.getNumeroCarte()==35) {
                         //carte chamane 35 : gagner 2 Chamane  et 1 lancer 2 dé bois
         					inventaireJoueur.addNbChamane(2);
-        					int gains =this.lancéDeDés(2)/3;
-        					inventaireJoueur.setNbBois((gains )+inventaireJoueur.getNbBois());	
+        					int gain =this.lancéDeDés(2)/3;
+        					inventaireJoueur.setNbBois((gain )+inventaireJoueur.getNbBois());	
+    		    			gains=gain;
+    		    			TypeGains=" Bois ";
         					}   					
     				}   				
     			}
     			cartes.allCards.remove(this.niveauZone-8);
+    			TypeGains+=" avec la carte Civilisation. ";
                 break;
     		}
     		else {
-    			System.out.println("Le joueur decide d'abandonner sa carte.");
+    			System.out.println("Le joueur decide d'abandonner sa carte civilisation .");
     			break;
     		}
                         
