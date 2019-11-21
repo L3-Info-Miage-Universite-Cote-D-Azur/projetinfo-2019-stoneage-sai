@@ -9,7 +9,8 @@ public class StoneAge {
 	private final JoueurBot2 joueurBot = new JoueurBot2();
 	private final ArrayList<Joueurs> listeDesJoueurs ; //une liste qui va contenir tous les joueurs de la partie
 	private final ArrayList<Inventaire> listeDesInventaires ; //une liste qui va contenir d=toues les inventaire de la partie
- 	private int nbJoueurs;  // A part le joueur IA 
+ 	private int nbJoueurs;  // A part le joueur IA
+	private static int nbJoueurTotal;
  	public Zone zone;
 
 	public static final void main(String [] args) {
@@ -18,7 +19,8 @@ public class StoneAge {
 		 
 	}
 	 public StoneAge(int nbJ){
-	    	//On choisie le nombre des joueures dans cette partie
+			nbJoueurTotal = nbJ;
+	    	//On choisit le nombre des joueures dans cette partie
 	    	this.nbJoueurs=nbJ-1;
 	    	listeDesJoueurs = new ArrayList<>();
 	    	listeDesInventaires = new ArrayList<>();
@@ -198,14 +200,27 @@ public class StoneAge {
 	    			ScoreGagnant=listeDesInventaires.get(i).calcScore();
 	    		}       
 	        }        
-	                int a=0;
-	                int j=1;
-	                if (listeDesInventaires.get(a).calcScore()== listeDesInventaires.get(a+1).calcScore() && listeDesInventaires.get(a+1).calcScore()==listeDesInventaires.get(a+2).calcScore() && listeDesInventaires.get(a+2).calcScore()==listeDesInventaires.get(a+3).calcScore()){
-	                    System.out.println("Les Joueurs ont des scores egaux! Il n'y a pas de gagnant");// nous permet de savoir si les 4 joueurs ont des score egaux
-	    		}  	
+    		int nbScoreEgaux=0;
+    	    ArrayList<Integer>  joueurGagnant=new ArrayList();
+	    	for (int i=0 ; i<=nbJoueurs;i++){
+	    		if (listeDesInventaires.get(i).calcScore()== ScoreGagnant) {
+	    			nbScoreEgaux++;
+	    			joueurGagnant.add(i+1);
+	    		}
+	    	}
+	    	if (nbScoreEgaux==nbJoueurs+1) {
+				System.out.println("Les Joueurs ont des scores egaux! Il n'y a pas de gagnant.");// nous permet de savoir si les 4 joueurs ont des score egaux
+	    	} 
+	    	else if (nbScoreEgaux==2) {
+                 System.out.println("Les joueurs ** " +(joueurGagnant.get(0))+" ** et ** "+(joueurGagnant.get(1))+" ** gagnent.");
+            } 
+	    	else if  (nbScoreEgaux==1){
+	    		System.out.println("Le joueur *** "+Gagnant+" *** emporte la partie avec : " + ScoreGagnant + " Points");
+	    	}        
+	               /*  	
 	                else if (listeDesInventaires.get(a).calcScore()== listeDesInventaires.get(a+1).calcScore() &&listeDesInventaires.get(a).calcScore()>=Collections.max(listScore)){//scorejoueur1==scorejoueur2
-	                        System.out.println("Les joueurs" +(j)+" et"+(j+1)+"gagnent");
-	                    } 
+                        System.out.println("Les joueurs" +(j)+" et"+(j+1)+"gagnent");
+                    } 
 	                else if (listeDesInventaires.get(a).calcScore()== listeDesInventaires.get(a+2).calcScore() &&listeDesInventaires.get(a).calcScore()>=Collections.max(listScore)){//scorejoueur1==scorejoueur3
 	                        System.out.println("Les joueurs" +j+" et"+(j+2)+"gagnent");
 	                    } 
@@ -224,6 +239,11 @@ public class StoneAge {
 	                                      		
 	    		else {
 	    			System.out.println("Le joueur ** "+Gagnant+" ** emporte la partie avec : " + ScoreGagnant + " Points");
-	    		}              
-	    }
+	    		} 
+	    		*/             	    
+	 }
+
+	public static int getNbJoueurTotal() {
+		return nbJoueurTotal;
+	}
 }
