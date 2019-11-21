@@ -9,7 +9,8 @@ public class StoneAge {
 	private final JoueurBot2 joueurBot = new JoueurBot2();
 	private final ArrayList<Joueurs> listeDesJoueurs ; //une liste qui va contenir tous les joueurs de la partie
 	private final ArrayList<Inventaire> listeDesInventaires ; //une liste qui va contenir d=toues les inventaire de la partie
- 	private int nbJoueurs;  // A part le joueur IA 
+ 	private int nbJoueurs;  // A part le joueur IA
+	private static int nbJoueurTotal;
  	public Zone zone;
 
 	public static final void main(String [] args) {
@@ -18,7 +19,8 @@ public class StoneAge {
 		 
 	}
 	 public StoneAge(int nbJ){
-	    	//On choisie le nombre des joueures dans cette partie
+			nbJoueurTotal = nbJ;
+	    	//On choisit le nombre des joueures dans cette partie
 	    	this.nbJoueurs=nbJ-1;
 	    	listeDesJoueurs = new ArrayList<>();
 	    	listeDesInventaires = new ArrayList<>();
@@ -240,4 +242,8 @@ public class StoneAge {
 	    		} 
 	    		*/             	    
 	 }
+
+	public static int getNbJoueurTotal() {
+		return nbJoueurTotal;
+	}
 }
