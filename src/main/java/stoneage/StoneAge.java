@@ -13,10 +13,11 @@ public class StoneAge {
 	private static int nbJoueurTotal;
  	public Zone zone;
 
+ 	
+ 	/****** Choisir un Nombre de Joueure Pour commencer une Partie ( entre 2 et 4 )******/
 	public static final void main(String [] args) {
-		StoneAge stoneAge = new StoneAge(3);
+		StoneAge stoneAge = new StoneAge(2);  
 		stoneAge.jouer();
-		 
 	}
 	 public StoneAge(int nbJ){
 			nbJoueurTotal = nbJ;
@@ -41,14 +42,19 @@ public class StoneAge {
 	protected  void jouer(){
 
         System.out.println("***************** Debut de la Partie *****************\n");
-        System.out.println("Joueur **1** : JoueurIA");
-        System.out.println("Joueur **2** : JoueurBot2");
-        System.out.println("Joueur **3** : JoueurNormal");
-        System.out.println("Joueur **4** : JoueurNormal\n");
-        for (int z=0 ; z < 5;z++){
-            System.out.println("**** Debut du Tour N° "+ (z+1) +" ****");
+        System.out.println("** Debut de la Partie **\n");
+        System.out.println("Joueur 1 : JoueurIA");
+        System.out.println("Joueur 2 : JoueurBot2");
+        for (int i=3 ; i<=nbJoueurs+1;i++){
+            System.out.println("Joueur "+(i)+" : JoueurNormal");
+        }
+        int nbDeTour=1;
+        while (partie.getNbCarteDispo()>nbJoueurs+1) {
+        
+            System.out.println("\n**** Debut du Tour N° "+ (nbDeTour) +" ****");
             unTour();
-	    System.out.println("**** Fin du Tour N° "+ (z+1) +" ****\n");
+            System.out.println("**** Fin du Tour N° "+ (nbDeTour) +" ****\n");
+            nbDeTour++;
         }
         System.out.println("***************** fin de la Partie *****************");	
         gagner();
