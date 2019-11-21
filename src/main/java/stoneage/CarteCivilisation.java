@@ -12,7 +12,7 @@ public class CarteCivilisation {
        21-22-23-24-25: Agriculture
        26-27-28-29-30: Outils
        31-32-33-34-35: Figurine  */
-    private static ArrayList<CarteCivilisation> allCards;
+    private  ArrayList<CarteCivilisation> allCards;
     private int nbBuilderOnIt;
     /*  0:Pour les cartes fond verts
         1 ou 2 ou 3: Nb Builder present sur chaque carte */
@@ -27,7 +27,10 @@ public class CarteCivilisation {
         7: 2 dés + ressources (memes conditions que les lancer pour gagner des ressources)
         8: Pioche une carte civilisation */
 
-
+    public CarteCivilisation() {
+    	addCardsToList();
+    	
+    }
     public CarteCivilisation(int fondDeCarte, int numeroCarte, int partieSuperieur, int nbBuilderOnIt) {
         this.fondDeCarte = fondDeCarte;
         this.numeroCarte = numeroCarte;
@@ -42,10 +45,11 @@ public class CarteCivilisation {
         shuffleCards(allCards);
     }
     public void shuffleCards(ArrayList<CarteCivilisation> allCards){
-        /* @TODO */
+        /* TODO */
     }
-    public void addCardsToList(){
+    public  void addCardsToList(){
         //  FOND VERT
+    	allCards= new ArrayList<>();
         allCards.add(new CarteCivilisation(0,0,1,0));
         allCards.add(new CarteCivilisation(0,1,6,0));
         allCards.add(new CarteCivilisation(0,2,7,0));
@@ -96,7 +100,7 @@ public class CarteCivilisation {
     public int getPartieSuperieur() {
         return partieSuperieur;
     }
-    public static ArrayList<CarteCivilisation> getAllCards() {
+    public  ArrayList<CarteCivilisation> getAllCards() {
         return allCards;
     }
 }
