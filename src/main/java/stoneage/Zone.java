@@ -12,6 +12,7 @@ public class Zone {
     private int nbPlaceDispo;
     public int gains; //le nombre des gains du joueur 
     public String TypeGains; //le nom du gain par exemple bois...
+    public int nbJoueur;
     Random rand = new Random();
 
 
@@ -39,6 +40,7 @@ public class Zone {
     	if (nbOuvriers>=1 && nbOuvriers <=nbPlaceDispo && nbOuvriers<=inventaireJoueur.getNbOuvrierDispo() ){
     		inventaireJoueur.removeAvailableWorkers(nbOuvriers);//pour placer un nbOuvrier il faut les retirer d'abord de l'inventaire du joueur
     		nbOuvriersPlacés=nbOuvriers;
+    		nbJoueur++;
             nbPlaceDispo=nbPlaceDispo-nbOuvriers; //le nombre de place disponnible dans la zone diminue
              //le nombre d'ouvrier placer dans la zone augmente
     	}
@@ -139,6 +141,7 @@ public class Zone {
     				inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()-coutCarte);
     				inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);
     				payer=true;
+    				
     			}
     			else if (typeCout==5) {
     				inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()-coutCarte);
@@ -449,6 +452,7 @@ public class Zone {
     	}
         inventaireJoueur.addAvailableWorkers(this.getNbOuvriersPlaces());
         //recuperer les ouvriers 
+        nbJoueur--;
         this.resetNbOuvriersPlaces(); // 
         this.setNbPlaceDispo(this.getNbPlaceZone());//quand on recupere les ouvriers,toutes les places deviennent disponibles.    
     }  
