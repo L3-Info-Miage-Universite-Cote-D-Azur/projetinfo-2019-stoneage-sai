@@ -8,11 +8,11 @@ public class Partie {
     private  ArrayList<CarteCivilisation> listeDesCartes ;
     
     public Partie(){
-	LesZones=new ArrayList<>();
-	listeDesCartes=new ArrayList<CarteCivilisation>();
-	listeDesCartes=carte.getAllCards();
-	
-	  // c'est la liste general des zone pour le jeu 
+    	LesZones=new ArrayList<>();
+		listeDesCartes=new ArrayList<CarteCivilisation>();
+		listeDesCartes=carte.getAllCards();
+		
+		  // c'est la liste general des zone pour le jeu 
 		for(int i=1; i<12;i++){
 			Zone zone = new Zone(i);
 			LesZones.add(zone);
@@ -43,6 +43,7 @@ public class Partie {
     public  int getNbCarteDispo() { 
         return (listeDesCartes).size();
     }// cette methode va retourner le nombre des carte disponnible 
+    
     protected void phaseNourrir(Inventaire  inv, Joueurs joueur, int joueurCourant){
         System.out.println("Le joueur " + joueurCourant+ " a "+inv.getNourriture()+" nourriture et " + inv.getNbRessource() +" ressources");
         int nm=inv.getNbOuvrierDispo()-inv.getNourriture();//nourriture qui manque
