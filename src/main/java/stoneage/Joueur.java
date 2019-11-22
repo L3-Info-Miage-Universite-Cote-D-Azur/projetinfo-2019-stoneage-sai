@@ -7,7 +7,6 @@ import java.util.Set;
 
 public class Joueur implements Joueurs {
 	Random rand = new Random();
-	Dé dee= new Dé();
         String name;
 	int num;
 	Joueur(String name,int num){
@@ -58,10 +57,58 @@ public class Joueur implements Joueurs {
     }
 
 	public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv){
-		if ( (inv.getNbZoneJouer() < 6&&inv.ouvrierDispo())){
+		if (StoneAge.getNbJoueurTotal()==2){
+			if ( (inv.getNbZoneJouer() < 6&&inv.ouvrierDispo())){
+				int i=0;
+				int zoneChoisie = rand.nextInt(9);
+			 	while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).nbJoueur>=1){				 	
+			 		zoneChoisie = rand.nextInt(9);
+			 		i++;
+			 		if(i==10) {
+			 			zoneChoisie = 1;
+			 			break;
+			 		}
+				 }		 	
+			 	
+				//IA simple qui choisit une zone au hazard
+				int nbOuvChoisie= rand.nextInt(Math.min(inv.getNbOuvrierDispo(),LesZones.get(zoneChoisie).getNbPlaceDispo()))+1;
+				//IA simple qui choisit nombre d'ouvrier qu'elle va poser sur cette zone au hazard 
+				//le nombre doit etres inferieur au nombre de place disponnible de la zone et inferieur au nombre d'ouvrier dispo de la zone 
+	            return new Choix(zoneChoisie, nbOuvChoisie);
+				}
+		     else{
+		    	 return null;
+		    }
+		}
+		else if(StoneAge.getNbJoueurTotal()==3) {
+			if ( (inv.getNbZoneJouer() < 6 &&inv.ouvrierDispo())){
+				int i=0;
+			 	int zoneChoisie = rand.nextInt(10);
+			 	while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).nbJoueur>=2){
+			 		zoneChoisie = rand.nextInt(10);
+			 		i++;
+			 		if(i==10) {
+			 			zoneChoisie = 1;
+			 			break;
+			 		}
+			 	}
+				//IA simple qui choisit une zone au hazard
+				int nbOuvChoisie= rand.nextInt(Math.min(inv.getNbOuvrierDispo(),LesZones.get(zoneChoisie).getNbPlaceDispo()))+1;
+				//IA simple qui choisit nombre d'ouvrier qu'elle va poser sur cette zone au hazard 
+				//le nombre doit etres inferieur au nombre de place disponnible de la zone et inferieur au nombre d'ouvrier dispo de la zone 
+	            return new Choix(zoneChoisie, nbOuvChoisie);
+			}
+			else{
+				return null;
+			}		
+		}
+		else {
+			if ( (inv.getNbZoneJouer() < 6 &&inv.ouvrierDispo())){
+
 			 	int zoneChoisie = rand.nextInt(11);
 			 	while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0){
 			 		zoneChoisie = rand.nextInt(11);
+
 			 	}
 				//IA simple qui choisit une zone au hazard
 				int nbOuvChoisie= rand.nextInt(Math.min(inv.getNbOuvrierDispo(),LesZones.get(zoneChoisie).getNbPlaceDispo()))+1;
@@ -70,12 +117,12 @@ public class Joueur implements Joueurs {
 	            return new Choix(zoneChoisie, nbOuvChoisie);
 			}
 	     else{
-	    	 return null;
-	    }
+	    	 return null;	    
+	     }
+		}
 	}
         @Override
         public String toString(){
             return name;
-        }
-	
+        }	
 }
