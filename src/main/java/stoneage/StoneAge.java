@@ -5,8 +5,8 @@ import java.util.Collections;
 
 public class StoneAge {
 	Partie partie = new Partie(); //nombre de joueur choisie est 4 le nombre de joueur minimal est 1 
-	private final JoueurIA joueurIA = new JoueurIA("ossama",1);
-	private final JoueurBot2 joueurBot = new JoueurBot2("sebastien",2);
+	private final JoueurIA joueurIA = new JoueurIA("O",1);
+	private final JoueurBot2 joueurBot = new JoueurBot2("S",2);
 	private final ArrayList<Joueurs> listeDesJoueurs ; //une liste qui va contenir tous les joueurs de la partie
 	private final ArrayList<Inventaire> listeDesInventaires ; //une liste qui va contenir d=toues les inventaire de la partie
  	private int nbJoueurs;  // A part le joueur IA
@@ -32,8 +32,8 @@ public class StoneAge {
 
 	    	// ajoute en premier le joueurIA 
 	    	//puis les autres joueurs normaux
-                listeDesJoueurs.add(new Joueur("yasmine",3));
-                listeDesJoueurs.add(new Joueur("jeremy",4));
+                listeDesJoueurs.add(new Joueur("Y",3));
+                listeDesJoueurs.add(new Joueur("J",4));
 	    	for (int i=0;i < nbJoueurs-1;i++){
 	    		//listeDesJoueurs.add(new Joueur());
 	    		listeDesInventaires.add(new Inventaire());
@@ -51,7 +51,7 @@ public class StoneAge {
             System.out.println("Joueur "+(i)+" : JoueurNormal");
         }
         int nbDeTour=1;
-        while ( partie.getNbCarteDispo()>nbJoueurTotal && nbDeTour<50) { 
+        while ( partie.getNbCarteDispo()>nbJoueurTotal*4 && nbDeTour<50) { 
         	// Nombre de partie ay max est 50 sinon le jeu s'arrete lorsqu'il ya plus de carte Civ        
             System.out.println("\n**** Debut du Tour N° "+ (nbDeTour) +" ****");
             unTour();
@@ -174,14 +174,11 @@ public class StoneAge {
 		}
                 
                 
-                Collections.swap(listeDesInventaires,0,1);
-                Collections.swap(listeDesInventaires,1,2);
-                Collections.swap(listeDesInventaires,2,3);
+		for (int i=0 ; i<=nbJoueurs-1;i++) {
+				Collections.swap(listeDesInventaires,i,i+1);
+				Collections.swap(listeDesJoueurs,i,i+1);
+		}
 
-                             
-                Collections.swap(listeDesJoueurs,0,1);
-                Collections.swap(listeDesJoueurs,1,2);
-                Collections.swap(listeDesJoueurs,2,3);
 
 	
 		
@@ -217,36 +214,20 @@ public class StoneAge {
 	    	if (nbScoreEgaux==nbJoueurs+1) {
 				System.out.println("Les Joueurs ont des scores egaux! Il n'y a pas de gagnant.");// nous permet de savoir si les 4 joueurs ont des score egaux
 	    	} 
-	    	else if (nbScoreEgaux==2) {
-                 System.out.println("Les joueurs ** " +(joueurGagnant.get(0))+" ** et ** "+(joueurGagnant.get(1))+" ** gagnent.");
+	    	else if (nbScoreEgaux==3) {
+                 System.out.println("Les joueurs ** " +(joueurGagnant.get(0))+" ** et ** "+(joueurGagnant.get(1))+" ** et ** "+(joueurGagnant.get(2))+" ** gagnent.");
             } 
+	    	else if (nbScoreEgaux==2) {
+                System.out.println("Les joueurs ** " +(joueurGagnant.get(0))+" ** et ** "+(joueurGagnant.get(1))+" ** gagnent.");
+           } 
 	    	else if  (nbScoreEgaux==1){
 	    		System.out.println("Le joueur *** "+Gagnant+" *** emporte la partie avec : " + ScoreGagnant + " Points");
-	    	}        
-	               /*  	
-	                else if (listeDesInventaires.get(a).calcScore()== listeDesInventaires.get(a+1).calcScore() &&listeDesInventaires.get(a).calcScore()>=Collections.max(listScore)){//scorejoueur1==scorejoueur2
-                        System.out.println("Les joueurs" +(j)+" et"+(j+1)+"gagnent");
-                    } 
-	                else if (listeDesInventaires.get(a).calcScore()== listeDesInventaires.get(a+2).calcScore() &&listeDesInventaires.get(a).calcScore()>=Collections.max(listScore)){//scorejoueur1==scorejoueur3
-	                        System.out.println("Les joueurs" +j+" et"+(j+2)+"gagnent");
-	                    } 
-	                else if (listeDesInventaires.get(a).calcScore()== listeDesInventaires.get(a+3).calcScore() &&listeDesInventaires.get(a).calcScore()>=Collections.max(listScore)){//scorejoueur1==scorejoueur3
-	                        System.out.println("Les joueurs" +j+" et"+(j+3)+"gagnent");
-	                    } 
-	                else if (listeDesInventaires.get(a+1).calcScore()== listeDesInventaires.get(a+2).calcScore() &&listeDesInventaires.get(a+1).calcScore()>=Collections.max(listScore)){//scorejoueur2==scorejoueur3
-	                        System.out.println("Les joueurs" +(j+1)+" et"+(j+2)+"gagnent");
-	                    } 
-	                else if (listeDesInventaires.get(a+1).calcScore()== listeDesInventaires.get(a+3).calcScore() &&listeDesInventaires.get(a+1).calcScore()>=Collections.max(listScore)){//scorejoueur2==scorejoueur4
-	                        System.out.println("Les joueurs" +(j+1)+" et"+(j+3)+"gagnent");
-	                    } 
-	                else if (listeDesInventaires.get(a+2).calcScore()== listeDesInventaires.get(a+3).calcScore() &&listeDesInventaires.get(a+2).calcScore()>=Collections.max(listScore)){//scorejoueur2==scorejoueur4
-	                        System.out.println("Les joueurs" +(j+2)+" et"+(j+3)+"gagnent");
-	                    } 
-	                                      		
-	    		else {
-	    			System.out.println("Le joueur ** "+Gagnant+" ** emporte la partie avec : " + ScoreGagnant + " Points");
-	    		} 
-	    		*/             	    
+	    	}  
+	    	else {
+	    		System.out.println("Le score des joueurs est negative! Ils ont tous perdu. ");
+
+	    	}
+     	    
 	 }
 
 	public static int getNbJoueurTotal() {
