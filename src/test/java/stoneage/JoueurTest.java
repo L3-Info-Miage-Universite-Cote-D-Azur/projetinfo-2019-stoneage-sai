@@ -13,6 +13,8 @@ public class JoueurTest {
     Choix choix ,choix2;
     Joueur j;
     Inventaire inventaire;
+    CarteCivilisation carte;
+    ArrayList<CarteCivilisation> listeDesCartes;
     
     @BeforeEach
     void setUp(){
@@ -21,7 +23,7 @@ public class JoueurTest {
             zone = new Zone(i);
             listeZone.add(zone);
         }
-        j = new Joueur();
+        j = new Joueur("oss",1);
         inventaire = new Inventaire(); 
         
         choix=j.placerOuvriers(listeZone,inventaire);
@@ -29,7 +31,7 @@ public class JoueurTest {
         /*je crée un objet avec les valeurs zoneChoisie et nbOuvriersChoisie
          *  renvoyé par j.placerOuvriers(listeZone, inventaire)par ce que 
          * leur création se fait avec un random et c'est le seul moyen de les recupérées . */
-        zone.recupeRes( inventaire,j);
+        zone.recupeRes(listeDesCartes,inventaire,j);
    
     }
 	@Test

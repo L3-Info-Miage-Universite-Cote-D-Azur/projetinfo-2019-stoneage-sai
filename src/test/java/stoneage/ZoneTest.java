@@ -63,7 +63,7 @@ public class ZoneTest {
         listeDesCartes=new ArrayList<CarteCivilisation>();
     	listeDesCartes=carte.getAllCards();
     	
-    	joueur = new Joueur();
+    	joueur = new Joueur("oss",1);
     	
     	choix1 = new Choix(1, 1);
     	choix2 = new Choix(2, 2);
