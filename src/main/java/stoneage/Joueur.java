@@ -112,9 +112,9 @@ public class Joueur implements Joueurs {
 		else {
 			if ( (inv.getNbZoneJouer() < 6 &&inv.ouvrierDispo())){
 
-			 	int zoneChoisie = rand.nextInt(11);
+			 	int zoneChoisie = rand.nextInt(15);
 			 	while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0){
-			 		zoneChoisie = rand.nextInt(11);
+			 		zoneChoisie = rand.nextInt(15);
 
 			 	}
 				//IA simple qui choisit une zone au hazard
