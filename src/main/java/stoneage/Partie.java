@@ -18,6 +18,7 @@ public class Partie {
 			LesZones.add(zone);
 		}
     }
+
     
     protected void phaseAction( Inventaire  inv,Joueurs joueur) {
         for(int i =0;i<11;i++){
@@ -109,5 +110,42 @@ public class Partie {
             inv.setScore(inv.getScore()-10);
             System.out.println(ConsoleColors.GREEN+"Le joueur " + joueur.getNum() + " n'a pas assez de nourriture et ses ressources ne sont pas suffisantes pour nourrir ses figurines, son score diminue donc de 10 points"+ConsoleColors.RESET);
     	}	
+    }
+    public static void demanderCadeau(ArrayList<Integer> listeDe , ArrayList<Inventaire> listeDesInventaires ,ArrayList<Joueurs> listeDesJoueurs ){
+        /*cette methode vva permetre a chaque joueur de
+        recuperer une resource parmis les dispo (carte civilisation)*/
+        int choixCad;
+        for(int i=0;i<listeDesJoueurs.size();i++){
+            Inventaire inv=listeDesInventaires.get(i);
+            choixCad=listeDesJoueurs.get(i).cadeauRes(listeDe);
+            if (choixCad == 1) {
+                inv.setNbBois(inv.getNbBois()+1);
+                inv.setNbRessource(inv.getNbRessource()+1);
+                System.out.println("Le joueur " + listeDesJoueurs.get(i).getNum() + " choisi de prendre 1 bois comme Cadeau!");
+            }
+            else if (choixCad == 2) {
+                inv.setNbArgile(inv.getNbArgile()+1);
+                inv.setNbRessource(inv.getNbRessource()+1);
+                System.out.println("Le joueur " + listeDesJoueurs.get(i).getNum() + " choisi de prendre 1 Argile comme Cadeau!");
+            }
+            else if (choixCad == 3) {
+                inv.setNbPierre(inv.getNbPierre()+1);
+                inv.setNbRessource(inv.getNbRessource()+1);
+                System.out.println("Le joueur " + listeDesJoueurs.get(i).getNum() + " choisi de prendre 1 Pierre comme Cadeau!");
+            }
+            else if (choixCad == 4) {
+                inv.setNbOr(inv.getNbOr()+1);
+                inv.setNbRessource(inv.getNbRessource()+1);
+                System.out.println("Le joueur " + listeDesJoueurs.get(i).getNum() + " choisi de prendre 1 Or comme Cadeau!");
+            }
+            else if (choixCad == 5) {
+                inv.setNbOutils(inv.getNbOutils()+1);
+                System.out.println("Le joueur " + listeDesJoueurs.get(i).getNum() + " choisi de prendre 1 Outil comme Cadeau!");
+            }
+            else {
+                inv.setScoreChamp(inv.getScoreChamp()+1);
+                System.out.println("Le joueur " + listeDesJoueurs.get(i).getNum() + " choisi d'augmenter son nivau de champ de 1 comme Cadeau!");
+            }
+        }
     }
 }
