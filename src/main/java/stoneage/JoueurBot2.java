@@ -12,17 +12,15 @@ public class JoueurBot2 implements Joueurs {
             this.name=name;
             this.num=num;
         }
-        @Override
         public int getNum(){
             return num;
         }
-	public int getGains(){
+		public int getGains(){
 		return gains;
 	}
-	public String TypeGains(){
-		return  TypeGains;
-		
-	}
+		public String TypeGains(){
+			return  TypeGains;
+		}
 
 	 public int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) { 
 	    int OutilChoisie ;	
@@ -34,7 +32,11 @@ public class JoueurBot2 implements Joueurs {
     	    OutilChoisie = rand.nextInt(nbOutils+1); 
     	}
     	return OutilChoisie;
-    }	
+    }
+	public int cadeauRes(ArrayList<Integer> listeDe ){
+		//cette methode va permettre au joueur de choisir la resouce cadeau de la carte civilisation
+		return listeDe.get(rand.nextInt(listeDe.size()));
+	}
 	
 	    public int choixTypeRes(int cout,Inventaire inv, int...typeDispo) { 
 	        /* cette methode permet au joueure de choisir la resource qu'il va utiliser pour payer ses dettes */
