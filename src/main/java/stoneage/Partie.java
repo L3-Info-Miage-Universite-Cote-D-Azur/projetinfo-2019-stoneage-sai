@@ -26,9 +26,17 @@ public class Partie {
         		Zone choix = LesZones.get(i);
         		choix.recupeRes(listeDesCartes,inv,joueur);
         		inv.listeZonesJouer.set(i,false); //la zone n'es pluas etuliser donc elle devient false pour le joueur (disponnible a nouveau)
-        		System.out.println(ConsoleColors.RED+"Le joueur " + joueur.getNum() + " reprend ses ouvriers de la zone "+choix+ConsoleColors.RESET);        		
-        		System.out.println(ConsoleColors.RED+"Il gagne  "+choix.getGains() +" " +choix.TypeGains()+ConsoleColors.RESET  + ". \n");
-        	}            
+        		System.out.println(ConsoleColors.RED+"Le joueur " + joueur.getNum() + " reprend ses ouvriers de la zone "+choix+ConsoleColors.RESET);
+        		if (choix.getGains()==-1){
+                    System.out.println("Le joueur decide d'abandonner sa carte civilisation .\n");
+                }
+        		else if (choix.getGains()==-2){
+                    System.out.println("Le joueur a partagé sa carte avec les autre joueurs.\n");
+                }
+        		else {
+        		    System.out.println(ConsoleColors.RED+"Il gagne  "+choix.getGains() +" " +choix.TypeGains()+ConsoleColors.RESET  + " \n");
+        	    }
+        	}
         }
         inv.resetAvailableWorkers();
     }
@@ -111,11 +119,20 @@ public class Partie {
             System.out.println(ConsoleColors.GREEN+"Le joueur " + joueur.getNum() + " n'a pas assez de nourriture et ses ressources ne sont pas suffisantes pour nourrir ses figurines, son score diminue donc de 10 points"+ConsoleColors.RESET);
     	}	
     }
-    public static void demanderCadeau(ArrayList<Integer> listeDe , ArrayList<Inventaire> listeDesInventaires ,ArrayList<Joueurs> listeDesJoueurs ){
-        /*cette methode vva permetre a chaque joueur de
-        recuperer une resource parmis les dispo (carte civilisation)*/
+    public static void demanderCadeau( ArrayList<Inventaire> listeDesInventaires ,ArrayList<Joueurs> listeDesJoueurs,Joueurs J,Inventaire invJ ){
+        ArrayList<Integer> listeDe=Zone.lancerNbDé(4); //lancer 4 dé pour les carte civilisation qui demande cette option
         int choixCad;
-        for(int i=0;i<listeDesJoueurs.size();i++){
+        ArrayList<Integer> listeIndJoueurs=new ArrayList<>();
+        listeIndJoueurs.add(listeDesJoueurs.indexOf(J));
+        for (int j=0;j<listeDesJoueurs.size();j++){
+            if (j!=listeDesJoueurs.indexOf(J)) {
+                listeIndJoueurs.add(listeDesJoueurs.indexOf(listeDesJoueurs.get(j)));
+            }
+        }// une liste qui contient l'indice des joueur en commencant par le joueur qui a choisi la carte
+        /*cette methode va permetre a chaque joueur de
+        recuperer une resource parmis les dispo (carte civilisation)*/
+
+        for( int i : listeIndJoueurs ) {
             Inventaire inv=listeDesInventaires.get(i);
             choixCad=listeDesJoueurs.get(i).cadeauRes(listeDe);
             if (choixCad == 1) {
@@ -142,10 +159,12 @@ public class Partie {
                 inv.setNbOutils(inv.getNbOutils()+1);
                 System.out.println("Le joueur " + listeDesJoueurs.get(i).getNum() + " choisi de prendre 1 Outil comme Cadeau!");
             }
-            else {
+            else if (choixCad == 6) {
                 inv.setScoreChamp(inv.getScoreChamp()+1);
                 System.out.println("Le joueur " + listeDesJoueurs.get(i).getNum() + " choisi d'augmenter son nivau de champ de 1 comme Cadeau!");
             }
+            listeDe.remove(listeDe.indexOf(choixCad));
+
         }
     }
 }
