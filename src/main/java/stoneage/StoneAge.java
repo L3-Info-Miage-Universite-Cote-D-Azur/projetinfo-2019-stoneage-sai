@@ -5,13 +5,14 @@ import java.util.Collections;
 
 public class StoneAge {
 	Partie partie = new Partie(); //nombre de joueur choisie est 4 le nombre de joueur minimal est 1 
-	private final JoueurIA joueurIA = new JoueurIA("O",1);
-	private final JoueurBot2 joueurBot = new JoueurBot2("S",2);
-	private final ArrayList<Joueurs> listeDesJoueurs ; //une liste qui va contenir tous les joueurs de la partie
-	private final ArrayList<Inventaire> listeDesInventaires ; //une liste qui va contenir d=toues les inventaire de la partie
+	private final Joueur joueurIA = new Joueur("O",1);
+	private final Joueur joueurBot = new Joueur("S",2);
+	final static  ArrayList<Joueurs> listeDesJoueurs =new ArrayList<>(); //une liste qui va contenir tous les joueurs de la partie
+	final static  ArrayList<Inventaire> listeDesInventaires=new ArrayList<>() ; //une liste qui va contenir d=toues les inventaire de la partie
  	private int nbJoueurs;  // A part le joueur IA
 	private static int nbJoueurTotal;
  	public Zone zone;
+
 
  	
  	/****** Choisir un Nombre de Joueure Pour commencer une Partie ( entre 2 et 4 )******/
@@ -23,8 +24,6 @@ public class StoneAge {
 			nbJoueurTotal = nbJ;
 	    	//On choisit le nombre des joueures dans cette partie
 	    	this.nbJoueurs=nbJ-1;
-	    	listeDesJoueurs = new ArrayList<>();
-	    	listeDesInventaires = new ArrayList<>();
 	    	listeDesJoueurs.add(joueurIA); 
 	       	listeDesJoueurs.add(joueurBot);
 	    	listeDesInventaires.add(new Inventaire());
@@ -230,7 +229,6 @@ public class StoneAge {
 	    	}
      	    
 	 }
-
 	public static int getNbJoueurTotal() {
 		return nbJoueurTotal;
 	}
