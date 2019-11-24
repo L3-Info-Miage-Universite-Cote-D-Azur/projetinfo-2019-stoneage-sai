@@ -7,7 +7,7 @@ public class Zone {
 
     private int nbOuvriersPlacés = 0;
     public int niveauZone ;
-    private Dé dé;
+    public static Dé dé;
     private int nbPlaceZone ;
     private int nbPlaceDispo;
     public int gains; //le nombre des gains du joueur 
@@ -42,7 +42,8 @@ public class Zone {
     }
 
     public String NomZone(){
-    	String[] nomZone={"Fabrication d'Outils","Chasse","foret","glaisière","carrière","rivière","champ","Carte 1","Carte 2","Carte 3","Carte 4"};//ajout des zones glaisière,carrière,rivière
+    	String[] nomZone={"Fabrication d'Outils","Chasse","foret","glaisière","carrière","rivière","champ","Carte 1","Carte 2","Carte 3","Carte 4"};
+    	//ajout des zones glaisière,carrière,rivière
     	String nom=nomZone[niveauZone - 1];
     	return nom;
     }
@@ -120,7 +121,6 @@ public class Zone {
     			
     			/* Si le joueur paye la carte (il a assez de resource pour la payer et choisi de la prendre ) elle s'eneleve de a liste 
     			 *  sinon elle sera rendu a la liste  */
-				ArrayList<Integer> lancement4De=lancerNbDé(4); //lancer 4 dé pour les carte civilisation qui demande cette option
 
     			int typeCout= J.choixTypeRes(coutCarte,inventaireJoueur,3,4,5,6);
     			if (typeCout==3 ) {
@@ -162,9 +162,8 @@ public class Zone {
     					else { 
     					// Carte poterie 1 
     						//lancement de 4 dé avec une methode dans joeur pour que les joueur choisi quelle ressource il veut
-							Partie.demanderCadeau(lancement4De,StoneAge.listeDesInventaires,StoneAge.listeDesJoueurs);
-    		    			gains=1;
-    		    			TypeGains=" carte civilisation  ";
+							Partie.demanderCadeau(StoneAge.listeDesInventaires,StoneAge.listeDesJoueurs,J,inventaireJoueur);
+							gains=-2;
     					}
     				}
        				if (carte.getNumeroCarte()>1 && carte.getNumeroCarte()<4) {
@@ -196,9 +195,8 @@ public class Zone {
     					}
     					else {
     					// carte Ecriture 5
-							Partie.demanderCadeau(lancement4De,StoneAge.listeDesInventaires,StoneAge.listeDesJoueurs);
-							gains=1;
-							TypeGains=" carte civilisation  ";
+							Partie.demanderCadeau(StoneAge.listeDesInventaires,StoneAge.listeDesJoueurs,J,inventaireJoueur);
+							gains=-2;
     						//lancement de 4 dé avec une methode dans joueur pour que les joueures choisient quelle ressouces il veut 
     					}
     				}
@@ -208,10 +206,38 @@ public class Zone {
     					if (carte.getNumeroCarte()==6) {
     					//carte Medecine 6 
     						//permet au joueur de choisir 2 resource 
-    						//methode choix dans jouer  
-    		    			gains=00;
-    		    			TypeGains=" Rien (pas fini) ";
-    						
+    						//methode choix dans jouer
+							int res;
+							ArrayList<Integer> listeDe=new ArrayList<>();
+							listeDe.add(1);
+							listeDe.add(2);
+							listeDe.add(3);
+							listeDe.add(4);
+							//to do: afficher les 2 hains separaiment 
+							for( int j=0 ;j>2;j++ ) {
+								res = J.cadeauRes(listeDe);
+								if (res == 1) {
+									inventaireJoueur.setNbBois(inventaireJoueur.getNbBois() + 1);
+									inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource() + 1);
+									gains=1;
+									TypeGains=" Bois  ";
+								} else if (res == 2) {
+									inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile() + 1);
+									inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource() + 1);
+									gains=1;
+									TypeGains=" Agile";
+								} else if (res == 3) {
+									inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre() + 1);
+									inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource() + 1);
+									gains=1;
+									TypeGains=" Pierre ";
+								} else if (res == 4) {
+									inventaireJoueur.setNbOr(inventaireJoueur.getNbOr() + 1);
+									inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource() + 1);
+									gains=1;
+									TypeGains=" Or ";
+								}
+							}
     					}
     					else {
     					//carte Medecine 7: ajoute 5 nourriture au joueur
@@ -232,9 +258,8 @@ public class Zone {
     					else {
     					// carte cadan solaire 9: lancer 4 dés 
     						//chois de ressouces entre les 4 
-							Partie.demanderCadeau(lancement4De,StoneAge.listeDesInventaires,StoneAge.listeDesJoueurs);
-							gains=1;
-							TypeGains=" carte civilisation  ";
+							Partie.demanderCadeau(StoneAge.listeDesInventaires,StoneAge.listeDesJoueurs,J,inventaireJoueur);
+							gains=-2;
     					}
     				}
        				if (carte.getNumeroCarte()>9 && carte.getNumeroCarte()<12) {
@@ -244,9 +269,8 @@ public class Zone {
     					// carte transport 10: 
     						//lancer 4 dé 
     						//chois de ressouces entre les 4 
-							Partie.demanderCadeau(lancement4De,StoneAge.listeDesInventaires,StoneAge.listeDesJoueurs);
-							gains=1;
-							TypeGains=" carte civilisation  ";
+							Partie.demanderCadeau(StoneAge.listeDesInventaires,StoneAge.listeDesJoueurs,J,inventaireJoueur);
+							gains=-2;
     					}
     					else {
     					// carte transport 11:  gagner 2 pierres
@@ -260,18 +284,24 @@ public class Zone {
     					inventaireJoueur.addTypeCarteCivVerte(7);
     					//carte musique 12 : gagner 3 pts dans le score 
     					//carte musique 13 : gagner 3 pts dans le score
-    					inventaireJoueur.setScore(inventaireJoueur.getScore()+3);	
+    					inventaireJoueur.setScore(inventaireJoueur.getScore()+3);
+						gains=3;
+						TypeGains=" pts de score ";
     				}
        				if (carte.getNumeroCarte()>13 && carte.getNumeroCarte()<16) {
        				//tissage
     					inventaireJoueur.addTypeCarteCivVerte(8);
     					if (carte.getNumeroCarte()==14) {
        					//carte Tissage 14 : gagner 3 nourriture 
-    						inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+3);				
+    						inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+3);
+							gains=3;
+							TypeGains=" Nourriture ";
     					}
     					else {
         				//carte TISSAGE 15 : gagner 1 nourriture
-    						inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+1);	
+    						inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+1);
+							gains=1;
+							TypeGains=" Nourriture ";
     					}
     				}
     			}
@@ -280,16 +310,17 @@ public class Zone {
     				// Cartes Constructeur
     					if (carte.getNumeroCarte()==16) {
            				//carte constructeur 16 : gagner 1 constructeur et  4 nourriture
-        						inventaireJoueur.addNbConstructeur(1);
-        						inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+4);				
-        					}
+							inventaireJoueur.addNbConstructeur(1);
+							inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+4);
+							gains=4;
+							TypeGains=" Nourriture ";
+    					}
     					if (carte.getNumeroCarte()==17) {
             			//carte constructeur 17 : gagner 1 constructeur  et  1 type de ressource
-        						inventaireJoueur.addNbConstructeur(1);
-        						//lancememnt de 4 dé et choix de ressource avec methode choix de joueur 
-							Partie.demanderCadeau(lancement4De,StoneAge.listeDesInventaires,StoneAge.listeDesJoueurs);
-							gains=1;
-							TypeGains=" carte civilisation  ";
+							inventaireJoueur.addNbConstructeur(1);
+							//lancememnt de 4 dé et choix de ressource avec methode choix de joueur
+							Partie.demanderCadeau(StoneAge.listeDesInventaires,StoneAge.listeDesJoueurs,J,inventaireJoueur);
+							gains=-2;
         					}
     					if (carte.getNumeroCarte()==18) {
     					//carte constructeur 18 : gagner 2 constructeur et 2 nourriture
@@ -302,9 +333,8 @@ public class Zone {
         				//carte constructeur 19 : gagner 2 constructeur et  1 type de ressource
         					inventaireJoueur.addNbConstructeur(2);
     						//lancememnt de 4 dé et choix de ressource avec methode choix de joueur 
-							Partie.demanderCadeau(lancement4De,StoneAge.listeDesInventaires,StoneAge.listeDesJoueurs);
-							gains=1;
-							TypeGains=" carte civilisation  ";
+							Partie.demanderCadeau(StoneAge.listeDesInventaires,StoneAge.listeDesJoueurs,J,inventaireJoueur);
+							gains=-2;
     					}
     					if (carte.getNumeroCarte()==20) {
         				//carte constructeur 20 : gagner 3 constructeur et 3 pts dans score final
@@ -336,17 +366,15 @@ public class Zone {
             			//carte Paysan 23 : gagner 1 Paysan et 1 TYPE DES resources parmie les 4 dé
     						inventaireJoueur.addNbPaysan(1);	
     						//lancer les 4 dé et choisir une ressource avec methode chois 
-							Partie.demanderCadeau(lancement4De,StoneAge.listeDesInventaires,StoneAge.listeDesJoueurs);
-							gains=1;
-							TypeGains=" carte civilisation  ";
+							Partie.demanderCadeau(StoneAge.listeDesInventaires,StoneAge.listeDesJoueurs,J,inventaireJoueur);
+							gains=-2;
     					}
     					if (carte.getNumeroCarte()==24) {
             			//carte Paysan 24 : gagner 2 Paysan et 1 TYPE DES resources parmie les 4 dé
     						inventaireJoueur.addNbPaysan(2);
     						//lancer les 4 dé et choisir une ressource avec methode chois 
-							Partie.demanderCadeau(lancement4De,StoneAge.listeDesInventaires,StoneAge.listeDesJoueurs);
-							gains=1;
-							TypeGains=" carte civilisation  ";
+							Partie.demanderCadeau(StoneAge.listeDesInventaires,StoneAge.listeDesJoueurs,J,inventaireJoueur);
+							gains=-2;
     					}
     					if (carte.getNumeroCarte()==25) {
             			//carte Paysan 25 : gagner 2 Paysan et 3 nourriture
@@ -383,17 +411,15 @@ public class Zone {
                     	//carte Fabricant 29 : gagner 2 Fabricant et 1 type de ressouce au choix 
     						inventaireJoueur.addNbFabricant(2);	
     						//lancer les 4 dé et choisir une ressource avec methode chois 
-							Partie.demanderCadeau(lancement4De,StoneAge.listeDesInventaires,StoneAge.listeDesJoueurs);
-							gains=1;
-							TypeGains=" carte civilisation  ";
+							Partie.demanderCadeau(StoneAge.listeDesInventaires,StoneAge.listeDesJoueurs,J,inventaireJoueur);
+							gains=-2;
     					}
     					if (carte.getNumeroCarte()==30) {
                     	//carte Fabricant 30 : gagner 2 Fabricant et 1 type de ressource au choix 
     						//lancer les 4 dé et choisir une ressource avec methode chois 
-							Partie.demanderCadeau(lancement4De,StoneAge.listeDesInventaires,StoneAge.listeDesJoueurs);
-							gains=1;
-							TypeGains=" carte civilisation  ";
-        					inventaireJoueur.addNbFabricant(2);	
+							Partie.demanderCadeau(StoneAge.listeDesInventaires,StoneAge.listeDesJoueurs,J,inventaireJoueur);
+        					inventaireJoueur.addNbFabricant(2);
+							gains=-2;
     					}
     				}
        				//if (carte.getNumeroCarte()>30 && carte.getNumeroCarte()<36) {
@@ -444,8 +470,7 @@ public class Zone {
                 break;
     		}
     		else {
-    			
-    			System.out.println("Le joueur decide d'abandonner sa carte civilisation .");
+				gains=-1;
     			break;
     		}                       
     		default:   			
@@ -489,7 +514,7 @@ public class Zone {
     public String toString(){
         return NomZone();
     }
-	public ArrayList<Integer> lancerNbDé(int nbDe){
+	public static ArrayList<Integer> lancerNbDé(int nbDe){
 		//cette methode retourne une liste de de taille donné qui contient des nombre entre 1 et 6
 		ArrayList<Integer> lancement4De=new ArrayList<>();
 		for (int i =0; i<nbDe; i++){
