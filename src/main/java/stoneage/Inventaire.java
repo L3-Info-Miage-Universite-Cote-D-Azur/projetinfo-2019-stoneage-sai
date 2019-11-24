@@ -23,6 +23,7 @@ public class Inventaire {
 	private int nbNourriture;
 	private int nbOutils;
 	private int scoreChamp;
+        private int pisteScore;//piste de score qui augmente quand un joueur achete un batiment
 	private int nbPaysan;// va etre multiplier par le scoreChamp pour le score final
 	private int nbFabricant;// va etre multiplier par le nombre d'outil pour le score final
 	private int nbConstructeur;// va etre multiplier par le nombre de tuile batiment  pour le score final
@@ -32,6 +33,7 @@ public class Inventaire {
 	private Set<Integer> setTypeCarteCivVerte ;//= new LinkedHashSet<>(); //cette ensemble va contenir les differant type de carte civilisation verte que le joueur va prendre
 	private int score;
         public ArrayList<CarteCivilisation> listeDesCarteCivilisation;// = new ArrayList<>(); 
+        public ArrayList<BuildingTiles> listeDesCarteBatiments;
         public ArrayList<Integer> listeZonesDispo;// = new ArrayList<>(); 
         public ArrayList<Boolean> listeZonesJouer;// = new ArrayList<>();
 	public Inventaire() {  //Initialisation d'un Inventaire vide
@@ -46,12 +48,14 @@ public class Inventaire {
 		setNbOutils(0);
 		setScore(0);
 		setScoreChamp(0);
+                setPisteScore(0);
 		resetAvailableWorkers();
 		listeDesCarteCivilisation = new ArrayList<>();
+                listeDesCarteBatiments=new ArrayList<>();
 		setTypeCarteCivVerte = new LinkedHashSet<>();	
 		listeZonesJouer  = new ArrayList<>();
                 listeZonesDispo = new ArrayList<>();
-            for (int i=1;i <= 11;i++ ){
+            for (int i=1;i <= 15;i++ ){
                     listeZonesDispo.add(i);
                     listeZonesJouer.add(false);
             } //remplire la liste des zones
@@ -189,9 +193,18 @@ public class Inventaire {
 	public void setScoreChamp(int niveauChamp) {
 		scoreChamp=niveauChamp;
 	}	
+        public int getPisteScore(){
+            return pisteScore;
+        }
+        public void setPisteScore(int points){
+            pisteScore=pisteScore+points;
+        }
 	public void addCarteCiv(CarteCivilisation Carte) {
 		listeDesCarteCivilisation.add(Carte);
 	}
+        public void addCarteBat(BuildingTiles building){
+            listeDesCarteBatiments.add(building);
+        }
 	
 	public int getScore() {
 		return score;
