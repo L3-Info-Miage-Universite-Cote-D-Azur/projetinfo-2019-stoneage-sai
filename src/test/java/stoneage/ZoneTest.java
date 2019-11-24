@@ -36,13 +36,13 @@ public class ZoneTest {
         area6 = new Zone(6);
         area7 = new Zone(7);
 
-        zone1 = new Zone(1, dice);
-        zone2 = new Zone(2, dice);
-        zone3 = new Zone(3, dice);
-        zone4 = new Zone(4, dice);
-        zone5 = new Zone(5, dice);
-        zone6 = new Zone(6, dice);
-        zone7 = new Zone(7, dice);
+        zone1 = new Zone(1);
+        zone2 = new Zone(2);
+        zone3 = new Zone(3);
+        zone4 = new Zone(4);
+        zone5 = new Zone(5);
+        zone6 = new Zone(6);
+        zone7 = new Zone(7);
 
         areaList[0] = area1;
         areaList[1] = area2;
