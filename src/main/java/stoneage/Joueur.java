@@ -19,9 +19,15 @@ public class Joueur implements Joueurs {
         }
     public int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) { 
     /* cette methode va permettre au joueur de choisir le nombre d'outil d'il va utilisier*/
-	    int OutilChoisie = rand.nextInt(nbOutils+1); 
+	    int OutilChoisie = rand.nextInt(nbOutils+1);
     	return OutilChoisie;
     }
+    public int cadeauRes(ArrayList<Integer> listeDe ){
+		//cette methode va permettre au joueur de choisir la resouce cadeau de la carte civilisation
+		return listeDe.get(rand.nextInt(listeDe.size()));
+	}
+
+
     public int choixTypeRes(int cout,Inventaire inv, int...typeDispo) { 
     /* cette methode permet au joueure de choisir la resource qu'il va utiliser pour payer ses dettes */
     	ArrayList<Integer> listTypeDispo = new ArrayList(); //transforme le tableau en liste
@@ -35,7 +41,8 @@ public class Joueur implements Joueurs {
     	 * 5: Pierre 
     	 * 6: Or 
     	 */
-    	if ( inv.getNbBois()<cout) {// s'il ya pas assez de bois on enleve l'indice de cette zone de la liste 
+    	if ( inv.getNbBois()<cout) {
+    		// s'il ya pas assez de bois on enleve l'indice de cette zone de la liste
     		listTypeDispo.remove(0);
 		}
 		else if ( inv.getNbArgile()<cout) {
