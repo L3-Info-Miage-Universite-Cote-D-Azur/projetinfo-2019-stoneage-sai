@@ -34,7 +34,11 @@ public class JoueurIA implements Joueurs {
     	int i=rand.nextInt((typeDispo.length));
     	return typeDispo[i];
     	
-    }   
+    }
+	public int cadeauRes(ArrayList<Integer> listeDe ){
+		//cette methode va permettre au joueur de choisir la resouce cadeau de la carte civilisation
+		return listeDe.get(rand.nextInt(listeDe.size()));
+	}
     public int choixTypeRes(int cout,Inventaire inv, int...typeDispo) { 
     /* cette methode permet au joueure de choisir la resource qu'il va utiliser pour payer ses dettes */
     	ArrayList<Integer> listTypeDispo = new ArrayList(); //transforme le tableau en liste
