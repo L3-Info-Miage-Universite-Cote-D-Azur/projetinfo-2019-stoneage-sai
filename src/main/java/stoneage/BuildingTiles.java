@@ -52,6 +52,9 @@ public class BuildingTiles {
     public void shuffle(ArrayList<BuildingTiles>cards){
         Collections.shuffle(cards);
     }
+    public void ajouterDansInventaire(Inventaire inventaire){
+        inventaire.addCarteBat(this);
+    }
     public int getCardScore() {
         return cardScore;
     }
