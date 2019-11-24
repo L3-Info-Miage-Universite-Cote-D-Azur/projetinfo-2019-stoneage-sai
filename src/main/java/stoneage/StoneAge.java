@@ -127,29 +127,29 @@ public class StoneAge {
 		while (recuperer) {			
 			for (int i=0 ; i<=nbJoueurs;i++){
     			if (listeDesInventaires.get(i).getNbZoneJouer()  != 0){
-    				partie.phaseAction( listeDesInventaires.get(i), listeDesJoueurs.get(i), i+1);
+    				partie.phaseAction( listeDesInventaires.get(i), listeDesJoueurs.get(i));
     			}
     			else {
     	    		for (int j=0 ; j<=nbJoueurs;j++){
     	    			if (listeDesInventaires.get(j).getNbZoneJouer()!= 0 &&listeDesInventaires.get(i).getNbZoneJouer() != 0){
-    	    				partie.phaseAction( listeDesInventaires.get(i), listeDesJoueurs.get(i), i+1);
-    	    				partie.phaseAction( listeDesInventaires.get(j), listeDesJoueurs.get(j), j+1);
+    	    				partie.phaseAction( listeDesInventaires.get(i), listeDesJoueurs.get(i));
+    	    				partie.phaseAction( listeDesInventaires.get(j), listeDesJoueurs.get(j));
     	    			}
 	
     	    			else {
     	    	    		for (int k=0 ; k<=nbJoueurs;k++){
     	    	    			if (listeDesInventaires.get(k).getNbZoneJouer() != 0 && listeDesInventaires.get(j).getNbZoneJouer()!= 0 &&listeDesInventaires.get(i).getNbZoneJouer() != 0){
-    	    	    				partie.phaseAction( listeDesInventaires.get(i), listeDesJoueurs.get(i), i+1);
-    	    	    				partie.phaseAction( listeDesInventaires.get(j), listeDesJoueurs.get(j), j+1);
-    	    	    				partie.phaseAction( listeDesInventaires.get(k), listeDesJoueurs.get(k), k+1);
+    	    	    				partie.phaseAction( listeDesInventaires.get(i), listeDesJoueurs.get(i));
+    	    	    				partie.phaseAction( listeDesInventaires.get(j), listeDesJoueurs.get(j));
+    	    	    				partie.phaseAction( listeDesInventaires.get(k), listeDesJoueurs.get(k));
     	    	    			}
     	    	    			else {
     	    	    	    		for (int l=0 ; l<=nbJoueurs;l++){
     	    	    	    			if (listeDesInventaires.get(l).getNbZoneJouer() != 0 && listeDesInventaires.get(k).getNbZoneJouer() != 0 && listeDesInventaires.get(j).getNbZoneJouer() != 0 &&listeDesInventaires.get(i).getNbOuvrierDispo() != 0){
-    	    	    	    				partie.phaseAction( listeDesInventaires.get(i), listeDesJoueurs.get(i), i+1);
-    	    	    	    				partie.phaseAction( listeDesInventaires.get(j), listeDesJoueurs.get(j), j+1);
-    	    	    	    				partie.phaseAction( listeDesInventaires.get(k), listeDesJoueurs.get(k), k+1);
-    	    	    	    				partie.phaseAction( listeDesInventaires.get(l), listeDesJoueurs.get(l), l+1);
+    	    	    	    				partie.phaseAction( listeDesInventaires.get(i), listeDesJoueurs.get(i));
+    	    	    	    				partie.phaseAction( listeDesInventaires.get(j), listeDesJoueurs.get(j));
+    	    	    	    				partie.phaseAction( listeDesInventaires.get(k), listeDesJoueurs.get(k));
+    	    	    	    				partie.phaseAction( listeDesInventaires.get(l), listeDesJoueurs.get(l));
     	    	    	    			}
     	    	    	    		}
     	    	    			}
@@ -170,7 +170,8 @@ public class StoneAge {
     	    			
 		System.out.println("**** Phase Nourrir les ouvriers ****"+ "\n");
 		for (int i=0 ; i<=nbJoueurs;i++){
-			partie.phaseNourrir( listeDesInventaires.get(i), listeDesJoueurs.get(i), i+1);
+			partie.phaseNourrir( listeDesInventaires.get(i), listeDesJoueurs.get(i));
+                        System.out.println();
 		}
                 
                 
