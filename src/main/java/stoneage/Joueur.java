@@ -54,7 +54,7 @@ public class Joueur implements Joueurs {
 		else if (inv.getNbOr()>cout) {
 			listTypeDispo.remove(3);
 		}    	
-    	if(listTypeDispo.size()>0) {
+    	if(listTypeDispo.size()>0&&rand.nextBoolean()) { //le joueur decide de prendre cette carte si il a acces de ressource et si il a envie (true/false)
     		int i=rand.nextInt((listTypeDispo.size()));
     		return listTypeDispo.get(i);
     	}
