@@ -31,9 +31,9 @@ public class Inventaire {
 	private int nbCarteCiv; //nb =0/1 carte existe 1 seul dans la partie
 	private Set<Integer> setTypeCarteCivVerte ;//= new LinkedHashSet<>(); //cette ensemble va contenir les differant type de carte civilisation verte que le joueur va prendre
 	private int score;
-    public ArrayList<CarteCivilisation> listeDesCarteCivilisation;// = new ArrayList<>(); 
-    public ArrayList<Integer> listeZonesDispo;// = new ArrayList<>(); 
-    public ArrayList<Boolean> listeZonesJouer;// = new ArrayList<>();
+        public ArrayList<CarteCivilisation> listeDesCarteCivilisation;// = new ArrayList<>(); 
+        public ArrayList<Integer> listeZonesDispo;// = new ArrayList<>(); 
+        public ArrayList<Boolean> listeZonesJouer;// = new ArrayList<>();
 	public Inventaire() {  //Initialisation d'un Inventaire vide
 		setNbOuvrier(NB_INITIAL_OUVRIERS); //Initialisation du nombre d'ouvrier 
 		// Initialisation à 0 des ressources et du score
@@ -50,11 +50,11 @@ public class Inventaire {
 		listeDesCarteCivilisation = new ArrayList<>();
 		setTypeCarteCivVerte = new LinkedHashSet<>();	
 		listeZonesJouer  = new ArrayList<>();
-	    listeZonesDispo = new ArrayList<>();
-        for (int i=1;i <= 11;i++ ){
-        	listeZonesDispo.add(i);
-        	listeZonesJouer.add(false);
-        } //remplire la liste des zones
+                listeZonesDispo = new ArrayList<>();
+            for (int i=1;i <= 11;i++ ){
+                    listeZonesDispo.add(i);
+                    listeZonesJouer.add(false);
+            } //remplire la liste des zones
 	}
 
     public Inventaire(Inventaire toCopy) {
@@ -79,7 +79,7 @@ public class Inventaire {
 		nbOuvrierDispo -= i; }
 	public void updateScore(){
 		//Pour l'instant le score est seulement calculé par le nombre total de ressource
-		setScore(getNbRessource());
+		setScore(calcScore());
 	}
 	public void resetAvailableWorkers() {
 		nbOuvrierDispo = getNbOuvrier();
@@ -177,19 +177,18 @@ public class Inventaire {
 	public void setNourriture(int nbNourriture) {
 		this.nbNourriture = nbNourriture;
 	}
+        public int getNbOutils(){
+		return nbOutils;
+	}
 	public void setNbOutils(int nbOutils){
 		this.nbOutils=nbOutils;
 	}
-	public int getNbOutils(){
-		return nbOutils;
+        public int getScoreChamp() {
+		return scoreChamp;
 	}
 	public void setScoreChamp(int niveauChamp) {
 		scoreChamp=niveauChamp;
-	}
-	public int getScoreChamp() {
-		return scoreChamp;
-	}
-	
+	}	
 	public void addCarteCiv(CarteCivilisation Carte) {
 		listeDesCarteCivilisation.add(Carte);
 	}
