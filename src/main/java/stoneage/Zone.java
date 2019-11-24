@@ -20,29 +20,24 @@ public class Zone {
         this.niveauZone = niveau;
         dé=new Dé();
         if(niveau==1||niveau==7||niveau==8||niveau==9||niveau==10||niveau==11){
-                nbPlaceZone=1;
+            nbPlaceZone=1;
         }
         else if (niveau== 2){
-                nbPlaceZone=100;//le nombre de place dans la zone chasse est illimité
+            nbPlaceZone=100;//le nombre de place dans la zone chasse est illimité
         }
-        else if (niveau== 3||(niveau== 4)||(niveau== 5)||(niveau== 6)){
-
-                nbPlaceZone=7;  
+        else if (niveau== 3||(niveau== 4)||(niveau== 5)||(niveau== 6)){        
+            nbPlaceZone=7;  
         }
         nbPlaceDispo=nbPlaceZone;//au début le nombre de place disponible = au nombre place max de la zone
     }
-    public Zone(int niveau,Dé dé){
-        this.niveauZone = niveau;
-        this.dé=dé;
-        //this.type=carte
-    }
+    
     public void placerOuvrier(Inventaire inventaireJoueur,int nbOuvriers){
     	if (nbOuvriers>=1 && nbOuvriers <=nbPlaceDispo && nbOuvriers<=inventaireJoueur.getNbOuvrierDispo() ){
     		inventaireJoueur.removeAvailableWorkers(nbOuvriers);//pour placer un nbOuvrier il faut les retirer d'abord de l'inventaire du joueur
     		nbOuvriersPlacés=nbOuvriers;
     		nbJoueur++;
-            nbPlaceDispo=nbPlaceDispo-nbOuvriers; //le nombre de place disponnible dans la zone diminue
-             //le nombre d'ouvrier placer dans la zone augmente
+                nbPlaceDispo=nbPlaceDispo-nbOuvriers; //le nombre de place disponnible dans la zone diminue
+                //le nombre d'ouvrier placer dans la zone augmente
     	}
     }
 
@@ -94,35 +89,30 @@ public class Zone {
     			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
     			gains=nbRessources;
     			TypeGains="Bois";
-    	    	
     			break;
     		case 4: 
     			inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()+nbRessources);
     			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
     			gains=nbRessources;
-    			TypeGains="Argile";
-    	    	
+    			TypeGains="Argile";	    	
     			break;
     		case 5:
     			inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()+nbRessources);
     			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
     			gains=nbRessources;
-    			TypeGains="Pierre";
-    	    	
+    			TypeGains="Pierre";	    	
     			break;
 
     		case 6:
     			inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()+nbRessources);
     			inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()+nbRessources);
     			gains=nbRessources;
-    			TypeGains="Or";
-    	    	
+    			TypeGains="Or";	    	
     			break;
     		case 7:
     			inventaireJoueur.setScoreChamp(inventaireJoueur.getScoreChamp()+1);
-                inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+inventaireJoueur.getScoreChamp());
-                break;
-                
+                        inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+inventaireJoueur.getScoreChamp());
+                        break;               
     		case 8:case 9: case 10: case 11:
     			int coutCarte=this.niveauZone-7; // carte 1 vaut 1 / carte 2 vaut 2/ carte 3 vaut 3...
     			boolean payer=false;   			
