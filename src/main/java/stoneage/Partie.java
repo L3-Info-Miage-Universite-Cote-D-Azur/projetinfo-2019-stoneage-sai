@@ -5,37 +5,42 @@ public class Partie {
     public Zone zone;
     private final ArrayList<Zone> LesZones ;
     public CarteCivilisation carte=new CarteCivilisation();
-    private  ArrayList<CarteCivilisation> listeDesCartes ;
-    
+    BuildingTiles building=new BuildingTiles();
+    private ArrayList<CarteCivilisation> listeDesCartes ;
+    private ArrayList<BuildingTiles> listeDesBatiments;
     public Partie(){
     	LesZones=new ArrayList<>();
-		listeDesCartes=new ArrayList<CarteCivilisation>();
-		listeDesCartes=carte.getAllCards();
-		
-		  // c'est la liste general des zone pour le jeu 
-		for(int i=1; i<12;i++){
-			Zone zone = new Zone(i);
-			LesZones.add(zone);
-		}
+	listeDesCartes=new ArrayList<CarteCivilisation>();
+	listeDesCartes=carte.getAllCards();
+        listeDesBatiments=new ArrayList<BuildingTiles>();
+        listeDesBatiments=building.getCards();
+        // c'est la liste general des zone pour le jeu 
+	for(int i=1; i<16;i++){
+            Zone zone = new Zone(i);
+            LesZones.add(zone);
+	}
     }
 
     
     protected void phaseAction( Inventaire  inv,Joueurs joueur) {
-        for(int i =0;i<11;i++){
+        for(int i =0;i<15;i++){
         	if (inv.listeZonesJouer.get(i)==true){
         		Zone choix = LesZones.get(i);
-        		choix.recupeRes(listeDesCartes,inv,joueur);
+        		choix.recupeRes(listeDesCartes,listeDesBatiments,inv,joueur);
         		inv.listeZonesJouer.set(i,false); //la zone n'es pluas etuliser donc elle devient false pour le joueur (disponnible a nouveau)
         		System.out.println(ConsoleColors.RED+"Le joueur " + joueur.getNum() + " reprend ses ouvriers de la zone "+choix+ConsoleColors.RESET);
         		if (choix.getGains()==-1){
-                    System.out.println("Le joueur decide d'abandonner sa carte civilisation .\n");
-                }
+                            System.out.println("Le joueur decide d'abandonner sa carte civilisation .\n");
+                        }
         		else if (choix.getGains()==-2){
-                    System.out.println("Le joueur a partagé sa carte avec les autre joueurs.\n");
-                }
+                            System.out.println("Le joueur a partagé sa carte avec les autre joueurs.\n");
+                        }
+                        else if (choix.getGains()==-3) {
+                            System.out.println("Le joueur decide d'abandonner sa carte batiment \n ");
+                        }
         		else {
         		    System.out.println(ConsoleColors.RED+"Il gagne  "+choix.getGains() +" " +choix.TypeGains()+ConsoleColors.RESET  + " \n");
-        	    }
+                        }
         	}
         }
         inv.resetAvailableWorkers();
