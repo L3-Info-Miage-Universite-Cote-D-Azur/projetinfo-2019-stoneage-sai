@@ -76,7 +76,6 @@ public class JoueurIA implements Joueurs {
     
 
     public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv){
-
 	    if ( (inv.getNbZoneJouer() < 6 &&inv.ouvrierDispo())){
 			if (inv.listeZonesJouer.get(2)==false&& inv.getNourriture()<5 &&inv.getNbOuvrierDispo()==5 ) 
 				// si la zone chasse est disponnible et que le nombre de nourriture disponnible ne suffit pas pour nourrire les ouvriers
@@ -132,9 +131,9 @@ public class JoueurIA implements Joueurs {
 			}
 			else if ( (inv.getNbZoneJouer() < 6 &&inv.ouvrierDispo())){
 				
-				 	int zoneChoisie = rand.nextInt(11);
+				 	int zoneChoisie = rand.nextInt(15);
 				 	while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0){
-				 		zoneChoisie = rand.nextInt(11);
+				 		zoneChoisie = rand.nextInt(15);
 					 }
 				 	//IA simple qui choisit une zone au hazard
 					int nbOuvChoisie= rand.nextInt(Math.min(inv.getNbOuvrierDispo(),LesZones.get(zoneChoisie).getNbPlaceDispo()))+1;
