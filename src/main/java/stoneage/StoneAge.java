@@ -5,8 +5,8 @@ import java.util.Collections;
 
 public class StoneAge {
 	Partie partie = new Partie(); //nombre de joueur choisie est 4 le nombre de joueur minimal est 1 
-	private final Joueur joueurIA = new Joueur("O",1);
-	private final Joueur joueurBot = new Joueur("S",2);
+	private final JoueurIA joueurIA = new JoueurIA("O",1);
+	private final JoueurBot2 joueurBot = new JoueurBot2("S",2);
 	final static  ArrayList<Joueurs> listeDesJoueurs =new ArrayList<>(); //une liste qui va contenir tous les joueurs de la partie
 	final static  ArrayList<Inventaire> listeDesInventaires=new ArrayList<>() ; //une liste qui va contenir d=toues les inventaire de la partie
  	private int nbJoueurs;  // A part le joueur IA
@@ -17,7 +17,7 @@ public class StoneAge {
  	
  	/****** Choisir un Nombre de Joueure Pour commencer une Partie ( entre 2 et 4 )******/
 	public static final void main(String [] args) {
-		StoneAge stoneAge = new StoneAge(4);  
+		StoneAge stoneAge = new StoneAge(2);
 		stoneAge.jouer();
 	}
 	 public StoneAge(int nbJ){
@@ -28,12 +28,10 @@ public class StoneAge {
 	       	listeDesJoueurs.add(joueurBot);
 	    	listeDesInventaires.add(new Inventaire());
 	    	listeDesInventaires.add(new Inventaire());
-
-	    	// ajoute en premier le joueurIA 
+	    	// ajoute en premier le joueurIA et Bot2
 	    	//puis les autres joueurs normaux
-                listeDesJoueurs.add(new Joueur("Y",3));
-                listeDesJoueurs.add(new Joueur("J",4));
 	    	for (int i=0;i < nbJoueurs-1;i++){
+				listeDesJoueurs.add(new Joueur("J"+i,i+3));
 	    		//listeDesJoueurs.add(new Joueur());
 	    		listeDesInventaires.add(new Inventaire());
 	    	}
@@ -50,7 +48,7 @@ public class StoneAge {
             System.out.println("Joueur "+(i)+" : JoueurNormal");
         }
         int nbDeTour=1;
-        while ( partie.getNbCarteDispo()>nbJoueurTotal*4 && nbDeTour<50) { 
+        while ( partie.getNbCarteDispo()>nbJoueurTotal && nbDeTour<50 && partie.getNbBatiments()>nbJoueurTotal) {
         	// Nombre de partie ay max est 50 sinon le jeu s'arrete lorsqu'il ya plus de carte Civ        
             System.out.println("\n**** Debut du Tour N° "+ (nbDeTour) +" ****");
             unTour();
@@ -114,7 +112,6 @@ public class StoneAge {
         		}
         	}
     	}
-    	
 		System.out.println("**** Phase de résolution des ouvriers **** \n");		
 		boolean recuperer=false;
     	for (int i=0 ; i<=nbJoueurs;i++)
