@@ -5,47 +5,47 @@ public class Partie {
     public Zone zone;
     private final ArrayList<Zone> LesZones ;
     public CarteCivilisation carte=new CarteCivilisation();
-    BuildingTiles building=new BuildingTiles();
-    private ArrayList<CarteCivilisation> listeDesCartes ;
+    public BuildingTiles building=new BuildingTiles();
+    private ArrayList<CarteCivilisation> listeDesCivilisation ;
     private ArrayList<BuildingTiles> listeDesBatiments;
     public Partie(){
     	LesZones=new ArrayList<>();
-	listeDesCartes=new ArrayList<CarteCivilisation>();
-	listeDesCartes=carte.getAllCards();
+	    listeDesCivilisation=new ArrayList<CarteCivilisation>();
+	    listeDesCivilisation=carte.getAllCards();
         listeDesBatiments=new ArrayList<BuildingTiles>();
         listeDesBatiments=building.getCards();
         // c'est la liste general des zone pour le jeu 
-	for(int i=1; i<16;i++){
+	    for(int i=1; i<16;i++){
             Zone zone = new Zone(i);
             LesZones.add(zone);
-	}
+	    }
     }
-
-    
     protected void phaseAction( Inventaire  inv,Joueurs joueur) {
         for(int i =0;i<15;i++){
         	if (inv.listeZonesJouer.get(i)==true){
         		Zone choix = LesZones.get(i);
-        		choix.recupeRes(listeDesCartes,listeDesBatiments,inv,joueur);
+        		choix.recupeRes(listeDesCivilisation,listeDesBatiments,inv,joueur);
         		inv.listeZonesJouer.set(i,false); //la zone n'es pluas etuliser donc elle devient false pour le joueur (disponnible a nouveau)
         		System.out.println(ConsoleColors.RED+"Le joueur " + joueur.getNum() + " reprend ses ouvriers de la zone "+choix+ConsoleColors.RESET);
         		if (choix.getGains()==-1){
-                            System.out.println("Le joueur decide d'abandonner sa carte civilisation .\n");
-                        }
+        		    System.out.println("Le joueur decide d'abandonner sa carte civilisation.\n");
+        		}
         		else if (choix.getGains()==-2){
-                            System.out.println("Le joueur a partagé sa carte avec les autre joueurs.\n");
-                        }
-                        else if (choix.getGains()==-3) {
-                            System.out.println("Le joueur decide d'abandonner sa carte batiment \n ");
-                        }
-        		else {
+        		    System.out.println("Le joueur a partagé sa carte avec les autre joueurs.\n");
+        		}
+        		else if (choix.getGains()==-3) {
+        		    System.out.println("Le joueur decide d'abandonner sa carte batiment. \n ");
+        		}
+        		else if (choix.getGains()==-4){
+        		    System.out.println("Le joueur a gagner un "+choix.TypesGains[0]+" et un "+choix.TypesGains[1]+"  avec sa carte civilisation. \n");
+                }
+        		else if (choix.getGains()>=0){
         		    System.out.println(ConsoleColors.RED+"Il gagne  "+choix.getGains() +" " +choix.TypeGains()+ConsoleColors.RESET  + " \n");
-                        }
+        		}
         	}
         }
         inv.resetAvailableWorkers();
     }
-   
     protected void phasePlacement( Inventaire  inv, Joueurs joueur){
             Choix choix = joueur.placerOuvriers( LesZones,inv);
             inv.listeZonesJouer.set(choix.zoneChoisie,true); //la zone choisie est utliser donc devient true dans l'inventaire du joueur 
@@ -54,9 +54,12 @@ public class Partie {
     }
 
     public  int getNbCarteDispo() { 
-        return (listeDesCartes).size();
-    }// cette methode va retourner le nombre des carte disponnible 
-    
+        return (listeDesCivilisation).size();
+    }// cette methode va retourner le nombre des carte civilisation  disponnible
+    public  int getNbBatiments() {
+        return (listeDesBatiments).size();
+    }// cette methode va retourner le nombre des carte batiment  disponnible
+
     protected void phaseNourrir(Inventaire  inv, Joueurs joueur){
         inv.setNourriture(inv.getNourriture()+inv.getScoreChamp());//chaque joueur prend une valeur de jetons nourriture egale a la valeur de son marqeur sur la piste agriculture
         System.out.println(ConsoleColors.GREEN+"Le joueur " + joueur.getNum()+ " a "+inv.getNourriture()+" nourriture et " + inv.getNbRessource() +" ressources"+ConsoleColors.RESET);
