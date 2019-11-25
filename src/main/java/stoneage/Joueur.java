@@ -7,18 +7,18 @@ import java.util.Set;
 
 public class Joueur implements Joueurs {
 	Random rand = new Random();
-        String name;
-	int num;
+	String name;
+	private int num;
 	Joueur(String name,int num){
             this.name=name;
             this.num=num;
         }
         @Override
-        public int getNum(){
+    public int getNum(){
             return num;
         }
-    public int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) { 
-    /* cette methode va permettre au joueur de choisir le nombre d'outil d'il va utilisier*/
+    public int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) {
+		/* cette methode va permettre au joueur de choisir le nombre d'outil d'il va utilisier*/
 	    int OutilChoisie = rand.nextInt(nbOutils+1);
     	return OutilChoisie;
     }
@@ -26,7 +26,6 @@ public class Joueur implements Joueurs {
 		//cette methode va permettre au joueur de choisir la resouce cadeau de la carte civilisation
 		return listeDe.get(rand.nextInt(listeDe.size()));
 	}
-
 
     public int choixTypeRes(int cout,Inventaire inv, int...typeDispo) { 
     /* cette methode permet au joueure de choisir la resource qu'il va utiliser pour payer ses dettes */
@@ -43,18 +42,18 @@ public class Joueur implements Joueurs {
     	 */
     	if ( inv.getNbBois()<cout) {
     		// s'il ya pas assez de bois on enleve l'indice de cette zone de la liste
-    		listTypeDispo.remove(0);
+    		listTypeDispo.remove(listTypeDispo.indexOf(3));
 		}
-		else if ( inv.getNbArgile()<cout) {
-			listTypeDispo.remove(1);
+		if ( inv.getNbArgile()<cout) {
+			listTypeDispo.remove(listTypeDispo.indexOf(4));
 		}
-		else if ( inv.getNbPierre()>cout) {
-			listTypeDispo.remove(2);
+		if ( inv.getNbPierre()<cout) {
+			listTypeDispo.remove(listTypeDispo.indexOf(5));
 		}
-		else if (inv.getNbOr()>cout) {
-			listTypeDispo.remove(3);
+		if (inv.getNbOr()<cout) {
+			listTypeDispo.remove(listTypeDispo.indexOf(6));
 		}    	
-    	if(listTypeDispo.size()>0&&rand.nextBoolean()) { //le joueur decide de prendre cette carte si il a acces de ressource et si il a envie (true/false)
+    	if(listTypeDispo.size()>0 && rand.nextBoolean()) { //le joueur decide de prendre cette carte si il a acces de ressource et si il a envie (true/false)
     		int i=rand.nextInt((listTypeDispo.size()));
     		return listTypeDispo.get(i);
     	}
@@ -67,9 +66,10 @@ public class Joueur implements Joueurs {
 		if (StoneAge.getNbJoueurTotal()==2){
 			if ( (inv.getNbZoneJouer() < 6&&inv.ouvrierDispo())){
 				int i=0;
-				int zoneChoisie = rand.nextInt(9);
-			 	while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).nbJoueur>=1){				 	
-			 		zoneChoisie = rand.nextInt(9);
+				int[] tabZoneDispo={1,2,3,4,5,6,7,8,9,12,13};
+				int zoneChoisie = tabZoneDispo[rand.nextInt(11)];
+			 	while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).nbJoueur>=1){
+					zoneChoisie = tabZoneDispo[rand.nextInt(11)];
 			 		i++;
 			 		if(i==10) {
 			 			zoneChoisie = 1;
@@ -90,9 +90,10 @@ public class Joueur implements Joueurs {
 		else if(StoneAge.getNbJoueurTotal()==3) {
 			if ( (inv.getNbZoneJouer() < 6 &&inv.ouvrierDispo())){
 				int i=0;
-			 	int zoneChoisie = rand.nextInt(10);
+				int[] tabZoneDispo={1,2,3,4,5,6,7,8,9,10,12,13,14};
+				int zoneChoisie = tabZoneDispo[rand.nextInt(13)];
 			 	while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).nbJoueur>=2){
-			 		zoneChoisie = rand.nextInt(10);
+					zoneChoisie = tabZoneDispo[rand.nextInt(13)];
 			 		i++;
 			 		if(i==10) {
 			 			zoneChoisie = 1;
@@ -115,7 +116,6 @@ public class Joueur implements Joueurs {
 			 	int zoneChoisie = rand.nextInt(15);
 			 	while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0){
 			 		zoneChoisie = rand.nextInt(15);
-
 			 	}
 				//IA simple qui choisit une zone au hazard
 				int nbOuvChoisie= rand.nextInt(Math.min(inv.getNbOuvrierDispo(),LesZones.get(zoneChoisie).getNbPlaceDispo()))+1;
