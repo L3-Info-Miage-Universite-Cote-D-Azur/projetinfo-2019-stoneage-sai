@@ -4,17 +4,17 @@ import java.util.Random;
 
 public class JoueurIA implements Joueurs {
 	Random rand = new Random();
-        String name;
-	int num;
+	String name;
+	private int num;
 	JoueurIA(String name,int num){
             this.name=name;
             this.num=num;
         }
         @Override
-        public int getNum(){
+    public int getNum(){
             return num;
         }
-    public int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) { 
+    public int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) {
     	int OutilChoisie ;
     	/*Ici le joueur va choisir s'il peut ou pas placer des outils lorsqu'il recupere ses gains.
     	si par exemple il a une somme de des egale a 8 dans la zone foret il peut rajouter un outils 
@@ -22,21 +22,27 @@ public class JoueurIA implements Joueurs {
     	if ((zoneChoisi.niveauZone-(nbRessources % zoneChoisi.niveauZone))<=nbOutils)
     	{
     		OutilChoisie =(zoneChoisi.niveauZone-(nbRessources % zoneChoisi.niveauZone));
-
     	}
     	else {
     	    OutilChoisie = rand.nextInt(nbOutils+1); 
     	}
     	return OutilChoisie;
-    }
-    
-    public int choixTypeRes(int...typeDispo) {
-    	int i=rand.nextInt((typeDispo.length));
-    	return typeDispo[i];
-    	
-    }
+	}
+
 	public int cadeauRes(ArrayList<Integer> listeDe ){
 		//cette methode va permettre au joueur de choisir la resouce cadeau de la carte civilisation
+		if (listeDe.contains(4)){
+			return 4;
+		}
+		else if (listeDe.contains(6)){
+			return 6;
+		}
+		else if (listeDe.contains(5)){
+			return 5;
+		}
+		else if (listeDe.contains(3)){
+			return 3;
+		}
 		return listeDe.get(rand.nextInt(listeDe.size()));
 	}
     public int choixTypeRes(int cout,Inventaire inv, int...typeDispo) { 
@@ -52,28 +58,23 @@ public class JoueurIA implements Joueurs {
     	 * 5: Pierre 
     	 * 6: Or 
     	 */
-    	if ( inv.getNbBois()<cout) {// s'il ya pas assez de bois on enleve l'indice de cette zone de la liste 
-    		listTypeDispo.remove(0);
+		if (inv.getNbOr()>cout&& listTypeDispo.contains(6)) {
+			return 6;
 		}
-		else if ( inv.getNbArgile()<cout) {
-			listTypeDispo.remove(1);
+		if ( inv.getNbPierre()>cout && listTypeDispo.contains(5)) {
+			return 5;
 		}
-		else if ( inv.getNbPierre()>cout) {
-			listTypeDispo.remove(2);
+		if ( inv.getNbArgile()>cout &&listTypeDispo.contains(4)) {
+			return 4;
 		}
-		else if (inv.getNbOr()>cout) {
-			listTypeDispo.remove(3);
-		}    	
-    	if(listTypeDispo.size()>0) {
-    		int i=rand.nextInt((listTypeDispo.size()));
-    		return listTypeDispo.get(i);
-    	}
-    	else {
-    		return (-1);
-    	}
+		if ( inv.getNbBois()>cout &&listTypeDispo.contains(3)) {
+
+			return 3 ;
+		}
+		else {
+			return (-1);
+		}
     }
-    
-    
 
     public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv){
 	    if ( (inv.getNbZoneJouer() < 6 &&inv.ouvrierDispo())){
@@ -87,9 +88,10 @@ public class JoueurIA implements Joueurs {
 			else if (StoneAge.getNbJoueurTotal()==2){
 				if ( (inv.getNbZoneJouer() < 6&&inv.ouvrierDispo())){
 					int i=0;
-					int zoneChoisie = rand.nextInt(9);
-				 	while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).nbJoueur>=1){				 	
-				 		zoneChoisie = rand.nextInt(9);
+					int[] tabZoneDispo={1,2,3,4,5,6,7,8,9,12,13};
+					int zoneChoisie = tabZoneDispo[rand.nextInt(11)];
+				 	while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).nbJoueur>=1){
+						zoneChoisie = tabZoneDispo[rand.nextInt(11)];
 				 		i++;
 				 		if(i==10) {
 				 			zoneChoisie = 1;
@@ -109,9 +111,10 @@ public class JoueurIA implements Joueurs {
 			else if(StoneAge.getNbJoueurTotal()==3) {
 				if ( (inv.getNbZoneJouer() < 6 &&inv.ouvrierDispo())){
 					int i=0;
-				 	int zoneChoisie = rand.nextInt(10);
+					int[] tabZoneDispo={1,2,3,4,5,6,7,8,9,10,12,13,14};
+					int zoneChoisie = tabZoneDispo[rand.nextInt(13)];
 				 	while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).nbJoueur>=2){
-				 		zoneChoisie = rand.nextInt(10);
+						zoneChoisie = tabZoneDispo[rand.nextInt(13)];
 				 		i++;
 				 		if(i==10) {
 				 			zoneChoisie = 1;
