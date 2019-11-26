@@ -22,8 +22,9 @@ public class Inventaire {
 	private int nbOr;
 	private int nbNourriture;
 	private int nbOutils;
+	private int nbOutilsDutour;  //nombre d'outil qui va etre minorer dans le tour et revient au nombre d'outil initial en fin de tour
 	private int scoreChamp;
-        private int pisteScore;//piste de score qui augmente quand un joueur achete un batiment
+	private int pisteScore;//piste de score qui augmente quand un joueur achete un batiment
 	private int nbPaysan;// va etre multiplier par le scoreChamp pour le score final
 	private int nbFabricant;// va etre multiplier par le nombre d'outil pour le score final
 	private int nbConstructeur;// va etre multiplier par le nombre de tuile batiment  pour le score final
@@ -32,10 +33,10 @@ public class Inventaire {
 	private int nbCarteCiv; //nb =0/1 carte existe 1 seul dans la partie
 	private Set<Integer> setTypeCarteCivVerte ;//= new LinkedHashSet<>(); //cette ensemble va contenir les differant type de carte civilisation verte que le joueur va prendre
 	private int score;
-        public ArrayList<CarteCivilisation> listeDesCarteCivilisation;// = new ArrayList<>(); 
-        public ArrayList<BuildingTiles> listeDesCarteBatiments;
-        public ArrayList<Integer> listeZonesDispo;// = new ArrayList<>(); 
-        public ArrayList<Boolean> listeZonesJouer;// = new ArrayList<>();
+	public ArrayList<CarteCivilisation> listeDesCarteCivilisation;// = new ArrayList<>();
+	public ArrayList<BuildingTiles> listeDesCarteBatiments;
+	public ArrayList<Integer> listeZonesDispo;// = new ArrayList<>();
+	public ArrayList<Boolean> listeZonesJouer;// = new ArrayList<>();
 	public Inventaire() {  //Initialisation d'un Inventaire vide
 		setNbOuvrier(NB_INITIAL_OUVRIERS); //Initialisation du nombre d'ouvrier 
 		// Initialisation à 0 des ressources et du score
@@ -48,17 +49,17 @@ public class Inventaire {
 		setNbOutils(0);
 		setScore(0);
 		setScoreChamp(0);
-                setPisteScore(0);
+		//setPisteScore(0);
 		resetAvailableWorkers();
 		listeDesCarteCivilisation = new ArrayList<>();
-                listeDesCarteBatiments=new ArrayList<>();
+		listeDesCarteBatiments=new ArrayList<>();
 		setTypeCarteCivVerte = new LinkedHashSet<>();	
 		listeZonesJouer  = new ArrayList<>();
-                listeZonesDispo = new ArrayList<>();
-            for (int i=1;i <= 15;i++ ){
-                    listeZonesDispo.add(i);
-                    listeZonesJouer.add(false);
-            } //remplire la liste des zones
+		listeZonesDispo = new ArrayList<>();
+		for (int i=1;i <= 15;i++ ){
+			listeZonesDispo.add(i);
+			listeZonesJouer.add(false);
+		} //remplire la liste des zones
 	}
 
     public Inventaire(Inventaire toCopy) {
@@ -80,10 +81,7 @@ public class Inventaire {
 		nbOuvrierDispo += i;
 	}
 	public void removeAvailableWorkers(int i) {
-		nbOuvrierDispo -= i; }
-	public void updateScore(){
-		//Pour l'instant le score est seulement calculé par le nombre total de ressource
-		setScore(calcScore());
+		nbOuvrierDispo -= i;
 	}
 	public void resetAvailableWorkers() {
 		nbOuvrierDispo = getNbOuvrier();
@@ -95,15 +93,6 @@ public class Inventaire {
         return nbOuvrierDispo;
     }
 
-    public void resetInventory(){
-		setNbArgile(0);
-		setNbBois(0);
-		setNbOr(0);
-		setNbPierre(0);
-		setNbRessource(0);
-		setNourriture(15);
-		setNbOutils(0);
-	}
 	/* ****************************************
 	   * Getter and setter des champs privés  * 
 	   **************************************** */
@@ -181,30 +170,35 @@ public class Inventaire {
 	public void setNourriture(int nbNourriture) {
 		this.nbNourriture = nbNourriture;
 	}
-        public int getNbOutils(){
+	public int getNbOutils(){
 		return nbOutils;
 	}
+	public int getNbOutilsDuTour(){
+		return nbOutilsDutour;
+	}
 	public void setNbOutils(int nbOutils){
+		this.nbOutilsDutour+=(this.nbOutils-nbOutils);
+		//on ajoute un nouvel outil pour nb outildu tou et nb outil final si le joueur en gagne un pendant le tour
 		this.nbOutils=nbOutils;
 	}
-        public int getScoreChamp() {
+	public void setNbOutilsDuTour(int nbOutils){
+		this.nbOutilsDutour=nbOutils;
+	}
+	public int getScoreChamp() {
 		return scoreChamp;
+	}
+	public void resetNbOutilsDuTour(){
+		this.nbOutilsDutour=this.nbOutils;
 	}
 	public void setScoreChamp(int niveauChamp) {
 		scoreChamp=niveauChamp;
-	}	
-        public int getPisteScore(){
-            return pisteScore;
-        }
-        public void setPisteScore(int points){
-            pisteScore=pisteScore+points;
-        }
+	}
 	public void addCarteCiv(CarteCivilisation Carte) {
 		listeDesCarteCivilisation.add(Carte);
 	}
-        public void addCarteBat(BuildingTiles building){
+	public void addCarteBat(BuildingTiles building){
             listeDesCarteBatiments.add(building);
-        }
+	}
 	
 	public int getScore() {
 		return score;
