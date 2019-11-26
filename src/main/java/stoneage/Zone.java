@@ -66,12 +66,19 @@ public class Zone {
     
     public void recupeRes(ArrayList<CarteCivilisation> listeDesCartes,ArrayList<BuildingTiles> listeDesBatiments,Inventaire inventaireJoueur, Joueurs J) { 
     	int nbRessources= this.lancéDeDés(this.getNbOuvriersPlaces());
-    	int nbOutilsDuJoueur=inventaireJoueur.getNbOutils();
-    	int outilChoisie=J.placerOutils(nbOutilsDuJoueur,nbRessources,this);
-		
+    	int nbOutilsDuJoueur=inventaireJoueur.getNbOutilsDuTour();
+		int outilChoisie;
+    	// le nombre d'outil que le joueur a choisi d'utiliser
+		if (inventaireJoueur.getNbOutilsDuTour()>0){ // s'il a des outils on le laisse choisir le nombre qu'il veut sinon en retourne 0
+			outilChoisie=J.placerOutils(nbOutilsDuJoueur,nbRessources,this);
+		}
+		else {
+			outilChoisie=0;
+		}
+
     	nbRessources=nbRessources +outilChoisie;
     	nbRessources=nbRessources / this.niveauZone;
-    	inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()-outilChoisie);	   	   		
+    	inventaireJoueur.setNbOutilsDuTour(inventaireJoueur.getNbOutilsDuTour()-outilChoisie);
     	//recuperer les ressources gagner
     	//ajouter les nouveau ressources a l'inventaire du joueur 
     	switch(this.niveauZone){
@@ -180,6 +187,7 @@ public class Zone {
 								//LANCEMENT 2 DEE OR
 								int gainsOr = this.lancéDeDés(2) / 6;
 								inventaireJoueur.setNbOr(inventaireJoueur.getNbOr() + gainsOr);
+								inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource() + gainsOr);
 								gains = gainsOr;
 								TypeGains = "Or";
 							}
@@ -272,6 +280,7 @@ public class Zone {
 							} else {
 								// carte transport 11:  gagner 2 pierres
 								inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre() + 2);
+								inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource() + 2);
 								gains = 2;
 								TypeGains = "Pierre ";
 							}
@@ -343,6 +352,7 @@ public class Zone {
 								//carte Paysan 21 : gagner 1 Paysan et 1 pierre
 								inventaireJoueur.addNbPaysan(1);
 								inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre() + 1);
+								inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource() + 1);
 								gains = 1;
 								TypeGains = " Pierre ";
 							} else if (carte.getNumeroCarte() == 22) {
@@ -413,18 +423,21 @@ public class Zone {
 								//carte chamane 31 : gagner 1 Chamane  et 1 PIERRE
 								inventaireJoueur.addNbChamane(1);
 								inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre() + 1);
+								inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource() + 1);
 								gains = 1;
 								TypeGains = " Pierre ";
 							} else if (carte.getNumeroCarte() == 32) {
 								//carte chamane 32 : gagner 1 Chamane  et 1 OR
 								inventaireJoueur.addNbChamane(1);
 								inventaireJoueur.setNbOr(inventaireJoueur.getNbOr() + 1);
+								inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource() +1);
 								gains = 1;
 								TypeGains = " Or ";
 							} else if (carte.getNumeroCarte() == 33) {
 								//carte chamane 33 : gagner 1 Chamane  et lancer 2 dé pierre
 								int gain = this.lancéDeDés(2) / 5;
 								inventaireJoueur.setNbPierre((gain) + inventaireJoueur.getNbPierre());
+								inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource() + (gain));
 								inventaireJoueur.addNbChamane(1);
 								gains = gain;
 								TypeGains = " Pierre ";
@@ -433,6 +446,7 @@ public class Zone {
 								//carte chamane 34 : gagner 2 Chamane  et 1 argile
 								inventaireJoueur.addNbChamane(2);
 								inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile() + 1);
+								inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource() + 1);
 								gains = 2;
 								TypeGains = " Argile ";
 
@@ -442,6 +456,7 @@ public class Zone {
 								inventaireJoueur.addNbChamane(2);
 								int gain = this.lancéDeDés(2) / 3;
 								inventaireJoueur.setNbBois((gain) + inventaireJoueur.getNbBois());
+								inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource() +(gain));
 								gains = gain;
 								TypeGains = " Bois ";
 							}
@@ -462,7 +477,7 @@ public class Zone {
     			 *  sinon elle sera rendu a la liste  */ 
                   if (building.getCardScore()==0) {   //une seule carte +10 points et coute 2b+1a
                   		if (inventaireJoueur.getNbBois()>=2 && inventaireJoueur.getNbArgile()>=1) {
-                            inventaireJoueur.setPisteScore(10);
+                            inventaireJoueur.setScore(inventaireJoueur.getScore()+10);
                             inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()-2);
                             inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()-1);
                             inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-3);
@@ -474,7 +489,7 @@ public class Zone {
                   else if (building.getCardScore()==1) { //cartes +11 points
                         if (building.getBuildingCost()==1) { //carte +11 points et coute 1b+2a
                             if (inventaireJoueur.getNbBois()>=1 && inventaireJoueur.getNbArgile()>=2) {
-                                inventaireJoueur.setPisteScore(11);
+								inventaireJoueur.setScore(inventaireJoueur.getScore()+11);
                                 inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()-1);
                                 inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()-2);
                                 inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-3);
@@ -485,9 +500,9 @@ public class Zone {
                         }
                         else{ //carte +11 points et coute 2b+1p
                             if (inventaireJoueur.getNbBois()>=2 && inventaireJoueur.getNbPierre()>=1) {
-                                inventaireJoueur.setPisteScore(11);
+								inventaireJoueur.setScore(inventaireJoueur.getScore()+11);
                                 inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()-2);
-                                inventaireJoueur.setNbArgile(inventaireJoueur.getNbPierre()-1);
+                                inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()-1);
                                 inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-3);
                                 gains=11;
                                 TypeGains="points sur la  piste score ossama";
@@ -498,7 +513,7 @@ public class Zone {
                   else if (building.getCardScore()==2) { //cartes +12 points
                         if (building.getBuildingCost()==3) {  //cartes +12 points et coute 1b+1a+1p (existe en 2 exemplaires)
                             if (inventaireJoueur.getNbBois()>=1 && inventaireJoueur.getNbArgile()>=1 && inventaireJoueur.getNbPierre()>=1) {
-                                inventaireJoueur.setPisteScore(12);
+								inventaireJoueur.setScore(inventaireJoueur.getScore()+12);
                                 inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()-1);
                                 inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()-1);
                                 inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()-1);
@@ -510,7 +525,7 @@ public class Zone {
                         }
                         if (building.getBuildingCost()==4) { //carte +12 points et coute 2b+1o
                             if (inventaireJoueur.getNbBois()>=2 && inventaireJoueur.getNbOr()>=1) {
-                                inventaireJoueur.setPisteScore(12);
+								inventaireJoueur.setScore(inventaireJoueur.getScore()+12);
                                 inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()-2);
                                 inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()-1);
                                 inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-3);
@@ -523,7 +538,7 @@ public class Zone {
                   else if (building.getCardScore()==3) { //cartes +13 points
                         if (building.getBuildingCost()==5) { //cartes +13 points et coute 1b+1a+1o (existe en 2 exemplaires)
                             if (inventaireJoueur.getNbBois()>=1 && inventaireJoueur.getNbArgile()>=1 && inventaireJoueur.getNbOr()>=1) {
-                                inventaireJoueur.setPisteScore(13);
+								inventaireJoueur.setScore(inventaireJoueur.getScore()+13);
                                 inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()-1);
                                 inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()-1);
                                 inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()-1);
@@ -535,7 +550,7 @@ public class Zone {
                         }
                         if (building.getBuildingCost()==6) { //carte +13 points et coute 2a+1p
                             if (inventaireJoueur.getNbArgile()>=2 && inventaireJoueur.getNbPierre()>=1) {
-                                inventaireJoueur.setPisteScore(13);
+								inventaireJoueur.setScore(inventaireJoueur.getScore()+13);
                                 inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()-2);
                                 inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()-1);
                                 inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-3);
@@ -546,7 +561,7 @@ public class Zone {
                         }
                         if (building.getBuildingCost()==7) { //carte +13 points et coute 1b+2p
                             if (inventaireJoueur.getNbBois()>=1 && inventaireJoueur.getNbPierre()>=2) {
-                                inventaireJoueur.setPisteScore(13);
+								inventaireJoueur.setScore(inventaireJoueur.getScore()+13);
                                 inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()-1);
                                 inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()-2);
                                 inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-3);
@@ -559,7 +574,7 @@ public class Zone {
                   else if (building.getCardScore()==4) { //cartes +14 points
                         if (building.getBuildingCost()==8) { //cartes +14 points et coute 1b+1p+1o (existe en 2 exemplaires)
                             if (inventaireJoueur.getNbBois()>=1 && inventaireJoueur.getNbPierre()>=1 && inventaireJoueur.getNbOr()>=1) {
-                                inventaireJoueur.setPisteScore(14);
+								inventaireJoueur.setScore(inventaireJoueur.getScore()+14);
                                 inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()-1);
                                 inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()-1);
                                 inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()-1);
@@ -571,7 +586,7 @@ public class Zone {
                         }
                         if (building.getBuildingCost()==9) { //carte +14 points et coute 1a+2p
                             if (inventaireJoueur.getNbArgile()>=1 && inventaireJoueur.getNbPierre()>=2) {
-                                inventaireJoueur.setPisteScore(14);
+								inventaireJoueur.setScore(inventaireJoueur.getScore()+14);
                                 inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()-1);
                                 inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()-2);
                                 inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-3);
@@ -582,7 +597,7 @@ public class Zone {
                         }
                         if (building.getBuildingCost()==10) { //carte +14 points et coute 2a+1o
                             if (inventaireJoueur.getNbArgile()>=2 && inventaireJoueur.getNbOr()>=1) {
-                                inventaireJoueur.setPisteScore(14);
+								inventaireJoueur.setScore(inventaireJoueur.getScore()+14);
                                 inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()-2);
                                 inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()-1);
                                 inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-3);
@@ -595,7 +610,7 @@ public class Zone {
                   else if (building.getCardScore()==5) { //cartes +15 points
                         if (building.getBuildingCost()==11) { //cartes +15 points et coute 1a+1p+1o (existe en 2 exemplaires)
                             if (inventaireJoueur.getNbArgile()>=1 && inventaireJoueur.getNbPierre()>=1 && inventaireJoueur.getNbOr()>=1) {
-                                inventaireJoueur.setPisteScore(15);
+								inventaireJoueur.setScore(inventaireJoueur.getScore()+15);
                                 inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()-1);
                                 inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()-1);
                                 inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()-1);
@@ -607,14 +622,16 @@ public class Zone {
                         }
                   }
                   else if (building.getCardScore()==6) { //une seule carte +16 points et coute 2p+1o
-                        inventaireJoueur.setPisteScore(16);
-                        inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()-2);
-                        inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()-1);
-                        inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-3);
-                        gains=16;
-                        TypeGains="points sur la  piste score";
-                        pay=true;
-                  }
+					  if (inventaireJoueur.getNbPierre() >= 2 && inventaireJoueur.getNbOr() >= 1) {
+						  inventaireJoueur.setScore(inventaireJoueur.getScore()+16);
+						  inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre() - 2);
+						  inventaireJoueur.setNbOr(inventaireJoueur.getNbOr() - 1);
+						  inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource() - 3);
+						  gains = 16;
+						  TypeGains = "points sur la  piste score";
+						  pay = true;
+					  }
+				  }
                   if (pay==true) { //le joueur paye la carte on la retire donc de la liste des cartes
                         listeDesBatiments.remove(this.niveauZone-12);
                         TypeGains+=" avec la carte Batiment ";
