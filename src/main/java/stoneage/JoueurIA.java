@@ -78,10 +78,10 @@ public class JoueurIA implements Joueurs {
 
     public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv){
 	    if ( (inv.getNbZoneJouer() < 6 &&inv.ouvrierDispo())){
-			if (inv.listeZonesJouer.get(2)==false&& inv.getNourriture()<5 &&inv.getNbOuvrierDispo()==5 ) 
+			if (inv.listeZonesJouer.get(2)==false&& inv.getNourriture()<5 &&inv.getNbOuvrierDispo()==5 )
 				// si la zone chasse est disponnible et que le nombre de nourriture disponnible ne suffit pas pour nourrire les ouvriers
 	    	{	
-				int nbOuvChoisie= 5 - inv.getNourriture() ;
+				int nbOuvChoisie= 5 ;
 				// on choisit la zone de chasse si on a pas assez de nourriture 
 				return new Choix(1, nbOuvChoisie);
 			}
