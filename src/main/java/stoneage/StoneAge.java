@@ -17,7 +17,7 @@ public class StoneAge {
  	
  	/****** Choisir un Nombre de Joueure Pour commencer une Partie ( entre 2 et 4 )******/
 	public static final void main(String [] args) {
-		StoneAge stoneAge = new StoneAge(2);
+		StoneAge stoneAge = new StoneAge(4);
 		stoneAge.jouer();
 	}
 	 public StoneAge(int nbJ){
@@ -157,28 +157,37 @@ public class StoneAge {
 			recuperer=false;
 	    	for (int i=0 ; i<=nbJoueurs;i++)
 	    	{
+				listeDesInventaires.get(i).resetNbOutilsDuTour(); // chaque joeuur recupere le nombre d'outil qu'il avait
 	    		if ( (listeDesInventaires.get(i).getNbZoneJouer() > 0) ) {
 	    			recuperer=true;
 	    		}
 	    	}
 		}
-    			
-    	    			
+
 		System.out.println("**** Phase Nourrir les ouvriers ****"+ "\n");
 		for (int i=0 ; i<=nbJoueurs;i++){
 			partie.phaseNourrir( listeDesInventaires.get(i), listeDesJoueurs.get(i));
-                        System.out.println();
+
 		}
                 
-                
+		//changer l'ordre des joueurs et des inventaire 1234 ==> 2341 ==> 3412....
 		for (int i=0 ; i<=nbJoueurs-1;i++) {
 				Collections.swap(listeDesInventaires,i,i+1);
 				Collections.swap(listeDesJoueurs,i,i+1);
 		}
+		for (int i=0 ; i<=nbJoueurs;i++) {
+			int numJ=listeDesJoueurs.get(i).getNum();
+			System.out.println("**** Inventaire du joueur "+numJ+" ****" );
+			System.out.println("Bois  : " + listeDesInventaires.get(i).getNbBois());
+			System.out.println("Argile : " + listeDesInventaires.get(i).getNbArgile());
+			System.out.println("Pierre : " + listeDesInventaires.get(i).getNbPierre());
+			System.out.println("Or : " + listeDesInventaires.get(i).getNbOr());
+			System.out.println("Niveau agriculture : " + listeDesInventaires.get(i).getScoreChamp());
+			System.out.println("Nombre de nourriture : " +listeDesInventaires.get(i).getNourriture());
+			System.out.println("Nombre de ressources : " +listeDesInventaires.get(i).getNbRessource());
+			System.out.println("Nombre d'outil  : " + listeDesInventaires.get(i).getNbOutils()+ "\n");
 
-
-	
-		
+		}
     }
 	 public void gagner() {
 	        ArrayList<Integer> listScore= new ArrayList<>();
@@ -189,14 +198,18 @@ public class StoneAge {
 	    	int Gagnant=0;
 	    	int ScoreGagnant=0;
 	    	for (int i=0 ; i<=nbJoueurs;i++){
-	    		System.out.println("Resources en Bois du joueur ** "+ (i+1) +" ** : " +listeDesInventaires.get(i).getNbBois());
-	    		System.out.println("Resources en Argile du joueur ** "+ (i+1) +" ** : " +listeDesInventaires.get(i).getNbArgile());
-	    		System.out.println("Resources en Pierre du joueur ** "+ (i+1) +" ** : " +listeDesInventaires.get(i).getNbPierre());
-	    		System.out.println("Resources en Or du joueur ** "+ (i+1) +" ** : " +listeDesInventaires.get(i).getNbOr() );
-	    		System.out.println("Le Score final  du joueur ** "+ (i+1) +" ** : " +listeDesInventaires.get(i).calcScore() + "\n");
+				int numJ=listeDesJoueurs.get(i).getNum();
+	    		System.out.println("Resources en Bois du joueur ** "+ (numJ) +" ** : " +listeDesInventaires.get(i).getNbBois());
+	    		System.out.println("Resources en Argile du joueur ** "+ (numJ) +" ** : " +listeDesInventaires.get(i).getNbArgile());
+	    		System.out.println("Resources en Pierre du joueur ** "+ (numJ) +" ** : " +listeDesInventaires.get(i).getNbPierre());
+	    		System.out.println("Resources en Or du joueur ** "+ (numJ) +" ** : " +listeDesInventaires.get(i).getNbOr() );
+				System.out.println("Niveau agriculture du joueur ** "+ (numJ) +" ** : " +listeDesInventaires.get(i).getScoreChamp() );
+				System.out.println("Nombre d'outil du joueur ** "+ (numJ) +" ** : " +listeDesInventaires.get(i).getNbOutils());
+				System.out.println("Nombre de nourriture du joueur ** "+ (numJ) +" ** : " +listeDesInventaires.get(i).getNourriture());
+	    		System.out.println("Le Score final  du joueur ** "+ (numJ) +" ** : " +listeDesInventaires.get(i).calcScore() + "\n");
 	                
 	    		if ( listeDesInventaires.get(i).calcScore()>ScoreGagnant){
-	    			Gagnant=i+1; //si le score du joueur corant est le plus elever alors on change les deux variables.
+	    			Gagnant=numJ; //si le score du joueur corant est le plus elever alors on change les deux variables.
 	    			ScoreGagnant=listeDesInventaires.get(i).calcScore();
 	    		}       
 	        }        
@@ -205,7 +218,7 @@ public class StoneAge {
 	    	for (int i=0 ; i<=nbJoueurs;i++){
 	    		if (listeDesInventaires.get(i).calcScore()== ScoreGagnant) {
 	    			nbScoreEgaux++;
-	    			joueurGagnant.add(i+1);
+	    			joueurGagnant.add(listeDesJoueurs.get(i).getNum());
 	    		}
 	    	}
 	    	if (nbScoreEgaux==nbJoueurs+1) {
