@@ -47,42 +47,5 @@ public class CarteCivilisationTest {
             assertEquals(carte.getAllCards().get(i).getNumeroCarte(), i);
         }
     }
-    
-    
-    
-    @Test
-    public void getNbBuilderOnIt() {
-        for (int i = 0; i < carte.getAllCards().size(); i++) {
-            assertTrue(carte.getAllCards().get(i).getNbBuilderOnIt() >= 0 && carte.getAllCards().get(i).getNbBuilderOnIt() <= 3);
-        }
-    }
-
-    
-    @Test
-    public void getPartieSuperieur() {
-        for (int i = 0; i < carte.getAllCards().size(); i++) {
-            assertTrue(carte.getAllCards().get(i).getPartieSuperieur() >= 0 && carte.getAllCards().get(i).getPartieSuperieur() <= 8);
-        }
-    }
-    
-    
-    
-    @Test
-    public void initialiseDeck() {
-        carte2.initialiseDeck();
-        assertEquals(carte2.getAllCards().size(), carte.getAllCards().size());
-    }
-    
-    
-    
-    @Test
-    public void ajouterDansInventaire() {
-    	for (int i = 0; i < carte.getAllCards().size(); i++) {
-    		carte.getAllCards().get(i).ajouterDansInventaire(inv);
-    	}
-    	assertEquals(inv.listeDesCarteCivilisation.size(), 36);
-    }
-    
-
 
 }
