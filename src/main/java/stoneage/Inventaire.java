@@ -173,6 +173,10 @@ public class Inventaire {
             listeDesCarteBatiments.add(building);
 	}
 	
+	public ArrayList<BuildingTiles> getCarteBat() {
+		return listeDesCarteBatiments;
+	}
+	
 	public int getScore() {
 		return score;
 	}
