@@ -48,9 +48,12 @@ public class Partie {
         		else if (choix.getGains()==-3) {
         		    System.out.println("Le joueur decide d'abandonner sa carte batiment. \n ");
         		}
+                        else if (choix.getGains()==-5) {
+                            System.out.println("Le joueur n'a pas assez de ressources pour payer cette carte batiment \n");
+                        }
         		else if (choix.getGains()==-4){
         		    System.out.println("Le joueur a gagner un "+choix.TypesGains[0]+" et un "+choix.TypesGains[1]+"  avec sa carte civilisation. \n");
-                }
+                        }
         		else if (choix.getGains()>=0){
         		    System.out.println(ConsoleColors.RED+"Il gagne  "+choix.getGains() +" " +choix.TypeGains()+ConsoleColors.RESET  + " \n");
         		}
@@ -77,7 +80,7 @@ public class Partie {
         inv.setNourriture(inv.getNourriture()+inv.getScoreChamp());//chaque joueur prend une valeur de jetons nourriture egale a la valeur de son marqeur sur la piste agriculture
         System.out.println(ConsoleColors.GREEN+"Le joueur " + joueur.getNum()+ " a "+inv.getNourriture()+" nourriture et " + inv.getNbRessource() +" ressources"+ConsoleColors.RESET);
         int nm=inv.getNbOuvrierDispo()-inv.getNourriture();//nourriture qui manque
-    	if (inv.getNourriture()>=inv.getNbOuvrierDispo()){
+    	if (inv.getNourriture()>=inv.getNbOuvrierDispo()){//cas ou la nourriture du joueur est suffisante pour nourrie ses figurines
             inv.setNourriture(inv.getNourriture()-inv.getNbOuvrierDispo());
             System.out.println(ConsoleColors.GREEN+"Le joueur " + joueur.getNum() + " va nourrir ses ouvriers avec la nourritue qu'il possede "+ConsoleColors.RESET);
 
@@ -85,7 +88,7 @@ public class Partie {
         else if(inv.getNourriture()<inv.getNbOuvrierDispo() && inv.getNbRessource()>=nm ){
             System.out.println(ConsoleColors.GREEN+"Le joueur " + joueur.getNum() + " n'a pas assez de nourriture,il lui manque " + nm + " nourritures" + ",il utilise donc les " +inv.getNourriture()+ " nourriture qu'il possede et ses ressources "+ConsoleColors.RESET );
             inv.setNourriture(inv.getNourriture()-inv.getNourriture());
-            inv.setNbRessource(inv.getNbRessource()-nm);
+            //inv.setNbRessource(inv.getNbRessource()-nm);
             if (nm!=0) {
                 if (nm-inv.getNbBois()>0 && inv.getNbBois()!=0) {
                     nm=nm-inv.getNbBois();
