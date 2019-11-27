@@ -40,6 +40,7 @@ public class Joueur implements Joueurs {
     	 * 5: Pierre 
     	 * 6: Or 
     	 */
+
     	if ( inv.getNbBois()<cout) {
     		// s'il ya pas assez de bois on enleve l'indice de cette zone de la liste
     		listTypeDispo.remove(listTypeDispo.indexOf(3));
@@ -52,7 +53,7 @@ public class Joueur implements Joueurs {
 		}
 		if (inv.getNbOr()<cout) {
 			listTypeDispo.remove(listTypeDispo.indexOf(6));
-		}    	
+		}
     	if(listTypeDispo.size()>0 && rand.nextBoolean()) { //le joueur decide de prendre cette carte si il a acces de ressource et si il a envie (true/false)
     		int i=rand.nextInt((listTypeDispo.size()));
     		return listTypeDispo.get(i);

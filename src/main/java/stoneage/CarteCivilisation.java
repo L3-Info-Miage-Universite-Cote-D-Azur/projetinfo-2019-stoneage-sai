@@ -1,9 +1,7 @@
 package stoneage;
-
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-
 public class CarteCivilisation {
     private int fondDeCarte; //Fond vert (0) ou jaune (1)
     private int numeroCarte;
@@ -12,99 +10,67 @@ public class CarteCivilisation {
        21-22-23-24-25: Agriculture
        26-27-28-29-30: Outils
        31-32-33-34-35: Figurine  */
-    private ArrayList<CarteCivilisation> allCards; 
-    private int nbBuilderOnIt;
-    /*  0:Pour les cartes fond verts
-        1 ou 2 ou 3: Nb Builder present sur chaque carte */
-    private int partieSuperieur;
-    /*  0: Point de victoire
-        1: Nourriture
-        2: Ressources
-        3: Agriculture
-        4: Outils
-        5: Ressource au choix
-        6: Lancer de dé, suivant le nombre de joueurs: 4joueurs = 4lancers de dé
-        7: 2 dés + ressources (memes conditions que les lancer pour gagner des ressources)
-        8: Pioche une carte civilisation */
-
+    private ArrayList<CarteCivilisation> allCards;
     public CarteCivilisation() {
     	addCardsToList();
-    	
     }
-    public CarteCivilisation(int fondDeCarte, int numeroCarte, int partieSuperieur, int nbBuilderOnIt) {
+    //une carte civilisation est caracteriser par un fond de carte jaune 1/vert 0 et son numero qui va nous permettre de specifier son gain et la maniere de l'utilisier.
+    public CarteCivilisation(int fondDeCarte, int numeroCarte) {
         this.fondDeCarte = fondDeCarte;
         this.numeroCarte = numeroCarte;
-        this.nbBuilderOnIt = nbBuilderOnIt;
-        this.partieSuperieur = partieSuperieur;
-    }
-
-    public void ajouterDansInventaire(Inventaire inventaire){
-        inventaire.addCarteCiv(this);
-    }
-    public void initialiseDeck(){
-        shuffleCards(allCards);
-    }
-    public void shuffleCards(ArrayList<CarteCivilisation> allCards){
-        /* TODO */
     }
     public  void addCardsToList(){
         //  FOND VERT
     	allCards= new ArrayList<>();
-        allCards.add(new CarteCivilisation(0,0,1,0));
-        allCards.add(new CarteCivilisation(0,1,6,0));
-        allCards.add(new CarteCivilisation(0,2,7,0));
-        allCards.add(new CarteCivilisation(0,3,4,0));
-        allCards.add(new CarteCivilisation(0,4,8,0)); //Ex: vert, carte n°4-> Ecriture, pioche carteCiv.
-        allCards.add(new CarteCivilisation(0,5,6,0));
-        allCards.add(new CarteCivilisation(0,6,5,0));
-        allCards.add(new CarteCivilisation(0,7,1,0));
-        allCards.add(new CarteCivilisation(0,8,3,0));
-        allCards.add(new CarteCivilisation(0,9,6,0));
-        allCards.add(new CarteCivilisation(0,10,6,0));
-        allCards.add(new CarteCivilisation(0,11,2,0));
-        allCards.add(new CarteCivilisation(0,12,0,0));
-        allCards.add(new CarteCivilisation(0,13,0,0));
-        allCards.add(new CarteCivilisation(0,14,1,0));
-        allCards.add(new CarteCivilisation(0,15,1,0));
+        allCards.add(new CarteCivilisation(0,0));
+        allCards.add(new CarteCivilisation(0,1));
+        allCards.add(new CarteCivilisation(0,2));
+        allCards.add(new CarteCivilisation(0,3));
+        allCards.add(new CarteCivilisation(0,4)); //Ex: vert, carte n°4-> Ecriture, pioche carteCiv.
+        allCards.add(new CarteCivilisation(0,5));
+        allCards.add(new CarteCivilisation(0,6));
+        allCards.add(new CarteCivilisation(0,7));
+        allCards.add(new CarteCivilisation(0,8));
+        allCards.add(new CarteCivilisation(0,9));
+        allCards.add(new CarteCivilisation(0,10));
+        allCards.add(new CarteCivilisation(0,11));
+        allCards.add(new CarteCivilisation(0,12));
+        allCards.add(new CarteCivilisation(0,13));
+        allCards.add(new CarteCivilisation(0,14));
+        allCards.add(new CarteCivilisation(0,15));
         //  FOND JAUNE
-        allCards.add(new CarteCivilisation(1,16,1,1)); //Ex: jaune, carte n°16-> hutte, nourriture, 1ouvrier.
-        allCards.add(new CarteCivilisation(1,17,6,1));
-        allCards.add(new CarteCivilisation(1,18,6,2));
-        allCards.add(new CarteCivilisation(1,19,1,2));
-        allCards.add(new CarteCivilisation(1,20,0,3));
-        allCards.add(new CarteCivilisation(1,21,1,2));
-        allCards.add(new CarteCivilisation(1,22,6,2));
-        allCards.add(new CarteCivilisation(1,23,2,1));
-        allCards.add(new CarteCivilisation(1,24,6,1));
-        allCards.add(new CarteCivilisation(1,25,3,1));
-        allCards.add(new CarteCivilisation(1,26,4,1));
-        allCards.add(new CarteCivilisation(1,27,4,1));
-        allCards.add(new CarteCivilisation(1,28,6,2));
-        allCards.add(new CarteCivilisation(1,29,6,2));
-        allCards.add(new CarteCivilisation(1,30,4,2));
-        allCards.add(new CarteCivilisation(1,31,2,2));
-        allCards.add(new CarteCivilisation(1,32,7,2));
-        allCards.add(new CarteCivilisation(1,33,7,1));
-        allCards.add(new CarteCivilisation(1,34,2,1));
-        allCards.add(new CarteCivilisation(1,35,2,1));
+        allCards.add(new CarteCivilisation(1,16)); //Ex: jaune, carte n°16-> hutte, nourriture, 1ouvrier.
+        allCards.add(new CarteCivilisation(1,17));
+        allCards.add(new CarteCivilisation(1,18));
+        allCards.add(new CarteCivilisation(1,19));
+        allCards.add(new CarteCivilisation(1,20));
+        allCards.add(new CarteCivilisation(1,21));
+        allCards.add(new CarteCivilisation(1,22));
+        allCards.add(new CarteCivilisation(1,23));
+        allCards.add(new CarteCivilisation(1,24));
+        allCards.add(new CarteCivilisation(1,25));
+        allCards.add(new CarteCivilisation(1,26));
+        allCards.add(new CarteCivilisation(1,27));
+        allCards.add(new CarteCivilisation(1,28));
+        allCards.add(new CarteCivilisation(1,29));
+        allCards.add(new CarteCivilisation(1,30));
+        allCards.add(new CarteCivilisation(1,31));
+        allCards.add(new CarteCivilisation(1,32));
+        allCards.add(new CarteCivilisation(1,33));
+        allCards.add(new CarteCivilisation(1,34));
+        allCards.add(new CarteCivilisation(1,35));
     }
     public int getFondDeCarte() {
         return fondDeCarte;
     }
-    public void removeCard(int i) {
-    	allCards.remove(i);
-    }
     public int getNumeroCarte() {
         return numeroCarte;
-    }
-    public int getNbBuilderOnIt() {
-        return nbBuilderOnIt;
-    }
-    public int getPartieSuperieur() {
-        return partieSuperieur;
     }
     public  ArrayList<CarteCivilisation> getAllCards() {
         return allCards;
     }
-    
+    @Override
+    public String toString(){
+        return numeroCarte+"";
+    }
 }

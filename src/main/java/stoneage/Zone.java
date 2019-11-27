@@ -34,10 +34,9 @@ public class Zone {
     	if (nbOuvriers>=1 && nbOuvriers <=nbPlaceDispo && nbOuvriers<=inventaireJoueur.getNbOuvrierDispo() ){
     		inventaireJoueur.removeAvailableWorkers(nbOuvriers);//pour placer un nbOuvrier il faut les retirer d'abord de l'inventaire du joueur
     		nbOuvriersPlacés+=nbOuvriers;
-                System.out.println(nbOuvriersPlacés);
     		nbJoueur++;
-                nbPlaceDispo=nbPlaceDispo-nbOuvriers; //le nombre de place disponnible dans la zone diminue
-                //le nombre d'ouvrier placer dans la zone augmente
+    		nbPlaceDispo=nbPlaceDispo-nbOuvriers; //le nombre de place disponnible dans la zone diminue
+			//le nombre d'ouvrier placer dans la zone augmente
     	}
     }
 
@@ -56,7 +55,10 @@ public class Zone {
         int valeurde;
         for (int i = 0; i < nbOuvriersPlacés; i++) {
             valeurde=dé.Lancer();
-            System.out.println("Le résultat du lancés du dès est : " + valeurde);
+
+			//TODO/a mettre dans partie et pas ici
+
+			System.out.println("Le résultat du lancés du dès est : " + valeurde);
             sommeDés+=valeurde;
         }
         return sommeDés ;
@@ -77,7 +79,7 @@ public class Zone {
 		else {
 			outilChoisie=0;
 		}
-        System.out.println("nombre ressoure et niveauzone "+nbRessources+"  "+niveauZone);
+        System.out.println("nombre ressoure  "+nbRessources+" et niveau zone :   "+niveauZone);
     	nbRessources=nbRessources +outilChoisie;
     	nbRessources=nbRessources / this.niveauZone;
     	inventaireJoueur.setNbOutilsDuTour(inventaireJoueur.getNbOutilsDuTour()-outilChoisie);
@@ -647,7 +649,7 @@ public class Zone {
         inventaireJoueur.addAvailableWorkers(this.getNbOuvriersPlaces());
         //recuperer les ouvriers 
         nbJoueur--;
-        this.nbOuvriersPlacés-=inventaireJoueur.listeOuvriersPlaces.get(this.niveauZone-1); //on enleve les figurines du joueur
+        this.nbOuvriersPlacés-=inventaireJoueur.listeOuvriersPlaces.get(this.niveauZone-1); //on enleve les figurines du joueur DE LA ZONE
         this.setNbPlaceDispo(this.getNbPlaceZone());//quand on recupere les ouvriers,toutes les places deviennent disponibles.    
     }  
     public int getGains(){
