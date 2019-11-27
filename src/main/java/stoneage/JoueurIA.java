@@ -176,5 +176,13 @@ public class JoueurIA implements Joueurs {
 	}
 	return null;
     }
-
+    public boolean payerBatiment(){//le joueur choisi au hasard s'il prend la carte ou pas
+            int a=rand.nextInt(2);
+            if (a==0) {
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
 }
