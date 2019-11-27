@@ -14,8 +14,6 @@ public class Zone {
     private String TypeGains; //le nom du gain par exemple bois...
 	public String[] TypesGains;
     public int nbJoueur;
-    Random rand = new Random();
-
 
     public Zone(int niveau) {
         this.niveauZone = niveau;
@@ -35,7 +33,8 @@ public class Zone {
     public void placerOuvrier(Inventaire inventaireJoueur,int nbOuvriers){
     	if (nbOuvriers>=1 && nbOuvriers <=nbPlaceDispo && nbOuvriers<=inventaireJoueur.getNbOuvrierDispo() ){
     		inventaireJoueur.removeAvailableWorkers(nbOuvriers);//pour placer un nbOuvrier il faut les retirer d'abord de l'inventaire du joueur
-    		nbOuvriersPlacés=nbOuvriers;
+    		nbOuvriersPlacés+=nbOuvriers;
+                System.out.println(nbOuvriersPlacés);
     		nbJoueur++;
                 nbPlaceDispo=nbPlaceDispo-nbOuvriers; //le nombre de place disponnible dans la zone diminue
                 //le nombre d'ouvrier placer dans la zone augmente
@@ -54,8 +53,11 @@ public class Zone {
     */
     public int lancéDeDés(int nbOuvriersPlacés){
         int sommeDés=0;
+        int valeurde;
         for (int i = 0; i < nbOuvriersPlacés; i++) {
-            sommeDés+=dé.Lancer();
+            valeurde=dé.Lancer();
+            System.out.println("Le résultat du lancés du dès est : " + valeurde);
+            sommeDés+=valeurde;
         }
         return sommeDés ;
     }
@@ -65,7 +67,7 @@ public class Zone {
      *   et la zone sera liberer quand il recupere ses ouvrier */
     
     public void recupeRes(ArrayList<CarteCivilisation> listeDesCartes,ArrayList<BuildingTiles> listeDesBatiments,Inventaire inventaireJoueur, Joueurs J) { 
-    	int nbRessources= this.lancéDeDés(this.getNbOuvriersPlaces());
+    	int nbRessources= this.lancéDeDés(inventaireJoueur.listeOuvriersPlaces.get(this.niveauZone-1));
     	int nbOutilsDuJoueur=inventaireJoueur.getNbOutilsDuTour();
 		int outilChoisie;
     	// le nombre d'outil que le joueur a choisi d'utiliser
@@ -75,7 +77,7 @@ public class Zone {
 		else {
 			outilChoisie=0;
 		}
-
+        System.out.println("nombre ressoure et niveauzone "+nbRessources+"  "+niveauZone);
     	nbRessources=nbRessources +outilChoisie;
     	nbRessources=nbRessources / this.niveauZone;
     	inventaireJoueur.setNbOutilsDuTour(inventaireJoueur.getNbOutilsDuTour()-outilChoisie);
@@ -134,25 +136,25 @@ public class Zone {
 
     			int typeCout= J.choixTypeRes(coutCarte,inventaireJoueur,3,4,5,6);
     			if (typeCout==3 ) {
-    				inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()-coutCarte);
-    				inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);
-    				payer=true;
+                                    inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()-coutCarte);
+                                    inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);			
+                                    payer=true;
     			}
     			else if (typeCout==4) {
-    				inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()-coutCarte);
-    				inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);
-    				payer=true;
+                                    inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()-coutCarte);
+                                    inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);
+                                    payer=true;
     				
     			}
     			else if (typeCout==5) {
-    				inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()-coutCarte);
-    				inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);
-    				payer=true;
+                                    inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()-coutCarte);
+                                    inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);
+                                    payer=true;
     			}
     			else if (typeCout==6) {
-    				inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()-coutCarte);
-    				inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);
-    				payer=true;
+                                    inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()-coutCarte);
+                                    inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);
+                                    payer=true;
     			}
     			if (payer==true) {
 					if (carte.getFondDeCarte() == 0) {
@@ -645,7 +647,7 @@ public class Zone {
         inventaireJoueur.addAvailableWorkers(this.getNbOuvriersPlaces());
         //recuperer les ouvriers 
         nbJoueur--;
-        this.resetNbOuvriersPlaces(); // 
+        this.nbOuvriersPlacés-=inventaireJoueur.listeOuvriersPlaces.get(this.niveauZone-1); //on enleve les figurines du joueur
         this.setNbPlaceDispo(this.getNbPlaceZone());//quand on recupere les ouvriers,toutes les places deviennent disponibles.    
     }  
     public int getGains(){

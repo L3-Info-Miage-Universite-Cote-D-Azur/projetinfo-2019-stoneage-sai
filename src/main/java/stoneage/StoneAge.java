@@ -12,8 +12,8 @@ public class StoneAge {
  	private int nbJoueurs;  // A part le joueur IA
 	private static int nbJoueurTotal;
  	public Zone zone;
-
-
+        public BuildingTiles building=new BuildingTiles();
+        public CarteCivilisation carte=new CarteCivilisation();
  	
  	/****** Choisir un Nombre de Joueure Pour commencer une Partie ( entre 2 et 4 )******/
 	public static final void main(String [] args) {
@@ -170,24 +170,26 @@ public class StoneAge {
 
 		}
                 
-		//changer l'ordre des joueurs et des inventaire 1234 ==> 2341 ==> 3412....
-		for (int i=0 ; i<=nbJoueurs-1;i++) {
-				Collections.swap(listeDesInventaires,i,i+1);
-				Collections.swap(listeDesJoueurs,i,i+1);
-		}
-		for (int i=0 ; i<=nbJoueurs;i++) {
+                for (int i=0 ; i<=nbJoueurs;i++) {
 			int numJ=listeDesJoueurs.get(i).getNum();
 			System.out.println("**** Inventaire du joueur "+numJ+" ****" );
 			System.out.println("Bois  : " + listeDesInventaires.get(i).getNbBois());
 			System.out.println("Argile : " + listeDesInventaires.get(i).getNbArgile());
 			System.out.println("Pierre : " + listeDesInventaires.get(i).getNbPierre());
 			System.out.println("Or : " + listeDesInventaires.get(i).getNbOr());
+                        System.out.println("Nombre d'ouvriers : " + listeDesInventaires.get(i).getNbOuvrier());
 			System.out.println("Niveau agriculture : " + listeDesInventaires.get(i).getScoreChamp());
 			System.out.println("Nombre de nourriture : " +listeDesInventaires.get(i).getNourriture());
 			System.out.println("Nombre de ressources : " +listeDesInventaires.get(i).getNbRessource());
 			System.out.println("Nombre d'outil  : " + listeDesInventaires.get(i).getNbOutils()+ "\n");
-
 		}
+		//changer l'ordre des joueurs et des inventaire 1234 ==> 2341 ==> 3412....
+		for (int i=0 ; i<=nbJoueurs-1;i++) {
+				Collections.swap(listeDesInventaires,i,i+1);
+				Collections.swap(listeDesJoueurs,i,i+1);
+		}
+                Collections.shuffle(carte.getAllCards());//melange des cartes civilisations a la fin de chaque tour 
+                Collections.shuffle(building.getCards());//melange des cartes batiments a la fin de chaque tour 
     }
 	 public void gagner() {
 	        ArrayList<Integer> listScore= new ArrayList<>();

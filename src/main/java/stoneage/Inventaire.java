@@ -37,6 +37,7 @@ public class Inventaire {
 	public ArrayList<BuildingTiles> listeDesCarteBatiments;
 	public ArrayList<Integer> listeZonesDispo;// = new ArrayList<>();
 	public ArrayList<Boolean> listeZonesJouer;// = new ArrayList<>();
+        public ArrayList<Integer> listeOuvriersPlaces;
 	public Inventaire() {  //Initialisation d'un Inventaire vide
 		setNbOuvrier(NB_INITIAL_OUVRIERS); //Initialisation du nombre d'ouvrier 
 		// Initialisation à 0 des ressources et du score
@@ -53,12 +54,14 @@ public class Inventaire {
 		resetAvailableWorkers();
 		listeDesCarteCivilisation = new ArrayList<>();
 		listeDesCarteBatiments=new ArrayList<>();
+                listeOuvriersPlaces=new ArrayList<>();
 		setTypeCarteCivVerte = new LinkedHashSet<>();	
 		listeZonesJouer  = new ArrayList<>();
 		listeZonesDispo = new ArrayList<>();
 		for (int i=1;i <= 15;i++ ){
 			listeZonesDispo.add(i);
 			listeZonesJouer.add(false);
+                        listeOuvriersPlaces.add(0);
 		} //remplire la liste des zones
 	}
 

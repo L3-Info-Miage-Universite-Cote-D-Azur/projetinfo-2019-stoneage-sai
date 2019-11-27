@@ -2,7 +2,6 @@ package stoneage;
 import java.util.ArrayList;
 import java.util.Collections ;
 public class Partie {
-    public Zone zone;
     private final ArrayList<Zone> LesZones ;
     public CarteCivilisation carte=new CarteCivilisation();
     public BuildingTiles building=new BuildingTiles();
@@ -26,6 +25,7 @@ public class Partie {
         		Zone choix = LesZones.get(i);
         		choix.recupeRes(listeDesCivilisation,listeDesBatiments,inv,joueur);
         		inv.listeZonesJouer.set(i,false); //la zone n'es pluas etuliser donc elle devient false pour le joueur (disponnible a nouveau)
+                        inv.listeOuvriersPlaces.set(i,0);
         		System.out.println(ConsoleColors.RED+"Le joueur " + joueur.getNum() + " reprend ses ouvriers de la zone "+choix+ConsoleColors.RESET);
         		if (choix.getGains()==-1){
         		    System.out.println("Le joueur decide d'abandonner sa carte civilisation.\n");
@@ -49,6 +49,7 @@ public class Partie {
     protected void phasePlacement( Inventaire  inv, Joueurs joueur){
             Choix choix = joueur.placerOuvriers( LesZones,inv);
             inv.listeZonesJouer.set(choix.zoneChoisie,true); //la zone choisie est utliser donc devient true dans l'inventaire du joueur 
+            inv.listeOuvriersPlaces.set(choix.zoneChoisie,choix.nbOuvriersChoisie);
             LesZones.get(choix.zoneChoisie).placerOuvrier(inv, choix.nbOuvriersChoisie);   
             System.out.println(ConsoleColors.BLUE+"Le joueur " + joueur.getNum() + " a choisi la zone "+LesZones.get(choix.zoneChoisie)+" pour y placer "+choix.nbOuvriersChoisie+" ouvrier(s)"+ConsoleColors.RESET);  
     }
@@ -74,54 +75,58 @@ public class Partie {
             inv.setNourriture(inv.getNourriture()-inv.getNourriture());
             inv.setNbRessource(inv.getNbRessource()-nm);
             if (nm!=0) {
-                if (nm-inv.getNbBois()>0) {
+                if (nm-inv.getNbBois()>0 && inv.getNbBois()!=0) {
                     nm=nm-inv.getNbBois();
                     System.out.println(ConsoleColors.GREEN+"Le joueur " + joueur.getNum() + " n'a pas assez de nourriture ,il nourrit ses figurines avec " + inv.getNbBois() + " bois "+ConsoleColors.RESET);
                     inv.setNbBois(inv.getNbBois()-inv.getNbBois());                         
                 }     
-                else{
-                    System.out.println(ConsoleColors.GREEN+"Le joueur " + joueur.getNum() + " n'a pas assez de nourriture ,il nourrit ses figurines avec uniquement " + nm + " bois"+ConsoleColors.RESET);
+                else if (nm-inv.getNbBois()<=0 ) {
+                     System.out.println(ConsoleColors.GREEN+"Le joueur " + joueur.getNum() + " n'a pas assez de nourriture ,il nourrit ses figurines avec  " + nm + " bois"+ConsoleColors.RESET);
                     inv.setNbBois(inv.getNbBois()-nm);
                     nm=nm-nm;
+                }                 
                 }
-            }
+            
             if (nm!=0) {
-                if (nm-inv.getNbArgile()>0) {
+                if (nm-inv.getNbArgile()>0 && inv.getNbArgile()!=0) {
                     nm=nm-inv.getNbArgile();
                     System.out.println(ConsoleColors.GREEN+"Le joueur " + joueur.getNum() + " n'a pas assez de nourriture ,il nourrit ses figurines avec " + inv.getNbArgile() + " argile"+ConsoleColors.RESET);
                     inv.setNbArgile(inv.getNbArgile()-inv.getNbArgile());      
                 }     
-                else{
-                    System.out.println(ConsoleColors.GREEN+"Le joueur " + joueur.getNum() + " n'a pas assez de nourriture ,il nourrit ses figurines avec " + nm + " argile"+ConsoleColors.RESET);
+                else if (nm-inv.getNbArgile()<=0) {
+                    System.out.println(ConsoleColors.GREEN+"Le joueur " + joueur.getNum() + " n'a pas assez de nourriture ,il nourrit ses figurines avec  " + nm + " argile"+ConsoleColors.RESET);
                     inv.setNbArgile(inv.getNbArgile()-nm);  
                     nm=nm-nm;
+                }   
                 }
-            }
+            
             if (nm!=0) {
-                if (nm-inv.getNbPierre()>0) {
+                if (nm-inv.getNbPierre()>0 && inv.getNbPierre()!=0) {
                     nm=nm-inv.getNbPierre();
                     System.out.println(ConsoleColors.GREEN+"Le joueur " + joueur.getNum() + " n'a pas assez de nourriture ,il nourrit ses figurines avec " + inv.getNbPierre() + " pierre"+ConsoleColors.RESET);
                     inv.setNbPierre(inv.getNbPierre()-inv.getNbPierre());      
                 }     
-                else{
-                    System.out.println(ConsoleColors.GREEN+"Le joueur " + joueur.getNum() + " n'a pas assez de nourriture ,il nourrit ses figurines avec " + nm + " pierre"+ConsoleColors.RESET);
+                else if (nm-inv.getNbPierre()<=0) {
+                    System.out.println(ConsoleColors.GREEN+"Le joueur " + joueur.getNum() + " n'a pas assez de nourriture ,il nourrit ses figurines avec  " + nm + " pierre"+ConsoleColors.RESET);
                     inv.setNbPierre(inv.getNbPierre()-nm);  
                     nm=nm-nm;
+                }                   
                 }
-            }
+            
             if (nm!=0) {
-                if (nm-inv.getNbOr()>0) {
+                if (nm-inv.getNbOr()>0 && inv.getNbOr()!=0) {
                     nm=nm-inv.getNbOr();
                     System.out.println(ConsoleColors.GREEN+"Le joueur " + joueur.getNum() + " n'a pas assez de nourriture ,il nourrit ses figurines avec " + inv.getNbOr() + " or"+ConsoleColors.RESET);
                     inv.setNbOr(inv.getNbOr()-inv.getNbOr());      
                 }     
-                else{
+                else if (nm-inv.getNbOr()<=0) {
                     inv.setNbOr(inv.getNbOr()-nm);  
                     System.out.println(ConsoleColors.GREEN+"Le joueur " + joueur.getNum() + " n'a pas assez de nourriture ,il nourrit ses figurines avec " + nm + " or"+ConsoleColors.RESET);
                     nm=nm-nm;
+                }                    
                 }
             }           
-        }
+        
     	else {
             inv.setScore(inv.getScore()-10);
             System.out.println(ConsoleColors.GREEN+"Le joueur " + joueur.getNum() + " n'a pas assez de nourriture et ses ressources ne sont pas suffisantes pour nourrir ses figurines, son score diminue donc de 10 points"+ConsoleColors.RESET);
