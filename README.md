@@ -57,7 +57,7 @@ A la fin du tour, les figurines de chaque joueur sont nourries avec la nourritur
 Lancement d'une partie entre 4 joueurs en ajoutant :
 - [X] Zone Agriculture (piste score et le champ)
 - [X] Les cartes civilisations (carte jaune)
-- [X] Condition de fin de partie : lorsqu'il reste moins de cartes civilisation que le nombre des joueurs (ici 2)
+- [X] Condition de fin de partie : lorsqu'il reste moins de cartes civilisation que le nombre des joueurs
 
 #### Démo de jeu :
 * Début de la partie : les joueurs (IA) posent leurs figurines sur les zones et les cartes qu'ils choisissent.
@@ -71,9 +71,9 @@ Les cartes civilisation et tuile bâtiment sont gardé pour la fin de la partie 
 
 ### [Itération 5](https://github.com/L3-Info-Miage-Universite-Cote-D-Azur/projetinfo-2019-stoneage-sai/milestone/5)
 Lancement d'une partie entre 4 joueurs en ajoutant :
-- [X] Les cartes civilisations (carte vert)
+- [X] Le reste des cartes civilisations 
 - [X] Quelqes Tuiles Bâtiments 
-- [X] Condition de fin de partie : lorsqu'il reste moins que 2 piles tuiles bâtiment ou s’il reste moins de cartes civilisation que le nombre des joueurs
+- [X] Condition de fin de partie : lorsqu'il reste moins de piles tuiles bâtiment et de cartes civilisation que le nombre des joueurs
 #### Démo de jeu :
 * La partie débute et à chaque tour on voit l’avancement des joueurs et leurs gains. Le joueur peut aussi poser ses ouvriers sur les cartes Tuiles Bâtiments.
 * Fin de partie : lorsqu'il reste moins que 2 piles tuiles bâtiment ou s’il reste moins de cartes civilisation que le nombre des joueurs.
@@ -88,7 +88,7 @@ On a un gagnant et on affiche les scores de chaque joueur.
 
 Lancement d'une partie entres 4 joueurs en ajoutant :
 - [X] Zone Hutte
-- [X] Plus de Tuiles Bâtiments 
+- [X] Toutes les Tuiles Bâtiments 
 - [X] Plus de figurines si le joueur pose deux figurines sur la zone hutte dans un tour (jusqu'à 10 max)
  
 
@@ -101,7 +101,6 @@ On a un gagnant et on affiche les scores de chaque joueur.
 
 
 ### [Itération 7](https://github.com/L3-Info-Miage-Universite-Cote-D-Azur/projetinfo-2019-stoneage-sai/milestone/7)
-- [X] Toutes les Tuiles Bâtiments 
 - [X] Régler les derniers Bug. 
 
 #### Démo de jeu:
