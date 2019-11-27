@@ -24,20 +24,19 @@ public class Inventaire {
 	private int nbOutils;
 	private int nbOutilsDutour;  //nombre d'outil qui va etre minorer dans le tour et revient au nombre d'outil initial en fin de tour
 	private int scoreChamp;
-	private int pisteScore;//piste de score qui augmente quand un joueur achete un batiment
 	private int nbPaysan;// va etre multiplier par le scoreChamp pour le score final
 	private int nbFabricant;// va etre multiplier par le nombre d'outil pour le score final
 	private int nbConstructeur;// va etre multiplier par le nombre de tuile batiment  pour le score final
 	private int nbChamane; // va etre multiplier par le nombre de figurine pour le score final
 	private int nbCarteVert;
 	private int nbCarteCiv; //nb =0/1 carte existe 1 seul dans la partie
-	private Set<Integer> setTypeCarteCivVerte ;//= new LinkedHashSet<>(); //cette ensemble va contenir les differant type de carte civilisation verte que le joueur va prendre
+	private Set<Integer> setTypeCarteCivVerte ; //cette ensemble va contenir les differant type de carte civilisation verte que le joueur va prendre
 	private int score;
-	public ArrayList<CarteCivilisation> listeDesCarteCivilisation;// = new ArrayList<>();
+	public ArrayList<CarteCivilisation> listeDesCarteCivilisation;
 	public ArrayList<BuildingTiles> listeDesCarteBatiments;
-	public ArrayList<Integer> listeZonesDispo;// = new ArrayList<>();
-	public ArrayList<Boolean> listeZonesJouer;// = new ArrayList<>();
-        public ArrayList<Integer> listeOuvriersPlaces;
+	public ArrayList<Integer> listeZonesDispo;
+	public ArrayList<Boolean> listeZonesJouer;
+	public ArrayList<Integer> listeOuvriersPlaces;
 	public Inventaire() {  //Initialisation d'un Inventaire vide
 		setNbOuvrier(NB_INITIAL_OUVRIERS); //Initialisation du nombre d'ouvrier 
 		// Initialisation à 0 des ressources et du score
@@ -50,11 +49,10 @@ public class Inventaire {
 		setNbOutils(0);
 		setScore(0);
 		setScoreChamp(0);
-		//setPisteScore(0);
 		resetAvailableWorkers();
 		listeDesCarteCivilisation = new ArrayList<>();
 		listeDesCarteBatiments=new ArrayList<>();
-                listeOuvriersPlaces=new ArrayList<>();
+		listeOuvriersPlaces=new ArrayList<>();
 		setTypeCarteCivVerte = new LinkedHashSet<>();	
 		listeZonesJouer  = new ArrayList<>();
 		listeZonesDispo = new ArrayList<>();
@@ -70,58 +68,33 @@ public class Inventaire {
         setNbRessource(toCopy.getNbRessource());
         resetAvailableWorkers();
     }
+	public boolean ouvrierDispo() {
+		return (nbOuvrierDispo > 0);
+	}
 
+
+	/* ****************************************
+	   * Getter and setter and reset  des champs privés  *
+	   **************************************** */
+
+	// La methode retourne le nombre de zone que le joueur a choisi durant le tour, elle est renisialiser en fin de tour
 	public int getNbZoneJouer(){
 		int nb=0;
 		for (int i=0;i<11; i++){
 			if(listeZonesJouer.get(i)==true)
 				nb++;
 		}
-		return nb;	
+		return nb;
 	}
-	
-	public void addAvailableWorkers(int i) {
-		nbOuvrierDispo += i;
+
+	public int getNbOuvrierDispo() {
+		return nbOuvrierDispo;
 	}
-	public void removeAvailableWorkers(int i) {
-		nbOuvrierDispo -= i;
-	}
+
 	public void resetAvailableWorkers() {
 		nbOuvrierDispo = getNbOuvrier();
 	}
-	public boolean ouvrierDispo() {
-		return (nbOuvrierDispo > 0);
-	}
-	public int getNbOuvrierDispo() {
-        return nbOuvrierDispo;
-    }
 
-	/* ****************************************
-	   * Getter and setter des champs privés  * 
-	   **************************************** */
-
-	public void addNbPaysan(int nb) {
-		nbPaysan+=nb;
-	}
-	public void addNbFabricant(int nb) {
-		nbFabricant+=nb;
-	}
-	public void addNbConstructeur(int nb) {
-		nbConstructeur+=nb;
-	}
-	public void addNbChamane(int nb) {
-		nbPaysan+=nb;
-	}
-	public void addNbCarteVert() {
-		nbCarteVert++;
-	}
-	public void addNbcarteCiv() {
-		//cette carte est la carte joker, il existe qu'une seul durent la partie et elle sert seuelemnt dans le score final 
-		nbCarteCiv++;
-	}
-	public void addTypeCarteCivVerte(int type) {
-		setTypeCarteCivVerte.add(type);
-	}
 	public int getNbOuvrier() {
 		return nbOuvrier;
 	}
@@ -196,9 +169,6 @@ public class Inventaire {
 	public void setScoreChamp(int niveauChamp) {
 		scoreChamp=niveauChamp;
 	}
-	public void addCarteCiv(CarteCivilisation Carte) {
-		listeDesCarteCivilisation.add(Carte);
-	}
 	public void addCarteBat(BuildingTiles building){
             listeDesCarteBatiments.add(building);
 	}
@@ -209,6 +179,8 @@ public class Inventaire {
 	public void setScore(int score) {
 		this.score = score;
 	}
+
+	//La methode calcScore calcule et retoune le score finale du joueur
 	public int calcScore() {
 		return score+nbRessource+(nbOuvrier*nbChamane+nbFabricant*nbOutils+nbConstructeur*1+nbPaysan*scoreChamp)+((int)Math.pow(setTypeCarteCivVerte.size(),2))+(nbCarteVert-setTypeCarteCivVerte.size());
 		/* Le score finale contient :
@@ -222,5 +194,36 @@ public class Inventaire {
 		 * Le nombre de type de carte verte **2 
 		 * le nombre du reste des carte verte 
 		 */
+	}
+
+	/******************************Les add et remove ************************************/
+
+	public void addAvailableWorkers(int i) {
+		nbOuvrierDispo += i;
+	}
+	public void removeAvailableWorkers(int i) {
+		nbOuvrierDispo -= i;
+	}
+	public void addNbPaysan(int nb) {
+		nbPaysan+=nb;
+	}
+	public void addNbFabricant(int nb) {
+		nbFabricant+=nb;
+	}
+	public void addNbConstructeur(int nb) {
+		nbConstructeur+=nb;
+	}
+	public void addNbChamane(int nb) {
+		nbPaysan+=nb;
+	}
+	public void addNbCarteVert() {
+		nbCarteVert++;
+	}
+	public void addNbcarteCiv() {
+		//cette carte est la carte joker, il existe qu'une seul durent la partie et elle sert seuelemnt dans le score final
+		nbCarteCiv++;
+	}
+	public void addTypeCarteCivVerte(int type) {
+		setTypeCarteCivVerte.add(type);
 	}
 }

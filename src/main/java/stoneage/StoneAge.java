@@ -2,7 +2,15 @@ package stoneage;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
+/*
+		*Cette Class est le moteur du jeu,
+		* Elle contient les liste des joueur qui vont participer a la partie ( entre 2 et 4 joueurs),
+		* Elle contient les inventaire de chaque joueur,
+		* elle contient aussi les carte batiment et les carte civilisation qui vont etre melanger au debut de chaque tour
+		* Cette class gére les tours, l'ordre des  joueures et termine le jeu lorsque les condition sont atteinte
+		* elles decide enfin de qui gagne la partie ou affiche s'il y a egalité.
+		*
+*/
 public class StoneAge {
 	Partie partie = new Partie(); //nombre de joueur choisie est 4 le nombre de joueur minimal est 1 
 	private final JoueurIA joueurIA = new JoueurIA("O",1);
@@ -32,7 +40,6 @@ public class StoneAge {
 	    	//puis les autres joueurs normaux
 	    	for (int i=0;i < nbJoueurs-1;i++){
 				listeDesJoueurs.add(new Joueur("J"+i,i+3));
-	    		//listeDesJoueurs.add(new Joueur());
 	    		listeDesInventaires.add(new Inventaire());
 	    	}
 

@@ -2,6 +2,12 @@ package stoneage;
 import java.util.ArrayList;
 import java.util.Random;
 
+/*
+ *Cette Class est les joueurs qui suivent une strategie dans le jeu ,
+ * elle permet de faire des choix plus inteligent et eviter les choix
+ * au hazard le plus possible en respenctant les regle du jeu.
+ *
+*/
 public class JoueurIA implements Joueurs {
 	Random rand = new Random();
 	String name;
@@ -14,9 +20,11 @@ public class JoueurIA implements Joueurs {
     public int getNum(){
             return num;
         }
+
+	/*La methode placerOutils va permettre au joueur de choisir s'il peut ou pas placer des outils lorsqu'il recupere ses gains,
+	* Ainsi que le nombre d'outil qu'il va utiliser avec une maniere plus reflechis*/
     public int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) {
     	int OutilChoisie ;
-    	/*Ici le joueur va choisir s'il peut ou pas placer des outils lorsqu'il recupere ses gains.*/
 		/*Si le joueur a un nombre d'outils suffisant pour avoir i+1 resource de plus, alors il les utilise*/
 		for (int i=5;i>=0;i--){
 			if ((zoneChoisi.niveauZone-(nbRessources % zoneChoisi.niveauZone))+(zoneChoisi.niveauZone*i)<=nbOutils)
@@ -31,8 +39,8 @@ public class JoueurIA implements Joueurs {
 		return 0;
 	}
 
+	/*La methode cadeauRes va permettre au joueur de choisir la resouce cadeau de la carte civilisation */
 	public int cadeauRes(ArrayList<Integer> listeDe ){
-		//cette methode va permettre au joueur de choisir la resouce cadeau de la carte civilisation
 		if (listeDe.contains(4)){ //s'il il y a un dé Or parmis les dé il le choisi en 1er
 			return 4;
 		}
@@ -52,8 +60,9 @@ public class JoueurIA implements Joueurs {
 			return 1;
 		}
 	}
-    public int choixTypeRes(int cout,Inventaire inv, int...typeDispo) { 
-    /* cette methode permet au joueure de choisir la resource qu'il va utiliser pour payer ses dettes */
+
+	/*La  methode choixTypesRes permet au joueure de choisir la resource qu'il va utiliser pour payer ses dettes */
+	public int choixTypeRes(int cout,Inventaire inv, int...typeDispo) {
     	ArrayList<Integer> listTypeDispo = new ArrayList(); //transforme le tableau en liste
     	for (int i=0 ; i<typeDispo.length; i++) {
     		listTypeDispo.add(typeDispo[i]);
@@ -85,6 +94,8 @@ public class JoueurIA implements Joueurs {
 		}
     }
 
+    /*Cette metode va permettre au joueur de choisir la zone et le nombre d'ouvrier qu'il va posé dans celle ci
+    avec une facon plus refelchie et en suivant une strategie plus iteligente que d faire un choix au hazard */
     public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv){
 	    if ( (inv.getNbZoneJouer() < 6 &&inv.ouvrierDispo())){
 			if (inv.listeZonesJouer.get(1)==false&& inv.getNourriture()<5 &&inv.getNbOuvrierDispo()==5 )

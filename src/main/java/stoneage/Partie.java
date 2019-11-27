@@ -1,6 +1,13 @@
 package stoneage;
 import java.util.ArrayList;
 import java.util.Collections ;
+/*
+ *Cette Class gere le  tour qui va etres lancer par la class StoneAge(moteur du jeu),
+ * elles va permettre de demander aux joueurs de choisire et poser leur ouvrier dans les zones qu'ils veulent
+ *  elle va aussi redestribuer les gains et afficher le deroulement des tours
+ * elle contient aussi les carte batiment et les carte civilisation qui vont etre enlever a chaque utilisation
+ *
+ */
 public class Partie {
     private final ArrayList<Zone> LesZones ;
     public CarteCivilisation carte=new CarteCivilisation();
@@ -24,8 +31,13 @@ public class Partie {
         	if (inv.listeZonesJouer.get(i)==true){
         		Zone choix = LesZones.get(i);
         		choix.recupeRes(listeDesCivilisation,listeDesBatiments,inv,joueur);
+        		for (int de=0;de< choix.getListeDe().size();de++){
+        		    if (choix.niveauZone>1&&choix.niveauZone<7) { //lorsqu'il ya un lancement de dé on les affiche
+                        System.out.println("Dé "+(de+1)+" : " + choix.getListeDe().get(de));
+                    }
+                }
         		inv.listeZonesJouer.set(i,false); //la zone n'es pluas etuliser donc elle devient false pour le joueur (disponnible a nouveau)
-                        inv.listeOuvriersPlaces.set(i,0);
+                inv.listeOuvriersPlaces.set(i,0);
         		System.out.println(ConsoleColors.RED+"Le joueur " + joueur.getNum() + " reprend ses ouvriers de la zone "+choix+ConsoleColors.RESET);
         		if (choix.getGains()==-1){
         		    System.out.println("Le joueur decide d'abandonner sa carte civilisation.\n");

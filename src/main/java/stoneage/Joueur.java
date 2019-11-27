@@ -4,7 +4,11 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
+/*
+ *Cette Class est les joueurs qui Normal qui va jouer au hazard ,
+ * elle permet de faire des choix au hazard en respectant les regles du jeux.
+ *
+ */
 public class Joueur implements Joueurs {
 	Random rand = new Random();
 	String name;
@@ -17,18 +21,22 @@ public class Joueur implements Joueurs {
     public int getNum(){
             return num;
         }
+
+	/*La methode placerOutils va permettre au joueur de choisir s'il peut ou pas placer des outils lorsqu'il recupere ses gains,
+	 * Ainsi que le nombre d'outil qu'il va utiliser  au hazard */
     public int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) {
 		/* cette methode va permettre au joueur de choisir le nombre d'outil d'il va utilisier*/
 	    int OutilChoisie = rand.nextInt(nbOutils+1);
     	return OutilChoisie;
     }
-    public int cadeauRes(ArrayList<Integer> listeDe ){
-		//cette methode va permettre au joueur de choisir la resouce cadeau de la carte civilisation
+
+	/*La methode cadeauRes va permettre au joueur de choisir la resouce cadeau de la carte civilisation au hazard*/
+	public int cadeauRes(ArrayList<Integer> listeDe ){
 		return listeDe.get(rand.nextInt(listeDe.size()));
 	}
 
-    public int choixTypeRes(int cout,Inventaire inv, int...typeDispo) { 
-    /* cette methode permet au joueure de choisir la resource qu'il va utiliser pour payer ses dettes */
+	/*La  methode choixTypesRes permet au joueure de choisir la resource qu'il va utiliser pour payer ses dettes */
+	public int choixTypeRes(int cout,Inventaire inv, int...typeDispo) {
     	ArrayList<Integer> listTypeDispo = new ArrayList(); //transforme le tableau en liste
     	for (int i=0 ; i<typeDispo.length; i++) {
     		listTypeDispo.add(typeDispo[i]);
@@ -63,6 +71,7 @@ public class Joueur implements Joueurs {
     	}
     }
 
+	/*Cette metode va permettre au joueur de choisir la zone et le nombre d'ouvrier qu'il va posé dans celle ci au hazard */
 	public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv){
 		if (StoneAge.getNbJoueurTotal()==2){
 			if ( (inv.getNbZoneJouer() < 6&&inv.ouvrierDispo())){

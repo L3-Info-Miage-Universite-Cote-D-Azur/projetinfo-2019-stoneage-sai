@@ -2,9 +2,13 @@ package stoneage;
 
 import java.util.ArrayList;
 import java.util.Random;
-
+/*
+	*Une public classe Zone qui contient toute les zone du plateau de jeu
+ 	*parmit eu les carte civilsation et les carte batimet.
+ 	* Cette class gére les placement des ouvrier dans les zone ainsi que les recuperation des ouvrier avec les gains associé aux Zones
+ 	*
+ */
 public class Zone {
-
     private int nbOuvriersPlacés = 0;
     public int niveauZone ;
     public static Dé dé;
@@ -14,8 +18,10 @@ public class Zone {
     private String TypeGains; //le nom du gain par exemple bois...
 	public String[] TypesGains;
     public int nbJoueur;
+	private ArrayList<Integer> listeDesDe;
 
-    public Zone(int niveau) {
+	public Zone(int niveau) {
+		listeDesDe=new ArrayList<>();
         this.niveauZone = niveau;
         dé=new Dé();
         if(niveau==1||niveau==7||niveau==8||niveau==9||niveau==10||niveau==11||niveau==12||niveau==13||niveau==14||niveau==15){
@@ -29,7 +35,9 @@ public class Zone {
         }
         nbPlaceDispo=nbPlaceZone;//au début le nombre de place disponible = au nombre place max de la zone
     }
-    
+
+    /*La methode placerOuvrier va permettre de poser un nombre de figurine sur une zone choisi, ainsi le nombre de place
+    dans la zone sera crediter et le nombre d'ouvrier poser sera enregistrer  */
     public void placerOuvrier(Inventaire inventaireJoueur,int nbOuvriers){
     	if (nbOuvriers>=1 && nbOuvriers <=nbPlaceDispo && nbOuvriers<=inventaireJoueur.getNbOuvrierDispo() ){
     		inventaireJoueur.removeAvailableWorkers(nbOuvriers);//pour placer un nbOuvrier il faut les retirer d'abord de l'inventaire du joueur
@@ -40,35 +48,25 @@ public class Zone {
     	}
     }
 
-    public String NomZone(){
-    	String[] nomZone={"Fabrication d'Outils","Chasse","foret","glaisière","carrière","rivière","champ","Civilisation 1","Civilisation 2","Civilisation 3","Civilisation 4","Batiment 1","Batiment 2","Batiment 3","Batiment 4"};
-    	String nom=nomZone[niveauZone - 1];
-    	return nom;
-    }
 
-
-    /*on lance autant de Dés que des nbOuvriersPlacés
-    et on retourne la somme des Dés jetés, divisé par niveauZone
-    */
+    /* La methode lancéDeDés va permettre de lancer autant de Dés que des nbOuvriersPlacés
+    et de retourner la somme des Dés jetés */
     public int lancéDeDés(int nbOuvriersPlacés){
         int sommeDés=0;
         int valeurde;
         for (int i = 0; i < nbOuvriersPlacés; i++) {
             valeurde=dé.Lancer();
-
-			//TODO/a mettre dans partie et pas ici
-
-			System.out.println("Le résultat du lancés du dès est : " + valeurde);
+			listeDesDe.add(valeurde);
             sommeDés+=valeurde;
         }
         return sommeDés ;
     }
     
-    /* cette methode va nous permettre de distribuer
+    /* La  methode  recupeRes va nous permettre de distribuer
      *  les resources gagner a chaque joueur , ainsi son inventaire va etre modifier
      *   et la zone sera liberer quand il recupere ses ouvrier */
-    
-    public void recupeRes(ArrayList<CarteCivilisation> listeDesCartes,ArrayList<BuildingTiles> listeDesBatiments,Inventaire inventaireJoueur, Joueurs J) { 
+    public void recupeRes(ArrayList<CarteCivilisation> listeDesCartes,ArrayList<BuildingTiles> listeDesBatiments,Inventaire inventaireJoueur, Joueurs J) {
+		resetListDesDe(); // vider la liste qui contient les dés du joueur precedent ou bien du meme joueur avec une zone precedente
     	int nbRessources= this.lancéDeDés(inventaireJoueur.listeOuvriersPlaces.get(this.niveauZone-1));
     	int nbOutilsDuJoueur=inventaireJoueur.getNbOutilsDuTour();
 		int outilChoisie;
@@ -79,7 +77,6 @@ public class Zone {
 		else {
 			outilChoisie=0;
 		}
-        System.out.println("nombre ressoure  "+nbRessources+" et niveau zone :   "+niveauZone);
     	nbRessources=nbRessources +outilChoisie;
     	nbRessources=nbRessources / this.niveauZone;
     	inventaireJoueur.setNbOutilsDuTour(inventaireJoueur.getNbOutilsDuTour()-outilChoisie);
@@ -133,31 +130,31 @@ public class Zone {
     			boolean payer=false;   			
         		CarteCivilisation carte=listeDesCartes.get(this.niveauZone-8); // si niveau de zone = 8 alors carte 1 sinon carte 2 sinon...
     			
-    			/* Si le joueur paye la carte (il a assez de resource pour la payer et choisi de la prendre ) elle s'eneleve de a liste 
-    			 *  sinon elle sera rendu a la liste  */
-
+    			/* Paiement de la carte civilisation  */
     			int typeCout= J.choixTypeRes(coutCarte,inventaireJoueur,3,4,5,6);
     			if (typeCout==3 ) {
-                                    inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()-coutCarte);
-                                    inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);			
-                                    payer=true;
+    				inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()-coutCarte);
+    				inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);
+    				payer=true;
     			}
     			else if (typeCout==4) {
-                                    inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()-coutCarte);
-                                    inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);
-                                    payer=true;
+    				inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()-coutCarte);
+    				inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);
+    				payer=true;
     				
     			}
     			else if (typeCout==5) {
-                                    inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()-coutCarte);
-                                    inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);
-                                    payer=true;
+    				inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()-coutCarte);
+    				inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);
+    				payer=true;
     			}
     			else if (typeCout==6) {
-                                    inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()-coutCarte);
-                                    inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);
-                                    payer=true;
+    				inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()-coutCarte);
+    				inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource()-coutCarte);
+    				payer=true;
     			}
+				/* Si le joueur paye la carte (il a assez de resource pour la payer et choisi de la prendre ) elle s'eneleve de a liste
+				 *  sinon elle sera rendu a la liste  */
     			if (payer==true) {
 					if (carte.getFondDeCarte() == 0) {
 						//cartes vertes
@@ -650,22 +647,24 @@ public class Zone {
         //recuperer les ouvriers 
         nbJoueur--;
         this.nbOuvriersPlacés-=inventaireJoueur.listeOuvriersPlaces.get(this.niveauZone-1); //on enleve les figurines du joueur DE LA ZONE
-        this.setNbPlaceDispo(this.getNbPlaceZone());//quand on recupere les ouvriers,toutes les places deviennent disponibles.    
+        this.setNbPlaceDispo(this.getNbPlaceZone());//quand on recupere les ouvriers,toutes les places deviennent disponibles.
     }  
-    public int getGains(){
-	return gains;
-    }
-    public String TypeGains(){
-	return  TypeGains;	
-    }
-	
+
+
     public boolean ouvrierPlace(int nbOuvriers){
         return (nbOuvriersPlacés == nbOuvriers);
     }//retourne une valeur booléenne pour vérifier si tous les ouvrier ont été placés ou non.
-    
-    public void resetNbOuvriersPlaces(){
-    	nbOuvriersPlacés=0;
-    }
+
+
+	public static ArrayList<Integer> lancerNbDé(int nbDe){
+		//cette methode retourne une liste de de taille donné qui contient des nombre entre 1 et 6
+		ArrayList<Integer> lancement4De=new ArrayList<>();
+		for (int i =0; i<nbDe; i++){
+			lancement4De.add(dé.Lancer());
+		}
+		return lancement4De;
+	}
+	/***************************************************************Les Get , Set et Reset ****************************************************/
 
     public int getNbPlaceZone(){
         return nbPlaceZone;
@@ -679,16 +678,25 @@ public class Zone {
     public void setNbPlaceDispo(int nbPlaceDispo) {
         this.nbPlaceDispo=nbPlaceDispo;
     }// le nombre de place disponible par zone
+	public ArrayList<Integer> getListeDe(){
+		return listeDesDe;
+	} //Methode qui retourne une liste qui contient les dés lancer a chaque lance de Dé
+	public void resetListDesDe(){
+		listeDesDe=new ArrayList<>();
+	}
+	public int getGains(){
+		return gains;
+	}
+	public String TypeGains(){
+		return  TypeGains;
+	}
 
-    public static ArrayList<Integer> lancerNbDé(int nbDe){
-		//cette methode retourne une liste de de taille donné qui contient des nombre entre 1 et 6
-		ArrayList<Integer> lancement4De=new ArrayList<>();
-		for (int i =0; i<nbDe; i++){
-			lancement4De.add(dé.Lancer());
-		}
-		return lancement4De;
-    }
-    @Override
+	public String NomZone(){
+		String[] nomZone={"Fabrication d'Outils","Chasse","foret","glaisière","carrière","rivière","champ","Civilisation 1","Civilisation 2","Civilisation 3","Civilisation 4","Batiment 1","Batiment 2","Batiment 3","Batiment 4"};
+		String nom=nomZone[niveauZone - 1];
+		return nom;
+	}
+	@Override
     public String toString(){
         return NomZone();
     }
