@@ -1,5 +1,7 @@
 package stoneage;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /*
@@ -174,29 +176,45 @@ public class JoueurIA implements Joueurs {
 	return null;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public Map<String, Integer> NourrirOuv(Inventaire inv,  int nm) {
+        Map<String, Integer> choixNourriture = new HashMap<>();
+        int choixJ = rand.nextInt(2); // choix du joueur si oui paye avec ressource sinon paye avec score
+        if (inv.getNbRessource()+ inv.getNourriture() < nm){
+            choixNourriture.put("Point de Score", 10); //si on a pas assez de ressource le score diminue de 10 pts
+            return choixNourriture;
+        }
+        if (inv.getNourriture()>0){
+            choixNourriture.put("Nourriture", inv.getNourriture());
+        }
+        if (inv.getNbRessource() >= nm) {
+            if (inv.getNbBois() > 0 && inv.getNbBois() < nm) { // si la quantite de bois est superieur a 0 et moin que la nourriture manquante
+                choixNourriture.put("Bois", inv.getNbBois());
+                nm -= inv.getNbBois();
+            } else if (inv.getNbBois() >= nm) {
+                choixNourriture.put("Bois", nm);
+                return choixNourriture;
+            }
+            if (inv.getNbArgile() > 0 && inv.getNbArgile() < nm) {
+                choixNourriture.put("Argile", inv.getNbArgile());
+                nm -= inv.getNbArgile();
+            } else if (inv.getNbArgile() >= nm) {
+                choixNourriture.put("Argile", nm);
+                return choixNourriture;
+            }
+            if (inv.getNbPierre() > 0 && inv.getNbPierre() < nm) {
+                choixNourriture.put("Pierre", inv.getNbPierre());
+                nm -= inv.getNbPierre();
+            } else if (inv.getNbPierre() > nm) {
+                choixNourriture.put("Pierre", nm);
+                return choixNourriture;
+            }
+            if (inv.getNbOr() > nm) {
+                choixNourriture.put("Or", nm);
+                return choixNourriture;
+            }
+        }
+        return choixNourriture;
+    }
 
     public boolean payerBatiment(){//le joueur choisi au hasard s'il prend la carte ou pas
             int a=rand.nextInt(2);

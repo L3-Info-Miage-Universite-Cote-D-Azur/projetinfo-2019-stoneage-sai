@@ -1,7 +1,6 @@
 package stoneage;
 
 import java.util.ArrayList;
-import java.util.Random;
 /*
 	*Une public classe Zone qui contient toute les zone du plateau de jeu
  	*parmit eu les carte civilsation et les carte batimet.
@@ -19,6 +18,12 @@ public class Zone {
 	public String[] TypesGains;
     public int nbJoueur;
 	private ArrayList<Integer> listeDesDe;
+	
+    public Zone(int niveau,Dé dé){
+        this.niveauZone = niveau;
+        this.dé=dé;
+        //this.type=carte
+    }
 
 	public Zone(int niveau) {
 		listeDesDe=new ArrayList<>();
@@ -120,7 +125,6 @@ public class Zone {
     			break;
     		case 7:
     			inventaireJoueur.setScoreChamp(inventaireJoueur.getScoreChamp()+1);
-				inventaireJoueur.setNourriture(inventaireJoueur.getNourriture()+inventaireJoueur.getScoreChamp());
 				// le nombre de nourriture du joueur augmente avec le niveau de score de son champ
 				gains=1;
 				TypeGains="Niveau champ";
@@ -473,7 +477,6 @@ public class Zone {
     			}
     		case 12:case 13:case 14:case 15:
                   BuildingTiles building=listeDesBatiments.get(this.niveauZone-12);
-                  System.out.println(building.getBuildingCost());
                   boolean pay=J.payerBatiment();//le joueur choisi s'il prend la carte ou pas
                   /* Si le joueur paye la carte (il a assez de resource pour la payer et choisi de la prendre ) elle s'eneleve de la liste
     			 *  sinon elle sera rendu a la liste  */ 
