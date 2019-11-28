@@ -19,13 +19,13 @@ public class JoueurBot2 implements Joueurs {
 	}
 	public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv){
 		if ( (inv.getNbZoneJouer() < 6 && inv.ouvrierDispo())){
-			if (!inv.listeZonesJouer.get(1) && inv.getNourriture() >= 5 && inv.getNourriture() <10  && LesZones.get(1).getNbPlaceDispo()>2 ){//Chasse
+			if (!inv.listeZonesJouer.get(1) && inv.getNourriture() >= 5 && inv.getNourriture() < 10  && LesZones.get(1).getNbPlaceDispo() > 2 ){//Chasse
 				return new Choix(1, 1);
 			}
 			else if (!inv.listeZonesJouer.get(1) && inv.getNourriture() < 3 && LesZones.get(1).getNbPlaceDispo()>3) {
 				return new Choix(1, 3);
 			}
-			else if (!inv.listeZonesJouer.get(2) && LesZones.get(2).getNbPlaceDispo()>=2 && inv.getNbBois()<10 && inv.getNbOuvrierDispo() >= 2) {
+			else if (!inv.listeZonesJouer.get(2) && LesZones.get(2).getNbPlaceDispo()>= 2 && inv.getNbBois()<10 && inv.getNbOuvrierDispo() >= 2) {
 				return new Choix(2, 2);
 			}
 			else if (!inv.listeZonesJouer.get(0) && LesZones.get(0).getNbPlaceDispo()>= 1 && inv.getNbOuvrierDispo() >= 1) {//Fabrication outils
@@ -111,16 +111,31 @@ public class JoueurBot2 implements Joueurs {
 				}
 			}
 
-			else if ((inv.getNbZoneJouer() < 6 &&inv.ouvrierDispo())){
-				int zoneChoisie = rand.nextInt(15);
-				while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0){
-					zoneChoisie = rand.nextInt(15);
+			else if ((inv.getNbZoneJouer() < 6 && inv.ouvrierDispo())){
+				int i=0;
+				int nbOuvChoisie = 1;
+				int zoneChoisie = 14;
+				while (inv.listeZonesJouer.get(zoneChoisie) || LesZones.get(zoneChoisie).getNbPlaceDispo()==0){
+					if (i <= 7){ zoneChoisie = 13 - i;}
+					else if(i == 8){
+						if (inv.getNbOuvrierDispo() >= 2){zoneChoisie = 3;}
+						else {zoneChoisie = 2;}
 
+						if (LesZones.get(zoneChoisie).getNbPlaceDispo() >= inv.getNbOuvrierDispo()){nbOuvChoisie = inv.getNbOuvrierDispo();}
+						else{nbOuvChoisie = LesZones.get(zoneChoisie).getNbPlaceDispo();}
+					}
+					else if(i == 9){
+						zoneChoisie = 2;
+						if (LesZones.get(zoneChoisie).getNbPlaceDispo() >= inv.getNbOuvrierDispo()){nbOuvChoisie = inv.getNbOuvrierDispo();}
+						else{nbOuvChoisie = LesZones.get(zoneChoisie).getNbPlaceDispo();}
+					}
+					else if(i>=10){
+						zoneChoisie = 1;
+						nbOuvChoisie = inv.getNbOuvrierDispo();
+						break;
+					}
+					i++;
 				}
-				//IA simple qui choisit une zone au hazard
-				int nbOuvChoisie= rand.nextInt(Math.min(inv.getNbOuvrierDispo(),LesZones.get(zoneChoisie).getNbPlaceDispo()))+1;
-				//IA simple qui choisit nombre d'ouvrier qu'elle va poser sur cette zone au hazard
-				//le nombre doit etres inferieur au nombre de place disponnible de la zone et inferieur au nombre d'ouvrier dispo de la zone
 				return new Choix(zoneChoisie, nbOuvChoisie);
 			}
 			else{
