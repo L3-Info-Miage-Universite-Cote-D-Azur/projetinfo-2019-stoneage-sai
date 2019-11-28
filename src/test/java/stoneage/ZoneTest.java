@@ -13,15 +13,19 @@ import static org.mockito.Mockito.* ;
 
 @ExtendWith(MockitoExtension.class)
 public class ZoneTest {
-    Zone area1,area2,area3,area4,area5,area6,area7;
+	Zone area1,area2,area3,area4,area5,area6,area7,area8,area9,area10,area11,area12,area13,area14,area15;
     Zone zone1,zone2,zone3,zone4,zone5,zone6,zone7;
-    Zone[] areaList = new Zone[6];
+    Zone[] areaList = new Zone[15];
     Zone[] listeZone = new Zone[6];
+    Choix[] listeChoix = new Choix[15];
     Inventaire inventaire;
     private  ArrayList<CarteCivilisation> listeDesCartes;
+    private ArrayList<BuildingTiles> listeDesBat;
+    
     public CarteCivilisation carte=new CarteCivilisation();
+    public BuildingTiles bat = new BuildingTiles();
     private Joueurs joueur;
-    private Choix choix1, choix2, choix3, choix4, choix5, choix6, choix7;
+    private Choix choix1, choix2, choix3, choix4, choix5, choix6, choix7, choix8,choix9,choix10,choix11,choix12,choix13,choix14,choix15;
 
     @Mock
     Dé dice;
@@ -35,14 +39,22 @@ public class ZoneTest {
         area5 = new Zone(5);
         area6 = new Zone(6);
         area7 = new Zone(7);
+        area8 = new Zone(8);
+        area9 = new Zone(9);
+        area10 = new Zone(10);
+        area11 = new Zone(11);
+        area12 = new Zone(12);
+        area13 = new Zone(13);
+        area14 = new Zone(14);
+        area15 = new Zone(15);
 
-        zone1 = new Zone(1);
-        zone2 = new Zone(2);
-        zone3 = new Zone(3);
-        zone4 = new Zone(4);
-        zone5 = new Zone(5);
-        zone6 = new Zone(6);
-        zone7 = new Zone(7);
+        zone1 = new Zone(1, dice);
+        zone2 = new Zone(2, dice);
+        zone3 = new Zone(3, dice);
+        zone4 = new Zone(4, dice);
+        zone5 = new Zone(5, dice);
+        zone6 = new Zone(6, dice);
+        zone7 = new Zone(7, dice);
 
         areaList[0] = area1;
         areaList[1] = area2;
@@ -50,6 +62,15 @@ public class ZoneTest {
         areaList[3] = area4;
         areaList[4] = area5;
         areaList[5] = area6;
+        areaList[6] = area7;
+        areaList[7] = area8;
+        areaList[8] = area9;
+        areaList[9] = area10;
+        areaList[10] = area11;
+        areaList[11] = area12;
+        areaList[12] = area13;
+        areaList[13] = area14;
+        areaList[14] = area15;
 
         listeZone[0] = zone1;
         listeZone[1] = zone2;
@@ -61,17 +82,45 @@ public class ZoneTest {
         inventaire = new Inventaire();
         
         listeDesCartes=new ArrayList<CarteCivilisation>();
-    	listeDesCartes=carte.getAllCards();
-    	
-    	joueur = new Joueur("oss",1);
-    	
-    	choix1 = new Choix(1, 1);
-    	choix2 = new Choix(2, 2);
-    	choix3 = new Choix(3, 3);
-    	choix4 = new Choix(4, 4);
-    	choix5 = new Choix(5, 5);
-    	choix6 = new Choix(6, 5);
-    	choix7 = new Choix(7, 1);
+        listeDesCartes=carte.getAllCards();
+        
+        listeDesBat = new ArrayList<BuildingTiles>();
+        listeDesBat = bat.getCards();
+        
+        joueur = new Joueur("oss",1);
+        
+        choix1 = new Choix(1, 1);
+        choix2 = new Choix(2, 2);
+        choix3 = new Choix(3, 3);
+        choix4 = new Choix(4, 4);
+        choix5 = new Choix(5, 5);
+        choix6 = new Choix(6, 5);
+        choix7 = new Choix(7, 1);
+        choix8 = new Choix(8, 1);
+        choix9 = new Choix(9, 1);
+        choix10 = new Choix(10, 1);
+        choix11 = new Choix(11, 1);
+        choix12 = new Choix(12, 1);
+        choix13 = new Choix(13, 1);
+        choix14 = new Choix(14, 1);
+        choix15 = new Choix(15, 1);
+        
+        listeChoix[0] = choix1;
+        listeChoix[1] = choix2;
+        listeChoix[2] = choix3;
+        listeChoix[3] = choix4;
+        listeChoix[4] = choix5;
+        listeChoix[5] = choix6;
+        listeChoix[6] = choix7;
+        listeChoix[7] = choix8;
+        listeChoix[8] = choix9;
+        listeChoix[9] = choix10;
+        listeChoix[10] = choix11;
+        listeChoix[11] = choix12;
+        listeChoix[12] = choix13;
+        listeChoix[13] = choix14;
+        listeChoix[14] = choix15;
+        
     }
 
     /* TEST 1: placement des ouvriers
@@ -84,79 +133,92 @@ public class ZoneTest {
 
     @Test
     public void placerOuvrier(){
-        for(Zone zones : areaList){
-            for (int i = 1; i < 6; i++){
-                zones.placerOuvrier(inventaire, i);
-                if (zones == area1 && i>1) { // zone1, une seule place donc on sépare ce case des autres
-                    assertNotEquals(i, zones.getNbOuvriersPlaces());
-                }else{
-                    assertEquals(i, zones.getNbOuvriersPlaces());
-                }
-                //reset des zones et de l'inventaire
-                zones.resetNbOuvriersPlaces();
-                zones.setNbPlaceDispo(zones.getNbPlaceZone());
-                inventaire.resetAvailableWorkers();
-            }
+        for (int zone = 0; zone <= 5; zone++) {
+              if (zone == 0) {                                  //On separe le cas de la premiere qui peut recevoir un seul ouvriers
+                  areaList[zone].placerOuvrier(inventaire, 1);
+                  assertEquals(1, areaList[zone].getNbOuvriersPlaces());
+                  areaList[zone].placerOuvrier(inventaire, 3);
+                  assertEquals(1, areaList[zone].getNbOuvriersPlaces());
+                  inventaire.resetAvailableWorkers();
+                  continue;
+              }
+           for (int i = 1; i < 6; i++){
+               areaList[zone].placerOuvrier(inventaire, i);
+               if (i == 1) {
+                   assertEquals(i, areaList[zone].getNbOuvriersPlaces());
+               }
+               else if (i == 2) {
+                   assertEquals(i + 1, areaList[zone].getNbOuvriersPlaces());
+               }
+               else if (i == 3) {
+                   assertEquals(3, areaList[zone].getNbOuvriersPlaces());
+               }
+           }
+           inventaire.resetAvailableWorkers();
         }
-    }
-    
+      }
+      
     
     
     @Test
     public void recupeRes() {
-    	assertEquals(area1.NomZone(), "Fabrication d'Outils");
-    	assertEquals(area2.NomZone(), "Chasse");
-    	assertEquals(area3.NomZone(), "foret");
-    	assertEquals(area4.NomZone(), "glaisière");
-    	assertEquals(area5.NomZone(), "carrière");
-    	assertEquals(area6.NomZone(), "rivière");
-    	assertEquals(area7.NomZone(), "champ");
-    	
+        assertEquals(area1.NomZone(), "Fabrication d'Outils");
+        assertEquals(area2.NomZone(), "Chasse");
+        assertEquals(area3.NomZone(), "foret");
+        assertEquals(area4.NomZone(), "glaisière");
+        assertEquals(area5.NomZone(), "carrière");
+        assertEquals(area6.NomZone(), "rivière");
+        assertEquals(area7.NomZone(), "champ");
+        
 
-    	area1.placerOuvrier(inventaire, choix1.nbOuvriersChoisie);
-    	assertEquals(inventaire.getNbOuvrierDispo(), 4);
-    	area1.recupeRes(listeDesCartes, inventaire, joueur);
-    	assertEquals(inventaire.getNbOuvrierDispo(), 5);
-    	
-    	area2.placerOuvrier(inventaire, choix2.nbOuvriersChoisie);
-    	assertEquals(inventaire.getNbOuvrierDispo(), 3);
-    	area2.recupeRes(listeDesCartes, inventaire, joueur);
-    	assertEquals(inventaire.getNbOuvrierDispo(), 5);
-    	
-    	area3.placerOuvrier(inventaire, choix3.nbOuvriersChoisie);
-    	assertEquals(inventaire.getNbOuvrierDispo(), 2);
-    	area3.recupeRes(listeDesCartes, inventaire, joueur);
-    	assertEquals(inventaire.getNbOuvrierDispo(), 5);
-    	
-    	area4.placerOuvrier(inventaire, choix4.nbOuvriersChoisie);
-    	assertEquals(inventaire.getNbOuvrierDispo(), 1);
-    	area4.recupeRes(listeDesCartes, inventaire, joueur);
-    	assertEquals(inventaire.getNbOuvrierDispo(), 5);
-    	
-    	area5.placerOuvrier(inventaire, choix5.nbOuvriersChoisie);
-    	assertEquals(inventaire.getNbOuvrierDispo(), 0);
-    	area5.recupeRes(listeDesCartes, inventaire, joueur);
-    	assertEquals(inventaire.getNbOuvrierDispo(), 5);
-    	
-    	area6.placerOuvrier(inventaire, choix6.nbOuvriersChoisie);
-    	assertEquals(inventaire.getNbOuvrierDispo(), 0);
-    	area6.recupeRes(listeDesCartes, inventaire, joueur);
-    	assertEquals(inventaire.getNbOuvrierDispo(), 5);
-    	
-    	area7.placerOuvrier(inventaire, choix7.nbOuvriersChoisie);
-    	assertEquals(inventaire.getNbOuvrierDispo(), 4);
-    	area7.recupeRes(listeDesCartes, inventaire, joueur);
-    	assertEquals(inventaire.getNbOuvrierDispo(), 5);
+        area1.placerOuvrier(inventaire, choix1.nbOuvriersChoisie);
+        assertEquals(inventaire.getNbOuvrierDispo(), 4);
+        area1.recupeRes(listeDesCartes, listeDesBat, inventaire, joueur);
+        assertEquals(inventaire.getNbOuvrierDispo(), 5);
+        
+        area2.placerOuvrier(inventaire, choix2.nbOuvriersChoisie);
+        assertEquals(inventaire.getNbOuvrierDispo(), 3);
+        area2.recupeRes(listeDesCartes, listeDesBat, inventaire, joueur);
+        assertEquals(inventaire.getNbOuvrierDispo(), 5);
+        
+        area3.placerOuvrier(inventaire, choix3.nbOuvriersChoisie);
+        assertEquals(inventaire.getNbOuvrierDispo(), 2);
+        area3.recupeRes(listeDesCartes, listeDesBat, inventaire, joueur);
+        assertEquals(inventaire.getNbOuvrierDispo(), 5);
+        
+        area4.placerOuvrier(inventaire, choix4.nbOuvriersChoisie);
+        assertEquals(inventaire.getNbOuvrierDispo(), 1);
+        area4.recupeRes(listeDesCartes, listeDesBat, inventaire, joueur);
+        assertEquals(inventaire.getNbOuvrierDispo(), 5);
+        
+        area5.placerOuvrier(inventaire, choix5.nbOuvriersChoisie);
+        assertEquals(inventaire.getNbOuvrierDispo(), 0);
+        area5.recupeRes(listeDesCartes, listeDesBat, inventaire, joueur);
+        assertEquals(inventaire.getNbOuvrierDispo(), 5);
+        
+        area6.placerOuvrier(inventaire, choix6.nbOuvriersChoisie);
+        assertEquals(inventaire.getNbOuvrierDispo(), 0);
+        area6.recupeRes(listeDesCartes, listeDesBat, inventaire, joueur);
+        assertEquals(inventaire.getNbOuvrierDispo(), 5);
+        
+        for (int i = 6; i <= 14; i++) {
+        	areaList[i].placerOuvrier(inventaire, listeChoix[i].nbOuvriersChoisie);
+        	assertEquals(inventaire.getNbOuvrierDispo(), 4);
+        	areaList[i].recupeRes(listeDesCartes, listeDesBat, inventaire, joueur);
+        	assertEquals(inventaire.getNbOuvrierDispo(), 5);
+        }
     }
+    
     
     
     @Test
     public void throwDice() {
-        when(dice.Lancer()).thenReturn(6);
-        for(Zone zones : listeZone) {
-            for (int i = 1; i < 6; i++) {
-                assertEquals(6 * i, zones.lancéDeDés(i));
-            }
-        }
+    	when(dice.Lancer()).thenReturn(6);
+    	for (int zone = 0; zone <= 5; zone++) {
+    		for (int i = 1; i < 6; i++) {
+    			assertEquals(6 * i, areaList[zone].lancéDeDés(i));
+    		}
+    	}
     }
+    
 }
