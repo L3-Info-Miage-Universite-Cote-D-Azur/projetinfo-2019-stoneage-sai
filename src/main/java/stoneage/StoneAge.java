@@ -55,7 +55,7 @@ public class StoneAge {
             System.out.println("Joueur "+(i)+" : JoueurNormal");
         }
         int nbDeTour=1;
-        while ( partie.getNbCarteDispo()>nbJoueurTotal && nbDeTour<50 && partie.getNbBatiments()>nbJoueurTotal) {
+        while ( partie.getNbCarteDispo()>(nbJoueurTotal+5) && nbDeTour<50 && partie.getNbBatiments()>(nbJoueurTotal+5) ){
         	// Nombre de partie ay max est 50 sinon le jeu s'arrete lorsqu'il ya plus de carte Civ        
             System.out.println("\n**** Debut du Tour N° "+ (nbDeTour) +" ****");
             unTour();
@@ -184,7 +184,7 @@ public class StoneAge {
 			System.out.println("Argile : " + listeDesInventaires.get(i).getNbArgile());
 			System.out.println("Pierre : " + listeDesInventaires.get(i).getNbPierre());
 			System.out.println("Or : " + listeDesInventaires.get(i).getNbOr());
-                        System.out.println("Nombre d'ouvriers : " + listeDesInventaires.get(i).getNbOuvrier());
+			System.out.println("Nombre d'ouvriers : " + listeDesInventaires.get(i).getNbOuvrier());
 			System.out.println("Niveau agriculture : " + listeDesInventaires.get(i).getScoreChamp());
 			System.out.println("Nombre de nourriture : " +listeDesInventaires.get(i).getNourriture());
 			System.out.println("Nombre de ressources : " +listeDesInventaires.get(i).getNbRessource());

@@ -6,6 +6,7 @@
 package stoneage;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  *
@@ -17,5 +18,6 @@ public interface Joueurs {
 	public int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) ;
 	public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv);
 	public int getNum();
-        public boolean payerBatiment();
+    public Map NourrirOuv(Inventaire inv ,  int nm);
+    public boolean payerBatiment();
 }
