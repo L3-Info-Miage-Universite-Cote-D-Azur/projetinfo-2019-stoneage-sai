@@ -13,38 +13,42 @@ import org.junit.jupiter.api.Disabled;
 public class PartieTest {
 	private  Partie partie;
 
-    private Inventaire  inv;
+    private Inventaire  inv,inv2;
     private Joueurs joueur, joueurIA;
    
     @BeforeEach
     void setUp(){
     	inv = new Inventaire();
+    	inv2 = new Inventaire();
     	joueur = new Joueur("oss",1);
     	joueurIA = new JoueurIA("oss",2);
     	//retirer 2 ouvrier de ouvrier dispo pour le teste de PhaseAction
     	partie = new Partie();
     }
-        @Disabled("pas pret")
+     
 	@Test	
 	public void testPhaseAction() {
-		assertEquals(inv.listeZonesDispo.size(), 6); //il y a 6 zones
+		assertEquals(inv.listeZonesDispo.size(), 15); //il y a 6 zones
 		
-		for(int i = 0; i < 6 ;i++){
+		for(int i = 0; i < 15 ;i++){
 			inv.listeZonesJouer.add(true); //On initialise toute les zones a True
 		}
-		partie.phaseAction(inv, joueur, 1); //La fonction doit remettre False a toutes les zones
-		for(int i = 0; i < 6; i++){
-			assertFalse(inv.listeZonesJouer.get(i));  //On vérifie si toutes les zones sont a False
-		}	
+		partie.phaseAction(inv, joueur); //La fonction doit remettre False a toutes les zones
+		for(int i = 0; i < 15; i++){
+			assertFalse(inv.listeZonesJouer.get(i));//On vérifie si toutes les zones sont a False
+			assertEquals(inv.listeOuvriersPlaces.get(i),0);//on verifie si tous les ouvriers sont bien sortie du plateau
+		}
+		
+		assertEquals(inv.getNbOuvrierDispo(),5); // on verifie si le nb d'ouvrier dispo est reset
 	}
-        @Disabled("pas pret")
 	@Test
 	public void testPhasePlacement() {
 		inv.setNourriture(0);
-		assertEquals(inv.listeZonesDispo.size(),6); 
+		assertEquals(inv.listeZonesDispo.size(),15); 
 
 		partie.phasePlacement(inv, joueurIA); //Comme le JoueurIA n'a pas de nourriture il doit jouer la zone chasse
-		assertFalse(inv.listeZonesJouer.get(2)); // "listeZonesJouer.get(2)" est la zone chasse
+		assertFalse(inv.listeZonesJouer.get(2));// "listeZonesJouer.get(2)" est la zone chasse
+		assertEquals(inv.listeZonesDispo.size(),15); // il reste encore de la place dans la zone chasse donc toujours 15 zone dispo
 	}
 	
 	@Disabled("pas pret")
@@ -106,12 +110,25 @@ public class PartieTest {
 		inv.setNbPierre(4);
 		inv.setNbOr(10);
 		inv.setNbRessource(15);
-		partie.phaseNourrir(inv, joueur, 1);
+		partie.phaseNourrir(inv, joueur);
 		assertEquals(inv.getNbBois(), 0);
 		assertEquals(inv.getNbArgile(), 0);
 		assertEquals(inv.getNbPierre(), 1);
 		assertEquals(inv.getNbOr(), 10);
 		assertEquals(inv.getNbRessource(), 11);
+		
+	}
+	@Test
+	public void TestDemanderCadeaux() {
+		ArrayList<Joueurs> listeJoueurs =new ArrayList<>();
+	    ArrayList<Inventaire> listeInventaires=new ArrayList<>() ;
+		listeJoueurs.add(joueurIA); 
+       	listeJoueurs.add(joueur);
+    	listeInventaires.add(inv);
+    	listeInventaires.add(inv2);
+		inv2.setNbRessource(0);
+		partie.demanderCadeau(listeInventaires, listeJoueurs, joueur, inv2);
+		assertEquals(inv2.getNbRessource(),1);    //l'inventaire 2 recois une ressource en cadeaux 
 		
 	}
 	
