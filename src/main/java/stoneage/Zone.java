@@ -18,6 +18,12 @@ public class Zone {
 	public String[] TypesGains;
     public int nbJoueur;
 	private ArrayList<Integer> listeDesDe;
+	
+    public Zone(int niveau,Dé dé){
+        this.niveauZone = niveau;
+        this.dé=dé;
+        //this.type=carte
+    }
 
 	public Zone(int niveau) {
 		listeDesDe=new ArrayList<>();
