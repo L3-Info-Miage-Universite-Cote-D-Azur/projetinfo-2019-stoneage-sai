@@ -38,7 +38,6 @@ public class JoueurIA implements Joueurs {
 		//  il retoune 0 OUTILS par ce que ça ne servira a rien  de perdre ses outil alors qu'il ne va rien gagner au retour
 		return 0;
 	}
-
 	/*La methode cadeauRes va permettre au joueur de choisir la resouce cadeau de la carte civilisation */
 	public int cadeauRes(ArrayList<Integer> listeDe ){
 		if (listeDe.contains(4)){ //s'il il y a un dé Or parmis les dé il le choisi en 1er
@@ -60,7 +59,6 @@ public class JoueurIA implements Joueurs {
 			return 1;
 		}
 	}
-
 	/*La  methode choixTypesRes permet au joueure de choisir la resource qu'il va utiliser pour payer ses dettes */
 	public int choixTypeRes(int cout,Inventaire inv, int...typeDispo) {
     	ArrayList<Integer> listTypeDispo = new ArrayList(); //transforme le tableau en liste
@@ -93,18 +91,17 @@ public class JoueurIA implements Joueurs {
 			return (-1);
 		}
     }
-
     /*Cette metode va permettre au joueur de choisir la zone et le nombre d'ouvrier qu'il va posé dans celle ci
     avec une facon plus refelchie et en suivant une strategie plus iteligente que d faire un choix au hazard */
     public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv){
 	    if ( (inv.getNbZoneJouer() < 6 &&inv.ouvrierDispo())){
-			if (inv.listeZonesJouer.get(1)==false&& inv.getNourriture()<5 &&inv.getNbOuvrierDispo()==5 )
+			if (!inv.listeZonesJouer.get(1) && inv.getNourriture()<5 &&inv.getNbOuvrierDispo()==5 )
 			// si la zone chasse est disponnible et que le nombre de nourriture disponnible ne suffit pas pour nourrire les ouvriers
 			{
 				// on choisit la zone de chasse si on a pas assez de nourriture
 				return new Choix(1, 5);
 			}
-			else if (inv.listeZonesJouer.get(6)==false&& inv.getNourriture()<5 &&inv.getNbOuvrierDispo()>1 )
+			else if (!inv.listeZonesJouer.get(6) && inv.getNourriture()<5 &&inv.getNbOuvrierDispo()>1 )
 			// si le champ est disponnible et que le nombre de nourriture disponnible ne suffit pas pour nourrire les ouvriers
 			{
 				// on choisit le champ si on a pas assez de nourriture
@@ -113,10 +110,10 @@ public class JoueurIA implements Joueurs {
 			else if (StoneAge.getNbJoueurTotal()==2){
 				if ( (inv.getNbZoneJouer() < 6&&inv.ouvrierDispo())){
 					int i=0;
-					int[] tabZoneDispo={0,1,2,3,4,5,6,7,8,9,12,13};
-					int zoneChoisie = tabZoneDispo[rand.nextInt(12)];
+					int[] tabZoneDispo={0,1,2,3,4,5,6,7,8,11,12};
+					int zoneChoisie = tabZoneDispo[rand.nextInt(11)];
 				 	while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).nbJoueur>=1){
-						zoneChoisie = tabZoneDispo[rand.nextInt(12)];
+						zoneChoisie = tabZoneDispo[rand.nextInt(11)];
 				 		i++;
 				 		if(i==10) {
 				 			zoneChoisie = 1;
@@ -136,10 +133,10 @@ public class JoueurIA implements Joueurs {
 			else if(StoneAge.getNbJoueurTotal()==3) {
 				if ( (inv.getNbZoneJouer() < 6 &&inv.ouvrierDispo())){
 					int i=0;
-					int[] tabZoneDispo={0,1,2,3,4,5,6,7,8,9,10,12,13,14};
-					int zoneChoisie = tabZoneDispo[rand.nextInt(14)];
-				 	while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).nbJoueur>=2){
-						zoneChoisie = tabZoneDispo[rand.nextInt(14)];
+					int[] tabZoneDispo={0,1,2,3,4,5,6,7,8,9,11,12,13};
+					int zoneChoisie = tabZoneDispo[rand.nextInt(13)];
+				 	while (inv.listeZonesJouer.get(zoneChoisie)|| LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).nbJoueur>=2){
+						zoneChoisie = tabZoneDispo[rand.nextInt(13)];
 				 		i++;
 				 		if(i==10) {
 				 			zoneChoisie = 1;
@@ -176,6 +173,31 @@ public class JoueurIA implements Joueurs {
 	}
 	return null;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public boolean payerBatiment(){//le joueur choisi au hasard s'il prend la carte ou pas
             int a=rand.nextInt(2);
             if (a==0) {
