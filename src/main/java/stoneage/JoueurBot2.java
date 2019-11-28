@@ -165,8 +165,12 @@ public class JoueurBot2 implements Joueurs {
     	return OutilChoisie;
     }
     public int cadeauRes(ArrayList<Integer> listeDe){
-		//cette methode va permettre au joueur de choisir la resouce cadeau de la carte civilisation
-		return listeDe.get(rand.nextInt(listeDe.size()));
+		if (listeDe.contains(4)){return 4;}
+		else if (listeDe.contains(6)){return 6;}
+		else if (listeDe.contains(5)){return 5;}
+		else if (listeDe.contains(3)){return 3;}
+		else if (listeDe.contains(2)){return 2;}
+		else {return 1;}
 	}
 	public int choixTypeRes(int cout, Inventaire inv, int...typeDispo) {
 	        /* cette methode permet au joueure de choisir la resource qu'il va utiliser pour payer ses dettes */
