@@ -76,7 +76,7 @@ Lancement d'une partie entre 4 joueurs en ajoutant :
 - [X] Condition de fin de partie : lorsqu'il reste moins de piles tuiles bâtiment et de cartes civilisation que le nombre des joueurs
 #### Démo de jeu :
 * La partie débute et à chaque tour on voit l’avancement des joueurs et leurs gains. Le joueur peut aussi poser ses ouvriers sur les cartes Tuiles Bâtiments.
-* Fin de partie : lorsqu'il reste moins que 2 piles tuiles bâtiment ou s’il reste moins de cartes civilisation que le nombre des joueurs.
+* Fin de partie : lorsqu'il reste moins de cartes civilisation et de  tuiles bâtiment que le nombre des joueurs.
 On a un gagnant et on affiche les scores de chaque joueur.
 #### Date prévue : 
 *Le Vendredi 29 Novembre*
@@ -94,7 +94,7 @@ Lancement d'une partie entres 4 joueurs en ajoutant :
 
 #### Démo de jeu:
 * La partie débute et à chaque tour on voit l’avancement des joueurs et leurs gains. Le joueur peut aussi poser deux ouvriers sur la zone hutte pour avoir un nouvel ouvrier en fin de tour.
-* Fin de partie : lorsqu'il reste moins que 2 piles tuiles bâtiment ou s’il reste moins de cartes civilisation que le nombre des joueurs.
+* Fin de partie : lorsqu'il reste moins de cartes civilisation et de  tuiles bâtiment que le nombre des joueurs.
 On a un gagnant et on affiche les scores de chaque joueur.
 #### Date prévue : 
 *Le Vendredi 06 Décembre*
@@ -105,7 +105,7 @@ On a un gagnant et on affiche les scores de chaque joueur.
 
 #### Démo de jeu:
 * On observe les joueurs qui commence une partie entre bots. 
-* On a un gagnant en fin de partie et les scores finaux.*
+* On a un gagnant en fin de partie et les scores finaux.
 #### Date prévue : 
 *Le Vendredi 13 Décembre*
 
