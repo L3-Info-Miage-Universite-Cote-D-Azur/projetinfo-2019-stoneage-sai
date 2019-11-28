@@ -76,7 +76,7 @@ public class Joueur implements Joueurs {
 		if (StoneAge.getNbJoueurTotal()==2){
 			if ( (inv.getNbZoneJouer() < 6&&inv.ouvrierDispo())){
 				int i=0;
-				int[] tabZoneDispo={1,2,3,4,5,6,7,8,9,12,13};
+				int[] tabZoneDispo={0,1,2,3,4,5,6,7,8,11,12};
 				int zoneChoisie = tabZoneDispo[rand.nextInt(11)];
 			 	while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).nbJoueur>=1){
 					zoneChoisie = tabZoneDispo[rand.nextInt(11)];
@@ -100,9 +100,9 @@ public class Joueur implements Joueurs {
 		else if(StoneAge.getNbJoueurTotal()==3) {
 			if ( (inv.getNbZoneJouer() < 6 &&inv.ouvrierDispo())){
 				int i=0;
-				int[] tabZoneDispo={1,2,3,4,5,6,7,8,9,10,12,13,14};
+				int[] tabZoneDispo={0,1,2,3,4,5,6,7,8,9,11,12,13};
 				int zoneChoisie = tabZoneDispo[rand.nextInt(13)];
-			 	while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).nbJoueur>=2){
+			 	while ( inv.listeZonesJouer.get(zoneChoisie) || LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).nbJoueur>=2){
 					zoneChoisie = tabZoneDispo[rand.nextInt(13)];
 			 		i++;
 			 		if(i==10) {
