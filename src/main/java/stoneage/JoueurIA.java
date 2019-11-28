@@ -176,7 +176,6 @@ public class JoueurIA implements Joueurs {
 	return null;
     }
 
-<<<<<<< HEAD
     public Map<String, Integer> NourrirOuv(Inventaire inv,  int nm) {
         Map<String, Integer> choixNourriture = new HashMap<>();
         int choixJ = rand.nextInt(2); // choix du joueur si oui paye avec ressource sinon paye avec score
@@ -216,31 +215,6 @@ public class JoueurIA implements Joueurs {
         }
         return choixNourriture;
     }
-=======
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> master
 
     public boolean payerBatiment(){//le joueur choisi au hasard s'il prend la carte ou pas
             int a=rand.nextInt(2);

@@ -72,19 +72,11 @@ public class Joueur implements Joueurs {
 	}
 
 	/*Cette metode va permettre au joueur de choisir la zone et le nombre d'ouvrier qu'il va posé dans celle ci au hazard */
-<<<<<<< HEAD
 	public Choix placerOuvriers(ArrayList<Zone> LesZones, Inventaire inv) {
 		if (StoneAge.getNbJoueurTotal() == 2) {
 			if ((inv.getNbZoneJouer() < 6 && inv.ouvrierDispo())) {
 				int i = 0;
 				int[] tabZoneDispo = {0, 1, 2, 3, 4, 5, 6, 7, 8, 11, 12};
-=======
-	public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv){
-		if (StoneAge.getNbJoueurTotal()==2){
-			if ( (inv.getNbZoneJouer() < 6&&inv.ouvrierDispo())){
-				int i=0;
-				int[] tabZoneDispo={0,1,2,3,4,5,6,7,8,11,12};
->>>>>>> master
 				int zoneChoisie = tabZoneDispo[rand.nextInt(11)];
 				while (inv.listeZonesJouer.get(zoneChoisie) == true || LesZones.get(zoneChoisie).getNbPlaceDispo() == 0 || LesZones.get(zoneChoisie).nbJoueur >= 1) {
 					zoneChoisie = tabZoneDispo[rand.nextInt(11)];
@@ -97,9 +89,8 @@ public class Joueur implements Joueurs {
 
 				//IA simple qui choisit une zone au hazard
 				int nbOuvChoisie = rand.nextInt(Math.min(inv.getNbOuvrierDispo(), LesZones.get(zoneChoisie).getNbPlaceDispo())) + 1;
-				//IA simple qui choisit nombre d'ouvrier qu'elle va poser sur cette zone au hazard 
-				//le nombre doit etres inferieur au nombre de place disponnible de la zone et inferieur au nombre d'ouvrier dispo de la zone 
-<<<<<<< HEAD
+				//IA simple qui choisit nombre d'ouvrier qu'elle va poser sur cette zone au hazard
+				//le nombre doit etres inferieur au nombre de place disponnible de la zone et inferieur au nombre d'ouvrier dispo de la zone
 				return new Choix(zoneChoisie, nbOuvChoisie);
 			} else {
 				return null;
@@ -110,20 +101,6 @@ public class Joueur implements Joueurs {
 				int[] tabZoneDispo = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13};
 				int zoneChoisie = tabZoneDispo[rand.nextInt(13)];
 				while (inv.listeZonesJouer.get(zoneChoisie) || LesZones.get(zoneChoisie).getNbPlaceDispo() == 0 || LesZones.get(zoneChoisie).nbJoueur >= 2) {
-=======
-	            return new Choix(zoneChoisie, nbOuvChoisie);
-				}
-		     else{
-		    	 return null;
-		    }
-		}
-		else if(StoneAge.getNbJoueurTotal()==3) {
-			if ( (inv.getNbZoneJouer() < 6 &&inv.ouvrierDispo())){
-				int i=0;
-				int[] tabZoneDispo={0,1,2,3,4,5,6,7,8,9,11,12,13};
-				int zoneChoisie = tabZoneDispo[rand.nextInt(13)];
-			 	while ( inv.listeZonesJouer.get(zoneChoisie) || LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).nbJoueur>=2){
->>>>>>> master
 					zoneChoisie = tabZoneDispo[rand.nextInt(13)];
 					i++;
 					if (i == 10) {
