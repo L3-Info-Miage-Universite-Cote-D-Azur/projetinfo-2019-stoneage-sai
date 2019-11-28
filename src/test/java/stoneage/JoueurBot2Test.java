@@ -114,7 +114,7 @@ public class JoueurBot2Test {
         inventaire.setNourriture(11);
         inventaire.setNbBois(11);
         zone1.setNbPlaceDispo(0);
-        zone11.setNbPlaceDispo(0);
+        zone12.setNbPlaceDispo(0);
             if (zone9.getNbPlaceDispo()>= 1){
                 expectedChoice = new Choix(9, 1);
                 actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);

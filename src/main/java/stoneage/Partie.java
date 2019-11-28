@@ -36,7 +36,7 @@ public class Partie {
                         System.out.println("Dé "+(de+1)+" : " + choix.getListeDe().get(de));
                     }
                 }
-        		inv.listeZonesJouer.set(i,false); //la zone n'es pluas etuliser donc elle devient false pour le joueur (disponnible a nouveau)
+        		inv.listeZonesJouer.set(i,false); //la zone n'est plus utiliser donc elle devient false pour le joueur (disponnible a nouveau)
                 inv.listeOuvriersPlaces.set(i,0);
         		System.out.println(ConsoleColors.RED+"Le joueur " + joueur.getNum() + " reprend ses ouvriers de la zone "+choix+ConsoleColors.RESET);
         		if (choix.getGains()==-1){
