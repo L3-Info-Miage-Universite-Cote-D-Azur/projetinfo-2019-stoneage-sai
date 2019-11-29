@@ -32,26 +32,26 @@ public class Partie {
         		choix.recupeRes(listeDesCivilisation,listeDesBatiments,inv,joueur);
         		for (int de=0;de< choix.getListeDe().size();de++){
         		    if (choix.niveauZone>1&&choix.niveauZone<7) { //lorsqu'il ya un lancement de dé on les affiche
-                        System.out.println("Dé "+(de+1)+" : " + choix.getListeDe().get(de));
+                        System.out.println(ConsoleColors.RED+"Dé "+(de+1)+" : " + choix.getListeDe().get(de)+ConsoleColors.RESET);
                     }
                 }
         		inv.listeZonesJouer.set(i,false); //la zone n'est plus utiliser donc elle devient false pour le joueur (disponnible a nouveau)
                 inv.listeOuvriersPlaces.set(i,0);
         		System.out.println(ConsoleColors.RED+"Le joueur " + joueur.getNum() + " reprend ses ouvriers de la zone "+choix+ConsoleColors.RESET);
         		if (choix.getGains()==-1){
-        		    System.out.println("Le joueur decide d'abandonner sa carte civilisation.\n");
+        		    System.out.println(ConsoleColors.RED+"Le joueur decide d'abandonner sa carte civilisation.\n"+ConsoleColors.RESET);
         		}
         		else if (choix.getGains()==-2){
-        		    System.out.println("Le joueur a partagé sa carte avec les autre joueurs.\n");
+        		    System.out.println(ConsoleColors.RED+"Le joueur a partagé sa carte avec les autre joueurs.\n"+ConsoleColors.RESET);
         		}
         		else if (choix.getGains()==-3) {
-        		    System.out.println("Le joueur decide d'abandonner sa carte batiment. \n ");
+        		    System.out.println(ConsoleColors.RED+"Le joueur decide d'abandonner sa carte batiment. \n "+ConsoleColors.RESET);
         		}
                         else if (choix.getGains()==-5) {
-                            System.out.println("Le joueur n'a pas assez de ressources pour payer cette carte batiment \n");
+                            System.out.println(ConsoleColors.RED+"Le joueur n'a pas assez de ressources pour payer cette carte batiment \n"+ConsoleColors.RESET);
                         }
         		else if (choix.getGains()==-4){
-        		    System.out.println("Le joueur a gagner un "+choix.TypesGains[0]+" et un "+choix.TypesGains[1]+"  avec sa carte civilisation. \n");
+        		    System.out.println(ConsoleColors.RED+"Le joueur a gagner un "+choix.TypesGains[0]+" et un "+choix.TypesGains[1]+"  avec sa carte civilisation. \n"+ConsoleColors.RESET);
                         }
         		else if (choix.getGains()>=0){
         		    System.out.println(ConsoleColors.RED+"Il gagne  "+choix.getGains() +" " +choix.TypeGains()+ConsoleColors.RESET  + " \n");
@@ -127,30 +127,30 @@ public class Partie {
             if (choixCad == 1) {
                 inv.setNbBois(inv.getNbBois()+1);
                 inv.setNbRessource(inv.getNbRessource()+1);
-                System.out.println("Le joueur " + listeDesJoueurs.get(i).getNum() + " choisi de prendre 1 bois comme Cadeau!");
+                System.out.println(ConsoleColors.RED+"Le joueur " + listeDesJoueurs.get(i).getNum() + " choisi de prendre 1 bois comme Cadeau!"+ConsoleColors.RESET);
             }
             else if (choixCad == 2) {
                 inv.setNbArgile(inv.getNbArgile()+1);
                 inv.setNbRessource(inv.getNbRessource()+1);
-                System.out.println("Le joueur " + listeDesJoueurs.get(i).getNum() + " choisi de prendre 1 Argile comme Cadeau!");
+                System.out.println(ConsoleColors.RED+"Le joueur " + listeDesJoueurs.get(i).getNum() + " choisi de prendre 1 Argile comme Cadeau!"+ConsoleColors.RESET);
             }
             else if (choixCad == 3) {
                 inv.setNbPierre(inv.getNbPierre()+1);
                 inv.setNbRessource(inv.getNbRessource()+1);
-                System.out.println("Le joueur " + listeDesJoueurs.get(i).getNum() + " choisi de prendre 1 Pierre comme Cadeau!");
+                System.out.println(ConsoleColors.RED+"Le joueur " + listeDesJoueurs.get(i).getNum() + " choisi de prendre 1 Pierre comme Cadeau!"+ConsoleColors.RESET);
             }
             else if (choixCad == 4) {
                 inv.setNbOr(inv.getNbOr()+1);
                 inv.setNbRessource(inv.getNbRessource()+1);
-                System.out.println("Le joueur " + listeDesJoueurs.get(i).getNum() + " choisi de prendre 1 Or comme Cadeau!");
+                System.out.println(ConsoleColors.RED+"Le joueur " + listeDesJoueurs.get(i).getNum() + " choisi de prendre 1 Or comme Cadeau!"+ConsoleColors.RESET);
             }
             else if (choixCad == 5) {
                 inv.setNbOutils(inv.getNbOutils()+1);
-                System.out.println("Le joueur " + listeDesJoueurs.get(i).getNum() + " choisi de prendre 1 Outil comme Cadeau!");
+                System.out.println(ConsoleColors.RED+"Le joueur " + listeDesJoueurs.get(i).getNum() + " choisi de prendre 1 Outil comme Cadeau!"+ConsoleColors.RESET);
             }
             else if (choixCad == 6) {
                 inv.setScoreChamp(inv.getScoreChamp()+1);
-                System.out.println("Le joueur " + listeDesJoueurs.get(i).getNum() + " choisi d'augmenter son nivau de champ de 1 comme Cadeau!");
+                System.out.println(ConsoleColors.RED+"Le joueur " + listeDesJoueurs.get(i).getNum() + " choisi d'augmenter son nivau de champ de 1 comme Cadeau!"+ConsoleColors.RESET);
             }
             listeDe.remove(listeDe.indexOf(choixCad));
 
