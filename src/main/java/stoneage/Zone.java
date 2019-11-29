@@ -8,6 +8,7 @@ import java.util.ArrayList;
  	*
  */
 public class Zone {
+	private ArrayList<Zone> allZones=new ArrayList<>();
     private int nbOuvriersPlacés = 0;
     public int niveauZone ;
     public static Dé dé;
@@ -20,6 +21,7 @@ public class Zone {
 	private ArrayList<Integer> listeDesDe;
 	
     public Zone(int niveau,Dé dé){
+    	addAllZones();
         this.niveauZone = niveau;
         this.dé=dé;
         //this.type=carte
@@ -40,7 +42,12 @@ public class Zone {
         }
         nbPlaceDispo=nbPlaceZone;//au début le nombre de place disponible = au nombre place max de la zone
     }
-
+	public Zone() {
+        addAllZones();
+	}
+	
+	
+	
     /*La methode placerOuvrier va permettre de poser un nombre de figurine sur une zone choisi, ainsi le nombre de place
     dans la zone sera crediter et le nombre d'ouvrier poser sera enregistrer  */
     public void placerOuvrier(Inventaire inventaireJoueur,int nbOuvriers){
@@ -643,7 +650,15 @@ public class Zone {
 		return lancement4De;
 	}
 	/***************************************************************Les Get , Set et Reset ****************************************************/
-
+	public void addAllZones() {
+		for(int i=1;i<=15;i++) {
+			allZones.add(new Zone(i));
+		}
+	}
+	public ArrayList<Zone> getAllZones(){
+		return allZones;
+	}
+	
     public int getNbPlaceZone(){
         return nbPlaceZone;
     }

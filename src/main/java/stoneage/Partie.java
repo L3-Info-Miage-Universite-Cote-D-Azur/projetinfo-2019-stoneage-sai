@@ -17,16 +17,13 @@ public class Partie {
     private ArrayList<CarteCivilisation> listeDesCivilisation ;
     private ArrayList<BuildingTiles> listeDesBatiments;
     public Partie(){
-    	LesZones=new ArrayList<>();
 	    listeDesCivilisation=new ArrayList<CarteCivilisation>();
 	    listeDesCivilisation=carte.getAllCards();
         listeDesBatiments=new ArrayList<BuildingTiles>();
         listeDesBatiments=building.getCards();
-        // c'est la liste general des zone pour le jeu 
-	    for(int i=1; i<16;i++){
-            Zone zone = new Zone(i);
-            LesZones.add(zone);
-	    }
+        // c'est la liste general des zone pour le jeu
+        Zone zone = new Zone();
+        LesZones=zone.getAllZones();
     }
     protected void phaseAction( Inventaire  inv,Joueurs joueur) {
         for(int i =0;i<15;i++){
