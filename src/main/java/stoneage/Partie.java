@@ -79,26 +79,30 @@ public class Partie {
     protected void phaseNourrir(Inventaire  inv, Joueurs joueur) {
         inv.setNourriture(inv.getNourriture() + inv.getScoreChamp());
         //chaque joueur prend une valeur de jetons nourriture egale a la valeur de son marqeur sur la piste agriculture
-        System.out.println(ConsoleColors.GREEN + "Le joueur " + joueur.getNum() + " a " + inv.getNourriture() + " nourritures et " + inv.getNbRessource() + " ressources" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.GREEN + "Le joueur " + joueur.getNum() + " a " + inv.getNourriture() + " nourritures et " + inv.getNbRessource() + " ressources." + ConsoleColors.RESET);
         int nm = inv.getNbOuvrierDispo() - inv.getNourriture();//nourriture qui manque
         if (nm <= 0) {//cas ou la nourriture du joueur est suffisante pour nourrie ses figurines
             inv.setNourriture(inv.getNourriture() - inv.getNbOuvrierDispo());
-            System.out.println(ConsoleColors.GREEN + "Le joueur " + joueur.getNum() + " va nourrir ses ouvriers avec la nourritue qu'il possede " + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.GREEN + "Le joueur " + joueur.getNum() + " va nourrir ses ouvriers avec la nourritue qu'il possede." + ConsoleColors.RESET);
 
         } else {
             Map<String, Integer> nourrirOuv = joueur.NourrirOuv(inv, nm);
-            System.out.println(ConsoleColors.GREEN + "Le joueur " + joueur.getNum() + " n'a pas assez de nourriture, il utilise donc :" + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.GREEN + "Le joueur n'a pas assez de nourriture, il utilise donc :" + ConsoleColors.RESET);
 
             for (String res : nourrirOuv.keySet()) {
                 System.out.println(ConsoleColors.GREEN + nourrirOuv.get(res) + " " + res + "." + ConsoleColors.RESET);
                 if (res == "Pierre") {
-                    inv.setNbBois(inv.getNbPierre() - nourrirOuv.get(res));
+                    inv.setNbPierre(inv.getNbPierre() - nourrirOuv.get(res));
+                    inv.setNbRessource(inv.getNbRessource() - nourrirOuv.get(res));
                 } else if (res == "Bois") {
                     inv.setNbBois(inv.getNbBois() - nourrirOuv.get(res));
+                    inv.setNbRessource(inv.getNbRessource() - nourrirOuv.get(res));
                 } else if (res == "Or") {
-                    inv.setNbBois(inv.getNbOr() - nourrirOuv.get(res));
+                    inv.setNbOr(inv.getNbOr() - nourrirOuv.get(res));
+                    inv.setNbRessource(inv.getNbRessource() - nourrirOuv.get(res));
                 } else if (res == "Argile") {
-                    inv.setNbBois(inv.getNbArgile() - nourrirOuv.get(res));
+                    inv.setNbArgile(inv.getNbArgile() - nourrirOuv.get(res));
+                    inv.setNbRessource(inv.getNbRessource() - nourrirOuv.get(res));
                 } else if (res == "Point de Score") {
                     inv.setScore(inv.getScore() - nourrirOuv.get(res));
 

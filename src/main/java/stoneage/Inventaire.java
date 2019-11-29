@@ -72,7 +72,17 @@ public class Inventaire {
 		return (nbOuvrierDispo > 0);
 	}
 
-
+	public void resetInventory(){ //sert pour le teste
+		setNbArgile(0);
+		setNbPierre(0);
+		setNbOr(0);
+		setNourriture(15);
+		setNbRessource(0);
+		setNbOutils(0);
+		setScore(0);
+		setScoreChamp(0);
+		resetAvailableWorkers();
+	}
 	/* ****************************************
 	   * Getter and setter and reset  des champs privés  *
 	   **************************************** */

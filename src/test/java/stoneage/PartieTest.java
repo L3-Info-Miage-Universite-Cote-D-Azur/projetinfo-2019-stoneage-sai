@@ -51,20 +51,19 @@ public class PartieTest {
 		assertEquals(inv.listeZonesDispo.size(),15); // il reste encore de la place dans la zone chasse donc toujours 15 zone dispo
 	}
 	
-	@Disabled("pas pret")
+
 	@Test
 	public void testPhaseNourrir() {
 		joueur = new Joueur("oss",3);
 		
-		inv.resetInventory();
-		partie.phaseNourrir(inv, joueur, 1);
+
+		partie.phaseNourrir(inv, joueur);
 		assertEquals(inv.getNourriture(), 10);
-		
 		
 		inv.resetInventory();
 		inv.setNourriture(0);
 		inv.setScore(30);     //On initialise le score du joueur a 30
-		partie.phaseNourrir(inv, joueur, 1);  //Comme le joueur n'a pas assez de nourriture et de ressource pour nourrire ses ouvriers, il a une pénalité de 10 points
+		partie.phaseNourrir(inv, joueur);  //Comme le joueur n'a pas assez de nourriture et de ressource pour nourrire ses ouvriers, il a une pénalité de 10 points
 		assertEquals(inv.getScore(), 20);     //Le score du joueur doit donc etre de 20
 		
 		
@@ -72,17 +71,16 @@ public class PartieTest {
 		inv.setNourriture(1);
 		inv.setNbBois(10);
 		inv.setNbRessource(10);
-		partie.phaseNourrir(inv, joueur, 1);  //Le joueur utilise sont bois pour nourrire ses ouvriers
+		partie.phaseNourrir(inv, joueur);  //Le joueur utilise sont bois pour nourrire ses ouvriers
 		assertEquals(inv.getNbBois(), 6);
 		assertEquals(inv.getNbRessource(), 6);
-		
 		
 		inv.resetInventory();
 		inv.setNourriture(0);
 		inv.setNbBois(3);
 		inv.setNbArgile(10);
 		inv.setNbRessource(13);
-		partie.phaseNourrir(inv, joueur, 1);  //Le joueur utilise 3 bois et 2 argiles pour nourrire ses ouvriers
+		partie.phaseNourrir(inv, joueur);  //Le joueur utilise 3 bois et 2 argiles pour nourrire ses ouvriers
 		assertEquals(inv.getNbBois(), 0);
 		assertEquals(inv.getNbArgile(), 8);
 		assertEquals(inv.getNbRessource(), 8);
@@ -95,7 +93,7 @@ public class PartieTest {
 		inv.setNbPierre(1);
 		inv.setNbOr(10);
 		inv.setNbRessource(13);
-		partie.phaseNourrir(inv, joueur, 1);  //Le joueur utilise le bois, l'argile, la pierre et 2 or pour nourrire ses ouvriers
+		partie.phaseNourrir(inv, joueur);  //Le joueur utilise le bois, l'argile, la pierre et 2 or pour nourrire ses ouvriers
 		assertEquals(inv.getNbBois(), 0);
 		assertEquals(inv.getNbArgile(), 0);
 		assertEquals(inv.getNbPierre(), 0);
@@ -126,10 +124,16 @@ public class PartieTest {
        	listeJoueurs.add(joueur);
     	listeInventaires.add(inv);
     	listeInventaires.add(inv2);
-		inv2.setNbRessource(0);
+    	
+		// verifier que les joueurs n'ont pas de ressource ni outil ni nivau champ 
+		assertTrue(inv2.getNbRessource()==0 &&inv2.getNbOutils()==0 &&inv2.getScoreChamp()==0 );    
+		assertTrue(inv.getNbRessource()==0 &&inv.getNbOutils()==0 &&inv.getScoreChamp()==0 );
+
+		// verifier que les joueur on ressus leur cadeau 
 		partie.demanderCadeau(listeInventaires, listeJoueurs, joueur, inv2);
-		assertEquals(inv2.getNbRessource(),1);    //l'inventaire 2 recois une ressource en cadeaux 
-		
+		assertTrue(inv2.getNbRessource()==1 ||inv2.getNbOutils()==1 ||inv2.getScoreChamp()==1 );   
+		assertTrue(inv.getNbRessource()==1 ||inv.getNbOutils()==1 ||inv.getScoreChamp()==1 );
+
 	}
 	
 }
