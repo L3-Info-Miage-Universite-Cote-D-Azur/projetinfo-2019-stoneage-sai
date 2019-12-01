@@ -95,86 +95,114 @@ public class JoueurIA implements Joueurs {
     }
     /*Cette metode va permettre au joueur de choisir la zone et le nombre d'ouvrier qu'il va posé dans celle ci
     avec une facon plus refelchie et en suivant une strategie plus iteligente que d faire un choix au hazard */
-    public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv){
-	    if ( (inv.getNbZoneJouer() < 6 &&inv.ouvrierDispo())){
-			if (!inv.listeZonesJouer.get(1) && inv.getNourriture()<5 &&inv.getNbOuvrierDispo()==5 )
-			// si la zone chasse est disponnible et que le nombre de nourriture disponnible ne suffit pas pour nourrire les ouvriers
-			{
-				// on choisit la zone de chasse si on a pas assez de nourriture
-				return new Choix(1, 5);
+    public Choix placerOuvriers(ArrayList<Zone> lesZones ,Inventaire inv) {
+    	//*****************Si Jeu entre 2 joueurs******************//
+		if (StoneAge.getNbJoueurTotal() == 2) {
+			ArrayList<Integer> listZoneDispo = new ArrayList<>();
+			for (int i = 0; i < lesZones.size(); i++) {
+				if (lesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && lesZones.get(i).nbJoueur == 0 && i != 1 && i != 9 && i != 10 && i != 13 && i != 14) {
+					listZoneDispo.add(i);
+				}
+				if (i == 1 && inv.listeZonesJouer.get(i) != true) {
+					listZoneDispo.add(i);
+				}
 			}
-			else if (!inv.listeZonesJouer.get(6) && inv.getNourriture()<5 &&inv.getNbOuvrierDispo()>1 )
-			// si le champ est disponnible et que le nombre de nourriture disponnible ne suffit pas pour nourrire les ouvriers
-			{
-				// on choisit le champ si on a pas assez de nourriture
-				return new Choix(6, 1);
+			// le joueur choisi une zone parmis les zones dispo
+			int[] tabChoix=choixInteligent(listZoneDispo, lesZones, inv);
+			//IA simple qui choisit nombre d'ouvrier qu'elle va poser sur cette zone au hazard
+			//le nombre doit etres inferieur au nombre de place disponnible de la zone et inferieur au nombre d'ouvrier dispo de la zone
+			return new Choix(tabChoix[0], tabChoix[1]);
+		}
+		//*****************Si Jeu entre 3 joueurs******************//
+		else if (StoneAge.getNbJoueurTotal() == 3) {
+			ArrayList<Integer> listZoneDispo = new ArrayList<>();
+			for (int i = 0; i < lesZones.size(); i++) {
+				if (lesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && lesZones.get(i).nbJoueur <=1 && i != 1 &&  i != 10  && i != 14) {
+					listZoneDispo.add(i);
+				}
+				if (i == 1 && inv.listeZonesJouer.get(i) != true) {
+					listZoneDispo.add(i);
+				}
 			}
-			else if (StoneAge.getNbJoueurTotal()==2){
-				if ( (inv.getNbZoneJouer() < 6&&inv.ouvrierDispo())){
-					int i=0;
-					int[] tabZoneDispo={0,1,2,3,4,5,6,7,8,11,12};
-					int zoneChoisie = tabZoneDispo[rand.nextInt(11)];
-				 	while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).nbJoueur>=1){
-						zoneChoisie = tabZoneDispo[rand.nextInt(11)];
-				 		i++;
-				 		if(i==10) {
-				 			zoneChoisie = 1;
-				 			break;
-				 		}
-					 }
-					//IA simple qui choisit une zone au hazard
-					int nbOuvChoisie= rand.nextInt(Math.min(inv.getNbOuvrierDispo(),LesZones.get(zoneChoisie).getNbPlaceDispo()))+1;
-					//IA simple qui choisit nombre d'ouvrier qu'elle va poser sur cette zone au hazard 
-					//le nombre doit etres inferieur au nombre de place disponnible de la zone et inferieur au nombre d'ouvrier dispo de la zone 
-		            return new Choix(zoneChoisie, nbOuvChoisie);
-					}
-			     else{
-			    	 return null;
-			    }
+			// le joueur choisi une zone parmis les zones dispo
+			int[] tabChoix=choixInteligent(listZoneDispo, lesZones, inv);
+			//IA simple qui choisit nombre d'ouvrier qu'elle va poser sur cette zone au hazard
+			//le nombre doit etres inferieur au nombre de place disponnible de la zone et inferieur au nombre d'ouvrier dispo de la zone
+			return new Choix(tabChoix[0], tabChoix[1]);
+		}
+		//*****************Si Jeu entre 4 joueurs******************//
+		else if (StoneAge.getNbJoueurTotal() == 4) {
+			ArrayList<Integer> listZoneDispo = new ArrayList<>();
+			for (int i = 0; i < lesZones.size(); i++) {
+				if (lesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && lesZones.get(i).nbJoueur <=2 && i != 1 ) {
+					listZoneDispo.add(i);
+				}
+				if (i == 1 && inv.listeZonesJouer.get(i) != true) {
+					listZoneDispo.add(i);
+				}
 			}
-			else if(StoneAge.getNbJoueurTotal()==3) {
-				if ( (inv.getNbZoneJouer() < 6 &&inv.ouvrierDispo())){
-					int i=0;
-					int[] tabZoneDispo={0,1,2,3,4,5,6,7,8,9,11,12,13};
-					int zoneChoisie = tabZoneDispo[rand.nextInt(13)];
-				 	while (inv.listeZonesJouer.get(zoneChoisie)|| LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).nbJoueur>=2){
-						zoneChoisie = tabZoneDispo[rand.nextInt(13)];
-				 		i++;
-				 		if(i==10) {
-				 			zoneChoisie = 1;
-				 			break;
-				 		}
-					 }
-					//IA simple qui choisit une zone au hazard
-					int nbOuvChoisie= rand.nextInt(Math.min(inv.getNbOuvrierDispo(),LesZones.get(zoneChoisie).getNbPlaceDispo()))+1;
-					//IA simple qui choisit nombre d'ouvrier qu'elle va poser sur cette zone au hazard 
-					//le nombre doit etres inferieur au nombre de place disponnible de la zone et inferieur au nombre d'ouvrier dispo de la zone 
-		            return new Choix(zoneChoisie, nbOuvChoisie);
-		            }
-					
-				else{
-					return null;
-				}		
-			}
-			else if ( (inv.getNbZoneJouer() < 6 &&inv.ouvrierDispo())){
-				
-				 	int zoneChoisie = rand.nextInt(15);
-				 	while ( inv.listeZonesJouer.get(zoneChoisie)==true || LesZones.get(zoneChoisie).getNbPlaceDispo()==0){
-				 		zoneChoisie = rand.nextInt(15);
-					 }
-				 	//IA simple qui choisit une zone au hazard
-					int nbOuvChoisie= rand.nextInt(Math.min(inv.getNbOuvrierDispo(),LesZones.get(zoneChoisie).getNbPlaceDispo()))+1;
-					//IA simple qui choisit nombre d'ouvrier qu'elle va poser sur cette zone au hazard 
-					//le nombre doit etres inferieur au nombre de place disponnible de la zone et inferieur au nombre d'ouvrier dispo de la zone 
-			        return new Choix(zoneChoisie, nbOuvChoisie);
-			}
-	    
-	     else{
-	    	 return null;	    
-	     }
+			// le joueur choisi une zone parmis les zones dispo
+			int[] tabChoix=choixInteligent(listZoneDispo, lesZones, inv);
+			//IA simple qui choisit nombre d'ouvrier qu'elle va poser sur cette zone au hazard
+			//le nombre doit etres inferieur au nombre de place disponnible de la zone et inferieur au nombre d'ouvrier dispo de la zone
+			return new Choix(tabChoix[0], tabChoix[1]);
+		}
+		else{
+			return null;
+		}
 	}
-	return null;
-    }
+    public int[] choixInteligent( ArrayList<Integer> listZoneDispo,ArrayList<Zone> lesZones, Inventaire inv ){
+    	int choixInt[]={0,0};
+		if (listZoneDispo.contains(1) && listZoneDispo.contains(6)&&inv.getNourriture()<inv.getNbOuvrier()  ) {
+			// si la zone chasse est disponnible et que le nombre de nourriture disponnible ne suffit pas pour nourrire les ouvriers
+			if (listZoneDispo.contains(1) && inv.getNbOuvrierDispo() >= 3) {
+				// on choisit la zone de chasse si on a pas assez de nourriture
+				choixInt[0] = 1;
+				choixInt[1] = 3;
+			} else if (listZoneDispo.contains(6)&&(listZoneDispo.contains(0)|| listZoneDispo.contains(15))) {
+				choixInt[0]  = 6;
+				choixInt[1] = 1;
+				// si le champ est disponnible et que le nombre de nourriture disponnible ne suffit pas pour nourrire les ouvriers, on le choisi
+			}
+		} else if (listZoneDispo.contains(15)&&(listZoneDispo.contains(0)|| listZoneDispo.contains(6))&& inv.getNbOuvrier()<10&& inv.getNbOuvrierDispo()>=2) { // zone Hutte
+		choixInt[0]= 15; //Hutte
+		choixInt[1]=2;
+		}
+		else if(listZoneDispo.contains(7)) {
+			choixInt[0]= 7;
+			choixInt[1] = 1; //on choisi la carte civ 1
+		}else if(listZoneDispo.contains(8)) {
+			choixInt[0] =8;
+			choixInt[1]=1;//on choisit la carte civ 2
+		}else if (listZoneDispo.contains(0)&& inv.getNbOutils()<5&& (listZoneDispo.contains(6)|| listZoneDispo.contains(15))){ // zone fab Outil
+			choixInt[0]= 0;
+			choixInt[1]=1;
+		}else if (listZoneDispo.contains(6)&& (listZoneDispo.contains(0)|| listZoneDispo.contains(15))) { // CHAMP
+			choixInt[0] = 6;
+			choixInt[1] = 1;
+		}else if (listZoneDispo.contains(11)){ // CHAMP
+			choixInt[0]= 11;
+			choixInt[1]=1;
+		}else if (listZoneDispo.contains(2)){ // bois
+			choixInt[0]= 2;
+			choixInt[1]= rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(2).getNbPlaceDispo()))+1;
+		}else if (listZoneDispo.contains(3)){ // argile
+			choixInt[0]= 3;
+			choixInt[1]= rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(3).getNbPlaceDispo()))+1;
+		}else if (listZoneDispo.contains(4)){ // PIERRE
+			choixInt[0]= 4;
+			choixInt[1]= rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(4).getNbPlaceDispo()))+1;
+		}else if (listZoneDispo.contains(5)){  //OR
+			//le joueur la choisi que s'il a plus de 3 ouvrier dispo pour avoir un max d'Or
+			choixInt[0]= 5;
+			choixInt[1]= rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(5).getNbPlaceDispo()))+1;
+		}
+		else{ // au pire des cas si le joueur ne trouve pas de choix
+			choixInt[0]=1;
+			choixInt[1]= rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(1).getNbPlaceDispo()))+1;
+		}
+		return choixInt;
+	}
 
     public Map<String, Integer> NourrirOuv(Inventaire inv,  int nm) {
         Map<String, Integer> choixNourriture = new HashMap<>();

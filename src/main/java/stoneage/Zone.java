@@ -40,6 +40,9 @@ public class Zone {
         else if (niveau== 3||(niveau== 4)||(niveau== 5)||(niveau== 6)){        
             nbPlaceZone=7;  
         }
+        else if (niveau==16){ // la Hutte
+        	nbPlaceZone=2;
+		}
         nbPlaceDispo=nbPlaceZone;//au début le nombre de place disponible = au nombre place max de la zone
     }
 	public Zone() {
@@ -135,6 +138,11 @@ public class Zone {
 				// le nombre de nourriture du joueur augmente avec le niveau de score de son champ
 				gains=1;
 				TypeGains="Niveau champ";
+				break;
+			case 16:
+				inventaireJoueur.setNbOuvrier(inventaireJoueur.getNbOuvrier()+1);
+				gains=1;
+				TypeGains="Ouvrier";
 				break;
     		case 8:case 9: case 10: case 11:
     			int coutCarte=this.niveauZone-7; // carte 1 vaut 1 / carte 2 vaut 2/ carte 3 vaut 3...
@@ -651,7 +659,7 @@ public class Zone {
 	}
 	/***************************************************************Les Get , Set et Reset ****************************************************/
 	public void addAllZones() {
-		for(int i=1;i<=15;i++) {
+		for(int i=1;i<=16;i++) {
 			allZones.add(new Zone(i));
 		}
 	}
@@ -685,7 +693,7 @@ public class Zone {
 	}
 
 	public String NomZone(){
-		String[] nomZone={"Fabrication d'Outils","Chasse","foret","glaisière","carrière","rivière","champ","Civilisation 1","Civilisation 2","Civilisation 3","Civilisation 4","Batiment 1","Batiment 2","Batiment 3","Batiment 4"};
+		String[] nomZone={"Fabrication d'Outils","Chasse","foret","glaisière","carrière","rivière","champ","Civilisation 1","Civilisation 2","Civilisation 3","Civilisation 4","Batiment 1","Batiment 2","Batiment 3","Batiment 4","Hutte"};
 		String nom=nomZone[niveauZone - 1];
 		return nom;
 	}

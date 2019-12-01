@@ -73,64 +73,85 @@ public class Joueur implements Joueurs {
 
 	/*Cette metode va permettre au joueur de choisir la zone et le nombre d'ouvrier qu'il va posé dans celle ci au hazard */
 	public Choix placerOuvriers(ArrayList<Zone> LesZones, Inventaire inv) {
+		//*****************Si Jeu entre 2 joueurs******************//
 		if (StoneAge.getNbJoueurTotal() == 2) {
-			if ((inv.getNbZoneJouer() < 6 && inv.ouvrierDispo())) {
-				int i = 0;
-				int[] tabZoneDispo = {0, 1, 2, 3, 4, 5, 6, 7, 8, 11, 12};
-				int zoneChoisie = tabZoneDispo[rand.nextInt(11)];
-				while (inv.listeZonesJouer.get(zoneChoisie) == true || LesZones.get(zoneChoisie).getNbPlaceDispo() == 0 || LesZones.get(zoneChoisie).nbJoueur >= 1) {
-					zoneChoisie = tabZoneDispo[rand.nextInt(11)];
-					i++;
-					if (i == 10) {
-						zoneChoisie = 1;
-						break;
-					}
+			ArrayList<Integer> listZoneDispo = new ArrayList<>();
+			for (int i = 0; i < LesZones.size(); i++) {
+				if (LesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && LesZones.get(i).nbJoueur == 0 && i != 15 && i != 1 && i != 9 && i != 10 && i != 13 && i != 14) {
+					listZoneDispo.add(i);
 				}
-
-				//IA simple qui choisit une zone au hazard
-				int nbOuvChoisie = rand.nextInt(Math.min(inv.getNbOuvrierDispo(), LesZones.get(zoneChoisie).getNbPlaceDispo())) + 1;
-				//IA simple qui choisit nombre d'ouvrier qu'elle va poser sur cette zone au hazard
-				//le nombre doit etres inferieur au nombre de place disponnible de la zone et inferieur au nombre d'ouvrier dispo de la zone
-				return new Choix(zoneChoisie, nbOuvChoisie);
-			} else {
-				return null;
-			}
-		} else if (StoneAge.getNbJoueurTotal() == 3) {
-			if ((inv.getNbZoneJouer() < 6 && inv.ouvrierDispo())) {
-				int i = 0;
-				int[] tabZoneDispo = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13};
-				int zoneChoisie = tabZoneDispo[rand.nextInt(13)];
-				while (inv.listeZonesJouer.get(zoneChoisie) || LesZones.get(zoneChoisie).getNbPlaceDispo() == 0 || LesZones.get(zoneChoisie).nbJoueur >= 2) {
-					zoneChoisie = tabZoneDispo[rand.nextInt(13)];
-					i++;
-					if (i == 10) {
-						zoneChoisie = 1;
-						break;
-					}
+				if (i == 1 && inv.listeZonesJouer.get(i) != true) {
+					listZoneDispo.add(i);
 				}
-				//IA simple qui choisit une zone au hazard
-				int nbOuvChoisie = rand.nextInt(Math.min(inv.getNbOuvrierDispo(), LesZones.get(zoneChoisie).getNbPlaceDispo())) + 1;
-				//IA simple qui choisit nombre d'ouvrier qu'elle va poser sur cette zone au hazard 
-				//le nombre doit etres inferieur au nombre de place disponnible de la zone et inferieur au nombre d'ouvrier dispo de la zone 
-				return new Choix(zoneChoisie, nbOuvChoisie);
-			} else {
-				return null;
-			}
-		} else {
-			if ((inv.getNbZoneJouer() < 6 && inv.ouvrierDispo())) {
-
-				int zoneChoisie = rand.nextInt(15);
-				while (inv.listeZonesJouer.get(zoneChoisie) == true || LesZones.get(zoneChoisie).getNbPlaceDispo() == 0) {
-					zoneChoisie = rand.nextInt(15);
+				if (i == 15 && inv.getNbOuvrierDispo()>=2&& inv.getNbOuvrier()<10&& inv.listeZonesJouer.get(i) != true&&LesZones.get(i).getNbPlaceDispo() != 0) {
+					listZoneDispo.add(i);
 				}
-				//IA simple qui choisit une zone au hazard
-				int nbOuvChoisie = rand.nextInt(Math.min(inv.getNbOuvrierDispo(), LesZones.get(zoneChoisie).getNbPlaceDispo())) + 1;
-				//IA simple qui choisit nombre d'ouvrier qu'elle va poser sur cette zone au hazard 
-				//le nombre doit etres inferieur au nombre de place disponnible de la zone et inferieur au nombre d'ouvrier dispo de la zone 
-				return new Choix(zoneChoisie, nbOuvChoisie);
-			} else {
-				return null;
 			}
+			int zoneChoisie = listZoneDispo.get(rand.nextInt(listZoneDispo.size()));
+			if (zoneChoisie == 15) {
+				return new Choix(zoneChoisie, 2);
+			}
+			// le joueur peut choisir la zone "Hutte" si est seulement si il a 2 ouvrier disponnible,
+			// la zone n'est prise et que au moin une des zonnes "Champ" et "fabrication d'outil" est disponnible
+			//La zonne Hutte accepte obligatoirement 2 ouvrier
+			int nbOuvChoisie = rand.nextInt(Math.min(inv.getNbOuvrierDispo(), LesZones.get(zoneChoisie).getNbPlaceDispo())) + 1;
+			//IA simple qui choisit nombre d'ouvrier qu'elle va poser sur cette zone au hazard
+			//le nombre doit etres inferieur au nombre de place disponnible de la zone et inferieur au nombre d'ouvrier dispo de la zone
+			return new Choix(zoneChoisie, nbOuvChoisie);
+		}
+			//*****************Si Jeu entre 3 joueurs******************//
+		else if (StoneAge.getNbJoueurTotal() == 3) {
+			ArrayList<Integer> listZoneDispo = new ArrayList<>();
+			for (int i = 0; i < LesZones.size(); i++) {
+				if (LesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && LesZones.get(i).nbJoueur <=1 && i!=15 && i != 1 &&  i != 10  && i != 14) {
+					listZoneDispo.add(i);
+				}
+				if (i == 1 && inv.listeZonesJouer.get(i) != true) {
+					listZoneDispo.add(i);
+				}
+				if (i == 15 && inv.getNbOuvrierDispo()>=2&& inv.getNbOuvrier()<10&& inv.listeZonesJouer.get(i) != true&&LesZones.get(i).getNbPlaceDispo() != 0) {
+					listZoneDispo.add(i);
+				}
+			}
+			int zoneChoisie = listZoneDispo.get(rand.nextInt(listZoneDispo.size()));
+			if (zoneChoisie == 15) {
+				return new Choix(zoneChoisie, 2);
+			}
+			// le joueur peut choisir la zone "Hutte" si est seulement si il a 2 ouvrier disponnible,
+			// la zone n'est prise et que au moin une des zonnes "Champ" et "fabrication d'outil" est disponnible
+			//La zonne Hutte accepte obligatoirement 2 ouvrier
+			int nbOuvChoisie = rand.nextInt(Math.min(inv.getNbOuvrierDispo(), LesZones.get(zoneChoisie).getNbPlaceDispo())) + 1;
+			//IA simple qui choisit nombre d'ouvrier qu'elle va poser sur cette zone au hazard
+			//le nombre doit etres inferieur au nombre de place disponnible de la zone et inferieur au nombre d'ouvrier dispo de la zone
+			return new Choix(zoneChoisie, nbOuvChoisie);
+		}
+		//*****************Si Jeu entre 4 joueurs******************//
+		else if (StoneAge.getNbJoueurTotal() == 4) {
+			ArrayList<Integer> listZoneDispo = new ArrayList<>();
+			for (int i = 0; i < LesZones.size(); i++) {
+				if (LesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && i != 15 && LesZones.get(i).nbJoueur <= 2 && i != 1) {
+					listZoneDispo.add(i);
+				}
+				if (i == 1 && inv.listeZonesJouer.get(i) != true) {
+					listZoneDispo.add(i);
+				}
+				if (i == 15 && inv.getNbOuvrierDispo()>=2&& inv.getNbOuvrier()<10&& inv.listeZonesJouer.get(i) != true&&LesZones.get(i).getNbPlaceDispo() != 0) {
+					listZoneDispo.add(i);
+				}
+			}
+			int zoneChoisie = listZoneDispo.get(rand.nextInt(listZoneDispo.size()));
+			if (zoneChoisie == 15) {
+				return new Choix(zoneChoisie, 2);
+			}
+			// le joueur peut choisir la zone "Hutte" si est seulement si il a 2 ouvrier disponnible,
+			// la zone n'est prise et que au moin une des zonnes "Champ" et "fabrication d'outil" est disponnible
+			//La zonne Hutte accepte obligatoirement 2 ouvrier
+			int nbOuvChoisie = rand.nextInt(Math.min(inv.getNbOuvrierDispo(), LesZones.get(zoneChoisie).getNbPlaceDispo())) + 1;
+			//IA simple qui choisit nombre d'ouvrier qu'elle va poser sur cette zone au hazard
+			//le nombre doit etres inferieur au nombre de place disponnible de la zone et inferieur au nombre d'ouvrier dispo de la zone
+			return new Choix(zoneChoisie, nbOuvChoisie);
+		}else {
+				return null;
 		}
 	}
 
@@ -142,7 +163,6 @@ public class Joueur implements Joueurs {
 			return false;
 		}
 	}
-
 
 	public Map<String, Integer> NourrirOuv(Inventaire inv,  int nm) {
 		Map<String, Integer> choixNourriture = new HashMap<>();
@@ -185,11 +205,8 @@ public class Joueur implements Joueurs {
 		return choixNourriture;
 	}
 
-
-
-
-        @Override
-        public String toString(){
-            return name;
-        }	
+	@Override
+	public String toString(){
+		return name;
+	}
 }

@@ -20,7 +20,7 @@ public class JoueurBot2 implements Joueurs {
             this.num=num;
 	}
 	public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv){
-		if ( (inv.getNbZoneJouer() < 6 && inv.ouvrierDispo())){
+		if ( (inv.getNbZoneJouer() <10 && inv.ouvrierDispo())){
 			if (!inv.listeZonesJouer.get(1) && inv.getNourriture() >= 5 && inv.getNourriture() < 10  && LesZones.get(1).getNbPlaceDispo() > 2 ){//Chasse
 				return new Choix(1, 1);
 			}
@@ -34,10 +34,10 @@ public class JoueurBot2 implements Joueurs {
 				return new Choix(0, 1);
 			}
 			else if (StoneAge.getNbJoueurTotal()==2){
-				if (inv.getNbZoneJouer() < 6 && inv.ouvrierDispo()){
+				if (inv.getNbZoneJouer() < 10 && inv.ouvrierDispo()){
 					int i=0;
 					int nbOuvChoisie = 1;
-					int[] tabZoneDispo={0,1,2,3,4,5,6,7,8,11,12}; // zone 10 et 11 indispo
+					int[] tabZoneDispo={0,1,2,3,4,5,6,7,8,11,12,15}; // zone 10 et 11 indispo
 					int zoneChoisie = tabZoneDispo[10];
 					while (inv.listeZonesJouer.get(zoneChoisie) || LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).nbJoueur>=1){
 						if (i == 0){ zoneChoisie = tabZoneDispo[9];}
@@ -73,10 +73,10 @@ public class JoueurBot2 implements Joueurs {
 				}
 			}
 			else if(StoneAge.getNbJoueurTotal()==3) {
-				if ( (inv.getNbZoneJouer() < 6 &&inv.ouvrierDispo())){
+				if ( (inv.getNbZoneJouer() < 10 &&inv.ouvrierDispo())){
 					int i=0;
 					int nbOuvChoisie = 1;
-					int[] tabZoneDispo={0,1,2,3,4,5,6,7,8,9,11,12,13}; // 7,8,9 cartes 11,12,13 batiments
+					int[] tabZoneDispo={0,1,2,3,4,5,6,7,8,9,11,12,13,15}; // 7,8,9 cartes 11,12,13 batiments
 					int zoneChoisie = tabZoneDispo[12];
 					while (inv.listeZonesJouer.get(zoneChoisie)|| LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).nbJoueur>=2){
 						if (i == 0){ zoneChoisie = tabZoneDispo[11];}
@@ -113,7 +113,7 @@ public class JoueurBot2 implements Joueurs {
 				}
 			}
 
-			else if ((inv.getNbZoneJouer() < 6 && inv.ouvrierDispo())){
+			else if ((inv.getNbZoneJouer() < 10 && inv.ouvrierDispo())){
 				int i=0;
 				int nbOuvChoisie = 1;
 				int zoneChoisie = 14;
