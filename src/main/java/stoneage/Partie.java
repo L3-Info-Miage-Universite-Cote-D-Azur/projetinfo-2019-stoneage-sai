@@ -26,7 +26,7 @@ public class Partie {
         LesZones=zone.getAllZones();
     }
     protected void phaseAction( Inventaire  inv,Joueurs joueur) {
-        for(int i =0;i<15;i++){
+        for(int i =0;i<16;i++){
         	if (inv.listeZonesJouer.get(i)==true){
         		Zone choix = LesZones.get(i);
         		choix.recupeRes(listeDesCivilisation,listeDesBatiments,inv,joueur);
@@ -62,6 +62,7 @@ public class Partie {
     }
     protected void phasePlacement( Inventaire  inv, Joueurs joueur){
             Choix choix = joueur.placerOuvriers( LesZones,inv);
+            System.out.println(choix.zoneChoisie);
             inv.listeZonesJouer.set(choix.zoneChoisie,true); //la zone choisie est utliser donc devient true dans l'inventaire du joueur 
             inv.listeOuvriersPlaces.set(choix.zoneChoisie,choix.nbOuvriersChoisie);
             LesZones.get(choix.zoneChoisie).placerOuvrier(inv, choix.nbOuvriersChoisie);   

@@ -56,10 +56,10 @@ public class Inventaire {
 		setTypeCarteCivVerte = new LinkedHashSet<>();	
 		listeZonesJouer  = new ArrayList<>();
 		listeZonesDispo = new ArrayList<>();
-		for (int i=1;i <= 15;i++ ){
+		for (int i=1;i < 17;i++ ){
 			listeZonesDispo.add(i);
 			listeZonesJouer.add(false);
-                        listeOuvriersPlaces.add(0);
+			listeOuvriersPlaces.add(0);
 		} //remplire la liste des zones
 	}
 
@@ -90,7 +90,7 @@ public class Inventaire {
 	// La methode retourne le nombre de zone que le joueur a choisi durant le tour, elle est renisialiser en fin de tour
 	public int getNbZoneJouer(){
 		int nb=0;
-		for (int i=0;i<11; i++){
+		for (int i=0;i<16; i++){
 			if(listeZonesJouer.get(i)==true)
 				nb++;
 		}
@@ -228,7 +228,19 @@ public class Inventaire {
 		nbConstructeur+=nb;
 	}
 	public void addNbChamane(int nb) {
-		nbPaysan+=nb;
+		nbChamane+=nb;
+	}
+	public int getNbPaysan() {
+		return nbPaysan;
+	}
+	public int  getNbFabricant() {
+		return nbFabricant;
+	}
+	public int  getNbConstructeur() {
+		return nbConstructeur;
+	}
+	public int  getNbChamane() {
+		return nbChamane;
 	}
 	public void addNbCarteVert() {
 		nbCarteVert++;

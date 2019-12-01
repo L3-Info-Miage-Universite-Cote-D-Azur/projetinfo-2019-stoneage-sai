@@ -55,7 +55,7 @@ public class StoneAge {
             System.out.println("Joueur "+(i)+" : JoueurNormal");
         }
         int nbDeTour=1;
-        while ( partie.getNbCarteDispo()>(nbJoueurTotal+5) && nbDeTour<50 && partie.getNbBatiments()>(nbJoueurTotal+5) ){
+        while ( partie.getNbCarteDispo()>(nbJoueurTotal) && nbDeTour<50 && partie.getNbBatiments()>(nbJoueurTotal) ){
         	// Nombre de partie ay max est 50 sinon le jeu s'arrete lorsqu'il ya plus de carte Civ        
             System.out.println("\n**** Debut du Tour N° "+ (nbDeTour) +" ****");
             unTour();
@@ -188,7 +188,11 @@ public class StoneAge {
 			System.out.println("Niveau agriculture : " + listeDesInventaires.get(i).getScoreChamp());
 			System.out.println("Nombre de nourriture : " +listeDesInventaires.get(i).getNourriture());
 			System.out.println("Nombre de ressources : " +listeDesInventaires.get(i).getNbRessource());
-			System.out.println("Nombre d'outil  : " + listeDesInventaires.get(i).getNbOutils()+ "\n");
+			System.out.println("Nombre d'outil  : " + listeDesInventaires.get(i).getNbOutils());
+			System.out.println("Nombre de carte Civilisation Constructeur : " + listeDesInventaires.get(i).getNbConstructeur());
+			System.out.println("Nombre de carte Civilisation Fabricant  : " + listeDesInventaires.get(i).getNbFabricant());
+			System.out.println("Nombre de carte Civilisation Paysan  : " + listeDesInventaires.get(i).getNbPaysan());
+			System.out.println("Nombre de carte Civilisation Chamane  : " + listeDesInventaires.get(i).getNbChamane()+ "\n");
 		}
 		//changer l'ordre des joueurs et des inventaire 1234 ==> 2341 ==> 3412....
 		for (int i=0 ; i<=nbJoueurs-1;i++) {
