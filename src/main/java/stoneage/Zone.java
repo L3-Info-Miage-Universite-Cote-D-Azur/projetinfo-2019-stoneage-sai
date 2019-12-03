@@ -99,7 +99,9 @@ public class Zone {
     	//ajouter les nouveau ressources a l'inventaire du joueur 
     	switch(this.niveauZone){
     		case 1:
-    			inventaireJoueur.setNbOutils(inventaireJoueur.getNbOutils()+1);
+    			inventaireJoueur.setNbOutils(Math.min(inventaireJoueur.getNbOutils()+1,12));
+				//Le nombre maximal d'OUTILS pour chaque joueur est : 12
+				//Les joueurs peuvent tous de meme choisir la zone fabrication et ne pas avoir d'outil ensuite
     			gains=1;
     			TypeGains="Outils";
     			break;
@@ -140,7 +142,9 @@ public class Zone {
 				TypeGains="Niveau champ";
 				break;
 			case 16:
-				inventaireJoueur.setNbOuvrier(inventaireJoueur.getNbOuvrier()+1);
+				inventaireJoueur.setNbOuvrier(Math.min(inventaireJoueur.getNbOuvrier()+1,10));
+				//Le nombre maximal d'ouvrier pour chaque joueur est : 10
+				//Les joueurs peuvent tous de meme choisir la Hutte et ne pas avoir d'ouvriers ensuite
 				gains=1;
 				TypeGains="Ouvrier";
 				break;
@@ -242,7 +246,7 @@ public class Zone {
 								listeDe.add(4);
 								//to do: afficher les 2 gains separaiment
 								for (int j = 0; j > 2; j++) {
-									res = J.cadeauRes(listeDe);
+									res = J.cadeauRes(listeDe); // demander au joueur de choisir deux ressouce
 									if (res == 1) {
 										inventaireJoueur.setNbBois(inventaireJoueur.getNbBois() + 1);
 										inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource() + 1);
@@ -492,7 +496,8 @@ public class Zone {
     			}
     		case 12:case 13:case 14:case 15:
                   BuildingTiles building=listeDesBatiments.get(this.niveauZone-12);
-                  boolean pay=J.payerBatiment();//le joueur choisi s'il prend la carte ou pas
+                  boolean pay=J.payerBatiment();
+                  //le joueur choisi s'il prend la carte ou pas
                   /* Si le joueur paye la carte (il a assez de resource pour la payer et choisi de la prendre ) elle s'eneleve de la liste
     			 *  sinon elle sera rendu a la liste  */ 
                   gains=-5;
@@ -627,7 +632,8 @@ public class Zone {
 					  }
 				  }
                   if (pay==true) { //le joueur paye la carte(et le decide),on la retire donc de la liste des cartes
-                        listeDesBatiments.remove(this.niveauZone-12);
+                      inventaireJoueur.addCarteBat(building);
+                        listeDesBatiments.remove(building);
                         TypeGains=" points sur la piste score avec la carte Batiment ";
                   }
                   else{

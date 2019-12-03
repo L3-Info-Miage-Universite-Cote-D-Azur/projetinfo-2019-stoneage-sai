@@ -196,7 +196,7 @@ public class Inventaire {
 
 	//La methode calcScore calcule et retoune le score finale du joueur
 	public int calcScore() {
-		return score+nbRessource+(nbOuvrier*nbChamane+nbFabricant*nbOutils+nbConstructeur*1+nbPaysan*scoreChamp)+((int)Math.pow(setTypeCarteCivVerte.size(),2))+(nbCarteVert-setTypeCarteCivVerte.size());
+		return score+nbRessource+(nbOuvrier*nbChamane+nbFabricant*nbOutils+nbConstructeur*getNbCarteBat()+nbPaysan*scoreChamp)+((int)Math.pow(setTypeCarteCivVerte.size(),2))+(nbCarteVert-setTypeCarteCivVerte.size());
 		/* Le score finale contient :
 		 * Le niveau de score 
 		 * le nombre des ressource 
@@ -245,9 +245,15 @@ public class Inventaire {
 	public void addNbCarteVert() {
 		nbCarteVert++;
 	}
+	public int getNbCarteVert() {
+		return nbCarteVert;
+	}
 	public void addNbcarteCiv() {
 		//cette carte est la carte joker, il existe qu'une seul durent la partie et elle sert seuelemnt dans le score final
 		nbCarteCiv++;
+	}
+	public int getNbCarteBat(){
+		return listeDesCarteBatiments.size();
 	}
 	public void addTypeCarteCivVerte(int type) {
 		setTypeCarteCivVerte.add(type);
