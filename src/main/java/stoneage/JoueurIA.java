@@ -151,7 +151,11 @@ public class JoueurIA implements Joueurs {
 			return null;
 		}
 	}
-    public int[] choixInteligent( ArrayList<Integer> listZoneDispo,ArrayList<Zone> lesZones, Inventaire inv ){
+	/*La strategie du joueurIA est tout d'abord de surveiller le nombre de nourriture qu'il possede pour pas avoir de score negatif
+	* ensuite il essaie d'avoir le nombre  maximal d'ouvriers
+	* apres il va choisire les carte civilsation 1 /2 (les moins chere )
+	* sinon  il choisi la zone fabrication d'outil, le champ, foret, carriere... */
+    private int[] choixInteligent( ArrayList<Integer> listZoneDispo,ArrayList<Zone> lesZones, Inventaire inv ){
     	int choixInt[]={0,0};
 		if (listZoneDispo.contains(1) && listZoneDispo.contains(6)&&inv.getNourriture()<inv.getNbOuvrier()  ) {
 			// si la zone chasse est disponnible et que le nombre de nourriture disponnible ne suffit pas pour nourrire les ouvriers
@@ -168,13 +172,14 @@ public class JoueurIA implements Joueurs {
 		choixInt[0]= 15; //Hutte
 		choixInt[1]=2;
 		}
-		else if(listZoneDispo.contains(7)) {
+		else if(listZoneDispo.contains(7)&& inv.getNbRessource()>1) {
+			// pour ne pas prendre une carte civilisation pour rien
 			choixInt[0]= 7;
 			choixInt[1] = 1; //on choisi la carte civ 1
-		}else if(listZoneDispo.contains(8)) {
+		}else if(listZoneDispo.contains(8)&& inv.getNbRessource()>2) {
 			choixInt[0] =8;
 			choixInt[1]=1;//on choisit la carte civ 2
-		}else if (listZoneDispo.contains(0)&& inv.getNbOutils()<5&& (listZoneDispo.contains(6)|| listZoneDispo.contains(15))){ // zone fab Outil
+		}else if (listZoneDispo.contains(0) && inv.getNbOutils()<5 && (listZoneDispo.contains(6)|| listZoneDispo.contains(15))){ // zone fab Outil
 			choixInt[0]= 0;
 			choixInt[1]=1;
 		}else if (listZoneDispo.contains(6)&& (listZoneDispo.contains(0)|| listZoneDispo.contains(15))) { // CHAMP

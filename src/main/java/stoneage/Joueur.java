@@ -83,7 +83,7 @@ public class Joueur implements Joueurs {
 				if (i == 1 && inv.listeZonesJouer.get(i) != true) {
 					listZoneDispo.add(i);
 				}
-				if (i == 15 && inv.getNbOuvrierDispo()>=2&& inv.getNbOuvrier()<10&& inv.listeZonesJouer.get(i) != true&&LesZones.get(i).getNbPlaceDispo() != 0) {
+				if (i == 15 && inv.getNbOuvrierDispo()>=2&& inv.listeZonesJouer.get(i) != true&&LesZones.get(i).getNbPlaceDispo() != 0) {
 					listZoneDispo.add(i);
 				}
 			}
@@ -109,7 +109,7 @@ public class Joueur implements Joueurs {
 				if (i == 1 && inv.listeZonesJouer.get(i) != true) {
 					listZoneDispo.add(i);
 				}
-				if (i == 15 && inv.getNbOuvrierDispo()>=2&& inv.getNbOuvrier()<10&& inv.listeZonesJouer.get(i) != true&&LesZones.get(i).getNbPlaceDispo() != 0) {
+				if (i == 15 && inv.getNbOuvrierDispo()>=2&& inv.listeZonesJouer.get(i) != true&&LesZones.get(i).getNbPlaceDispo() != 0) {
 					listZoneDispo.add(i);
 				}
 			}
@@ -135,7 +135,7 @@ public class Joueur implements Joueurs {
 				if (i == 1 && inv.listeZonesJouer.get(i) != true) {
 					listZoneDispo.add(i);
 				}
-				if (i == 15 && inv.getNbOuvrierDispo()>=2&& inv.getNbOuvrier()<10&& inv.listeZonesJouer.get(i) != true&&LesZones.get(i).getNbPlaceDispo() != 0) {
+				if (i == 15 && inv.getNbOuvrierDispo()>=2&& inv.listeZonesJouer.get(i) != true&&LesZones.get(i).getNbPlaceDispo() != 0) {
 					listZoneDispo.add(i);
 				}
 			}
