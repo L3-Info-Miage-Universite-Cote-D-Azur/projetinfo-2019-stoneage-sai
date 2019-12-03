@@ -1,4 +1,5 @@
 package stoneage;
+import java.util.Collections;
 import java.util.Map;
 import java.util.ArrayList;
 
@@ -21,6 +22,8 @@ public class Partie {
 	    listeDesCivilisation=carte.getAllCards();
         listeDesBatiments=new ArrayList<BuildingTiles>();
         listeDesBatiments=building.getCards();
+        Collections.shuffle(carte.getAllCards());//melange des cartes civilisations a la fin de chaque tour
+        Collections.shuffle(building.getCards());//melange des cartes batiments a la fin de chaque tour
         // c'est la liste general des zone pour le jeu
         Zone zone = new Zone();
         LesZones=zone.getAllZones();
@@ -62,7 +65,6 @@ public class Partie {
     }
     protected void phasePlacement( Inventaire  inv, Joueurs joueur){
             Choix choix = joueur.placerOuvriers( LesZones,inv);
-            System.out.println(choix.zoneChoisie);
             inv.listeZonesJouer.set(choix.zoneChoisie,true); //la zone choisie est utliser donc devient true dans l'inventaire du joueur 
             inv.listeOuvriersPlaces.set(choix.zoneChoisie,choix.nbOuvriersChoisie);
             LesZones.get(choix.zoneChoisie).placerOuvrier(inv, choix.nbOuvriersChoisie);   
