@@ -28,8 +28,8 @@ public class InventaireTest {
                 assertEquals(15,inv.getNourriture());
                 assertEquals(0,inv.getNbOutils());
                 assertEquals(0,inv.getScore());
-                assertEquals(15,inv.listeZonesDispo.size());
-                assertEquals(15,inv.listeZonesJouer.size());       
+                assertEquals(16,inv.listeZonesDispo.size());
+                assertEquals(16,inv.listeZonesJouer.size());       
                 assertEquals(0,inv.getNbZoneJouer());
 	}
 	

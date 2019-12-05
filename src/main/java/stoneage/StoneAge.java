@@ -12,7 +12,7 @@ import java.util.Collections;
 		*
 **/
 public class StoneAge {
-	Partie partie = new Partie(); //nombre de joueur choisie est 4 le nombre de joueur minimal est 1 
+	Partie partie = new Partie(true); //nombre de joueur choisie est 4 le nombre de joueur minimal est 1 
 	private final JoueurIA joueurIA = new JoueurIA("O",1);
 	private final JoueurBot2 joueurBot = new JoueurBot2("S",2);
 	static  ArrayList<Joueurs> listeDesJoueurs =new ArrayList<>(); //une liste qui va contenir tous les joueurs de la partie
@@ -20,6 +20,8 @@ public class StoneAge {
  	private int nbJoueurs;  // A part le joueur IA
 	private static int nbJoueurTotal;
  	public Zone zone;
+ 	boolean stat;
+ 	
  	
  	/****** Choisir un Nombre de Joueure Pour commencer une Partie ( entre 2 et 4 )******/
  	/*Pour les statistique il se peut que x joueur arrive en tete avec le meme score, alors les x joueur gagne la partie.
@@ -30,7 +32,11 @@ public class StoneAge {
  	
 	public static final void main(String [] args) {
 		
+		/****** Choisir "unePartie(nbJoueur)" pour lancer une seule partie.
+		 * **** Choisir "partie500Stat(nbJoueur)" pour lancer 500 partie avec les statistique.
+		 * **** nbJoueur = Le nombre de joueur compris entre 2 et 4. ******/
 		
+<<<<<<< HEAD
 		/************* Pour 1 partie *****************/
 		//StoneAge stoneAge = new StoneAge(4);
 		//stoneAge.jouer();
@@ -47,11 +53,15 @@ public class StoneAge {
 			stoneAge.calculStat(tab);
 		}
 		stoneAge.afficheStat(tab);
+=======
+		//unePartie(4);
+		partie500Stat(4);
+>>>>>>> master
 	}
 	
-	
-	
-	 public StoneAge(int nbJ){
+	 public StoneAge(int nbJ, boolean statistique){
+		 Partie partie = new Partie(statistique);
+		 stat = statistique;
 		 nbJoueurTotal = nbJ;
 		 listeDesInventaires=new ArrayList<>() ;
 		 listeDesJoueurs =new ArrayList<>();
@@ -67,27 +77,30 @@ public class StoneAge {
 		 	listeDesJoueurs.add(new Joueur("J"+i,i+3));
 		 	listeDesInventaires.add(new Inventaire());
 		 }
-
 	}
 	    
-	public void jouer(){
-        System.out.println("***************** Debut de la Partie *****************\n");
-        System.out.println("** Debut de la Partie **\n");
-        System.out.println("Joueur 1 : JoueurIA, un joueur inteligent qui utilise une strategie de jeu gagante.");
-        System.out.println("Joueur 2 : JoueurBot2, un joueur inteligent qui utilise une  seconde strategie de jeu gagante. Elle est differante du celle du JouaurIA.");
-        for (int i=3 ; i<=nbJoueurs+1;i++){
-            System.out.println("Joueur "+(i)+" : JoueurNormal, un joueur normal qui fait des choix au hazard pour toute les methodes.");
-        }
+	public void jouer(int p){
+		if (stat == false || p == 0) {
+	        System.out.println("***************** Debut de la Partie *****************\n");
+	        System.out.println("Joueur 1 : JoueurIA, un joueur inteligent qui utilise une strategie de jeu gagante.");
+	        System.out.println("Joueur 2 : JoueurBot2, un joueur inteligent qui utilise une  seconde strategie de jeu gagante. Elle est differante du celle du JouaurIA.");
+	        for (int i=3 ; i<=nbJoueurs+1;i++){
+	            System.out.println("Joueur "+(i)+" : JoueurNormal, un joueur normal qui fait des choix au hazard pour toute les methodes.");
+	        } 
+		}
+
         int nbDeTour=1;
         while ( partie.getNbCarteDispo()>=(nbJoueurTotal) && nbDeTour<50 && partie.getNbBatiments()>=(nbJoueurTotal) ){
         	// Nombre de partie ay max est 50 sinon le jeu s'arrete lorsqu'il ya plus de carte Civ        
-            System.out.println("\n**** Debut du Tour N° "+ (nbDeTour) +" ****");
+            if (!stat) System.out.println("\n**** Debut du Tour N° "+ (nbDeTour) +" ****");
             unTour();
-            System.out.println("**** Fin du Tour N° "+ (nbDeTour) +" ****\n");
+            if (!stat) System.out.println("**** Fin du Tour N° "+ (nbDeTour) +" ****\n");
             nbDeTour++;
         }
-        System.out.println("***************** fin de la Partie *****************");	
-        gagner();
+        if (!stat) System.out.println("***************** fin de la Partie *****************");	
+        if (stat == false) {
+        	gagner();
+        }
 	}	
 	
 	
@@ -96,7 +109,7 @@ public class StoneAge {
     	for (int i=0 ; i<=nbJoueurs;i++){
     		listeDesInventaires.get(i).resetAvailableWorkers(); //remettre a jour le nombre d'ouvrier disponnible
     	}
-		System.out.println("**** Phase de placement ****");
+    	if (!stat) System.out.println("**** Phase de placement ****");
 		boolean placer=false;
     	for (int i=0 ; i<=nbJoueurs;i++)
     	{
@@ -146,7 +159,7 @@ public class StoneAge {
         		}
         	}
     	}
-		System.out.println("**** Phase de résolution des ouvriers **** \n");		
+		if (!stat) System.out.println("**** Phase de résolution des ouvriers **** \n");		
 		boolean recuperer=false;
     	for (int i=0 ; i<=nbJoueurs;i++)
     	{
@@ -197,25 +210,27 @@ public class StoneAge {
 	    		}
 	    	}
 		}
-		System.out.println("**** Phase Nourrir les ouvriers ****"+ "\n");
+		if (!stat) System.out.println("**** Phase Nourrir les ouvriers ****"+ "\n");
 		for (int i=0 ; i<=nbJoueurs;i++){
 			partie.phaseNourrir( listeDesInventaires.get(i), listeDesJoueurs.get(i));
 
 		}
-                
-        for (int i=0 ; i<=nbJoueurs;i++) {
-			int numJ=listeDesJoueurs.get(i).getNum();
-			System.out.println("**** Inventaire du joueur "+numJ+" ****" );
-			System.out.println("Bois  : " + listeDesInventaires.get(i).getNbBois()+
-					" | Argile : " +listeDesInventaires.get(i).getNbArgile() +
-					" | Pierre : " + listeDesInventaires.get(i).getNbPierre() +
-					" | Or : " + listeDesInventaires.get(i).getNbOr() +
-					" | Nombre d'ouvriers : " + listeDesInventaires.get(i).getNbOuvrier()+
-					" | Niveau agriculture : " + listeDesInventaires.get(i).getScoreChamp());
-			System.out.println("Nombre de nourriture : " +listeDesInventaires.get(i).getNourriture() +
-					" | Nombre de ressources : " +listeDesInventaires.get(i).getNbRessource() +
-					" | Nombre d'outil  : " + listeDesInventaires.get(i).getNbOutils()+ "\n");
-
+        
+		if (!stat) {
+	        for (int i=0 ; i<=nbJoueurs;i++) {
+				int numJ=listeDesJoueurs.get(i).getNum();
+				System.out.println("**** Inventaire du joueur "+numJ+" ****" );
+				System.out.println("Bois  : " + listeDesInventaires.get(i).getNbBois()+
+						" | Argile : " +listeDesInventaires.get(i).getNbArgile() +
+						" | Pierre : " + listeDesInventaires.get(i).getNbPierre() +
+						" | Or : " + listeDesInventaires.get(i).getNbOr() +
+						" | Nombre d'ouvriers : " + listeDesInventaires.get(i).getNbOuvrier()+
+						" | Niveau agriculture : " + listeDesInventaires.get(i).getScoreChamp());
+				System.out.println("Nombre de nourriture : " +listeDesInventaires.get(i).getNourriture() +
+						" | Nombre de ressources : " +listeDesInventaires.get(i).getNbRessource() +
+						" | Nombre d'outil  : " + listeDesInventaires.get(i).getNbOutils()+ "\n");
+	
+			}
 		}
 		//changer l'ordre des joueurs et des inventaire 1234 ==> 2341 ==> 3412....
 		for (int i=0 ; i<=nbJoueurs-1;i++) {
@@ -342,7 +357,7 @@ public class StoneAge {
 	 
 	 public void afficheStat(int[][] tabStatistique) {
 		 for (int i = 0; i <= nbJoueurs; i++) {
-			 System.out.println("**** Statistique du joueur " + (i+1) + " ****");
+			 System.out.println("\n**** Statistique du joueur " + (i+1) + " ****");
 			 
 			 System.out.println("\nMoyenne sur 500 parties du joueur " + (i+1) + " : ");
 			 System.out.print("Nombre d'ouvriers : " + (tabStatistique[i][2]) / 500);
@@ -363,9 +378,29 @@ public class StoneAge {
 		 }
 	 }
 	 
+	 public static void unePartie(int nbJoueur) {
+		 StoneAge stoneAge = new StoneAge(nbJoueur, false);
+		 stoneAge.jouer(0);
+	 }
+	 
+	 public static void partie500Stat(int nbJoueur) {
+			int[][] tab = new int[4][15];
+			StoneAge stoneAge;
+			stoneAge = new StoneAge(nbJoueur, true);
+			for (int p = 0; p < 500; p++) {
+				stoneAge = new StoneAge(nbJoueur, true);
+				stoneAge.jouer(p);
+				stoneAge.calculStat(tab);
+			}
+			stoneAge.afficheStat(tab);
+	 }
 	 
 	 
 	public static int getNbJoueurTotal() {
 		return nbJoueurTotal;
+	}
+	
+	public boolean getStat() {
+		return stat;
 	}
 }
