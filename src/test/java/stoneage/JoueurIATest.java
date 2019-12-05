@@ -36,9 +36,9 @@ public class JoueurIATest {
         for (int i = 1; i <= 15; i++) {
             inventaire.listeZonesJouer.add(false);
         }
-        stoneage2=new StoneAge(2);
-        stoneage3=new StoneAge(3);
-        stoneage4=new StoneAge(4);
+        stoneage2=new StoneAge(2,true);
+        stoneage3=new StoneAge(3,true);
+        stoneage4=new StoneAge(4,true);
         listeDe=new ArrayList<Integer>();
         listeDe.add(4);
         listeDe2=new ArrayList<Integer>();
@@ -123,7 +123,7 @@ public class JoueurIATest {
     @Test
     void placerOuvrier() {
         inventaire.setNourriture(4);
-        choix=new Choix(1,5);
+        choix=new Choix(1,3);
         choix2=joueurIA.placerOuvriers(listeZones,inventaire);
 
         inventaire.setNbOuvrier(2);
@@ -152,7 +152,7 @@ public class JoueurIATest {
         //tester si les joueur choisi pas les zones carte 3 ET 4 civilisation et batiment 
         choix=joueurIA.placerOuvriers(listeZones,inventaire);
         choix2 = new Choix(choix.zoneChoisie,choix.nbOuvriersChoisie);
-        StoneAge stone=new StoneAge(2);
+        StoneAge stone=new StoneAge(2,true);
         assertEquals(choix, choix2); 
         for (int i=0;i<10;i++) {
             choix=joueurIA.placerOuvriers(listeZones,inventaire);
@@ -170,7 +170,7 @@ public class JoueurIATest {
     }
     @Test
     void placerOuvrier3Joueurs() { 
-        StoneAge stone=new StoneAge(3);
+        StoneAge stone=new StoneAge(3,true);
         for (int i=0;i<10;i++) {
             choix=joueurIA.placerOuvriers(listeZones,inventaire); //on fait 10 choix differant
             Zone zoneChoisie=listeZones.get(choix.zoneChoisie);

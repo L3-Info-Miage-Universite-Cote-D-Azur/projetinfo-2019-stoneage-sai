@@ -100,7 +100,7 @@ public class JoueurBot2Test {
     // test pour partie a 2
     @Test
     void placerOuvrierNourritureSuffisanteETOutilsIndispo() { //premier choix 
-    	StoneAge stoneAge = new StoneAge(2);
+    	StoneAge stoneAge = new StoneAge(2,true);
         inventaire.setNourriture(11);
         inventaire.setNbBois(11);
         zone1.setNbPlaceDispo(0);
@@ -234,7 +234,7 @@ public class JoueurBot2Test {
     //test pour partie a 3
     @Test
     void placerOuvrierNourritureSuffisanteETOutilsIndispo8() { //premier choix 
-    	StoneAge stoneAge = new StoneAge(3);
+    	StoneAge stoneAge = new StoneAge(3,true);
         inventaire.setNourriture(11);
         inventaire.setNbBois(11);
         zone1.setNbPlaceDispo(0);
