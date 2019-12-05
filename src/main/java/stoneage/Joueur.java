@@ -107,7 +107,7 @@ public class Joueur implements Joueurs {
 		else if (StoneAge.getNbJoueurTotal() == 3) {
 			ArrayList<Integer> listZoneDispo = new ArrayList<>();
 			for (int i = 0; i < LesZones.size(); i++) {
-				if (LesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && LesZones.get(i).nbJoueur <=1 && i!=15 && i != 1 &&  i != 10  && i != 14) {
+				if (LesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && LesZones.get(i).nbJoueur <=3  && i != 1 &&  i != 10  && i != 14) {
 					listZoneDispo.add(i);
 				}
 				if (i == 1 && inv.listeZonesJouer.get(i) != true) {
@@ -117,9 +117,12 @@ public class Joueur implements Joueurs {
 					listZoneDispo.add(i);
 				}
 			}
+			if (listZoneDispo.size() == 0) {
+				return null;
+			}
 			int zoneChoisie = listZoneDispo.get(rand.nextInt(listZoneDispo.size()));
-			if (zoneChoisie == 15) {
-				return new Choix(zoneChoisie, 2);
+			if (listZoneDispo.size() < 3) {
+				return new Choix(zoneChoisie,Math.min(inv.getNbOuvrierDispo(), LesZones.get(zoneChoisie).getNbPlaceDispo()));
 			}
 			// le joueur peut choisir la zone "Hutte" si est seulement si il a 2 ouvrier disponnible,
 			// la zone n'est prise et que au moin une des zonnes "Champ" et "fabrication d'outil" est disponnible
@@ -147,6 +150,7 @@ public class Joueur implements Joueurs {
 			if (zoneChoisie == 15) {
 				return new Choix(zoneChoisie, 2);
 			}
+
 			// le joueur peut choisir la zone "Hutte" si est seulement si il a 2 ouvrier disponnible,
 			// la zone n'est prise et que au moin une des zonnes "Champ" et "fabrication d'outil" est disponnible
 			//La zonne Hutte accepte obligatoirement 2 ouvrier
@@ -156,6 +160,7 @@ public class Joueur implements Joueurs {
 			return new Choix(zoneChoisie, nbOuvChoisie);
 		}else {
 				return null;
+
 		}
 	}
 

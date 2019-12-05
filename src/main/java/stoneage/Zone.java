@@ -495,7 +495,7 @@ public class Zone {
 							}
 						}
 					}
-					listeDesCartes.remove(this.niveauZone - 8);
+					listeDesCartes.remove(carte);
 					TypeGains += " avec la carte Civilisation. ";
 					break;
     			}
