@@ -27,7 +27,7 @@ public class JoueurTest {
         listeZone = zone.getAllZones();
         j = new Joueur("oss",1);
         inventaire = new Inventaire(); 
-        listeDesCivilisation=carteCiv.getAllCards();
+        listeDesCivilisation=carteCiv.getAllCards(); 
         listeDesBatiments=carteBat.getCards();
         /*je crée un objet avec les valeurs zoneChoisie et nbOuvriersChoisie
          *  renvoyé par j.placerOuvriers(listeZone, inventaire)par ce que 
@@ -64,8 +64,8 @@ public class JoueurTest {
 	        choix=j.placerOuvriers(listeZone,inventaire); //on fait 10 choix differant 
 			Zone zoneChoisie=listeZone.get(choix.zoneChoisie);
             assertTrue(choix.zoneChoisie>=0); 
-            assertTrue(choix.zoneChoisie<=13);
-	        assertFalse(choix.zoneChoisie==10);
+            assertTrue(choix.zoneChoisie<=15);
+	        assertFalse(choix.zoneChoisie==14);
             //verifier que la zone choisie est bien dans la liste dans zone
             assertTrue(choix.nbOuvriersChoisie <=inventaire.getNbOuvrierDispo());  
             assertTrue(choix.nbOuvriersChoisie <=zoneChoisie.getNbPlaceDispo());  
@@ -81,7 +81,7 @@ public class JoueurTest {
 	        choix=j.placerOuvriers(listeZone,inventaire); //on fait 10 choix differant 
 			Zone zoneChoisie=listeZone.get(choix.zoneChoisie);
             assertTrue(choix.zoneChoisie>=0); 
-            assertTrue(choix.zoneChoisie<=14);
+            assertTrue(choix.zoneChoisie<=15);
             //verifier que la zone choisie est bien dans la liste dans zone
             assertTrue(choix.nbOuvriersChoisie <=inventaire.getNbOuvrierDispo());  
             assertTrue(choix.nbOuvriersChoisie <=zoneChoisie.getNbPlaceDispo());  
@@ -109,16 +109,16 @@ public class JoueurTest {
     void cadeauRes() {
     	int cadeau;
     	for(int i=0 ;i<10;i++) {
-    		listeDe=zone.lancerNbDé(4);
+    		listeDe=listeZone.get(0).lancerNbDé(4);
     		cadeau=j.cadeauRes(listeDe);
     		assertTrue(listeDe.contains(cadeau)); // verifier qu'il choisit un dé dans la liste 
-    		listeDe=zone.lancerNbDé(3);
+    		listeDe=listeZone.get(0).lancerNbDé(3);
     		cadeau=j.cadeauRes(listeDe);
     		assertTrue(listeDe.contains(cadeau));
-    		listeDe=zone.lancerNbDé(2);
+    		listeDe=listeZone.get(0).lancerNbDé(2);
     		cadeau=j.cadeauRes(listeDe);
     		assertTrue(listeDe.contains(cadeau));
-    		listeDe=zone.lancerNbDé(1);
+    		listeDe=listeZone.get(0).lancerNbDé(1);
     		cadeau=j.cadeauRes(listeDe);
     		assertTrue(listeDe.contains(cadeau));
     	}
