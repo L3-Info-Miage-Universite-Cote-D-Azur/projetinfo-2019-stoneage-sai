@@ -3,12 +3,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-/*
+/**
  *Cette Class est les joueurs qui suivent une strategie dans le jeu ,
  * elle permet de faire des choix plus inteligent et eviter les choix
  * au hazard le plus possible en respenctant les regle du jeu.
  *
- */
+ **/
 public class JoueurBot2 implements Joueurs {
 	Random rand = new Random();
 	private int gains;

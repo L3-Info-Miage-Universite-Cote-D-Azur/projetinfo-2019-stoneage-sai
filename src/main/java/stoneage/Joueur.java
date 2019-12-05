@@ -23,8 +23,8 @@ public class Joueur implements Joueurs {
 		return num;
 	}
 
-	/*La methode placerOutils va permettre au joueur de choisir s'il peut ou pas placer des outils lorsqu'il recupere ses gains,
-	 * Ainsi que le nombre d'outil qu'il va utiliser  au hazard */
+	/**La methode placerOutils va permettre au joueur de choisir s'il peut ou pas placer des outils lorsqu'il recupere ses gains,
+	 * Ainsi que le nombre d'outil qu'il va utiliser  au hazard **/
 	public int placerOutils(int nbOutils, int nbRessources, Zone zoneChoisi) {
 		/* cette methode va permettre au joueur de choisir le nombre d'outil d'il va utilisier*/
 		int OutilChoisie = rand.nextInt(nbOutils + 1);
@@ -71,7 +71,7 @@ public class Joueur implements Joueurs {
 		}
 	}
 
-	/*Cette metode va permettre au joueur de choisir la zone et le nombre d'ouvrier qu'il va posé dans celle ci au hazard */
+	/**Cette metode  placerOuvriers va permettre au joueur de choisir la zone et le nombre d'ouvrier qu'il va posé dans celle ci au hazard **/
 	public Choix placerOuvriers(ArrayList<Zone> LesZones, Inventaire inv) {
 		//*****************Si Jeu entre 2 joueurs******************//
 		if (StoneAge.getNbJoueurTotal() == 2) {

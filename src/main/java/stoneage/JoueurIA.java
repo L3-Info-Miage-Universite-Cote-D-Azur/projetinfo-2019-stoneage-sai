@@ -4,12 +4,24 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-/*
- *Cette Class est les joueurs qui suivent une strategie dans le jeu ,
+/**
+ *Cette Class est les joueursIA qui suivent une strategie dans le jeu ,
  * elle permet de faire des choix plus inteligent et eviter les choix
  * au hazard le plus possible en respenctant les regle du jeu.
  *
-*/
+ * Pour le choix de Zone :
+ * strategie du joueurIA est tout d'abord de surveiller le nombre de nourriture qu'il possede pour pas avoir de score negatif
+ * ensuite il essaie d'avoir le nombre  maximal d'ouvriers
+ * apres il va choisire les carte civilsation 1 /2 (les moins chere )
+ * sinon  il choisi la zone fabrication d'outil, le champ, foret, carriere...
+ *
+ *Pour le choix de Dé cadeau de carte civilisation :
+ * il choisie le mielleur dé present donc Or> champ > outil > argile ...
+ *
+ * Pour le choix de ressouce pour payer la carte civ :
+ *le joueur regarde tous dabors les ressouce les moin couteuse, Bois, Argile , Pierre..
+ *
+**/
 public class JoueurIA implements Joueurs {
 	Random rand = new Random();
 	String name;
@@ -23,8 +35,8 @@ public class JoueurIA implements Joueurs {
             return num;
         }
 
-	/*La methode placerOutils va permettre au joueur de choisir s'il peut ou pas placer des outils lorsqu'il recupere ses gains,
-	* Ainsi que le nombre d'outil qu'il va utiliser avec une maniere plus reflechis*/
+	/**La methode placerOutils va permettre au joueur de choisir s'il peut ou pas placer des outils lorsqu'il recupere ses gains,
+	* Ainsi que le nombre d'outil qu'il va utiliser avec une maniere plus reflechis**/
     public int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) {
     	int OutilChoisie ;
 		/*Si le joueur a un nombre d'outils suffisant pour avoir i+1 resource de plus, alors il les utilise*/
@@ -61,7 +73,7 @@ public class JoueurIA implements Joueurs {
 			return 1;
 		}
 	}
-	/*La  methode choixTypesRes permet au joueure de choisir la resource qu'il va utiliser pour payer ses dettes */
+	/**La  methode choixTypesRes permet au joueure de choisir la resource qu'il va utiliser pour payer ses dettes **/
 	public int choixTypeRes(int cout,Inventaire inv, int...typeDispo) {
     	ArrayList<Integer> listTypeDispo = new ArrayList(); //transforme le tableau en liste
     	for (int i=0 ; i<typeDispo.length; i++) {
@@ -93,8 +105,8 @@ public class JoueurIA implements Joueurs {
 			return (-1);
 		}
     }
-    /*Cette metode va permettre au joueur de choisir la zone et le nombre d'ouvrier qu'il va posé dans celle ci
-    avec une facon plus refelchie et en suivant une strategie plus iteligente que d faire un choix au hazard */
+    /**Cette metode va permettre au joueur de choisir la zone et le nombre d'ouvrier qu'il va posé dans celle ci
+    avec une facon plus refelchie et en suivant une strategie plus iteligente que d faire un choix au hazard **/
     public Choix placerOuvriers(ArrayList<Zone> lesZones ,Inventaire inv) {
     	//*****************Si Jeu entre 2 joueurs******************//
 		if (StoneAge.getNbJoueurTotal() == 2) {
@@ -154,7 +166,8 @@ public class JoueurIA implements Joueurs {
 	/*La strategie du joueurIA est tout d'abord de surveiller le nombre de nourriture qu'il possede pour pas avoir de score negatif
 	* ensuite il essaie d'avoir le nombre  maximal d'ouvriers
 	* apres il va choisire les carte civilsation 1 /2 (les moins chere )
-	* sinon  il choisi la zone fabrication d'outil, le champ, foret, carriere... */
+	* sinon  il choisi la zone fabrication d'outil, le champ, foret, carriere...
+	* Cette methode retourne un tableau qui contient une zone et un nombre d'ouvrier que le joeuur va placer sur cette Zone*/
     private int[] choixInteligent( ArrayList<Integer> listZoneDispo,ArrayList<Zone> lesZones, Inventaire inv ){
     	int choixInt[]={0,0};
 		if (listZoneDispo.contains(1) && listZoneDispo.contains(6)&&inv.getNourriture()<inv.getNbOuvrier()  ) {
@@ -208,7 +221,10 @@ public class JoueurIA implements Joueurs {
 		}
 		return choixInt;
 	}
-
+	/** La methode NourrirOuv va permettre au joueur de nourrir ses ouvriers,
+	 *  il va d'abbord payer avec ses nourriture sinon bois , argile , pierre ..
+	 *  mais s'il a pas aassez de nourriture ou de ressouce son score sera diminuer,
+	 *  le joueur peut choisir entre donner des ressouces ou avoir -10 dans son score**/
     public Map<String, Integer> NourrirOuv(Inventaire inv,  int nm) {
         Map<String, Integer> choixNourriture = new HashMap<>();
         int choixJ = rand.nextInt(2); // choix du joueur si oui paye avec ressource sinon paye avec score

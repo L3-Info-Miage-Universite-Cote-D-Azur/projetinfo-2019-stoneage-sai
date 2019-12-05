@@ -4,13 +4,13 @@ import java.util.Map;
 import java.util.ArrayList;
 
 
-/*
+/**
  *Cette Class gere le  tour qui va etres lancer par la class StoneAge(moteur du jeu),
  * elles va permettre de demander aux joueurs de choisire et poser leur ouvrier dans les zones qu'ils veulent
  *  elle va aussi redestribuer les gains et afficher le deroulement des tours
  * elle contient aussi les carte batiment et les carte civilisation qui vont etre enlever a chaque utilisation
  *
- */
+ **/
 public class Partie {
     private final ArrayList<Zone> LesZones ;
     public CarteCivilisation carte=new CarteCivilisation();
@@ -33,10 +33,14 @@ public class Partie {
         	if (inv.listeZonesJouer.get(i)==true){
         		Zone choix = LesZones.get(i);
         		choix.recupeRes(listeDesCivilisation,listeDesBatiments,inv,joueur);
-        		for (int de=0;de< choix.getListeDe().size();de++){
-        		    if (choix.niveauZone>1&&choix.niveauZone<7) { //lorsqu'il ya un lancement de dé on les affiche
-                        System.out.println(ConsoleColors.RED+"Dé "+(de+1)+" : " + choix.getListeDe().get(de)+ConsoleColors.RESET);
+        		if (choix.niveauZone>=2 && choix.niveauZone<=6) {
+                    String chaine="Lancement des dés: ** ";
+                    for (int de = 0; de < choix.getListeDe().size(); de++) {
+                        if (choix.niveauZone > 1 && choix.niveauZone < 7) { //lorsqu'il ya un lancement de dé on les affiche
+                            chaine += "Dé " + (de + 1) + " = " + choix.getListeDe().get(de) + "  **  ";
+                        }
                     }
+                    System.out.println(ConsoleColors.RED+chaine+ConsoleColors.RESET);
                 }
         		inv.listeZonesJouer.set(i,false); //la zone n'est plus utiliser donc elle devient false pour le joueur (disponnible a nouveau)
                 inv.listeOuvriersPlaces.set(i,0);
@@ -44,15 +48,12 @@ public class Partie {
         		if (choix.getGains()==-1){
         		    System.out.println(ConsoleColors.RED+"Le joueur decide d'abandonner sa carte civilisation.\n"+ConsoleColors.RESET);
         		}
-        		else if (choix.getGains()==-2){
-        		    System.out.println(ConsoleColors.RED+"Le joueur a partagé sa carte avec les autre joueurs.\n"+ConsoleColors.RESET);
-        		}
         		else if (choix.getGains()==-3) {
         		    System.out.println(ConsoleColors.RED+"Le joueur decide d'abandonner sa carte batiment. \n "+ConsoleColors.RESET);
         		}
-                        else if (choix.getGains()==-5) {
-                            System.out.println(ConsoleColors.RED+"Le joueur n'a pas assez de ressources pour payer cette carte batiment \n"+ConsoleColors.RESET);
-                        }
+        		else if (choix.getGains()==-5) {
+        		    System.out.println(ConsoleColors.RED+"Le joueur n'a pas assez de ressources pour payer cette carte batiment \n"+ConsoleColors.RESET);
+        		}
         		else if (choix.getGains()==-4){
         		    System.out.println(ConsoleColors.RED+"Le joueur a gagner un "+choix.TypesGains[0]+" et un "+choix.TypesGains[1]+"  avec sa carte civilisation. \n"+ConsoleColors.RESET);
                         }
@@ -115,8 +116,8 @@ public class Partie {
         }
     }
 
-    public static void demanderCadeau( ArrayList<Inventaire> listeDesInventaires ,ArrayList<Joueurs> listeDesJoueurs,Joueurs J,Inventaire invJ ){
-        ArrayList<Integer> listeDe=Zone.lancerNbDé(4); //lancer 4 dé pour les carte civilisation qui demande cette option
+    public static void demanderCadeau( Zone zone, ArrayList<Inventaire> listeDesInventaires ,ArrayList<Joueurs> listeDesJoueurs,Joueurs J,Inventaire invJ ){
+        ArrayList<Integer> listeDe=zone.lancerNbDé(4); //lancer 4 dé pour les carte civilisation qui demande cette option
         int choixCad;
         ArrayList<Integer> listeIndJoueurs=new ArrayList<>();
         listeIndJoueurs.add(listeDesJoueurs.indexOf(J));
@@ -127,6 +128,7 @@ public class Partie {
         }// une liste qui contient l'indice des joueur en commencant par le joueur qui a choisi la carte
         /*cette methode va permetre a chaque joueur de
         recuperer une resource parmis les dispo (carte civilisation)*/
+        System.out.println(ConsoleColors.RED+"Le joueur " + J.getNum()+ " partage sa carte civilisation avec les autre joueurs:"+ConsoleColors.RESET);
 
         for( int i : listeIndJoueurs ) {
             Inventaire inv=listeDesInventaires.get(i);
