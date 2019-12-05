@@ -1,17 +1,17 @@
 package stoneage;
 
 import java.util.ArrayList;
-/*
+/**
 	*Une public classe Zone qui contient toute les zone du plateau de jeu
  	*parmit eu les carte civilsation et les carte batimet.
  	* Cette class gére les placement des ouvrier dans les zone ainsi que les recuperation des ouvrier avec les gains associé aux Zones
  	*
- */
+ **/
 public class Zone {
 	private ArrayList<Zone> allZones=new ArrayList<>();
     private int nbOuvriersPlacés = 0;
     public int niveauZone ;
-    public static Dé dé;
+    public  Dé dé;
     private int nbPlaceZone ;
     private int nbPlaceDispo;
     private int gains; //le nombre des gains du joueur
@@ -194,7 +194,7 @@ public class Zone {
 							} else {
 								// Carte poterie 1
 								//lancement de 4 dé avec une methode dans joeur pour que les joueur choisi quelle ressource il veut
-								Partie.demanderCadeau(StoneAge.listeDesInventaires, StoneAge.listeDesJoueurs, J, inventaireJoueur);
+								Partie.demanderCadeau(this,StoneAge.listeDesInventaires, StoneAge.listeDesJoueurs, J, inventaireJoueur);
 								gains = -2;
 							}
 						}
@@ -226,7 +226,7 @@ public class Zone {
 								TypeGains = " Carte Civilisation";
 							} else {
 								// carte Ecriture 5
-								Partie.demanderCadeau(StoneAge.listeDesInventaires, StoneAge.listeDesJoueurs, J, inventaireJoueur);
+								Partie.demanderCadeau(this,StoneAge.listeDesInventaires, StoneAge.listeDesJoueurs, J, inventaireJoueur);
 								gains = -2;
 								//lancement de 4 dé avec une methode dans joueur pour que les joueures choisient quelle ressouces il veut
 							}
@@ -288,7 +288,7 @@ public class Zone {
 							} else {
 								// carte cadan solaire 9: lancer 4 dés
 								//chois de ressouces entre les 4
-								Partie.demanderCadeau(StoneAge.listeDesInventaires, StoneAge.listeDesJoueurs, J, inventaireJoueur);
+								Partie.demanderCadeau(this,StoneAge.listeDesInventaires, StoneAge.listeDesJoueurs, J, inventaireJoueur);
 								gains = -2;
 							}
 						}
@@ -299,7 +299,7 @@ public class Zone {
 								// carte transport 10:
 								//lancer 4 dé
 								//chois de ressouces entre les 4
-								Partie.demanderCadeau(StoneAge.listeDesInventaires, StoneAge.listeDesJoueurs, J, inventaireJoueur);
+								Partie.demanderCadeau(this,StoneAge.listeDesInventaires, StoneAge.listeDesJoueurs, J, inventaireJoueur);
 								gains = -2;
 							} else {
 								// carte transport 11:  gagner 2 pierres
@@ -347,7 +347,7 @@ public class Zone {
 								//carte constructeur 17 : gagner 1 constructeur  et  1 type de ressource
 								inventaireJoueur.addNbConstructeur(1);
 								//lancememnt de 4 dé et choix de ressource avec methode choix de joueur
-								Partie.demanderCadeau(StoneAge.listeDesInventaires, StoneAge.listeDesJoueurs, J, inventaireJoueur);
+								Partie.demanderCadeau(this,StoneAge.listeDesInventaires, StoneAge.listeDesJoueurs, J, inventaireJoueur);
 								gains = -2;
 							} else if (carte.getNumeroCarte() == 18) {
 								//carte constructeur 18 : gagner 2 constructeur et 2 nourriture
@@ -359,7 +359,7 @@ public class Zone {
 								//carte constructeur 19 : gagner 2 constructeur et  1 type de ressource
 								inventaireJoueur.addNbConstructeur(2);
 								//lancememnt de 4 dé et choix de ressource avec methode choix de joueur
-								Partie.demanderCadeau(StoneAge.listeDesInventaires, StoneAge.listeDesJoueurs, J, inventaireJoueur);
+								Partie.demanderCadeau(this,StoneAge.listeDesInventaires, StoneAge.listeDesJoueurs, J, inventaireJoueur);
 								gains = -2;
 							} else if (carte.getNumeroCarte() == 20) {
 								//carte constructeur 20 : gagner 3 constructeur et 3 pts dans score final
@@ -390,13 +390,13 @@ public class Zone {
 								//carte Paysan 23 : gagner 1 Paysan et 1 TYPE DES resources parmie les 4 dé
 								inventaireJoueur.addNbPaysan(1);
 								//lancer les 4 dé et choisir une ressource avec methode chois
-								Partie.demanderCadeau(StoneAge.listeDesInventaires, StoneAge.listeDesJoueurs, J, inventaireJoueur);
+								Partie.demanderCadeau(this,StoneAge.listeDesInventaires, StoneAge.listeDesJoueurs, J, inventaireJoueur);
 								gains = -2;
 							} else if (carte.getNumeroCarte() == 24) {
 								//carte Paysan 24 : gagner 2 Paysan et 1 TYPE DES resources parmie les 4 dé
 								inventaireJoueur.addNbPaysan(2);
 								//lancer les 4 dé et choisir une ressource avec methode chois
-								Partie.demanderCadeau(StoneAge.listeDesInventaires, StoneAge.listeDesJoueurs, J, inventaireJoueur);
+								Partie.demanderCadeau(this,StoneAge.listeDesInventaires, StoneAge.listeDesJoueurs, J, inventaireJoueur);
 								gains = -2;
 							} else if (carte.getNumeroCarte() == 25) {
 								//carte Paysan 25 : gagner 2 Paysan et 3 nourriture
@@ -430,12 +430,12 @@ public class Zone {
 								//carte Fabricant 29 : gagner 2 Fabricant et 1 type de ressouce au choix
 								inventaireJoueur.addNbFabricant(2);
 								//lancer les 4 dé et choisir une ressource avec methode chois
-								Partie.demanderCadeau(StoneAge.listeDesInventaires, StoneAge.listeDesJoueurs, J, inventaireJoueur);
+								Partie.demanderCadeau(this,StoneAge.listeDesInventaires, StoneAge.listeDesJoueurs, J, inventaireJoueur);
 								gains = -2;
 							} else if (carte.getNumeroCarte() == 30) {
 								//carte Fabricant 30 : gagner 2 Fabricant et 1 type de ressource au choix
 								//lancer les 4 dé et choisir une ressource avec methode chois
-								Partie.demanderCadeau(StoneAge.listeDesInventaires, StoneAge.listeDesJoueurs, J, inventaireJoueur);
+								Partie.demanderCadeau(this,StoneAge.listeDesInventaires, StoneAge.listeDesJoueurs, J, inventaireJoueur);
 								inventaireJoueur.addNbFabricant(2);
 								gains = -2;
 							}
@@ -498,7 +498,7 @@ public class Zone {
                   BuildingTiles building=listeDesBatiments.get(this.niveauZone-12);
                   boolean pay=J.payerBatiment();
                   //le joueur choisi s'il prend la carte ou pas
-                  /* Si le joueur paye la carte (il a assez de resource pour la payer et choisi de la prendre ) elle s'eneleve de la liste
+                  /* Si le joueur paye la carte (il a assez de resource pour la payer et choisi de la prendre ) elle demanderCadeau'eneleve de la liste
     			 *  sinon elle sera rendu a la liste  */ 
                   gains=-5;
                   if (building.getCardScore()==0) {   //une seule carte +10 points et coute 2b+1a
@@ -655,7 +655,7 @@ public class Zone {
     }//retourne une valeur booléenne pour vérifier si tous les ouvrier ont été placés ou non.
 
 
-	public static ArrayList<Integer> lancerNbDé(int nbDe){
+	public ArrayList<Integer> lancerNbDé(int nbDe){
 		//cette methode retourne une liste de de taille donné qui contient des nombre entre 1 et 6
 		ArrayList<Integer> lancement4De=new ArrayList<>();
 		for (int i =0; i<nbDe; i++){

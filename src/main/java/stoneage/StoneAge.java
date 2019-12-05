@@ -2,7 +2,7 @@ package stoneage;
 
 import java.util.ArrayList;
 import java.util.Collections;
-/*
+/**
 		*Cette Class est le moteur du jeu,
 		* Elle contient les liste des joueur qui vont participer a la partie ( entre 2 et 4 joueurs),
 		* Elle contient les inventaire de chaque joueur,
@@ -10,7 +10,7 @@ import java.util.Collections;
 		* Cette class gére les tours, l'ordre des  joueures et termine le jeu lorsque les condition sont atteinte
 		* elles decide enfin de qui gagne la partie ou affiche s'il y a egalité.
 		*
-*/
+**/
 public class StoneAge {
 	Partie partie = new Partie(); //nombre de joueur choisie est 4 le nombre de joueur minimal est 1 
 	private final JoueurIA joueurIA = new JoueurIA("O",1);
@@ -43,14 +43,14 @@ public class StoneAge {
 
 	    }
 	    
-	protected  void jouer(){
+	private void jouer(){
 
         System.out.println("***************** Debut de la Partie *****************\n");
         System.out.println("** Debut de la Partie **\n");
-        System.out.println("Joueur 1 : JoueurIA");
-        System.out.println("Joueur 2 : JoueurBot2");
+        System.out.println("Joueur 1 : JoueurIA, un joueur inteligent qui utilise une strategie de jeu gagante.");
+        System.out.println("Joueur 2 : JoueurBot2, un joueur inteligent qui utilise une  seconde strategie de jeu gagante. Elle est differante du celle du JouaurIA.");
         for (int i=3 ; i<=nbJoueurs+1;i++){
-            System.out.println("Joueur "+(i)+" : JoueurNormal");
+            System.out.println("Joueur "+(i)+" : JoueurNormal, un joueur normal qui fait des choix au hazard pour toute les methodes.");
         }
         int nbDeTour=1;
         while ( partie.getNbCarteDispo()>(nbJoueurTotal) && nbDeTour<50 && partie.getNbBatiments()>(nbJoueurTotal) ){
@@ -63,7 +63,7 @@ public class StoneAge {
         System.out.println("***************** fin de la Partie *****************");	
         gagner();
 	}	
-    protected void unTour(){
+    private void unTour(){
     	for (int i=0 ; i<=nbJoueurs;i++){
     		listeDesInventaires.get(i).resetAvailableWorkers(); //remettre a jour le nombre d'ouvrier disponnible
     	}
@@ -178,15 +178,15 @@ public class StoneAge {
                 for (int i=0 ; i<=nbJoueurs;i++) {
 			int numJ=listeDesJoueurs.get(i).getNum();
 			System.out.println("**** Inventaire du joueur "+numJ+" ****" );
-			System.out.println("Bois  : " + listeDesInventaires.get(i).getNbBois());
-			System.out.println("Argile : " + listeDesInventaires.get(i).getNbArgile());
-			System.out.println("Pierre : " + listeDesInventaires.get(i).getNbPierre());
-			System.out.println("Or : " + listeDesInventaires.get(i).getNbOr());
-			System.out.println("Nombre d'ouvriers : " + listeDesInventaires.get(i).getNbOuvrier());
-			System.out.println("Niveau agriculture : " + listeDesInventaires.get(i).getScoreChamp());
-			System.out.println("Nombre de nourriture : " +listeDesInventaires.get(i).getNourriture());
-			System.out.println("Nombre de ressources : " +listeDesInventaires.get(i).getNbRessource());
-			System.out.println("Nombre d'outil  : " + listeDesInventaires.get(i).getNbOutils()+ "\n");
+			System.out.println("Bois  : " + listeDesInventaires.get(i).getNbBois()+
+					" | Argile : " +listeDesInventaires.get(i).getNbArgile() +
+					" | Pierre : " + listeDesInventaires.get(i).getNbPierre() +
+					" | Or : " + listeDesInventaires.get(i).getNbOr() +
+					" | Nombre d'ouvriers : " + listeDesInventaires.get(i).getNbOuvrier()+
+					" | Niveau agriculture : " + listeDesInventaires.get(i).getScoreChamp());
+			System.out.println("Nombre de nourriture : " +listeDesInventaires.get(i).getNourriture() +
+					" | Nombre de ressources : " +listeDesInventaires.get(i).getNbRessource() +
+					" | Nombre d'outil  : " + listeDesInventaires.get(i).getNbOutils()+ "\n");
 
 		}
 		//changer l'ordre des joueurs et des inventaire 1234 ==> 2341 ==> 3412....
@@ -207,18 +207,18 @@ public class StoneAge {
 	    	for (int i=0 ; i<=nbJoueurs;i++){
 				int numJ=listeDesJoueurs.get(i).getNum();
 				System.out.println("********* Le  joueur "+ (numJ) +" *********");
-				System.out.println("Nombre d'ouvriers  : " +listeDesInventaires.get(i).getNbOuvrier());
-	    		System.out.println("Resources en Bois : " +listeDesInventaires.get(i).getNbBois());
-	    		System.out.println("Resources en Argile  : " +listeDesInventaires.get(i).getNbArgile());
-	    		System.out.println("Resources en Pierre  : " +listeDesInventaires.get(i).getNbPierre());
-	    		System.out.println("Resources en Or  : " +listeDesInventaires.get(i).getNbOr() );
+				System.out.println("Nombre d'ouvriers  : " +listeDesInventaires.get(i).getNbOuvrier()+
+						" | Bois : " +listeDesInventaires.get(i).getNbBois() +
+						" | Argile  : " +listeDesInventaires.get(i).getNbArgile() +
+						" | Pierre  : " +listeDesInventaires.get(i).getNbPierre() +
+						" | Or  : " +listeDesInventaires.get(i).getNbOr() +
+						" | Outil  : " +listeDesInventaires.get(i).getNbOutils() +
+						" | Nourriture  : " +listeDesInventaires.get(i).getNourriture());
+				System.out.println("Nombre de carte Civilisation Constructeur : " + listeDesInventaires.get(i).getNbConstructeur() +
+						" |  Fabricant  : " + listeDesInventaires.get(i).getNbFabricant() +
+						" | Paysan  : " + listeDesInventaires.get(i).getNbPaysan() +
+						" |  Chamane  : " + listeDesInventaires.get(i).getNbChamane());
 				System.out.println("Niveau agriculture : " +listeDesInventaires.get(i).getScoreChamp() );
-				System.out.println("Nombre d'outil  : " +listeDesInventaires.get(i).getNbOutils());
-				System.out.println("Nombre de nourriture  : " +listeDesInventaires.get(i).getNourriture());
-				System.out.println("Nombre de carte Civilisation Constructeur : " + listeDesInventaires.get(i).getNbConstructeur());
-				System.out.println("Nombre de carte Civilisation Fabricant  : " + listeDesInventaires.get(i).getNbFabricant());
-				System.out.println("Nombre de carte Civilisation Paysan  : " + listeDesInventaires.get(i).getNbPaysan());
-				System.out.println("Nombre de carte Civilisation Chamane  : " + listeDesInventaires.get(i).getNbChamane());
 				System.out.println("Nombre de carte Civilisation Verte  : " + listeDesInventaires.get(i).getNbCarteVert());
 				System.out.println("Nombre de carte Civilisation Batiment   : " + listeDesInventaires.get(i).getNbCarteBat());
 	    		System.out.println("Le Score final  du joueur ** "+ (numJ) +" ** : " +listeDesInventaires.get(i).calcScore() + "\n");
