@@ -18,9 +18,10 @@ public class Zone {
     private int nbPlaceDispo;
     private int gains; //le nombre des gains du joueur
     private String TypeGains; //le nom du gain par exemple bois...
-	public String[] TypesGains;
+    public String[] TypesGains;
     public int nbJoueur;
-	private ArrayList<Integer> listeDesDe;
+    private ArrayList<Integer> listeDesDe;
+    public ArrayList<Integer> res;
 	
     public Zone(int niveau,Dé dé){
     	addAllZones();
@@ -647,6 +648,96 @@ public class Zone {
 						  gains = 16;
 					  }
 				  }
+                    else if (building.getCardScore()==7) {//cartes dont les points gagnes dependent de la valeur des matieres premieres employees(cartes avec ? en haut a gauche)
+                        if (building.getBuildingCost()==13) {//carte +? points et coute 5 ressources de 4 types
+                            res=J.payBuildingWith(inventaireJoueur,5,4);
+                            if (res.size()==4) {
+                                J.resolution(inventaireJoueur,res,5);
+                                gains=res.get(0)*6+res.get(1)*5+res.get(2)*4+res.get(3)*3;
+                            }
+                        }
+                        if (building.getBuildingCost()==15) {//5 ressources de 2 types
+                            res=J.payBuildingWith(inventaireJoueur,5,2);
+                            if (res.size()==4) {
+                                J.resolution(inventaireJoueur,res,5);
+                                gains=res.get(0)*6+res.get(1)*5+res.get(2)*4+res.get(3)*3;
+                            }
+                        }
+                        if (building.getBuildingCost()==16) {//5 ressources de 1 type
+                            if (inventaireJoueur.getNbOr()>=5) {
+                                inventaireJoueur.setScore(inventaireJoueur.getScore()+5*6);
+                                inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()-5);
+                                inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource() - 5);
+                                gains=35;
+                                TypeGains="Or";
+                            }
+                            else if(inventaireJoueur.getNbPierre()>=5){
+                                inventaireJoueur.setScore(inventaireJoueur.getScore()+5*5);
+                                inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()-5);
+                                inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource() - 5);
+                                gains=25;
+                                TypeGains="Pierre";
+                            }
+                            else if (inventaireJoueur.getNbArgile()>=5) {
+                                inventaireJoueur.setScore(inventaireJoueur.getScore()+5*4);
+                                inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()-5);
+                                inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource() - 5);
+                                gains=20;
+                                TypeGains="Argile";
+                            }
+                            else if (inventaireJoueur.getNbBois()>=5) {
+                                inventaireJoueur.setScore(inventaireJoueur.getScore()+5*3);
+                                inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()-5);
+                                inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource() - 5);
+                                gains=15;
+                                TypeGains="Bois";
+                            }
+                        }
+                             if (building.getBuildingCost()==17) {//carte +? points et coute 4 ressources de 4 types
+                                res=J.payBuildingWith(inventaireJoueur,4,4);
+                                if (res.size()==4) {
+                                    J.resolution(inventaireJoueur,res,4);
+                                    gains=res.get(0)*6+res.get(1)*5+res.get(2)*4+res.get(3)*3;
+                                }
+                            }
+                            if (building.getBuildingCost()==19) {//carte +? points et coute 4 ressources de 2 types
+                                res=J.payBuildingWith(inventaireJoueur,4,2);
+                                if (res.size()==4) {
+                                    J.resolution(inventaireJoueur,res,4);
+                                    gains=res.get(0)*6+res.get(1)*5+res.get(2)*4+res.get(3)*3;
+                                }
+                            }
+                            if (building.getBuildingCost()==20) {//carte +? points et coute 4 ressources de 1 types
+                                if (inventaireJoueur.getNbOr()>=4) {
+                                inventaireJoueur.setScore(inventaireJoueur.getScore()+4*6);
+                                inventaireJoueur.setNbOr(inventaireJoueur.getNbOr()-4);
+                                inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource() - 4);
+                                gains=24;
+                                TypeGains="Or";
+                                }
+                                else if(inventaireJoueur.getNbPierre()>=4){
+                                    inventaireJoueur.setScore(inventaireJoueur.getScore()+4*5);
+                                    inventaireJoueur.setNbPierre(inventaireJoueur.getNbPierre()-4);
+                                    inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource() - 4);
+                                    gains=20;
+                                    TypeGains="Pierre";
+                                }
+                                else if (inventaireJoueur.getNbArgile()>=4) {
+                                    inventaireJoueur.setScore(inventaireJoueur.getScore()+4*4);
+                                    inventaireJoueur.setNbArgile(inventaireJoueur.getNbArgile()-4);
+                                    inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource() - 4);
+                                    gains=16;
+                                    TypeGains="Argile";
+                                }
+                                else if (inventaireJoueur.getNbBois()>=4) {
+                                    inventaireJoueur.setScore(inventaireJoueur.getScore()+4*3);
+                                    inventaireJoueur.setNbBois(inventaireJoueur.getNbBois()-4);
+                                    inventaireJoueur.setNbRessource(inventaireJoueur.getNbRessource() - 4);
+                                    gains=12;
+                                    TypeGains="Bois";
+                                }
+                            }
+                    }
                   inventaireJoueur.addCarteBat(building);
                   listeDesBatiments.remove(building);
                   TypeGains=" points sur la piste score avec la carte Batiment ";
