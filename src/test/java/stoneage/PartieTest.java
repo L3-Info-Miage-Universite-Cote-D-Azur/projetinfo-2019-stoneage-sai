@@ -1,17 +1,16 @@
 
 package stoneage;
 
-import java.util.ArrayList;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Disabled;
 
 public class PartieTest {
 	private  Partie partie;
+	Zone zone= new Zone();
 
     private Inventaire  inv,inv2;
     private Joueurs joueur, joueurIA;
@@ -130,7 +129,7 @@ public class PartieTest {
 		assertTrue(inv.getNbRessource()==0 &&inv.getNbOutils()==0 &&inv.getScoreChamp()==0 );
 
 		// verifier que les joueur on ressus leur cadeau 
-		partie.demanderCadeau(listeInventaires, listeJoueurs, joueur, inv2);
+		partie.demanderCadeau(zone,listeInventaires, listeJoueurs, joueur, inv2);
 		assertTrue(inv2.getNbRessource()==1 ||inv2.getNbOutils()==1 ||inv2.getScoreChamp()==1 );   
 		assertTrue(inv.getNbRessource()==1 ||inv.getNbOutils()==1 ||inv.getScoreChamp()==1 );
 

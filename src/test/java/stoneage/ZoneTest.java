@@ -13,11 +13,11 @@ import static org.mockito.Mockito.* ;
 
 @ExtendWith(MockitoExtension.class)
 public class ZoneTest {
-	Zone area1,area2,area3,area4,area5,area6,area7,area8,area9,area10,area11,area12,area13,area14,area15;
+	Zone area1,area2,area3,area4,area5,area6,area7,area8,area9,area10,area11,area12,area13,area14,area15,area16;
     Zone zone1,zone2,zone3,zone4,zone5,zone6,zone7;
-    Zone[] areaList = new Zone[15];
+    Zone[] areaList = new Zone[16];
     Zone[] listeZone = new Zone[6];
-    Choix[] listeChoix = new Choix[15];
+    Choix[] listeChoix = new Choix[16];
     Inventaire inventaire;
     private  ArrayList<CarteCivilisation> listeDesCartes;
     private ArrayList<BuildingTiles> listeDesBat;
@@ -25,7 +25,7 @@ public class ZoneTest {
     public CarteCivilisation carte=new CarteCivilisation();
     public BuildingTiles bat = new BuildingTiles();
     private Joueurs joueur;
-    private Choix choix1, choix2, choix3, choix4, choix5, choix6, choix7, choix8,choix9,choix10,choix11,choix12,choix13,choix14,choix15;
+    private Choix choix1, choix2, choix3, choix4, choix5, choix6, choix7, choix8,choix9,choix10,choix11,choix12,choix13,choix14,choix15,choix16;
 
     @Mock
     Dé dice;
@@ -47,6 +47,7 @@ public class ZoneTest {
         area13 = new Zone(13);
         area14 = new Zone(14);
         area15 = new Zone(15);
+        area16 = new Zone(16);
 
         zone1 = new Zone(1, dice);
         zone2 = new Zone(2, dice);
@@ -71,6 +72,7 @@ public class ZoneTest {
         areaList[12] = area13;
         areaList[13] = area14;
         areaList[14] = area15;
+        areaList[15] = area16;
 
         listeZone[0] = zone1;
         listeZone[1] = zone2;
@@ -104,6 +106,7 @@ public class ZoneTest {
         choix13 = new Choix(13, 1);
         choix14 = new Choix(14, 1);
         choix15 = new Choix(15, 1);
+        choix16 = new Choix(16, 1);
         
         listeChoix[0] = choix1;
         listeChoix[1] = choix2;
@@ -120,16 +123,17 @@ public class ZoneTest {
         listeChoix[12] = choix13;
         listeChoix[13] = choix14;
         listeChoix[14] = choix15;
+        listeChoix[15] = choix16;
         
     }
 
-    /* TEST 1: placement des ouvriers
+    /** TEST 1: placement des ouvriers
      * On ne doit pas pouvoir placer plus de 5 ouvriers sur les zones
      * car on a maximum 5ouvrier .
      * Et on ne doit pas pouvoir placer 0 ouvrier sur une zone.
      *
-     * TEST2: test de lancéDeDés avec un dé truqué pour éliminer l'aléatoire.
-     */
+     * TEST2: test de lancéDeDés lancer n des et  verifier que la somme des valeur est juste .
+     **/
 
     @Test
     public void placerOuvrier(){
@@ -153,7 +157,11 @@ public class ZoneTest {
                else if (i == 3) {
                    assertEquals(3, areaList[zone].getNbOuvriersPlaces());
                }
+               else if (zone ==15) {
+            	   assertEquals(2, areaList[zone].getNbOuvriersPlaces());
+               }
            }
+
            inventaire.resetAvailableWorkers();
         }
       }
@@ -162,6 +170,7 @@ public class ZoneTest {
     
     @Test
     public void recupeRes() {
+
         assertEquals(area1.NomZone(), "Fabrication d'Outils");
         assertEquals(area2.NomZone(), "Chasse");
         assertEquals(area3.NomZone(), "foret");
@@ -169,6 +178,15 @@ public class ZoneTest {
         assertEquals(area5.NomZone(), "carrière");
         assertEquals(area6.NomZone(), "rivière");
         assertEquals(area7.NomZone(), "champ");
+        assertEquals(area8.NomZone(), "Civilisation 1");
+        assertEquals(area9.NomZone(), "Civilisation 2");
+        assertEquals(area10.NomZone(), "Civilisation 3");
+        assertEquals(area11.NomZone(), "Civilisation 4");
+        assertEquals(area12.NomZone(), "Batiment 1");
+        assertEquals(area13.NomZone(), "Batiment 2");
+        assertEquals(area14.NomZone(), "Batiment 3");
+        assertEquals(area15.NomZone(), "Batiment 4");
+        assertEquals(area16.NomZone(), "Hutte");
         
 
         area1.placerOuvrier(inventaire, choix1.nbOuvriersChoisie);
@@ -213,10 +231,11 @@ public class ZoneTest {
     
     @Test
     public void throwDice() {
-    	when(dice.Lancer()).thenReturn(6);
+
     	for (int zone = 0; zone <= 5; zone++) {
     		for (int i = 1; i < 6; i++) {
-    			assertEquals(6 * i, areaList[zone].lancéDeDés(i));
+    			assertTrue((6 * i)>= areaList[zone].lancéDeDés(i));
+    			assertTrue((1 * i)<= areaList[zone].lancéDeDés(i));
     		}
     	}
     }
