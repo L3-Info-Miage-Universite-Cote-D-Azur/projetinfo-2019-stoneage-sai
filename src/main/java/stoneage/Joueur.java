@@ -213,6 +213,233 @@ public class Joueur implements Joueurs {
 		}
 		return choixNourriture;
 	}
+        
+        public ArrayList<Integer> payBuildingWith(Inventaire inv,int cout,int types){
+        ArrayList<Integer> res= new ArrayList<Integer>();//res=[Or,Pierre,Argile,Bois]
+        if (cout==5) {
+            if (types==4) {//le joueur choisit de payer par Or,Pierre,Argile,Bois par ce que ca rapporte plus de points de score comme ca 
+                if (inv.getNbRessource()>=cout && inv.getNbBois()!=0 && inv.getNbArgile()!=0 && inv.getNbPierre()!=0 && inv.getNbOr()!=0) {
+                    if (inv.getNbOr()>=2) {
+                        res.add(2);
+                        res.add(1);
+                        res.add(1);
+                        res.add(1);
+                    }
+                    else{
+                        res.add(1);
+                        if (inv.getNbPierre()>=2) {
+                            res.add(2);
+                            res.add(1);
+                            res.add(1);
+                        }
+                        else{
+                            res.add(1);
+                            if (inv.getNbArgile()>=2) {
+                                res.add(2);
+                                res.add(1);
+                            }
+                            else{
+                                res.add(1);
+                                res.add(2);
+                            }
+                        }
+                    }
+                }
+            }
+            if (types==2) {
+                if (inv.getNbOr()+inv.getNbPierre()>=cout){
+                    if (inv.getNbOr()>=3) {
+                        res.add(3);
+                        res.add(2);
+                        res.add(0);
+                        res.add(0);
+                    }
+                    else{
+                        res.add(2);
+                        res.add(3);
+                        res.add(0);
+                        res.add(0);
+                    }
+                }
+                if (inv.getNbOr()+inv.getNbArgile()>=cout && res.size()==0 ) {
+                    if (inv.getNbOr()>=3) {
+                        res.add(3);
+                        res.add(0);
+                        res.add(2);
+                        res.add(0);
+                    }
+                    else{
+                        res.add(2);
+                        res.add(0);
+                        res.add(3);
+                        res.add(0);
+                    }
+                }
+                if (inv.getNbOr()+inv.getNbBois()>=cout && res.size()==0) {
+                    if (inv.getNbOr()>=3) {
+                        res.add(3);
+                        res.add(0);
+                        res.add(0);
+                        res.add(2);
+                    }
+                    else{
+                        res.add(2);
+                        res.add(0);
+                        res.add(0);
+                        res.add(3);
+                    }
+                }
+                if (inv.getNbPierre()+inv.getNbArgile()>=cout && res.size()==0) {
+                    if (inv.getNbPierre()>=3) {
+                        res.add(0);
+                        res.add(3);
+                        res.add(2);
+                        res.add(0);
+                    }
+                    else{
+                        res.add(0);
+                        res.add(2);
+                        res.add(3);
+                        res.add(0);
+                    }
+                }
+                if (inv.getNbPierre()+inv.getNbBois()>=cout && res.size()==0) {
+                    if (inv.getNbPierre()>=3) {
+                        res.add(0);
+                        res.add(3);
+                        res.add(0);
+                        res.add(2);
+                    }
+                    else{
+                        res.add(0);
+                        res.add(2);
+                        res.add(0);
+                        res.add(3);
+                    }
+                }
+                if (inv.getNbArgile()+inv.getNbBois()>=cout && res.size()==0) {
+                    if (inv.getNbArgile()>=3) {
+                        res.add(0);
+                        res.add(0);
+                        res.add(3);
+                        res.add(2);
+                    }
+                    else{
+                        res.add(0);
+                        res.add(0);
+                        res.add(2);
+                        res.add(3);
+                    }
+                }
+            }
+        }
+        if (cout==4) {
+            if (types==4) {
+                if (inv.getNbRessource()>=cout && inv.getNbBois()!=0 && inv.getNbArgile()!=0 && inv.getNbPierre()!=0 && inv.getNbOr()!=0) {
+                    res.add(1);
+                    res.add(1);
+                    res.add(1);
+                    res.add(1);
+                }
+            }
+            if (types==2) {
+                if (inv.getNbOr()+inv.getNbPierre()>=cout){
+                    if (inv.getNbOr()>=2) {
+                        res.add(2);
+                        res.add(2);
+                        res.add(0);
+                        res.add(0);
+                    }
+                    else{
+                        res.add(1);
+                        res.add(3);
+                        res.add(0);
+                        res.add(0);
+                    }
+                }
+                if (inv.getNbOr()+inv.getNbArgile()>=cout && res.size()==0 ) {
+                    if (inv.getNbOr()>=2) {
+                        res.add(2);
+                        res.add(0);
+                        res.add(2);
+                        res.add(0);
+                    }
+                    else{
+                        res.add(1);
+                        res.add(0);
+                        res.add(3);
+                        res.add(0);
+                    }
+                }
+                if (inv.getNbOr()+inv.getNbBois()>=cout && res.size()==0) {
+                    if (inv.getNbOr()>=2) {
+                        res.add(2);
+                        res.add(0);
+                        res.add(0);
+                        res.add(2);
+                    }
+                    else{
+                        res.add(1);
+                        res.add(0);
+                        res.add(0);
+                        res.add(3);
+                    }
+                }
+                if (inv.getNbPierre()+inv.getNbArgile()>=cout && res.size()==0) {
+                    if (inv.getNbPierre()>=2) {
+                        res.add(0);
+                        res.add(2);
+                        res.add(2);
+                        res.add(0);
+                    }
+                    else{
+                        res.add(0);
+                        res.add(1);
+                        res.add(3);
+                        res.add(0);
+                    }
+                }
+                if (inv.getNbPierre()+inv.getNbBois()>=cout && res.size()==0) {
+                    if (inv.getNbPierre()>=2) {
+                        res.add(0);
+                        res.add(2);
+                        res.add(0);
+                        res.add(2);
+                    }
+                    else{
+                        res.add(0);
+                        res.add(1);
+                        res.add(0);
+                        res.add(3);
+                    }
+                }
+                if (inv.getNbArgile()+inv.getNbBois()>=cout && res.size()==0) {
+                    if (inv.getNbArgile()>=2) {
+                        res.add(0);
+                        res.add(0);
+                        res.add(2);
+                        res.add(2);
+                    }
+                    else{
+                        res.add(0);
+                        res.add(0);
+                        res.add(1);
+                        res.add(3);
+                    }
+                }
+            }
+        }
+        return res;
+    }
+    
+    public void resolution(Inventaire inv,ArrayList<Integer> res,int cout){
+        inv.setScore(inv.getScore()+res.get(0)*6+res.get(1)*5+res.get(2)*4+res.get(3)*3);
+        inv.setNbOr(inv.getNbOr()-res.get(0));
+        inv.setNbPierre(inv.getNbPierre()-res.get(1));
+        inv.setNbArgile(inv.getNbArgile()-res.get(2));
+        inv.setNbBois(inv.getNbBois()-res.get(3));
+        inv.setNbRessource(inv.getNbRessource() - cout);
+    }
 
 	@Override
 	public String toString(){
