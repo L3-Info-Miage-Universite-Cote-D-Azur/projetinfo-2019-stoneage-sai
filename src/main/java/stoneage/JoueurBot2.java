@@ -1,7 +1,5 @@
 package stoneage;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 /**
  *Cette Class est les joueurs qui suivent une strategie dans le jeu ,
@@ -166,15 +164,6 @@ public class JoueurBot2 implements Joueurs {
 		}
 		return null;
 	}
-	public boolean payerBatiment(){//le joueur choisi au hasard s'il prend la carte ou pas
-		int a=rand.nextInt(2);
-		if (a==0) {
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
 	public int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) {
 	    int OutilChoisie ;
 		if ((zoneChoisi.niveauZone-(nbRessources % zoneChoisi.niveauZone))<=nbOutils)
@@ -229,46 +218,7 @@ public class JoueurBot2 implements Joueurs {
 			}
 	}
 
-	public Map<String, Integer> NourrirOuv(Inventaire inv,  int nm) {
-		Map<String, Integer> choixNourriture = new HashMap<>();
-		int choixJ = rand.nextInt(2); // choix du joueur si oui paye avec ressource sinon paye avec score
-		if (inv.getNbRessource()+ inv.getNourriture() < nm){
-			choixNourriture.put("Point de Score", 10); //si on a pas assez de ressource le score diminue de 10 pts
-			return choixNourriture;
-		}
-		if (inv.getNourriture()>0){
-			choixNourriture.put("Nourriture", inv.getNourriture());
-		}
-		if (inv.getNbRessource() >= nm) {
-			if (inv.getNbBois() > 0 && inv.getNbBois() < nm) { // si la quantite de bois est superieur a 0 et moin que la nourriture manquante
-				choixNourriture.put("Bois", inv.getNbBois());
-				nm -= inv.getNbBois();
-			} else if (inv.getNbBois() >= nm) {
-				choixNourriture.put("Bois", nm);
-				return choixNourriture;
-			}
-			if (inv.getNbArgile() > 0 && inv.getNbArgile() < nm) {
-				choixNourriture.put("Argile", inv.getNbArgile());
-				nm -= inv.getNbArgile();
-			} else if (inv.getNbArgile() >= nm) {
-				choixNourriture.put("Argile", nm);
-				return choixNourriture;
-			}
-			if (inv.getNbPierre() > 0 && inv.getNbPierre() < nm) {
-				choixNourriture.put("Pierre", inv.getNbPierre());
-				nm -= inv.getNbPierre();
-			} else if (inv.getNbPierre() > nm) {
-				choixNourriture.put("Pierre", nm);
-				return choixNourriture;
-			}
 
-			if (inv.getNbOr() > nm) {
-				choixNourriture.put("Or", nm);
-				return choixNourriture;
-			}
-		}
-		return choixNourriture;
-	}
 
 
 	public int getNum(){
@@ -496,15 +446,6 @@ public class JoueurBot2 implements Joueurs {
             }
         }
         return res;
-    }
-    
-    public void resolution(Inventaire inv,ArrayList<Integer> res,int cout){
-        inv.setScore(inv.getScore()+res.get(0)*6+res.get(1)*5+res.get(2)*4+res.get(3)*3);
-        inv.setNbOr(inv.getNbOr()-res.get(0));
-        inv.setNbPierre(inv.getNbPierre()-res.get(1));
-        inv.setNbArgile(inv.getNbArgile()-res.get(2));
-        inv.setNbBois(inv.getNbBois()-res.get(3));
-        inv.setNbRessource(inv.getNbRessource() - cout);
     }
 
 }

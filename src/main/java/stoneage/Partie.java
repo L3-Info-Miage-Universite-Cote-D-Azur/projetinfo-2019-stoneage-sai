@@ -28,6 +28,10 @@ public class Partie {
         Zone zone = new Zone();
         LesZones=zone.getAllZones();
     }
+    public ArrayList<Zone> getLesZones(){
+        return LesZones;
+    }
+
     protected void phaseAction( Inventaire  inv,Joueurs joueur) {
         for(int i =0;i<16;i++){
         	if (inv.listeZonesJouer.get(i)==true){

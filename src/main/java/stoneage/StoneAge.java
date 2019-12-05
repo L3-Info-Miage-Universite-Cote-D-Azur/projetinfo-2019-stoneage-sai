@@ -31,13 +31,13 @@ public class StoneAge {
 	public static final void main(String [] args) {
 		
 		
-		//// *** Pour 1 partie ***
+		/************* Pour 1 partie *****************/
 		//StoneAge stoneAge = new StoneAge(4);
 		//stoneAge.jouer();
 		
 		
 		
-		// *** Pour 500 parties avec Stat ***
+		/************** Pour 500 parties avec Stat *****************/
 		int[][] tab = new int[4][15];
 		StoneAge stoneAge;
 		stoneAge = new StoneAge(4);
@@ -100,31 +100,31 @@ public class StoneAge {
 		boolean placer=false;
     	for (int i=0 ; i<=nbJoueurs;i++)
     	{
-    		if ( listeDesInventaires.get(i).ouvrierDispo()==true) {
+    		if ( listeDesInventaires.get(i).ouvrierDispo()==true &&  listeDesJoueurs.get(i).pouvoirZone(partie.getLesZones(),listeDesInventaires.get(i)).size() >0) {
     			placer=true;
     		}
     	}
 		while (placer) {	
     		for (int i=0 ; i<=nbJoueurs;i++){
-    			if (listeDesInventaires.get(i).getNbOuvrierDispo() != 0){
+    			if (listeDesInventaires.get(i).getNbOuvrierDispo() != 0&&  listeDesJoueurs.get(i).pouvoirZone(partie.getLesZones(),listeDesInventaires.get(i)).size() >0){
     				partie.phasePlacement( listeDesInventaires.get(i), listeDesJoueurs.get(i));                               
     			}
     			else {
     	    		for (int j=0 ; j<=nbJoueurs;j++){
-    	    			if (listeDesInventaires.get(j).getNbOuvrierDispo() != 0 &&listeDesInventaires.get(i).getNbOuvrierDispo() != 0){
+    	    			if (listeDesInventaires.get(j).getNbOuvrierDispo() != 0 &&listeDesInventaires.get(i).getNbOuvrierDispo() != 0&&  listeDesJoueurs.get(i).pouvoirZone(partie.getLesZones(),listeDesInventaires.get(i)).size() >0){
     	    				partie.phasePlacement( listeDesInventaires.get(i), listeDesJoueurs.get(i));
     	    				partie.phasePlacement( listeDesInventaires.get(j), listeDesJoueurs.get(j));
     	    			}
     	    			else {
     	    	    		for (int k=0 ; k<=nbJoueurs;k++){
-    	    	    			if (listeDesInventaires.get(k).getNbOuvrierDispo() != 0 && listeDesInventaires.get(j).getNbOuvrierDispo() != 0 &&listeDesInventaires.get(i).getNbOuvrierDispo() != 0){
+    	    	    			if (listeDesInventaires.get(k).getNbOuvrierDispo() != 0 && listeDesInventaires.get(j).getNbOuvrierDispo() != 0 &&listeDesInventaires.get(i).getNbOuvrierDispo() != 0&&  listeDesJoueurs.get(i).pouvoirZone(partie.getLesZones(),listeDesInventaires.get(i)).size() >0){
     	    	    				partie.phasePlacement( listeDesInventaires.get(i), listeDesJoueurs.get(i));
     	    	    				partie.phasePlacement( listeDesInventaires.get(j), listeDesJoueurs.get(j));
     	    	    				partie.phasePlacement( listeDesInventaires.get(k), listeDesJoueurs.get(k));
     	    	    			}
     	    	    			else {
     	    	    	    		for (int l=0 ; l<=nbJoueurs;l++){
-    	    	    	    			if (listeDesInventaires.get(l).getNbOuvrierDispo() != 0 && listeDesInventaires.get(k).getNbOuvrierDispo() != 0 && listeDesInventaires.get(j).getNbOuvrierDispo() != 0 &&listeDesInventaires.get(i).getNbOuvrierDispo() != 0){
+    	    	    	    			if (listeDesInventaires.get(l).getNbOuvrierDispo() != 0 &&  listeDesJoueurs.get(i).pouvoirZone(partie.getLesZones(),listeDesInventaires.get(i)).size() >0&& listeDesInventaires.get(k).getNbOuvrierDispo() != 0 && listeDesInventaires.get(j).getNbOuvrierDispo() != 0 &&listeDesInventaires.get(i).getNbOuvrierDispo() != 0){
     	    	    	    				partie.phasePlacement( listeDesInventaires.get(i), listeDesJoueurs.get(i));
     	    	    	    				partie.phasePlacement( listeDesInventaires.get(j), listeDesJoueurs.get(j));
     	    	    	    				partie.phasePlacement( listeDesInventaires.get(k), listeDesJoueurs.get(k));
@@ -141,7 +141,7 @@ public class StoneAge {
     		placer=false;
         	for (int i=0 ; i<=nbJoueurs;i++)
         	{
-        		if ( listeDesInventaires.get(i).ouvrierDispo()==true) {
+				if ( listeDesInventaires.get(i).ouvrierDispo()==true &&  listeDesJoueurs.get(i).pouvoirZone(partie.getLesZones(),listeDesInventaires.get(i)).size() >0) {
         			placer=true;
         		}
         	}
