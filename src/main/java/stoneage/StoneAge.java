@@ -1,62 +1,45 @@
 package stoneage;
 
+
+
 import java.util.ArrayList;
 import java.util.Collections;
 /**
-		*Cette Class est le moteur du jeu,
-		* Elle contient les liste des joueur qui vont participer a la partie ( entre 2 et 4 joueurs),
-		* Elle contient les inventaire de chaque joueur,
-		* elle contient aussi les carte batiment et les carte civilisation qui vont etre melanger au debut de chaque tour
-		* Cette class gére les tours, l'ordre des  joueures et termine le jeu lorsque les condition sont atteinte
-		* elles decide enfin de qui gagne la partie ou affiche s'il y a egalité.
-		*
-**/
+ *Cette Class est le moteur du jeu,
+ * Elle contient les liste des joueur qui vont participer a la partie ( entre 2 et 4 joueurs),
+ * Elle contient les inventaire de chaque joueur,
+ * elle contient aussi les carte batiment et les carte civilisation qui vont etre melanger au debut de chaque tour
+ * Cette class gére les tours, l'ordre des  joueures et termine le jeu lorsque les condition sont atteinte
+ * elles decide enfin de qui gagne la partie ou affiche s'il y a egalité.
+ *
+ **/
 public class StoneAge {
-	Partie partie = new Partie(true); //nombre de joueur choisie est 4 le nombre de joueur minimal est 1 
+	Partie partie = new Partie(true); //nombre de joueur choisie est 4 le nombre de joueur minimal est 1
 	private final JoueurIA joueurIA = new JoueurIA("O",1);
 	private final JoueurBot2 joueurBot = new JoueurBot2("S",2);
 	static  ArrayList<Joueurs> listeDesJoueurs =new ArrayList<>(); //une liste qui va contenir tous les joueurs de la partie
 	static  ArrayList<Inventaire> listeDesInventaires=new ArrayList<>() ; //une liste qui va contenir d=toues les inventaire de la partie
- 	private int nbJoueurs;  // A part le joueur IA
+	private int nbJoueurs;  // A part le joueur IA
 	private static int nbJoueurTotal;
- 	public Zone zone;
- 	boolean stat;
- 	
- 	
- 	/****** Choisir un Nombre de Joueure Pour commencer une Partie ( entre 2 et 4 )******/
- 	/*Pour les statistique il se peut que x joueur arrive en tete avec le meme score, alors les x joueur gagne la partie.
- 	 * C'est pour cela que le total des victoire des joueur dans les statistiques peut depasser 500.
- 	 * Mais il y a bien 500 parties joués.
- 	 */
- 	
- 	
+	public Zone zone;
+	boolean stat;
+
+
+	/****** Choisir un Nombre de Joueure Pour commencer une Partie ( entre 2 et 4 )******/
+	/*Pour les statistique il se peut que x joueur arrive en tete avec le meme score, alors les x joueur gagne la partie.
+	 * C'est pour cela que le total des victoire des joueur dans les statistiques peut depasser 500.
+	 * Mais il y a bien 500 parties joués.
+	 */
+
+
 	public static final void main(String [] args) {
-		
+
 		/****** Choisir "unePartie(nbJoueur)" pour lancer une seule partie.
 		 * **** Choisir "partie500Stat(nbJoueur)" pour lancer 500 partie avec les statistique.
 		 * **** nbJoueur = Le nombre de joueur compris entre 2 et 4. ******/
-		
-<<<<<<< HEAD
-		/************* Pour 1 partie *****************/
-		//StoneAge stoneAge = new StoneAge(4);
-		//stoneAge.jouer();
-		
-		
-		
-		/************** Pour 500 parties avec Stat *****************/
-		int[][] tab = new int[4][15];
-		StoneAge stoneAge;
-		stoneAge = new StoneAge(4);
-		for (int p = 0; p < 500; p++) {
-			stoneAge = new StoneAge(4);
-			stoneAge.jouer();
-			stoneAge.calculStat(tab);
-		}
-		stoneAge.afficheStat(tab);
-=======
+
 		//unePartie(4);
 		partie500Stat(4);
->>>>>>> master
 	}
 	
 	 public StoneAge(int nbJ, boolean statistique){
