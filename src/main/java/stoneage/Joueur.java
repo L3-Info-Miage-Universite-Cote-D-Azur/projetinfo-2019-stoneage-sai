@@ -3,11 +3,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-/*
- *Cette Class est les joueurs qui Normal qui va jouer au hazard ,
- * elle permet de faire des choix au hazard en respectant les regles du jeux.
+/**
+ *Cette Classe est le joueur qui ne possede pas de strategie de jeu. 
+ *C'est un joueur au choix entierement aléatoire.
+ *Tout en respectant les regles du jeu a 2,3 et 4 joueur,
+ *il joue de maniere aléatoire pour ce qui est de du choix ou non de placer un outil,
+ *du choix de où placer ses ouvrirer , de prendre une carte batiment etc..
  *
- */
+ *
+ **/
 public class Joueur implements Joueurs {
 	Random rand = new Random();
 	String name;

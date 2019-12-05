@@ -8,6 +8,26 @@ import java.util.Random;
  * elle permet de faire des choix plus inteligent et eviter les choix
  * au hazard le plus possible en respenctant les regle du jeu.
  *
+ * Pour le choix de la zone:
+ *  Dans un premier temps le joueur regarde ses nouriture et si elle sont compriuse entre 5 et 10 ou inferieur a 3
+ *  il choisit de placer un ou des ouvrier en zone chasse pour ne pas manquer de nouriture lors du nourrissage des ouvriers
+ *  ensuite il previligie la recuperation de bois si celui ci est trop faible et ensuite si il peut il recupere un outil
+ *  Apres cela il previligie les carte batiment et ensuite civilisation
+ *  sinon il choisit les zones riviere,champ, ...
+ *  
+ *  Pour le choix de l'outil:
+ *   si cela est interressant de placer un outil c'est a dire que si le placement d'un outil lui permet de prendre 
+ *   plus de ressource: alors il choisit de placer un outil
+ *   
+ * Pour le choix de Dé cadeau de carte civilisation :
+ * 	il choisit le meilleur dé possible donc Or, champ , outil, argile ...
+ *   
+ * Pour le choix de type de ressource pour payer ses dettes:
+ *  il prend les ressources du moin vher au plus cher donc bois, argile, pierre, or.
+ *  
+ * Pour nourrir ses ouvrier:
+ *  il utilise le meme principe que pour payer ses dettes.
+ *  sinon il paye en score.
  **/
 public class JoueurBot2 implements Joueurs {
 	Random rand = new Random();

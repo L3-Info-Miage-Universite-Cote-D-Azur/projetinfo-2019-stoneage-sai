@@ -213,7 +213,7 @@ public class JoueurBot2Test {
         }
     
     @Test
-    void placerOuvrierNourritureSuffisanteETOutilsIndispo72() { 
+    void placerOuvrierNourritureSuffisanteETOutilsIndispo72() { //8 choix
         inventaire.setNourriture(11);
         inventaire.setNbBois(11);
         zone1.setNbPlaceDispo(0);
