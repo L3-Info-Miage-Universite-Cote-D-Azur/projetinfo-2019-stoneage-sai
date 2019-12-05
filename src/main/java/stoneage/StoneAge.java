@@ -15,8 +15,8 @@ public class StoneAge {
 	Partie partie = new Partie(); //nombre de joueur choisie est 4 le nombre de joueur minimal est 1 
 	private final JoueurIA joueurIA = new JoueurIA("O",1);
 	private final JoueurBot2 joueurBot = new JoueurBot2("S",2);
-	final static  ArrayList<Joueurs> listeDesJoueurs =new ArrayList<>(); //une liste qui va contenir tous les joueurs de la partie
-	final static  ArrayList<Inventaire> listeDesInventaires=new ArrayList<>() ; //une liste qui va contenir d=toues les inventaire de la partie
+	static  ArrayList<Joueurs> listeDesJoueurs =new ArrayList<>(); //une liste qui va contenir tous les joueurs de la partie
+	static  ArrayList<Inventaire> listeDesInventaires=new ArrayList<>() ; //une liste qui va contenir d=toues les inventaire de la partie
  	private int nbJoueurs;  // A part le joueur IA
 	private static int nbJoueurTotal;
  	public Zone zone;
@@ -27,21 +27,23 @@ public class StoneAge {
 		stoneAge.jouer();
 	}
 	 public StoneAge(int nbJ){
-			nbJoueurTotal = nbJ;
-	    	//On choisit le nombre des joueures dans cette partie
-	    	this.nbJoueurs=nbJ-1;
-	    	listeDesJoueurs.add(joueurIA); 
-	       	listeDesJoueurs.add(joueurBot);
-	    	listeDesInventaires.add(new Inventaire());
-	    	listeDesInventaires.add(new Inventaire());
-	    	// ajoute en premier le joueurIA et Bot2
-	    	//puis les autres joueurs normaux
-	    	for (int i=0;i < nbJoueurs-1;i++){
-				listeDesJoueurs.add(new Joueur("J"+i,i+3));
-	    		listeDesInventaires.add(new Inventaire());
-	    	}
+		 nbJoueurTotal = nbJ;
+		 listeDesInventaires=new ArrayList<>() ;
+		 listeDesJoueurs =new ArrayList<>();
+		 //On choisit le nombre des joueures dans cette partie
+		 this.nbJoueurs=nbJ-1;
+		 listeDesJoueurs.add(joueurIA);
+		 listeDesJoueurs.add(joueurBot);
+		 listeDesInventaires.add(new Inventaire());
+		 listeDesInventaires.add(new Inventaire());
+		 // ajoute en premier le joueurIA et Bot2
+		 // puis les autres joueurs normaux
+		 for (int i=0;i < nbJoueurs-1;i++){
+		 	listeDesJoueurs.add(new Joueur("J"+i,i+3));
+		 	listeDesInventaires.add(new Inventaire());
+		 }
 
-	    }
+	}
 	    
 	private void jouer(){
 
