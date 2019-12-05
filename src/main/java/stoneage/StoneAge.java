@@ -53,7 +53,7 @@ public class StoneAge {
             System.out.println("Joueur "+(i)+" : JoueurNormal, un joueur normal qui fait des choix au hazard pour toute les methodes.");
         }
         int nbDeTour=1;
-        while ( partie.getNbCarteDispo()>(nbJoueurTotal) && nbDeTour<50 && partie.getNbBatiments()>(nbJoueurTotal) ){
+        while ( partie.getNbCarteDispo()>=(nbJoueurTotal) && nbDeTour<50 && partie.getNbBatiments()>=(nbJoueurTotal) ){
         	// Nombre de partie ay max est 50 sinon le jeu s'arrete lorsqu'il ya plus de carte Civ        
             System.out.println("\n**** Debut du Tour N° "+ (nbDeTour) +" ****");
             unTour();
