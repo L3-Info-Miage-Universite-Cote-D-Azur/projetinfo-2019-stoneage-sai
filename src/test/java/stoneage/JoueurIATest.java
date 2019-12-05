@@ -125,7 +125,7 @@ public class JoueurIATest {
         inventaire.setNourriture(4);
         choix=new Choix(1,5);
         choix2=joueurIA.placerOuvriers(listeZones,inventaire);
-        assertEquals(choix,choix2);
+
         inventaire.setNbOuvrier(2);
         inventaire.resetAvailableWorkers();
         assertEquals(choix,choix2);
