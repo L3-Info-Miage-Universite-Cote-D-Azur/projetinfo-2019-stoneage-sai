@@ -15,7 +15,9 @@ public class BuildingTiles {
     /*
     b:bois,a:argile,p:pierre,o:or
     0:2b+1a 1:1b+2a 2:2b+1p 3:1b+1a+1p 4:2b+1o 5:1b+1a+1o 6:2a+1p 7:1b+2p 8:1b+1p+1o 9:1a+2p 10:2a+1o 11:1a+1p+1o
-    12:2p+1o
+    12:2p+1o 13:5 ressources de 4 types 14:5 ressources de 3 types 15:5 ressources de 2 types 16:5 ressources de 1 types
+    17:4 ressources de 4 types 18:4 ressources de 3 types 19:4 ressources de 2 types 20:4 ressources de 1 type 21:au moins une 
+    matiere premiere et au plus 7
     */
     private ArrayList<BuildingTiles> cards;
     
@@ -47,11 +49,19 @@ public class BuildingTiles {
         cards.add(new BuildingTiles(5,11));//+15
         cards.add(new BuildingTiles(5,11));
         cards.add(new BuildingTiles(6,12));//+16
+        cards.add(new BuildingTiles(7,13));
+        cards.add(new BuildingTiles(7,14));
+        cards.add(new BuildingTiles(7,15));
+        cards.add(new BuildingTiles(7,16));
+        cards.add(new BuildingTiles(7,17));
+        cards.add(new BuildingTiles(7,18));
+        cards.add(new BuildingTiles(7,19));
+        cards.add(new BuildingTiles(7,20));
+        cards.add(new BuildingTiles(7,21));
+        cards.add(new BuildingTiles(7,21));
+        cards.add(new BuildingTiles(7,21));
     }
     
-    public void shuffle(ArrayList<BuildingTiles>cards){
-        Collections.shuffle(cards);
-    }
     public void ajouterDansInventaire(Inventaire inventaire){
         inventaire.addCarteBat(this);
     }
