@@ -2,6 +2,7 @@
 package stoneage;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class PartieTest {
 	Zone zone= new Zone();
 
     private Inventaire  inv,inv2;
-    private Joueurs joueur, joueurIA;
+    private Joueurs joueur, joueurIA, joueurBot2;
    
     @BeforeEach
     void setUp(){
@@ -21,33 +22,34 @@ public class PartieTest {
     	inv2 = new Inventaire();
     	joueur = new Joueur("oss",1);
     	joueurIA = new JoueurIA("oss",2);
+    	joueurBot2 = new JoueurBot2("oss", 2);
     	//retirer 2 ouvrier de ouvrier dispo pour le teste de PhaseAction
-    	partie = new Partie();
+    	partie = new Partie(true);
     }
      
 	@Test	
 	public void testPhaseAction() {
-		assertEquals(inv.listeZonesDispo.size(), 15); //il y a 6 zones
-		
-		for(int i = 0; i < 15 ;i++){
+		assertEquals(inv.listeZonesDispo.size(), 16); //il y a 16 zones
+		for(int i = 0; i < 16 ;i++){
 			inv.listeZonesJouer.add(true); //On initialise toute les zones a True
 		}
 		partie.phaseAction(inv, joueur); //La fonction doit remettre False a toutes les zones
-		for(int i = 0; i < 15; i++){
+		for(int i = 0; i < 16; i++){
 			assertFalse(inv.listeZonesJouer.get(i));//On vérifie si toutes les zones sont a False
 			assertEquals(inv.listeOuvriersPlaces.get(i),0);//on verifie si tous les ouvriers sont bien sortie du plateau
 		}
-		
 		assertEquals(inv.getNbOuvrierDispo(),5); // on verifie si le nb d'ouvrier dispo est reset
 	}
+	
 	@Test
 	public void testPhasePlacement() {
 		inv.setNourriture(0);
-		assertEquals(inv.listeZonesDispo.size(),15); 
-
-		partie.phasePlacement(inv, joueurIA); //Comme le JoueurIA n'a pas de nourriture il doit jouer la zone chasse
-		assertFalse(inv.listeZonesJouer.get(2));// "listeZonesJouer.get(2)" est la zone chasse
-		assertEquals(inv.listeZonesDispo.size(),15); // il reste encore de la place dans la zone chasse donc toujours 15 zone dispo
+		partie.phasePlacement(inv, joueurBot2); //Comme le JoueurBot2 n'a pas de nourriture il doit jouer la zone chasse
+		assertTrue(inv.listeZonesJouer.get(1)); //"listeZonesJouer.get(1)" est la zone chasse
+		
+		inv2.setNourriture(20);
+		partie.phasePlacement(inv2, joueurBot2); //Comme le JoueurBot2 a de la nourriture il ne va pas choisir la zone chasse
+		assertFalse(inv2.listeZonesJouer.get(1));
 	}
 	
 
@@ -115,24 +117,29 @@ public class PartieTest {
 		assertEquals(inv.getNbRessource(), 11);
 		
 	}
+	
+	
+	
 	@Test
+	@Disabled
 	public void TestDemanderCadeaux() {
+		inv = new Inventaire();
+		inv2 = new Inventaire();
 		ArrayList<Joueurs> listeJoueurs =new ArrayList<>();
-	    ArrayList<Inventaire> listeInventaires=new ArrayList<>() ;
-		listeJoueurs.add(joueurIA); 
-       	listeJoueurs.add(joueur);
-    	listeInventaires.add(inv);
-    	listeInventaires.add(inv2);
+	    ArrayList<Inventaire> listeInventaires=new ArrayList<>();
+	    
+	    listeJoueurs.add(joueurBot2);
+	    listeInventaires.add(inv);
     	
 		// verifier que les joueurs n'ont pas de ressource ni outil ni nivau champ 
 		assertTrue(inv2.getNbRessource()==0 &&inv2.getNbOutils()==0 &&inv2.getScoreChamp()==0 );    
 		assertTrue(inv.getNbRessource()==0 &&inv.getNbOutils()==0 &&inv.getScoreChamp()==0 );
 
 		// verifier que les joueur on ressus leur cadeau 
-		partie.demanderCadeau(zone,listeInventaires, listeJoueurs, joueur, inv2);
+		Partie.demanderCadeau(zone,listeInventaires, listeJoueurs, joueurBot2, inv2);
 		assertTrue(inv2.getNbRessource()==1 ||inv2.getNbOutils()==1 ||inv2.getScoreChamp()==1 );   
 		assertTrue(inv.getNbRessource()==1 ||inv.getNbOutils()==1 ||inv.getScoreChamp()==1 );
-
 	}
+	
 	
 }
