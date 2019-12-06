@@ -37,17 +37,18 @@ public class JoueurTest {
     }
     @Test
     void placerOuvrier2Joueurs() {
+    	StoneAge stone=new StoneAge(2,false);
     	//tester si les joueur choisi pas les zones carte 3 ET 4 civilisation et batiment 
     	choix=j.placerOuvriers(listeZone,inventaire);
         choix2 = new Choix(choix.zoneChoisie,choix.nbOuvriersChoisie);
-    	StoneAge stone=new StoneAge(2);
     	assertEquals(choix, choix2); 
 	    for (int i=0;i<10;i++) {
 	        choix=j.placerOuvriers(listeZone,inventaire);
 			Zone zoneChoisie=listeZone.get(choix.zoneChoisie);
 	        assertTrue(choix.zoneChoisie>=0); 
-	        assertTrue(choix.zoneChoisie<=12);
+	        assertTrue(choix.zoneChoisie<=15); 
 	        assertFalse(choix.zoneChoisie==9||choix.zoneChoisie==10);
+	        assertFalse(choix.zoneChoisie==13||choix.zoneChoisie==14);
 	         //verifier que la zone choisie est bien dans la liste dans zone
 	        assertTrue(choix.nbOuvriersChoisie <=inventaire.getNbOuvrierDispo());  
 	        assertTrue(choix.nbOuvriersChoisie <=zoneChoisie.getNbPlaceDispo());  
@@ -59,7 +60,7 @@ public class JoueurTest {
 
     @Test
     void placerOuvrier3Joueurs() {
-    	StoneAge stone=new StoneAge(3);
+    	StoneAge stone=new StoneAge(3, false);
 	    for (int i=0;i<10;i++) {
 	        choix=j.placerOuvriers(listeZone,inventaire); //on fait 10 choix differant 
 			Zone zoneChoisie=listeZone.get(choix.zoneChoisie);
@@ -76,7 +77,7 @@ public class JoueurTest {
     }
 	@Test
     void placerOuvrier4Joueurs() { // verification pour 4joueures 
-		StoneAge stone=new StoneAge(4);
+		StoneAge stone=new StoneAge(4,false);
 	    for (int i=0;i<10;i++) {
 	        choix=j.placerOuvriers(listeZone,inventaire); //on fait 10 choix differant 
 			Zone zoneChoisie=listeZone.get(choix.zoneChoisie);
