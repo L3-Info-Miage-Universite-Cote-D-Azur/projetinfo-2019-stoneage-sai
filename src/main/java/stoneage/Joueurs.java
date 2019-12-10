@@ -239,6 +239,64 @@ public interface Joueurs {
         }
         return res;
     }
+        
+        default public ArrayList<Integer>payBuilding17(Inventaire inv){
+            ArrayList<Integer> res=new ArrayList<Integer>();
+            int nbRes=7;
+            if (inv.getNbRessource()>=nbRes) {
+                if (inv.getNbOr()>=nbRes) {
+                    res.add(nbRes);
+                    res.add(0);
+                    res.add(0);
+                    res.add(0);
+                    nbRes=nbRes-nbRes;
+                }
+                else{
+                    res.add(inv.getNbOr());
+                    nbRes=nbRes-inv.getNbOr();
+                }
+                if (nbRes!=0) {
+                    if (inv.getNbPierre()>=nbRes) {
+                        res.add(nbRes);
+                        res.add(0);
+                        res.add(0);
+                        nbRes=nbRes-nbRes;
+                    }
+                    else{
+                        res.add(inv.getNbPierre());
+                        nbRes=nbRes-inv.getNbPierre();
+                    }
+                }
+                if (nbRes!=0) {
+                    if (inv.getNbArgile()>=nbRes) {
+                        res.add(nbRes);
+                        res.add(0);
+                        nbRes=nbRes-nbRes;
+                    }
+                    else{
+                        res.add(inv.getNbArgile());
+                        nbRes=nbRes-inv.getNbArgile();
+                    }
+                }
+                if (nbRes!=0) {
+                    if (inv.getNbBois()>=nbRes) {
+                        res.add(nbRes);
+                        nbRes=nbRes-nbRes;
+                    }
+                    else{
+                        res.add(inv.getNbBois());
+                        nbRes=nbRes-inv.getNbBois();
+                    }
+                }
+            }
+            else{
+                res.add(inv.getNbOr());
+                res.add(inv.getNbPierre());
+                res.add(inv.getNbArgile());
+                res.add(inv.getNbBois());
+            }
+            return res;
+        }
 
 	/** La methode NourrirOuv va permettre au joueur de nourrir ses ouvriers,
 	 *  il va d'abbord payer avec ses nourriture sinon bois , argile , pierre ..
