@@ -737,6 +737,15 @@ public class Zone {
                                     TypeGains="Bois";
                                 }
                             }
+                             if (building.getBuildingCost()==21) {//carte +? points et coute au moins une matiere premiere et au plus 7(existe en 3 exemplaires)
+                                res=J.payBuilding17(inventaireJoueur);
+                                int sum=0;
+                                for(int a:res){
+                                    sum+=a;
+                                }
+                                J.resolution(inventaireJoueur,res,sum);
+                                gains=res.get(0)*6+res.get(1)*5+res.get(2)*4+res.get(3)*3;
+                             }
                     }
                   inventaireJoueur.addCarteBat(building);
                   listeDesBatiments.remove(building);
