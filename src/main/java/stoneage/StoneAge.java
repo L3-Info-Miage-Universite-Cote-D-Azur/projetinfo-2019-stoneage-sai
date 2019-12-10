@@ -2,42 +2,61 @@ package stoneage;
 import java.util.ArrayList;
 import java.util.Collections;
 /**
- *Cette Class est le moteur du jeu,
- * Elle contient les liste des joueur qui vont participer a la partie ( entre 2 et 4 joueurs),
- * Elle contient les inventaire de chaque joueur,
- * elle contient aussi les carte batiment et les carte civilisation qui vont etre melanger au debut de chaque tour
- * Cette class gére les tours, l'ordre des  joueures et termine le jeu lorsque les condition sont atteinte
- * elles decide enfin de qui gagne la partie ou affiche s'il y a egalité.
+ * Cette classe est le moteur du jeu.
+ * Elle gère:
+ * @see #unTour():
+ * 		- L'ordre des joueurs.
+ * 		- Les différentes phases du jeu
+ * @see #gagner() :
+ * 		- Le gagnant de la partie ou s'il y a égalité entre des joueurs.
+ *		- La fin de partie : conditions de fin de partie atteintes ou non.
+ * 		- L'affichage des scores.
+
+ * Elle contient:
+ * @see #listeDesJoueurs :
+ * 		- Les liste des joueur qui vont participer a la partie (entre 2 et 4 joueurs)
+ * @see #listeDesInventaires :
+ * 		- Les inventaire de chaque joueur
  *
- **/
+ */
 public class StoneAge {
-	Partie partie = new Partie(true); //nombre de joueur choisie est 4 le nombre de joueur minimal est 1
+	Partie partie = new Partie(true); // Le nombre de joueur choisit est 4. Le nombre de joueur minimal est 1
 	private final JoueurIA joueurIA = new JoueurIA("O",1);
 	private final JoueurBot2 joueurBot = new JoueurBot2("S",2);
-	static  ArrayList<Joueurs> listeDesJoueurs =new ArrayList<>(); //une liste qui va contenir tous les joueurs de la partie
-	static  ArrayList<Inventaire> listeDesInventaires=new ArrayList<>() ; //une liste qui va contenir d=toues les inventaire de la partie
+	static  ArrayList<Joueurs> listeDesJoueurs =new ArrayList<>(); // Une liste qui va contenir tous les joueurs de la partie.
+	static  ArrayList<Inventaire> listeDesInventaires=new ArrayList<>() ; // Une liste qui va contenir tous les inventaires de la partie.
 	private int nbJoueurs;  // A part le joueur IA
 	private static int nbJoueurTotal;
 	public Zone zone;
 	boolean stat;
 
 
-	/****** Choisir un Nombre de Joueure Pour commencer une Partie ( entre 2 et 4 )******/
+	/****** Choisir un nombre de joueurs pour commencer une Partie ( entre 2 et 4 )******/
 	/*Pour les statistique il se peut que x joueur arrive en tete avec le meme score, alors les x joueur gagne la partie.
 	 * C'est pour cela que le total des victoire des joueur dans les statistiques peut depasser 500.
-	 * Mais il y a bien 500 parties joués.
+	 * Mais il y a bien 500 parties jouées.
 	 */
 
 
 	public static final void main(String [] args) {
 
 		/****** Choisir "unePartie(nbJoueur)" pour lancer une seule partie.
-		 * **** Choisir "partie500Stat(nbJoueur)" pour lancer 500 partie avec les statistique.
+		 * **** Choisir "partie500Stat(nbJoueur)" pour lancer 500 partie avec les statistiques.
 		 * **** nbJoueur = Le nombre de joueur compris entre 2 et 4. ******/
 
 		//unePartie(4);
 		partie500Stat(4);
 	}
+
+	/**
+	 * Constructeur de la classe StoneAge
+	 * @param nbJ :
+	 *            Nombre de joueurs dans la partie
+	 *            De 2 à 4 joueurs
+	 * @param statistique :
+	 *                       Si on veut les statistiques de la partie
+	 *                       on initialise le paramètre à true sinon false
+	 */
 	public StoneAge(int nbJ, boolean statistique){
 		 Partie partie = new Partie(statistique);
 		 stat = statistique;
@@ -57,6 +76,13 @@ public class StoneAge {
 		 	listeDesInventaires.add(new Inventaire());
 		 }
 	}
+
+	/**
+	 * Lance une partie.
+	 * @param p:
+	 *         Numero de la partie jouer
+	 *         Si p == 0 : Affiche le début de partie avec les joueurs.
+	 */
 	public void jouer(int p){
 		if (!stat || p == 0) {
 	        System.out.println("***************** Debut de la Partie *****************\n");
@@ -80,6 +106,19 @@ public class StoneAge {
         	gagner();
         }
 	}
+
+	/**
+	 * Placement des ouvriers.
+	 * @see Partie#phasePlacement(Inventaire, Joueurs);
+	 *
+	 * Action des ouvriers.
+	 * @see Partie#phaseAction(Inventaire, Joueurs);
+	 *
+	 * Nourrir les ouvriers.
+	 * @see Partie#phaseNourrir(Inventaire, Joueurs);
+	 *
+	 * Changement de l'ordre des joueurs
+	 */
 	private void unTour(){
 		boolean placer=false;
 		boolean recuperer=false;
@@ -103,7 +142,7 @@ public class StoneAge {
 			}
 			placer=false;
 			for (int i=0 ; i<=nbJoueurs;i++) {
-				if ( listeDesInventaires.get(i).ouvrierDispo() &&  listeDesJoueurs.get(i).pouvoirZone(partie.getLesZones(),listeDesInventaires.get(i)).size() >0) {
+				if (listeDesInventaires.get(i).ouvrierDispo() &&  listeDesJoueurs.get(i).pouvoirZone(partie.getLesZones(),listeDesInventaires.get(i)).size() >0) {
 					placer=true;
 				}
 			}
@@ -160,12 +199,19 @@ public class StoneAge {
 				Collections.swap(listeDesJoueurs,i,i+1);
 		}
     }
-    public void gagner() {
+
+	/**
+	 * Affiche l'inventaire des joueurs.
+	 * Affiche le score de chaque joueur.
+	 * Affiche le gagnant et son score
+	 * Affiche si plusieurs joueurs sont gagnants (égalité)
+	 *
+	 */
+	public void gagner() {
 	        ArrayList<Integer> listScore= new ArrayList<>();
 			for (int i=0 ; i<=nbJoueurs;i++){
 				listScore.add(listeDesInventaires.get(i).calcScore());
 			}
-
 	    	int Gagnant=0;
 	    	int ScoreGagnant=0;
 	    	for (int i=0 ; i<=nbJoueurs;i++){
@@ -187,7 +233,7 @@ public class StoneAge {
 				System.out.println("Nombre de carte Civilisation Batiment   : " + listeDesInventaires.get(i).getNbCarteBat());
 	    		System.out.println("Le Score final  du joueur ** "+ (numJ) +" ** : " +listeDesInventaires.get(i).calcScore() + "\n");
 	                
-	    		if ( listeDesInventaires.get(i).calcScore()>ScoreGagnant){
+	    		if (listeDesInventaires.get(i).calcScore()>ScoreGagnant){
 	    			Gagnant=numJ; //si le score du joueur corant est le plus elever alors on change les deux variables.
 	    			ScoreGagnant=listeDesInventaires.get(i).calcScore();
 	    		}       
@@ -217,6 +263,20 @@ public class StoneAge {
 
 	    	}
 	 }
+
+	/**
+	 * Calcule les statistiques de partie.
+	 * @param tabStatistique :
+	 *                       Tableau d'entiers à 2 dimensions : [x][y]
+	 *                       x correspond au joueurs
+	 *                       y == 0:
+	 *                       	- Le nombre de fois que le joueur a gagné.
+	 *                       y allant de 1 à 14 correspond aux items dans l'inventaire:
+	 *                       	- Score (Score total, scoreChamp)
+	 *                       	- Ouvriers, Constructeurs, Fabricant, Paysan, Chamane
+	 *                       	- Ressources
+	 *                       	- Cartes
+	 */
 	public void calculStat(int[][] tabStatistique) {
 		 ArrayList<Integer> listScore= new ArrayList<>();
 		 for (int i=0 ; i<=nbJoueurs;i++){
@@ -269,6 +329,20 @@ public class StoneAge {
 				break;
 			}
 	 }
+
+	/**
+	 * Affiche les statistiques des joueurs.
+	 * @param tabStatistique :
+	 *                       Tableau d'entiers à 2 dimensions : [x][y]
+	 *                       x correspond au joueurs
+	 *                       y == 0:
+	 *                       	- Le nombre de fois que le joueur a gagné.
+	 *                       y allant de 1 à 14 correspond aux items dans l'inventaire:
+	 *                       	- Score (Score total, scoreChamp)
+	 *                       	- Ouvriers, Constructeurs, Fabricant, Paysan, Chamane
+	 *                       	- Ressources
+	 *                       	- Cartes
+	 */
 	public void afficheStat(int[][] tabStatistique) {
 		for (int i = 0; i <= nbJoueurs; i++) {
 			System.out.println("\n**** Statistique du joueur " + (i+1) + " ****");
@@ -290,10 +364,22 @@ public class StoneAge {
 			System.out.println("\nAu total le joueur ** " + (i+1) + " ** a remporter : " + tabStatistique[i][0] + " parties sur 500\n");
 		}
 	}
+
+	/**
+	 * Lance une unique partie sans statistiques
+	 * @param nbJoueur:
+	 *                   Nombre de joueurs dans la partie.
+	 */
 	public static void unePartie(int nbJoueur) {
 		StoneAge stoneAge = new StoneAge(nbJoueur, false);
 		stoneAge.jouer(0);
 	}
+
+	/**
+	 * Lance 500 parties avec statistiques.
+	 * @param nbJoueur:
+	 *                  Nombre de joueurs dans la partie.
+	 */
 	public static void partie500Stat(int nbJoueur) {
 		int[][] tab = new int[4][15];
 		StoneAge stoneAge;
@@ -305,11 +391,19 @@ public class StoneAge {
 		}
 		stoneAge.afficheStat(tab);
 	}
-	 
-	 
+
+	/**
+	 * Accès au nombre total de joueurs.
+	 * @return int : de 1 à 4
+	 */
 	public static int getNbJoueurTotal() {
 		return nbJoueurTotal;
 	}
+
+	/**
+	 * Savoir si on utilise veut des stats ou non.
+	 * @return boolean
+	 */
 	public boolean getStat() {
 		return stat;
 	}
