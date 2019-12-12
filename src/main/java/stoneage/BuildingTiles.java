@@ -1,35 +1,67 @@
 package stoneage;
 import java.util.ArrayList;
-import java.util.Collections;
+
 /**
+ * Cette classe représente les tuiles bâtiment.
+ * Dans cette classe:
  *
- * @author Ossama
+ * Chaque tuile a un coût allant de 0 à 21:
+ *      @see int#buildingCost :
+ *      Chaque entier correspond à un coût: (TYPO: b = bois, a =argile, p = pierre, o =or)
+ *          0:2b+1a, 1:1b+2a, 2:2b+1p, 3:1b+1a+1p,  4:2b+1o, 5:1b+1a+1o, 6:2a+1p, 7:1b+2p, 8:1b+1p+1o, 9:1a+2p
+ *          10:2a+1o, 11:1a+1p+1o, 12:2p+1o
+ *          5 ressources de:
+ *              13: 4types, 14:3 types, 15: 2types, 16: 1type
+ *          4 ressources de:
+ *              17: 4types, 18: 3 types, 19: 2types, 20:1type
+ *          21: Au moins une matière première et au maximum 7.
+ *
+ * Chaque tuile a un score allant de 0 à 7:
+ *      @see int#cardScore
+ *      Chaque entier correspond à un nombre de points:
+ *          0:10points, 1:11points, 2:12points, 3:13points, 4:14points, 5:15points, 6:16points.
+ *          Exception pour l'entier 7, où le nombre de points dépend de la valeur de la matière première utilisée.
+ *
+ *  Il y a aussi une liste générale de toutes les cartes
+ *      @see #cards
+ *  Cette liste est instanciée avec la méthode addCards().
+ *      @see #addCards()
  */
+
 public class BuildingTiles {
-    private int cardScore; 
-    /*
-    0:+10points ,1:+11points,2:+12 points,3:+13 points,4:+14 points,5:+15 points,6:+16 points,7:les points gagnes dependent 
-    de la valeur des matieres premieres employees
-    */
+    private int cardScore;
     private int buildingCost;
-    /*
-    b:bois,a:argile,p:pierre,o:or
-    0:2b+1a 1:1b+2a 2:2b+1p 3:1b+1a+1p 4:2b+1o 5:1b+1a+1o 6:2a+1p 7:1b+2p 8:1b+1p+1o 9:1a+2p 10:2a+1o 11:1a+1p+1o
-    12:2p+1o 13:5 ressources de 4 types 14:5 ressources de 3 types 15:5 ressources de 2 types 16:5 ressources de 1 types
-    17:4 ressources de 4 types 18:4 ressources de 3 types 19:4 ressources de 2 types 20:4 ressources de 1 type 21:au moins une 
-    matiere premiere et au plus 7
-    */
     private ArrayList<BuildingTiles> cards;
-    
+
+    /**
+     * Ajoute toutes les tuiles bâtiment dans la liste cards.
+     * @see #cards
+     * @see #addCards()
+     *
+     */
     BuildingTiles(){
         addCards();
-    }  
-    
+    }
+
+    /**
+     * Constructeur de la classe BuildingTiles
+     * @param cardScore:
+     *                 int (de 0 à 7)
+     *                 Score de la tuile bâtiment.
+     * @param buildingCost:
+     *                    int (de 0 à 21)
+     *                    Coût de la tuile bâtiment.
+     */
     BuildingTiles(int cardScore,int buildingCost){
         this.cardScore=cardScore;
         this.buildingCost=buildingCost;
     }
-    
+
+    /**
+     * Méthode pour ajouter toutes les tuiles bâtiment dans la liste cards.
+     * @see #cards
+     *
+     */
     public void addCards(){
         cards=new ArrayList<>();
         cards.add(new BuildingTiles(0,0));//carte numero 0(car a l'indice 0) donne +10 points et coute 2b+1a
@@ -61,10 +93,16 @@ public class BuildingTiles {
         cards.add(new BuildingTiles(7,21));
         cards.add(new BuildingTiles(7,21));
     }
-    
+
+    /**
+     * Ajoute une tuile bâtiment dans l'inventaire d'un joueur.
+     * @param inventaire:
+     *                  Inventaire d'un joueur.
+     */
     public void ajouterDansInventaire(Inventaire inventaire){
         inventaire.addCarteBat(this);
     }
+
     public int getCardScore() {
         return cardScore;
     }

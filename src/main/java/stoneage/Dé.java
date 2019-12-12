@@ -1,12 +1,22 @@
 package stoneage;
 import java.util.Random; //importer la Class Random du package util de java 
 
+
+/**
+ * Cette classe représente un dé allant de 1 à 6.
+ */
 public class Dé {
-    private Random dé = new Random();
-    public int Lancer() { //cette methode retourne un entier entre 1 et 6.
-        return dé.nextInt(6)+1; //utiliser la methode nextInt(n) qui donne un nombre au hazare ente 0 et n exclut
+    private Random dice = new Random();
+
+    /**
+     * Simule le lancer d'un dé.
+     * @return int : de 1 à 6 aléatoirement
+     */
+    public int Lancer() {
+        return dice.nextInt(6)+1;
     }
 }
+
 
 
 
