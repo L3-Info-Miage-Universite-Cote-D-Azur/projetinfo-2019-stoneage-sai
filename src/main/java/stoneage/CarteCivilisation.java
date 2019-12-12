@@ -1,24 +1,70 @@
 package stoneage;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
+
+/**
+ * Cette classe représente les cartes civilisation.
+ * Dans cette classe:
+ *
+ * Chaque carte a un numéro:
+ *      @see int#numeroCarte :
+ *        0-1:Potery
+ *        2-3:Art
+ *        4-5:Ecriture
+ *        6-7:Medecine
+ *        8-9:Cadran
+ *        10-11:Transport
+ *        12-13:Musique
+ *        14-15:Tissage
+ *        16-17-18-19-20: Hutte
+ *        21-22-23-24-25: Agriculture
+ *        26-27-28-29-30: Outils
+ *        31-32-33-34-35: Figurine
+ *
+ * Chaque carte a fond de carte:
+ *      @see int#fondDeCarte
+ *      0: Fond vert.
+ *      1: Fond jaune.
+ *
+ * Le numéro et fond de la carte permettent de spécifier le gain et la manière d'utiliser la carte.
+ *
+ * Il y a une liste générale de toutes les cartes
+ *      @see #allCards
+ *  Cette liste est instanciée avec la méthode addCards().
+ *     @see #addCardsToList()
+ */
 public class CarteCivilisation {
-    private int fondDeCarte; //Fond vert (0) ou jaune (1)
+    private int fondDeCarte;
     private int numeroCarte;
-    /* 0-1:Potery, 2-3:Art, 4-5:Ecriture, 6-7:Medecine, 8-9:Cadran, 10-11:Transport, 12-13:Musique, 14-15:Tissage,
-       16-17-18-19-20: Hutte
-       21-22-23-24-25: Agriculture
-       26-27-28-29-30: Outils
-       31-32-33-34-35: Figurine  */
     private ArrayList<CarteCivilisation> allCards;
+
+    /**
+     * Ajoute toutes les tuiles bâtiment dans la liste cards.
+     * @see #allCards
+     * @see #addCardsToList()
+     */
     public CarteCivilisation() {
     	addCardsToList();
     }
-    //une carte civilisation est caracteriser par un fond de carte jaune 1/vert 0 et son numero qui va nous permettre de specifier son gain et la maniere de l'utilisier.
+
+    /**
+     * Constructeur de la classe CarteCivilisation
+     * @param fondDeCarte:
+     *                   int (0 ou 1)
+     *                   Fond de la carte.
+     * @param numeroCarte:
+     *                   int (de 0 à 35)
+     *                   Numéro de la carte.
+     */
     public CarteCivilisation(int fondDeCarte, int numeroCarte) {
         this.fondDeCarte = fondDeCarte;
         this.numeroCarte = numeroCarte;
     }
+
+    /**
+     * Méthode pour ajouter toutes les cartes civilisation dans la liste allCards.
+     * @see #allCards
+     *
+     */
     public  void addCardsToList(){
         //  FOND VERT
     	allCards= new ArrayList<>();
@@ -60,6 +106,8 @@ public class CarteCivilisation {
         allCards.add(new CarteCivilisation(1,34));
         allCards.add(new CarteCivilisation(1,35));
     }
+
+    
     public int getFondDeCarte() {
         return fondDeCarte;
     }
