@@ -1,4 +1,4 @@
-package stoneage;           //**************ajout de 2 methode choix entre 4 ressource ou entre 2 
+package stoneage;
 import java.util.ArrayList;
 import java.util.Random;
 /**

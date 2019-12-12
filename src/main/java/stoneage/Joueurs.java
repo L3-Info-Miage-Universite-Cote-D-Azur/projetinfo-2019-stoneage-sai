@@ -10,10 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-/**
- *
- * @author Ossama
- */
 public interface Joueurs {
 	Random rand = new Random();
 	 int cadeauRes(ArrayList<Integer> listeDe );
@@ -22,7 +18,7 @@ public interface Joueurs {
 	 Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv);
 	 int getNum();
 	
-        default public ArrayList<Integer> payBuildingWith(Inventaire inv,int cout,int types){
+	 default public ArrayList<Integer> payBuildingWith(Inventaire inv,int cout,int types){
         ArrayList<Integer> res= new ArrayList<Integer>();//res=[Or,Pierre,Argile,Bois]
         if (cout==5) {
             if (types==4) {//le joueur choisit de payer par Or,Pierre,Argile,Bois par ce que ca rapporte plus de points de score comme ca 
@@ -397,13 +393,12 @@ public interface Joueurs {
 			return listZoneDispo;
 
 		}
-	default void resolution(Inventaire inv,ArrayList<Integer> res,int cout){
-		inv.setScore(inv.getScore()+res.get(0)*6+res.get(1)*5+res.get(2)*4+res.get(3)*3);
-		inv.setNbOr(inv.getNbOr()-res.get(0));
-		inv.setNbPierre(inv.getNbPierre()-res.get(1));
-		inv.setNbArgile(inv.getNbArgile()-res.get(2));
-		inv.setNbBois(inv.getNbBois()-res.get(3));
-		inv.setNbRessource(inv.getNbRessource() - cout);
-	}
+    default void resolution(Inventaire inv,ArrayList<Integer> res,int cout){
+        inv.setScore(inv.getScore()+res.get(0)*6+res.get(1)*5+res.get(2)*4+res.get(3)*3);
+        inv.lesRessources.get(6).subvaleur(res.get(0)) ;
+        inv.lesRessources.get(5).subvaleur(res.get(1)) ;
+        inv.lesRessources.get(4).subvaleur(res.get(2)) ;
+        inv.lesRessources.get(6).subvaleur(res.get(3)) ;
+    }
 
 }
