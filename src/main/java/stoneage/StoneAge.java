@@ -31,23 +31,6 @@ public class StoneAge {
 	boolean stat;
 
 
-	/****** Choisir un nombre de joueurs pour commencer une Partie ( entre 2 et 4 )******/
-	/*Pour les statistique il se peut que x joueur arrive en tete avec le meme score, alors les x joueur gagne la partie.
-	 * C'est pour cela que le total des victoire des joueur dans les statistiques peut depasser 500.
-	 * Mais il y a bien 500 parties jouées.
-	 */
-
-
-	public static final void main(String [] args) {
-
-		/****** Choisir "unePartie(nbJoueur)" pour lancer une seule partie.
-		 * **** Choisir "partie500Stat(nbJoueur)" pour lancer 500 partie avec les statistiques.
-		 * **** nbJoueur = Le nombre de joueur compris entre 2 et 4. ******/
-
-		//unePartie(4);
-		partie500Stat(4);
-	}
-
 	/**
 	 * Constructeur de la classe StoneAge
 	 * @param nbJ :
