@@ -52,22 +52,22 @@ public class Partie {
                 inv.listeZonesJouer.set(i,false); //la zone n'est plus utiliser donc elle devient false pour le joueur (disponnible a nouveau)
                 inv.listeOuvriersPlaces.set(i,0);
                 if (!stat) System.out.println(ConsoleColors.RED+"Le joueur " + joueur.getNum() + " reprend ses ouvriers de la zone "+choix+ConsoleColors.RESET);
-                if (choix.getGains()==-1){
-                    if (!stat) System.out.println(ConsoleColors.RED+"Le joueur decide d'abandonner sa carte civilisation.\n"+ConsoleColors.RESET);
-                }
-                else if (choix.getGains()==-3) {
-                    if (!stat) System.out.println(ConsoleColors.RED+"Le joueur decide d'abandonner sa carte batiment. \n "+ConsoleColors.RESET);
-                }
-                else if (choix.getGains()==-5) {
-                    if (!stat) System.out.println(ConsoleColors.RED+"Le joueur n'a pas assez de ressources pour payer cette carte batiment \n"+ConsoleColors.RESET);
-                }
-                else if (choix.getGains()==-4){
-                    if (!stat) System.out.println(ConsoleColors.RED+"Le joueur a gagner un "+choix.getTabTypeGains()[0]+" et un "+choix.getTabTypeGains()[1]+"  avec sa carte civilisation. \n"+ConsoleColors.RESET);
-                }
-                else if (choix.getGains()>=0){
-                    if (!stat) System.out.println(ConsoleColors.RED+"Il gagne  "+choix.getGains() +" " +choix.getTypeGains()+ConsoleColors.RESET  + " \n");
-                }
-            }
+        		if (choix.getGains()==-1){
+        			if (!stat) System.out.println(ConsoleColors.RED+"Le joueur decide d'abandonner sa carte civilisation.\n"+ConsoleColors.RESET);
+        		}
+        		else if (choix.getGains()==-3) {
+        			if (!stat) System.out.println(ConsoleColors.RED+"Le joueur decide d'abandonner sa carte batiment. \n "+ConsoleColors.RESET);
+        		}
+        		else if (choix.getGains()==-5) {
+        			if (!stat) System.out.println(ConsoleColors.RED+"Le joueur n'a pas assez de ressources pour payer cette carte batiment \n"+ConsoleColors.RESET);
+        		}
+        		else if (choix.getGains()==-4){
+        			if (!stat) System.out.println(ConsoleColors.RED+"Le joueur a gagner un "+choix.TypesGains[0]+" et un "+choix.TypesGains[1]+"  avec sa carte civilisation. \n"+ConsoleColors.RESET);
+                        }
+        		else if (choix.getGains()>=0){
+        			if (!stat) System.out.println(ConsoleColors.RED+"Il gagne  "+choix.getGains() +" " +choix.TypeGains()+ConsoleColors.RESET  + " \n");
+        		}
+        	}
         }
         inv.resetAvailableWorkers();
     }
