@@ -12,17 +12,17 @@ import java.util.Random;
 
 public interface Joueurs {
 	Random rand = new Random();
-	 int cadeauRes(ArrayList<Integer> listeDe );
-	 int choixTypeRes(int cout,Inventaire inv, int...typeDispo) ;
+	int cadeauRes(ArrayList<Integer> listeDe );
+	int choixTypeRes(int cout,Inventaire inv, int...typeDispo) ;
 	int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) ;
-	 Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv);
-	 int getNum();
+	Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv);
+	int getNum();
 	
-	 default public ArrayList<Integer> payBuildingWith(Inventaire inv,int cout,int types){
-        ArrayList<Integer> res= new ArrayList<Integer>();//res=[Or,Pierre,Argile,Bois]
+	 default  ArrayList<Integer> payBuildingWith(Inventaire inv,int cout,int types){
+        ArrayList<Integer> res= new ArrayList();//res=[Or,Pierre,Argile,Bois]
         if (cout==5) {
             if (types==4) {//le joueur choisit de payer par Or,Pierre,Argile,Bois par ce que ca rapporte plus de points de score comme ca 
-                if (inv.getNbRessource()>=cout && inv.getNbBois()!=0 && inv.getNbArgile()!=0 && inv.getNbPierre()!=0 && inv.getNbOr()!=0) {
+                if (inv.getNbRessource()>=cout && inv.getNbBois()>0 && inv.getNbArgile()>0 && inv.getNbPierre()>0 && inv.getNbOr()>0) {
                     if (inv.getNbOr()>=2) {
                         res.add(2);
                         res.add(1);
@@ -30,19 +30,23 @@ public interface Joueurs {
                         res.add(1);
                     }
                     else{
-                        res.add(1);
                         if (inv.getNbPierre()>=2) {
+                            res.add(1);
                             res.add(2);
                             res.add(1);
                             res.add(1);
                         }
                         else{
-                            res.add(1);
+
                             if (inv.getNbArgile()>=2) {
+                                res.add(1);
+                                res.add(1);
                                 res.add(2);
                                 res.add(1);
                             }
-                            else{
+                            else if (inv.getNbBois()>=2) {
+                                res.add(1);
+                                res.add(1);
                                 res.add(1);
                                 res.add(2);
                             }
@@ -52,13 +56,13 @@ public interface Joueurs {
             }
             if (types==2) {
                 if (inv.getNbOr()+inv.getNbPierre()>=cout){
-                    if (inv.getNbOr()>=3) {
+                    if (inv.getNbOr()>=3 && inv.getNbPierre()>=2) {
                         res.add(3);
                         res.add(2);
                         res.add(0);
                         res.add(0);
                     }
-                    else{
+                    else if (inv.getNbPierre()>=3 && inv.getNbOr()>=2) {
                         res.add(2);
                         res.add(3);
                         res.add(0);
@@ -66,13 +70,13 @@ public interface Joueurs {
                     }
                 }
                 if (inv.getNbOr()+inv.getNbArgile()>=cout && res.size()==0 ) {
-                    if (inv.getNbOr()>=3) {
+                    if (inv.getNbOr()>=3 && inv.getNbArgile()>=2) {
                         res.add(3);
                         res.add(0);
                         res.add(2);
                         res.add(0);
                     }
-                    else{
+                    else if (inv.getNbArgile()>=3 && inv.getNbOr()>=2) {
                         res.add(2);
                         res.add(0);
                         res.add(3);
@@ -80,13 +84,13 @@ public interface Joueurs {
                     }
                 }
                 if (inv.getNbOr()+inv.getNbBois()>=cout && res.size()==0) {
-                    if (inv.getNbOr()>=3) {
+                    if (inv.getNbOr()>=3 && inv.getNbBois()>=2) {
                         res.add(3);
                         res.add(0);
                         res.add(0);
                         res.add(2);
                     }
-                    else{
+                    else if (inv.getNbBois()>=3 && inv.getNbOr()>=2) {
                         res.add(2);
                         res.add(0);
                         res.add(0);
@@ -94,13 +98,13 @@ public interface Joueurs {
                     }
                 }
                 if (inv.getNbPierre()+inv.getNbArgile()>=cout && res.size()==0) {
-                    if (inv.getNbPierre()>=3) {
+                    if (inv.getNbPierre()>=3 && inv.getNbArgile()>=2) {
                         res.add(0);
                         res.add(3);
                         res.add(2);
                         res.add(0);
                     }
-                    else{
+                    else if (inv.getNbArgile()>=3 && inv.getNbPierre()>=2) {
                         res.add(0);
                         res.add(2);
                         res.add(3);
@@ -108,13 +112,13 @@ public interface Joueurs {
                     }
                 }
                 if (inv.getNbPierre()+inv.getNbBois()>=cout && res.size()==0) {
-                    if (inv.getNbPierre()>=3) {
+                    if (inv.getNbPierre()>=3 && inv.getNbBois()>=2) {
                         res.add(0);
                         res.add(3);
                         res.add(0);
                         res.add(2);
                     }
-                    else{
+                    else if (inv.getNbBois()>=3 && inv.getNbPierre()>=2) {
                         res.add(0);
                         res.add(2);
                         res.add(0);
@@ -122,13 +126,13 @@ public interface Joueurs {
                     }
                 }
                 if (inv.getNbArgile()+inv.getNbBois()>=cout && res.size()==0) {
-                    if (inv.getNbArgile()>=3) {
+                    if (inv.getNbArgile()>=3&& inv.getNbBois()>=2) {
                         res.add(0);
                         res.add(0);
                         res.add(3);
                         res.add(2);
                     }
-                    else{
+                    else if (inv.getNbBois()>=3&& inv.getNbArgile()>=2) {
                         res.add(0);
                         res.add(0);
                         res.add(2);
@@ -139,7 +143,7 @@ public interface Joueurs {
         }
         if (cout==4) {
             if (types==4) {
-                if (inv.getNbRessource()>=cout && inv.getNbBois()!=0 && inv.getNbArgile()!=0 && inv.getNbPierre()!=0 && inv.getNbOr()!=0) {
+                if (inv.getNbRessource()>=cout && inv.getNbBois()>0 && inv.getNbArgile()>0 && inv.getNbPierre()>0 && inv.getNbOr()>0) {
                     res.add(1);
                     res.add(1);
                     res.add(1);
@@ -148,13 +152,19 @@ public interface Joueurs {
             }
             if (types==2) {
                 if (inv.getNbOr()+inv.getNbPierre()>=cout){
-                    if (inv.getNbOr()>=2) {
+                    if (inv.getNbOr()>=2 && inv.getNbPierre()>=2) {
                         res.add(2);
                         res.add(2);
                         res.add(0);
                         res.add(0);
                     }
-                    else{
+                    else if (inv.getNbOr()>=3) {
+                        res.add(3);
+                        res.add(1);
+                        res.add(0);
+                        res.add(0);
+                    }
+                    else if (inv.getNbPierre()>=3) {
                         res.add(1);
                         res.add(3);
                         res.add(0);
@@ -162,13 +172,19 @@ public interface Joueurs {
                     }
                 }
                 if (inv.getNbOr()+inv.getNbArgile()>=cout && res.size()==0 ) {
-                    if (inv.getNbOr()>=2) {
+                    if (inv.getNbOr()>=2 && inv.getNbArgile()>=2  ) {
                         res.add(2);
                         res.add(0);
                         res.add(2);
                         res.add(0);
                     }
-                    else{
+                    else if (inv.getNbOr()>=3 ) {
+                        res.add(3);
+                        res.add(0);
+                        res.add(1);
+                        res.add(0);
+                    }
+                    else if (inv.getNbArgile()>=3 ) {
                         res.add(1);
                         res.add(0);
                         res.add(3);
@@ -176,13 +192,19 @@ public interface Joueurs {
                     }
                 }
                 if (inv.getNbOr()+inv.getNbBois()>=cout && res.size()==0) {
-                    if (inv.getNbOr()>=2) {
+                    if (inv.getNbOr()>=2 &&  inv.getNbBois()>=2) {
                         res.add(2);
                         res.add(0);
                         res.add(0);
                         res.add(2);
                     }
-                    else{
+                    else if (inv.getNbOr()>=3 ) {
+                        res.add(3);
+                        res.add(0);
+                        res.add(0);
+                        res.add(1);
+                    }
+                    else if (inv.getNbBois()>=3 ) {
                         res.add(1);
                         res.add(0);
                         res.add(0);
@@ -190,13 +212,19 @@ public interface Joueurs {
                     }
                 }
                 if (inv.getNbPierre()+inv.getNbArgile()>=cout && res.size()==0) {
-                    if (inv.getNbPierre()>=2) {
+                    if (inv.getNbPierre()>=2&& inv.getNbArgile()>=2) {
                         res.add(0);
                         res.add(2);
                         res.add(2);
                         res.add(0);
                     }
-                    else{
+                    else if (inv.getNbPierre()>=3){
+                        res.add(0);
+                        res.add(3);
+                        res.add(1);
+                        res.add(0);
+                    }
+                    else if (inv.getNbArgile()>=3){
                         res.add(0);
                         res.add(1);
                         res.add(3);
@@ -204,13 +232,19 @@ public interface Joueurs {
                     }
                 }
                 if (inv.getNbPierre()+inv.getNbBois()>=cout && res.size()==0) {
-                    if (inv.getNbPierre()>=2) {
+                    if (inv.getNbPierre()>=2 && inv.getNbBois()>=2 ) {
                         res.add(0);
                         res.add(2);
                         res.add(0);
                         res.add(2);
                     }
-                    else{
+                    else if (inv.getNbPierre()>=3){
+                        res.add(0);
+                        res.add(3);
+                        res.add(0);
+                        res.add(1);
+                    }
+                    else if (inv.getNbBois()>=3){
                         res.add(0);
                         res.add(1);
                         res.add(0);
@@ -218,13 +252,19 @@ public interface Joueurs {
                     }
                 }
                 if (inv.getNbArgile()+inv.getNbBois()>=cout && res.size()==0) {
-                    if (inv.getNbArgile()>=2) {
+                    if (inv.getNbArgile()>=2 && inv.getNbBois()>=2) {
                         res.add(0);
                         res.add(0);
                         res.add(2);
                         res.add(2);
                     }
-                    else{
+                    else if (inv.getNbArgile()>=3){
+                        res.add(0);
+                        res.add(0);
+                        res.add(3);
+                        res.add(1);
+                    }
+                    else if (inv.getNbBois()>=3){
                         res.add(0);
                         res.add(0);
                         res.add(1);
@@ -237,7 +277,7 @@ public interface Joueurs {
     }
         
         default public ArrayList<Integer>payBuilding17(Inventaire inv){
-            ArrayList<Integer> res=new ArrayList<Integer>();
+            ArrayList<Integer> res=new ArrayList();
             int nbRes=7;
             if (inv.getNbRessource()>=nbRes) {
                 if (inv.getNbOr()>=nbRes) {
@@ -245,7 +285,7 @@ public interface Joueurs {
                     res.add(0);
                     res.add(0);
                     res.add(0);
-                    nbRes=nbRes-nbRes;
+                    nbRes=0;
                 }
                 else{
                     res.add(inv.getNbOr());
@@ -256,7 +296,7 @@ public interface Joueurs {
                         res.add(nbRes);
                         res.add(0);
                         res.add(0);
-                        nbRes=nbRes-nbRes;
+                        nbRes=0;
                     }
                     else{
                         res.add(inv.getNbPierre());
@@ -339,7 +379,7 @@ public interface Joueurs {
 	}
 
 
-	default public boolean payerBatiment() {//le joueur choisi au hasard s'il prend la carte ou pas
+	default  boolean payerBatiment() {//le joueur choisi au hasard s'il prend la carte ou pas
 		int a = rand.nextInt(2);
 		if (a == 0) {
 			return true;
@@ -352,7 +392,7 @@ public interface Joueurs {
 			//*****************Si Jeu entre 2 joueurs******************//
 			if (StoneAge.getNbJoueurTotal() == 2) {
 				for (int i = 0; i < LesZones.size(); i++) {
-					if (LesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && LesZones.get(i).nbJoueur == 0 && i != 15 && i != 1 && i != 9 && i != 10 && i != 13 && i != 14) {
+					if (LesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && LesZones.get(i).getNbJoueur() == 0 && i != 15 && i != 1 && i != 9 && i != 10 && i != 13 && i != 14) {
 						listZoneDispo.add(i);
 					}
 					if (i == 1 && inv.listeZonesJouer.get(i) != true) {
@@ -366,7 +406,7 @@ public interface Joueurs {
 			//*****************Si Jeu entre 3 joueurs******************//
 			else if (StoneAge.getNbJoueurTotal() == 3) {
 				for (int i = 0; i < LesZones.size(); i++) {
-					if (LesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && LesZones.get(i).nbJoueur <= 3 && i != 1 && i != 10 && i != 14) {
+					if (LesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && LesZones.get(i).getNbJoueur() <= 3 && i != 1 && i != 10 && i != 14) {
 						listZoneDispo.add(i);
 					}
 					if (i == 1 && inv.listeZonesJouer.get(i) != true) {
@@ -379,7 +419,7 @@ public interface Joueurs {
 			}
 			else if (StoneAge.getNbJoueurTotal() == 4) {
 				for (int i = 0; i < LesZones.size(); i++) {
-					if (LesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && i != 15 && LesZones.get(i).nbJoueur <= 2 && i != 1) {
+					if (LesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && i != 15 && LesZones.get(i).getNbJoueur() <= 2 && i != 1) {
 						listZoneDispo.add(i);
 					}
 					if (i == 1 && inv.listeZonesJouer.get(i) != true) {
@@ -393,12 +433,57 @@ public interface Joueurs {
 			return listZoneDispo;
 
 		}
-    default void resolution(Inventaire inv,ArrayList<Integer> res,int cout){
+    default  ArrayList<Integer>payBuilding14and18(Inventaire inv, int nbRes){
+	    //methode qui permet au joueur de payer 2 carte batiment
+        ArrayList<Integer> res = new ArrayList();
+        if (inv.getNbOr()+ inv.getNbPierre()  + inv.getNbArgile()>= nbRes) {
+            int nbResMise1 = Math.min(nbRes, inv.getNbOr());
+            int nbResMise2 = Math.min(nbRes - nbResMise1, inv.getNbPierre());
+            int nbResMise3 = Math.min(nbRes - nbResMise2, inv.getNbArgile());
+            res.add(nbResMise1);
+            res.add(nbResMise2);
+            res.add(nbResMise3);
+            res.add(0);
+            nbRes = 0;
+        }
+        else if (inv.getNbOr()+ inv.getNbPierre()  + inv.getNbBois()>= nbRes) {
+            int nbResMise1 = Math.min(nbRes, inv.getNbOr());
+            int nbResMise2 = Math.min(nbRes - nbResMise1, inv.getNbPierre());
+            int nbResMise3 = Math.min(nbRes - nbResMise2, inv.getNbBois());
+            res.add(nbResMise1);
+            res.add(nbResMise2);
+            res.add(0);
+            res.add(nbResMise3);
+            nbRes = 0;
+        }
+        else if (inv.getNbOr()+ inv.getNbArgile()  + inv.getNbBois()>= nbRes) {
+            int nbResMise1 = Math.min(nbRes, inv.getNbOr());
+            int nbResMise2 = Math.min(nbRes - nbResMise1, inv.getNbArgile());
+            int nbResMise3 = Math.min(nbRes - nbResMise2, inv.getNbBois());
+            res.add(nbResMise1);
+            res.add(0);
+            res.add(nbResMise2);
+            res.add(nbResMise3);
+            nbRes = 0;
+        }
+        else if (inv.getNbPierre() + inv.getNbArgile()+ inv.getNbBois()>= nbRes) {
+            int nbResMise1 = Math.min(nbRes, inv.getNbPierre());
+            int nbResMise2 = Math.min(nbRes - nbResMise1, inv.getNbArgile());
+            int nbResMise3 = Math.min(nbRes - nbResMise2, inv.getNbBois());
+            res.add(0);
+            res.add(nbResMise1);
+            res.add(nbResMise2);
+            res.add(nbResMise3);
+            nbRes = 0;
+        }
+        return res;
+    }
+    default void resolution(Inventaire inv,ArrayList<Integer> res){
         inv.setScore(inv.getScore()+res.get(0)*6+res.get(1)*5+res.get(2)*4+res.get(3)*3);
         inv.lesRessources.get(6).subvaleur(res.get(0)) ;
         inv.lesRessources.get(5).subvaleur(res.get(1)) ;
         inv.lesRessources.get(4).subvaleur(res.get(2)) ;
-        inv.lesRessources.get(6).subvaleur(res.get(3)) ;
+        inv.lesRessources.get(3).subvaleur(res.get(3)) ;
     }
 
 }

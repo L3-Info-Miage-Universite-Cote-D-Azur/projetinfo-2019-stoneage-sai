@@ -57,7 +57,7 @@ public class JoueurBot2 implements Joueurs {
 					int nbOuvChoisie = 1;
 					int[] tabZoneDispo={0,1,2,3,4,5,6,7,8,11,12,15}; // zone 10 et 11 indispo
 					int zoneChoisie = tabZoneDispo[10];
-					while (inv.listeZonesJouer.get(zoneChoisie) || LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).nbJoueur>=1){
+					while (inv.listeZonesJouer.get(zoneChoisie) || LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).getNbJoueur()>=1){
 						if (i == 0){ zoneChoisie = tabZoneDispo[9];}
 						else if(i == 1){zoneChoisie = tabZoneDispo[0];}
 						else if (i == 2){zoneChoisie = tabZoneDispo[8];}
@@ -96,7 +96,7 @@ public class JoueurBot2 implements Joueurs {
 					int nbOuvChoisie = 1;
 					int[] tabZoneDispo={0,1,2,3,4,5,6,7,8,9,11,12,13,15}; // 7,8,9 cartes 11,12,13 batiments
 					int zoneChoisie = tabZoneDispo[12];
-					while (inv.listeZonesJouer.get(zoneChoisie)|| LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).nbJoueur>=2){
+					while (inv.listeZonesJouer.get(zoneChoisie)|| LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).getNbJoueur()>=2){
 						if (i == 0){ zoneChoisie = tabZoneDispo[11];}
 						else if(i == 1){zoneChoisie = tabZoneDispo[10];}
 						else if (i == 2){zoneChoisie = tabZoneDispo[9];}
@@ -166,9 +166,9 @@ public class JoueurBot2 implements Joueurs {
 	}
 	public int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) {
 	    int OutilChoisie ;
-		if ((zoneChoisi.niveauZone-(nbRessources % zoneChoisi.niveauZone))<=nbOutils)
+		if ((zoneChoisi.getNiveauZone()-(nbRessources % zoneChoisi.getNiveauZone()))<=nbOutils)
     	{
-			OutilChoisie =(zoneChoisi.niveauZone-(nbRessources % zoneChoisi.niveauZone));
+			OutilChoisie =(zoneChoisi.getNiveauZone()-(nbRessources % zoneChoisi.getNiveauZone()));
     	}
     	else {
     	    OutilChoisie = rand.nextInt(nbOutils+1);

@@ -1,6 +1,5 @@
 package stoneage;
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  *Cette Class est les joueursIA qui suivent une strategie dans le jeu ,
@@ -21,8 +20,7 @@ import java.util.Random;
  *
 **/
 public class JoueurIA implements Joueurs {
-	Random rand = new Random();
-	String name;
+	private String name;
 	private int num;
 	JoueurIA(String name,int num){
             this.name=name;
@@ -32,16 +30,15 @@ public class JoueurIA implements Joueurs {
     public int getNum(){
             return num;
         }
-
 	/**La methode placerOutils va permettre au joueur de choisir s'il peut ou pas placer des outils lorsqu'il recupere ses gains,
 	* Ainsi que le nombre d'outil qu'il va utiliser avec une maniere plus reflechis**/
     public int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) {
     	int OutilChoisie ;
 		/*Si le joueur a un nombre d'outils suffisant pour avoir i+1 resource de plus, alors il les utilise*/
 		for (int i=5;i>=0;i--){
-			if ((zoneChoisi.niveauZone-(nbRessources % zoneChoisi.niveauZone))+(zoneChoisi.niveauZone*i)<=nbOutils)
+			if ((zoneChoisi.getNiveauZone()-(nbRessources % zoneChoisi.getNiveauZone()))+(zoneChoisi.getNiveauZone()*i)<=nbOutils)
 			{
-				OutilChoisie =(zoneChoisi.niveauZone-(nbRessources % zoneChoisi.niveauZone))+(zoneChoisi.niveauZone*i);
+				OutilChoisie =(zoneChoisi.getNiveauZone()-(nbRessources % zoneChoisi.getNiveauZone()))+(zoneChoisi.getNiveauZone()*i);
 				return OutilChoisie;
 			}
     	/*si par exemple il a une somme de des egale a 8 dans la zone foret il peut rajouter un outils
@@ -110,7 +107,7 @@ public class JoueurIA implements Joueurs {
 		if (StoneAge.getNbJoueurTotal() == 2) {
 			ArrayList<Integer> listZoneDispo = new ArrayList<>();
 			for (int i = 0; i < lesZones.size(); i++) {
-				if (lesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && lesZones.get(i).nbJoueur == 0 && i != 1 && i != 9 && i != 10 && i != 13 && i != 14) {
+				if (lesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && lesZones.get(i).getNbJoueur() == 0 && i != 1 && i != 9 && i != 10 && i != 13 && i != 14) {
 					listZoneDispo.add(i);
 				}
 				if (i == 1 && inv.listeZonesJouer.get(i) != true) {
@@ -127,7 +124,7 @@ public class JoueurIA implements Joueurs {
 		else if (StoneAge.getNbJoueurTotal() == 3) {
 			ArrayList<Integer> listZoneDispo = new ArrayList<>();
 			for (int i = 0; i < lesZones.size(); i++) {
-				if (lesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && lesZones.get(i).nbJoueur <=1 && i != 1 &&  i != 10  && i != 14) {
+				if (lesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && lesZones.get(i).getNbJoueur() <=1 && i != 1 &&  i != 10  && i != 14) {
 					listZoneDispo.add(i);
 				}
 				if (i == 1 && inv.listeZonesJouer.get(i) != true) {
@@ -144,7 +141,7 @@ public class JoueurIA implements Joueurs {
 		else if (StoneAge.getNbJoueurTotal() == 4) {
 			ArrayList<Integer> listZoneDispo = new ArrayList<>();
 			for (int i = 0; i < lesZones.size(); i++) {
-				if (lesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && lesZones.get(i).nbJoueur <=2 && i != 1 ) {
+				if (lesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && lesZones.get(i).getNbJoueur() <=2 && i != 1 ) {
 					listZoneDispo.add(i);
 				}
 				if (i == 1 && inv.listeZonesJouer.get(i) != true) {
