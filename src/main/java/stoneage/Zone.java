@@ -10,18 +10,15 @@ import java.util.ArrayList;
 public class Zone {
 	private String nomZone;
 	private int nbOuvriersPlacés = 0;
-	public int niveauZone ;
+	private int niveauZone ;
 	private ArrayList<Integer> listeDesDe;
-	public  Dé dé= new Dé();
+	private  Dé dé= new Dé();
 	private int nbPlaceZone ;
 	private int nbPlaceDispo;
-	public int gains; //le nombre des gains du joueur
-	public String TypeGains; //le nom du gain par exemple bois...
-	public String[] TypesGains;
-	public int nbJoueur;
-
-
-
+	private int gains; //le nombre des gains du joueur
+	private String TypeGains; //le nom du gain par exemple bois...
+	private String[] TypesGains;
+	private int nbJoueur;
 
 	public Zone(int niveau, int nbPlace, String nom) {
 		this.niveauZone = niveau;
@@ -45,13 +42,24 @@ public class Zone {
 			//le nombre d'ouvrier placer dans la zone augmente
 		}
 	}
+	public void setTabTypeGains(int index,String val){
+		this.TypesGains[index]=val;
+	}
+	public String[] getTabTypeGains(){
+		return TypesGains;
+	}
+	public int getNiveauZone() {
+		return niveauZone;
+	}
+	public int getNbJoueur() {
+		return nbJoueur;
+	}
 	public void setTypeGains(String t){
 		this.TypeGains=t;
 	}
 	public void setGains(int t){
 		this.gains=t;
 	}
-
 	public int getNbPlaceZone(){
 		return nbPlaceZone;
 	}
@@ -169,7 +177,6 @@ public class Zone {
 			if (payer == true) {
 				carte.recupResCarteCiv(inventaireJoueur, this, J);
 				listeDesCartes.remove(carte);
-				TypeGains += " avec la carte Civilisation. ";
 			} else {
 				gains = -1;
 			}

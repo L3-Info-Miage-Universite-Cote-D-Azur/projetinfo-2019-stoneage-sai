@@ -179,19 +179,19 @@ public class CarteCivilisation {
                         if (res == 1) {
                             inventaireJoueur.lesRessources.get(3).addvaleur(1);
                             zone.setGains( -4);
-                            zone.TypesGains[zone.TypesGains.length] = inventaireJoueur.lesRessources.get(3).getNom();;
+                            zone.setTabTypeGains(zone.getTabTypeGains().length, inventaireJoueur.lesRessources.get(3).getNom());
                         } else if (res == 2) {
                             inventaireJoueur.lesRessources.get(4).addvaleur(1);
                             zone.setGains( -4);
-                            zone.TypesGains[zone.TypesGains.length] = inventaireJoueur.lesRessources.get(4).getNom();
+                            zone.setTabTypeGains(zone.getTabTypeGains().length,  inventaireJoueur.lesRessources.get(4).getNom());
                         } else if (res == 3) {
                             inventaireJoueur.lesRessources.get(4).addvaleur(1);
                             zone.setGains( -4);
-                            zone.TypesGains[zone.TypesGains.length] = inventaireJoueur.lesRessources.get(5).getNom();
+                            zone.setTabTypeGains(zone.getTabTypeGains().length , inventaireJoueur.lesRessources.get(5).getNom());
                         } else if (res == 4) {
                             inventaireJoueur.lesRessources.get(6).addvaleur(1);
                             zone.setGains( -4);
-                            zone.TypesGains[zone.TypesGains.length] = inventaireJoueur.lesRessources.get(6).getNom();
+                            zone.setTabTypeGains(zone.getTabTypeGains().length, inventaireJoueur.lesRessources.get(6).getNom());
                         }
                     }
                 }
@@ -404,6 +404,7 @@ public class CarteCivilisation {
                 }
             }
         }
+        zone.setTypeGains (zone.getTypeGains()  +" avec la carte Civilisation. ");
     }
     
     public int getFondDeCarte() {
