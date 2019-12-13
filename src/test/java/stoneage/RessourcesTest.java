@@ -55,7 +55,7 @@ public class RessourcesTest {
 	}
 	
 	@Test
-	 void addValTest() {
+	 void addValTest() { // on ajoute une ressource
 		coeff=1;
 		valeur=8;
 		ressources = new Ressources(coeff,"nom",valeur);
@@ -65,7 +65,7 @@ public class RessourcesTest {
 	}
 	
 	@Test
-	 void SubValTest() {
+	 void SubValTest() { // on retire une ressource
 		coeff=1;
 		valeur=8;
 		ressources = new Ressources(coeff,"nom",valeur);
