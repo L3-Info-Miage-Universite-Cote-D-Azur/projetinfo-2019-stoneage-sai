@@ -120,7 +120,10 @@ public class BuildingTiles {
                 inventaireJoueur.lesRessources.get(3).subvaleur(2);
                 inventaireJoueur.lesRessources.get(4).subvaleur(1);
                 zone.setGains( 10);
-                zone.setTypeGains( " points sur la piste score avec la carte Batiment ");
+                zone.setTypeGains( " points");
+                J.lesResCouter.put(inventaireJoueur.lesRessources.get(3).getNom(),2);
+                J.lesResCouter.put(inventaireJoueur.lesRessources.get(4).getNom(),1);
+
             }
         } else if (this.getCardScore() == 1) { //cartes +11 points
             if (this.getBuildingCost() == 1) { //carte +11 points et coute 1b+2a
@@ -129,7 +132,9 @@ public class BuildingTiles {
                     inventaireJoueur.lesRessources.get(3).subvaleur(1);
                     inventaireJoueur.lesRessources.get(4).subvaleur(2);
                     zone.setGains( 11);
-                    zone.setTypeGains( " points sur la piste score avec la carte Batiment ");
+                    zone.setTypeGains( " points");
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(3).getNom(),1);
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(4).getNom(),2);
                 }
             } else {
                 if (inventaireJoueur.lesRessources.get(3).getValeur()>= 2 && inventaireJoueur.lesRessources.get(4).getValeur()>= 1 ) {//carte +11 points et coute 2b+1p
@@ -137,7 +142,9 @@ public class BuildingTiles {
                     inventaireJoueur.lesRessources.get(3).subvaleur(2);
                     inventaireJoueur.lesRessources.get(4).subvaleur(1);
                     zone.setGains( 11);
-                    zone.setTypeGains( " points sur la piste score avec la carte Batiment ");
+                    zone.setTypeGains( " points");
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(3).getNom(),2);
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(4).getNom(),1);
                 }
             }
         } else if (this.getCardScore() == 2) { //cartes +12 points
@@ -148,7 +155,10 @@ public class BuildingTiles {
                     inventaireJoueur.lesRessources.get(4).subvaleur(1);
                     inventaireJoueur.lesRessources.get(5).subvaleur(1);
                     zone.setGains( 12);
-                    zone.setTypeGains( " points sur la piste score avec la carte Batiment ");
+                    zone.setTypeGains( " points");
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(3).getNom(),1);
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(4).getNom(),1);
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(5).getNom(),1);
                 }
             }
             if (this.getBuildingCost() == 4) { //carte +12 points et coute 2b+1o
@@ -157,7 +167,10 @@ public class BuildingTiles {
                     inventaireJoueur.lesRessources.get(3).subvaleur(2);
                     inventaireJoueur.lesRessources.get(6).subvaleur(1);
                     zone.setGains( 12);
-                    zone.setTypeGains( " points sur la piste score avec la carte Batiment ");
+                    zone.setTypeGains( " points");
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(3).getNom(),2);
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(6).getNom(),1);
+
                 }
             }
         } else if (this.getCardScore() == 3) { //cartes +13 points
@@ -168,7 +181,10 @@ public class BuildingTiles {
                     inventaireJoueur.lesRessources.get(4).subvaleur(1);
                     inventaireJoueur.lesRessources.get(6).subvaleur(1);
                     zone.setGains( 13);
-                    zone.setTypeGains( " points sur la piste score avec la carte Batiment ");
+                    zone.setTypeGains( " points");
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(3).getNom(),1);
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(4).getNom(),1);
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(5).getNom(),1);
                 }
             }
             if (this.getBuildingCost() == 6) { //carte +13 points et coute 2a+1p
@@ -177,7 +193,9 @@ public class BuildingTiles {
                     inventaireJoueur.lesRessources.get(5).subvaleur(1);
                     inventaireJoueur.lesRessources.get(4).subvaleur(2);
                     zone.setGains( 13);
-                    zone.setTypeGains( " points sur la piste score avec la carte Batiment ");
+                    zone.setTypeGains( " points");
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(5).getNom(),1);
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(4).getNom(),2);
                 }
             }
             if (this.getBuildingCost() == 7) { //carte +13 points et coute 1b+2p
@@ -186,7 +204,9 @@ public class BuildingTiles {
                     inventaireJoueur.lesRessources.get(3).subvaleur(1);
                     inventaireJoueur.lesRessources.get(5).subvaleur(2);
                     zone.setGains( 13);
-                    zone.setTypeGains( " points sur la piste score avec la carte Batiment ");
+                    zone.setTypeGains( " points");
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(3).getNom(),1);
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(5).getNom(),2);
                 }
             }
         } else if (this.getCardScore() == 4) { //cartes +14 points
@@ -196,8 +216,12 @@ public class BuildingTiles {
                     inventaireJoueur.lesRessources.get(3).subvaleur(1);
                     inventaireJoueur.lesRessources.get(5).subvaleur(1);
                     inventaireJoueur.lesRessources.get(6).subvaleur(1);
-                    zone.setTypeGains( " points sur la piste score avec la carte Batiment ");
+                    zone.setTypeGains( " points");
                     zone.setGains( 14);
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(3).getNom(),1);
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(5).getNom(),1);
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(6).getNom(),1);
+
                 }
             }
             if (this.getBuildingCost() == 9) { //carte +14 points et coute 1a+2p
@@ -205,8 +229,11 @@ public class BuildingTiles {
                     inventaireJoueur.setScore(inventaireJoueur.getScore() + 14);
                     inventaireJoueur.lesRessources.get(4).subvaleur(1);
                     inventaireJoueur.lesRessources.get(5).subvaleur(2);
-                    zone.setTypeGains( " points sur la piste score avec la carte Batiment ");
+                    zone.setTypeGains( " points");
                     zone.setGains( 14);
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(4).getNom(),1);
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(5).getNom(),2);
+
                 }
             }
             if (this.getBuildingCost() == 10) { //carte +14 points et coute 2a+1o
@@ -214,8 +241,11 @@ public class BuildingTiles {
                     inventaireJoueur.setScore(inventaireJoueur.getScore() + 14);
                     inventaireJoueur.lesRessources.get(4).subvaleur(2);
                     inventaireJoueur.lesRessources.get(6).subvaleur(1);
-                    zone.setTypeGains( " points sur la piste score avec la carte Batiment ");
+                    zone.setTypeGains( " points");
                     zone.setGains( 14);
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(4).getNom(),2);
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(6).getNom(),1);
+
                 }
             }
         } else if (this.getCardScore() == 5) { //cartes +15 points
@@ -225,8 +255,12 @@ public class BuildingTiles {
                     inventaireJoueur.lesRessources.get(4).subvaleur(1);
                     inventaireJoueur.lesRessources.get(5).subvaleur(1);
                     inventaireJoueur.lesRessources.get(6).subvaleur(1);
-                    zone.setTypeGains( " points sur la piste score avec la carte Batiment ");
+                    zone.setTypeGains( " points");
                     zone.setGains( 15);
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(4).getNom(),1);
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(5).getNom(),1);
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(6).getNom(),1);
+
                 }
             }
         } else if (this.getCardScore() == 6) { //une seule carte +16 points et coute 2p+1o
@@ -234,8 +268,11 @@ public class BuildingTiles {
                 inventaireJoueur.setScore(inventaireJoueur.getScore() + 16);
                 inventaireJoueur.lesRessources.get(5).subvaleur(2);
                 inventaireJoueur.lesRessources.get(6).subvaleur(1);
-                zone.setTypeGains( " points sur la piste score avec la carte Batiment ");
+                zone.setTypeGains( " points");
                 zone.setGains( 16);
+                J.lesResCouter.put(inventaireJoueur.lesRessources.get(5).getNom(),2);
+                J.lesResCouter.put(inventaireJoueur.lesRessources.get(6).getNom(),1);
+
             }
         } else if (this.getCardScore() == 7) {//cartes dont les points gagnes dependent de la valeur des matieres premieres employees(cartes avec ? en haut a gauche)
             if (this.getBuildingCost() == 13) {//carte +? points et coute 5 ressources de 4 types
@@ -257,22 +294,29 @@ public class BuildingTiles {
                     inventaireJoueur.setScore(inventaireJoueur.getScore() + 5 * 6);
                     inventaireJoueur.lesRessources.get(6).subvaleur(5);
                     zone.setGains( 35);
-                    zone.setTypeGains( " points sur la piste score avec la carte Batiment ");
+                    zone.setTypeGains( " points");
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(6).getNom(),5);
+
                 } else if (inventaireJoueur.lesRessources.get(5).getValeur() >= 5) {
                     inventaireJoueur.setScore(inventaireJoueur.getScore() + 5 * 5);
                     inventaireJoueur.lesRessources.get(5).subvaleur(5);
                     zone.setGains( 25);
-                    zone.setTypeGains( " points sur la piste score avec la carte Batiment ");
+                    zone.setTypeGains( " points");
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(5).getNom(),5);
+
                 } else if (inventaireJoueur.lesRessources.get(4).getValeur() >= 5) {
                     inventaireJoueur.setScore(inventaireJoueur.getScore() + 5 * 4);
                     inventaireJoueur.lesRessources.get(4).subvaleur(5);
                     zone.setGains( 20);
-                    zone.setTypeGains( " points sur la piste score avec la carte Batiment ");
+                    zone.setTypeGains( " points");
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(4).getNom(),5);
+
                 } else if (inventaireJoueur.lesRessources.get(3).getValeur() >= 5) {
                     inventaireJoueur.setScore(inventaireJoueur.getScore() + 5 * 3);
                     inventaireJoueur.lesRessources.get(3).subvaleur(5);
                     zone.setGains( 15);
-                    zone.setTypeGains( " points sur la piste score avec la carte Batiment ");
+                    zone.setTypeGains( " points");
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(3).getNom(),5);
                 }
             }
             if (this.getBuildingCost() == 17) {//carte +? points et coute 4 ressources de 4 types
@@ -294,42 +338,49 @@ public class BuildingTiles {
                     inventaireJoueur.setScore(inventaireJoueur.getScore() + 4 * 6);
                     inventaireJoueur.lesRessources.get(6).subvaleur(4);
                     zone.setGains( 24);
-                    zone.setTypeGains( " points sur la piste score avec la carte Batiment ");
+                    zone.setTypeGains( " points");
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(6).getNom(),4);
+
                 } else if (inventaireJoueur.lesRessources.get(5).getValeur() >= 4) {
                     inventaireJoueur.setScore(inventaireJoueur.getScore() + 4 * 5);
                     inventaireJoueur.lesRessources.get(5).subvaleur(4);
                     zone.setGains( 20);
-                    zone.setTypeGains( " points sur la piste score avec la carte Batiment ");
+                    zone.setTypeGains( " points");
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(5).getNom(),4);
+
                 } else if (inventaireJoueur.lesRessources.get(4).getValeur() >= 4) {
                     inventaireJoueur.setScore(inventaireJoueur.getScore() + 4 * 4);
                     inventaireJoueur.lesRessources.get(4).subvaleur(4);
                     zone.setGains( 16);
-                    zone.setTypeGains( " points sur la piste score avec la carte Batiment ");
+                    zone.setTypeGains( " points");
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(4).getNom(),4);
+
                 } else if (inventaireJoueur.lesRessources.get(3).getValeur() >= 4) {
                     inventaireJoueur.setScore(inventaireJoueur.getScore() + 4 * 3);
                     inventaireJoueur.lesRessources.get(3).subvaleur(4);
                     zone.setGains( 12);
-                    zone.setTypeGains( " points sur la piste score avec la carte Batiment ");
+                    zone.setTypeGains( " points");
+                    J.lesResCouter.put(inventaireJoueur.lesRessources.get(3).getNom(),4);
                 }
             }
             if (this.getBuildingCost() == 21) {//carte +? points et coute au moins une matiere premiere et au plus 7(existe en 3 exemplaires)
                 res = J.payBuilding17(inventaireJoueur);
                 J.resolution(inventaireJoueur, res);
                 zone.setGains( res.get(0) * 6 + res.get(1) * 5 + res.get(2) * 4 + res.get(3) * 3);
-                zone.setTypeGains( " points sur la piste score avec la carte Batiment ");
+                zone.setTypeGains( " points");
             }
             if (this.getBuildingCost() == 14 && inventaireJoueur.getNbRessource()>4) {
 
                 res = J.payBuilding14and18(inventaireJoueur,4);
                 J.resolution(inventaireJoueur, res);
                 zone.setGains( res.get(0) * 6 + res.get(1) * 5 + res.get(2) * 4 + res.get(3) * 3);
-                zone.setTypeGains( " points sur la piste score avec la carte Batiment ");
+                zone.setTypeGains( " points");
             }
             if (this.getBuildingCost() == 18 && inventaireJoueur.getNbRessource()>5) {
                 res = J.payBuilding14and18(inventaireJoueur,5);
                 J.resolution(inventaireJoueur, res);
                 zone.setGains( res.get(0) * 6 + res.get(1) * 5 + res.get(2) * 4 + res.get(3) * 3);
-                zone.setTypeGains( " points sur la piste score avec la carte Batiment ");
+                zone.setTypeGains( " points");
             }
         }
     }

@@ -41,7 +41,7 @@ public class Partie {
                 Zone choix = plateau.get(i);
                 choix.recupeRes(listeDesCivilisation,listeDesBatiments,inv,joueur);
                 if (choix.getNiveauZone()>=2 && choix.getNiveauZone()<=6) {
-                    String chaine="Lancement des dés: ** ";
+                    String chaine="\nLancement des dés: ** ";
                     for (int de = 0; de < choix.getListeDe().size(); de++) {
                         if (choix.getNiveauZone() > 1 && choix.getNiveauZone() < 7) { //lorsqu'il ya un lancement de dé on les affiche
                             chaine += "Dé " + (de + 1) + " = " + choix.getListeDe().get(de) + "  **  ";
@@ -51,22 +51,28 @@ public class Partie {
                 }
                 inv.listeZonesJouer.set(i,false); //la zone n'est plus utiliser donc elle devient false pour le joueur (disponnible a nouveau)
                 inv.listeOuvriersPlaces.set(i,0);
-                if (!stat) System.out.println(ConsoleColors.RED+"Le joueur " + joueur.getNum() + " reprend ses ouvriers de la zone "+choix+ConsoleColors.RESET);
         		if (choix.getGains()==-1){
-        			if (!stat) System.out.println(ConsoleColors.RED+"Le joueur decide d'abandonner sa carte civilisation.\n"+ConsoleColors.RESET);
+        			if (!stat) System.out.println(ConsoleColors.RED+"\nLe joueur  " + joueur.getNum() + " decide d'abandonner sa carte civilisation, il reprend ses ouvriers."+ConsoleColors.RESET);
         		}
         		else if (choix.getGains()==-3) {
-        			if (!stat) System.out.println(ConsoleColors.RED+"Le joueur decide d'abandonner sa carte batiment. \n "+ConsoleColors.RESET);
+        			if (!stat) System.out.println(ConsoleColors.RED+"\nLe joueur  " + joueur.getNum() + " decide d'abandonner sa carte batiment, il reprend ses ouvriers.  "+ConsoleColors.RESET);
         		}
         		else if (choix.getGains()==-5) {
-        			if (!stat) System.out.println(ConsoleColors.RED+"Le joueur n'a pas assez de ressources pour payer cette carte batiment \n"+ConsoleColors.RESET);
+        			if (!stat) System.out.println(ConsoleColors.RED+"\nLe joueur  " + joueur.getNum() + " n'a pas assez de ressources pour payer cette carte batiment, il reprend ses ouvriers."+ConsoleColors.RESET);
         		}
         		else if (choix.getGains()==-4){
-        			if (!stat) System.out.println(ConsoleColors.RED+"Le joueur a gagner un "+choix.getTabTypeGains()[0]+" et un "+choix.getTabTypeGains()[1]+"  avec sa carte civilisation. \n"+ConsoleColors.RESET);
+        			if (!stat) System.out.println(ConsoleColors.RED+"\nLe joueur  " + joueur.getNum() + " a gagner un "+choix.getTabTypeGains()[0]+" et un "+choix.getTabTypeGains()[1]+"  avec sa carte civilisation, il reprend ses ouvriers. "+ConsoleColors.RESET);
                         }
         		else if (choix.getGains()>=0){
-        			if (!stat) System.out.println(ConsoleColors.RED+"Il gagne  "+choix.getGains() +" " +choix.getTypeGains()+ConsoleColors.RESET  + " \n");
-        		}
+        			if (!stat) System.out.println(ConsoleColors.RED+"\nLe joueur " + joueur.getNum() + " a gagner  "+choix.getGains() +" " +choix.getTypeGains()+ ", il reprend ses ouvriers de la zone "+choix  + "."+ConsoleColors.RESET );
+                    if (choix.getNiveauZone()==12 ||choix.getNiveauZone()==13 ||choix.getNiveauZone()==14 ||choix.getNiveauZone()==15){
+                        String chaine="Elle a couter :";
+                        for (String c:joueur.lesResCouter.keySet()) {
+                            chaine+= joueur.lesResCouter.get(c)+" "+c+" ||";
+                        }
+                        if (!stat) System.out.println(ConsoleColors.RED+chaine + "."+ConsoleColors.RESET);
+                    }
+                }
         	}
         }
         inv.resetAvailableWorkers();
@@ -130,7 +136,7 @@ public class Partie {
         }// une liste qui contient l'indice des joueur en commencant par le joueur qui a choisi la carte
         /*cette methode va permetre a chaque joueur de
         recuperer une resource parmis les dispo (carte civilisation)*/
-        if (!stat) System.out.println(ConsoleColors.RED+"Le joueur " + J.getNum()+ " partage sa carte civilisation avec les autre joueurs:"+ConsoleColors.RESET);
+        if (!stat) System.out.println(ConsoleColors.RED+"\nLe joueur " + J.getNum()+ " partage sa carte civilisation avec les autre joueurs:"+ConsoleColors.RESET);
 
         for( int i : listeIndJoueurs ) {
             Inventaire inv=listeDesInventaires.get(i);

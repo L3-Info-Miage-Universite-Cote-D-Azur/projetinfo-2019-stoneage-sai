@@ -404,7 +404,7 @@ public class CarteCivilisation {
                 }
             }
         }
-        zone.setTypeGains (zone.getTypeGains()  +" avec la carte Civilisation. ");
+        zone.setTypeGains (zone.getTypeGains()  +" avec la carte Civilisation");
     }
     
     public int getFondDeCarte() {

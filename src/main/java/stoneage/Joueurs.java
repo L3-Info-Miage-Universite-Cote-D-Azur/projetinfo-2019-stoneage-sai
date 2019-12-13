@@ -17,6 +17,7 @@ public interface Joueurs {
 	int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) ;
 	Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv);
 	int getNum();
+	public Map<String ,Integer> lesResCouter = new HashMap<>();
 	
 	 default  ArrayList<Integer> payBuildingWith(Inventaire inv,int cout,int types){
         ArrayList<Integer> res= new ArrayList();//res=[Or,Pierre,Argile,Bois]
@@ -478,12 +479,19 @@ public interface Joueurs {
         }
         return res;
     }
+
     default void resolution(Inventaire inv,ArrayList<Integer> res){
+        lesResCouter.clear();
         inv.setScore(inv.getScore()+res.get(0)*6+res.get(1)*5+res.get(2)*4+res.get(3)*3);
         inv.lesRessources.get(6).subvaleur(res.get(0)) ;
         inv.lesRessources.get(5).subvaleur(res.get(1)) ;
-        inv.lesRessources.get(4).subvaleur(res.get(2)) ;
         inv.lesRessources.get(3).subvaleur(res.get(3)) ;
+        inv.lesRessources.get(4).subvaleur(res.get(2)) ;
+        for (int i=0 ;i<4; i++){
+            if (res.get(i)>0){
+                lesResCouter.put(inv.lesRessources.get(6-i).getNom() ,res.get(i)); // pour afficher le cout de la carte batiment
+            }
+        }
     }
 
 }
