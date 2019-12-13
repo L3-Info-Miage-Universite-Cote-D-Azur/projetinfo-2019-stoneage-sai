@@ -21,6 +21,7 @@ public class PlateauTest {
 		assertEquals(plateau.lesZones.get(2).toString(),"foret");
 		assertEquals(plateau.lesZones.get(3).toString(),"glaisière");
 		assertEquals(plateau.lesZones.get(4).toString(),"carrière");
+		assertEquals(plateau.lesZones.get(5).toString(),"rivière");
 		assertEquals(plateau.lesZones.get(6).toString(),"champ");
 		assertEquals(plateau.lesZones.get(7).toString(),"Civilisation 1");
 		assertEquals(plateau.lesZones.get(8).toString(),"Civilisation 2");
