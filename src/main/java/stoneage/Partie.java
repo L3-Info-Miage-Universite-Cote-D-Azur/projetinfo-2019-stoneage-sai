@@ -40,10 +40,10 @@ public class Partie {
             if (inv.listeZonesJouer.get(i)==true){
                 Zone choix = plateau.get(i);
                 choix.recupeRes(listeDesCivilisation,listeDesBatiments,inv,joueur);
-                if (choix.niveauZone>=2 && choix.niveauZone<=6) {
+                if (choix.getNiveauZone()>=2 && choix.getNiveauZone()<=6) {
                     String chaine="Lancement des dés: ** ";
                     for (int de = 0; de < choix.getListeDe().size(); de++) {
-                        if (choix.niveauZone > 1 && choix.niveauZone < 7) { //lorsqu'il ya un lancement de dé on les affiche
+                        if (choix.getNiveauZone() > 1 && choix.getNiveauZone() < 7) { //lorsqu'il ya un lancement de dé on les affiche
                             chaine += "Dé " + (de + 1) + " = " + choix.getListeDe().get(de) + "  **  ";
                         }
                     }
@@ -62,7 +62,7 @@ public class Partie {
                     if (!stat) System.out.println(ConsoleColors.RED+"Le joueur n'a pas assez de ressources pour payer cette carte batiment \n"+ConsoleColors.RESET);
                 }
                 else if (choix.getGains()==-4){
-                    if (!stat) System.out.println(ConsoleColors.RED+"Le joueur a gagner un "+choix.TypesGains[0]+" et un "+choix.TypesGains[1]+"  avec sa carte civilisation. \n"+ConsoleColors.RESET);
+                    if (!stat) System.out.println(ConsoleColors.RED+"Le joueur a gagner un "+choix.getTabTypeGains()[0]+" et un "+choix.getTabTypeGains()[1]+"  avec sa carte civilisation. \n"+ConsoleColors.RESET);
                 }
                 else if (choix.getGains()>=0){
                     if (!stat) System.out.println(ConsoleColors.RED+"Il gagne  "+choix.getGains() +" " +choix.getTypeGains()+ConsoleColors.RESET  + " \n");

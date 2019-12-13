@@ -101,14 +101,11 @@ public class Inventaire {
 	}
 
 	public int getNbRessource() {
-		return lesRessources.get(3).getValeur()+lesRessources.get(5).getValeur()+lesRessources.get(4).getValeur()+lesRessources.get(6).getValeur();
+		return getNbBois()+getNbArgile()+getNbPierre()+getNbOr();
 	}
 
 	public int getNbBois() {
 		return lesRessources.get(3).getValeur();
-	}
-	public int getNbOr() {
-		return lesRessources.get(6).getValeur();
 	}
 
 	public int getNbArgile() {
@@ -119,9 +116,14 @@ public class Inventaire {
 		return lesRessources.get(5).getValeur();
 	}
 
+	public int getNbOr() {
+		return lesRessources.get(6).getValeur();
+	}
+
 	public int getNourriture()  {
 		return lesRessources.get(2).getValeur();
 	}
+
 	public int getNbOutils(){
 		return lesRessources.get(1).getValeur();
 	}
@@ -137,9 +139,11 @@ public class Inventaire {
 	public void setNbOutilsDuTour(int nbOutils){
 		this.nbOutilsDutour=nbOutils;
 	}
+
 	public int getScoreChamp() {
 		return scoreChamp;
 	}
+
 	public void resetNbOutilsDuTour(){
 		this.nbOutilsDutour= lesRessources.get(1).getValeur();
 	}
@@ -164,7 +168,7 @@ public class Inventaire {
 
 	//La methode calcScore calcule et retoune le score finale du joueur
 	public int calcScore() {
-		return score+getNbRessource()+(nbOuvrier*nbChamane+nbFabricant*lesRessources.get(1).getValeur()+nbConstructeur*getNbCarteBat()+nbPaysan*scoreChamp)+((int)Math.pow(setTypeCarteCivVerte.size(),2))+(nbCarteVert-setTypeCarteCivVerte.size());
+		return score+getNbRessource()+(nbOuvrier*nbChamane+nbFabricant*getNbOutils()+nbConstructeur*getNbCarteBat()+nbPaysan*scoreChamp)+((int)Math.pow(setTypeCarteCivVerte.size(),2))+(nbCarteVert-setTypeCarteCivVerte.size());
 		/* Le score finale contient :
 		 * Le niveau de score
 		 * le nombre des ressource

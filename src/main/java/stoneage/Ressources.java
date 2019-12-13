@@ -21,6 +21,18 @@ public class Ressources {
         if(this.coeff ==1){ //le nombre d'outil ne peut pas depasser 12.
             this.valeur=Math.min(this.valeur,12);
         }
+        else if (this.coeff==3){ //le nombre de bois ne peut pas depasser 20.
+            this.valeur=Math.min(this.valeur,20);
+        }
+        else if (this.coeff==4){ //le nombre d'argile ne peut pas depasser 16.
+            this.valeur=Math.min(this.valeur,16);
+        }
+        else if (this.coeff==5){ //le nombre de pierre ne peut pas depasser 12.
+            this.valeur=Math.min(this.valeur,12);
+        }
+        else if (this.coeff==6){ //le nombre d'or ne peut pas depasser 10
+            this.valeur=Math.min(this.valeur,10);
+        }
         return valeur;
     }
 
