@@ -2,19 +2,16 @@ package stoneage;
 
 
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.* ;
 
 @ExtendWith(MockitoExtension.class)
 public class ZoneTest {
-	Zone area1,area2,area3,area4,area5,area6,area7,area8,area9,area10,area11,area12,area13,area14,area15,area16;
-    Zone zone1,zone2,zone3,zone4,zone5,zone6,zone7;
+	Zone area1, area2, area3, area4, area5, area6, area7, area8, area9 ,area10, area11, area12, area13, area14, area15, area16;
     Zone[] areaList = new Zone[16];
     Zone[] listeZone = new Zone[6];
     Choix[] listeChoix = new Choix[16];
@@ -24,38 +21,27 @@ public class ZoneTest {
     
     public CarteCivilisation carte=new CarteCivilisation();
     public BuildingTiles bat = new BuildingTiles();
-    private Joueurs joueur;
+    private Joueurs joueur, joueurIA;
     private Choix choix1, choix2, choix3, choix4, choix5, choix6, choix7, choix8,choix9,choix10,choix11,choix12,choix13,choix14,choix15,choix16;
-
-    @Mock
-    Dé dice;
 
     @BeforeEach
     void setUp(){
-        area1 = new Zone(1);
-        area2 = new Zone(2);
-        area3 = new Zone(3);
-        area4 = new Zone(4);
-        area5 = new Zone(5);
-        area6 = new Zone(6);
-        area7 = new Zone(7);
-        area8 = new Zone(8);
-        area9 = new Zone(9);
-        area10 = new Zone(10);
-        area11 = new Zone(11);
-        area12 = new Zone(12);
-        area13 = new Zone(13);
-        area14 = new Zone(14);
-        area15 = new Zone(15);
-        area16 = new Zone(16);
-
-        zone1 = new Zone(1, dice);
-        zone2 = new Zone(2, dice);
-        zone3 = new Zone(3, dice);
-        zone4 = new Zone(4, dice);
-        zone5 = new Zone(5, dice);
-        zone6 = new Zone(6, dice);
-        zone7 = new Zone(7, dice);
+        area1 = new Zone(1, 1, "Fabrication d'Outils");
+        area2 = new Zone(2, 100, "Chasse");
+        area3 = new Zone(3, 7, "foret");
+        area4 = new Zone(4, 7, "glaisière");
+        area5 = new Zone(5, 7, "carrière");
+        area6 = new Zone(6, 7, "rivière");
+        area7 = new Zone(7, 1, "champ");
+        area8 = new Zone(8, 1, "Civilisation 1");
+        area9 = new Zone(9, 1, "Civilisation 2");
+        area10 = new Zone(10, 1, "Civilisation 3");
+        area11 = new Zone(11, 1, "Civilisation 4");
+        area12 = new Zone(12, 1, "Batiment 1");
+        area13 = new Zone(13, 1, "Batiment 2");
+        area14 = new Zone(14, 1, "Batiment 3");
+        area15 = new Zone(15, 1, "Batiment 4");
+        area16 = new Zone(16, 2, "Hutte");
 
         areaList[0] = area1;
         areaList[1] = area2;
@@ -74,13 +60,6 @@ public class ZoneTest {
         areaList[14] = area15;
         areaList[15] = area16;
 
-        listeZone[0] = zone1;
-        listeZone[1] = zone2;
-        listeZone[2] = zone3;
-        listeZone[3] = zone4;
-        listeZone[4] = zone5;
-        listeZone[5] = zone6;
-
         inventaire = new Inventaire();
         
         listeDesCartes=new ArrayList<CarteCivilisation>();
@@ -90,11 +69,12 @@ public class ZoneTest {
         listeDesBat = bat.getCards();
         
         joueur = new Joueur("oss",1);
+        joueurIA = new JoueurIA("oss",2);
         
         choix1 = new Choix(1, 1);
-        choix2 = new Choix(2, 2);
-        choix3 = new Choix(3, 3);
-        choix4 = new Choix(4, 4);
+        choix2 = new Choix(2, 5);
+        choix3 = new Choix(3, 5);
+        choix4 = new Choix(4, 5);
         choix5 = new Choix(5, 5);
         choix6 = new Choix(6, 5);
         choix7 = new Choix(7, 1);
@@ -165,79 +145,109 @@ public class ZoneTest {
            inventaire.resetAvailableWorkers();
         }
       }
-      
-    
+         
     
     @Test
     public void recupeRes() {
+    	inventaire.resetInventory();
 
-        assertEquals(area1.NomZone(), "Fabrication d'Outils");
-        assertEquals(area2.NomZone(), "Chasse");
-        assertEquals(area3.NomZone(), "foret");
-        assertEquals(area4.NomZone(), "glaisière");
-        assertEquals(area5.NomZone(), "carrière");
-        assertEquals(area6.NomZone(), "rivière");
-        assertEquals(area7.NomZone(), "champ");
-        assertEquals(area8.NomZone(), "Civilisation 1");
-        assertEquals(area9.NomZone(), "Civilisation 2");
-        assertEquals(area10.NomZone(), "Civilisation 3");
-        assertEquals(area11.NomZone(), "Civilisation 4");
-        assertEquals(area12.NomZone(), "Batiment 1");
-        assertEquals(area13.NomZone(), "Batiment 2");
-        assertEquals(area14.NomZone(), "Batiment 3");
-        assertEquals(area15.NomZone(), "Batiment 4");
-        assertEquals(area16.NomZone(), "Hutte");
-        
-
+    	// Zone de fabrication d'outils
         area1.placerOuvrier(inventaire, choix1.nbOuvriersChoisie);
         assertEquals(inventaire.getNbOuvrierDispo(), 4);
         area1.recupeRes(listeDesCartes, listeDesBat, inventaire, joueur);
         assertEquals(inventaire.getNbOuvrierDispo(), 5);
         
+        // Zone agriculture
+        area7.placerOuvrier(inventaire, choix7.nbOuvriersChoisie);
+        assertEquals(inventaire.getNbOuvrierDispo(), 4);
+        area7.recupeRes(listeDesCartes, listeDesBat, inventaire, joueur);
+        assertEquals(inventaire.getNbOuvrierDispo(), 5);
+        
+        // Zone chasse 
         area2.placerOuvrier(inventaire, choix2.nbOuvriersChoisie);
-        assertEquals(inventaire.getNbOuvrierDispo(), 3);
+        assertEquals(inventaire.getNbOuvrierDispo(), 0);
         area2.recupeRes(listeDesCartes, listeDesBat, inventaire, joueur);
         assertEquals(inventaire.getNbOuvrierDispo(), 5);
         
+        // Zone foret
         area3.placerOuvrier(inventaire, choix3.nbOuvriersChoisie);
-        assertEquals(inventaire.getNbOuvrierDispo(), 2);
+        assertEquals(inventaire.getNbOuvrierDispo(), 0);
         area3.recupeRes(listeDesCartes, listeDesBat, inventaire, joueur);
         assertEquals(inventaire.getNbOuvrierDispo(), 5);
         
+        // Zone glaisière
         area4.placerOuvrier(inventaire, choix4.nbOuvriersChoisie);
-        assertEquals(inventaire.getNbOuvrierDispo(), 1);
+        assertEquals(inventaire.getNbOuvrierDispo(), 0);
         area4.recupeRes(listeDesCartes, listeDesBat, inventaire, joueur);
         assertEquals(inventaire.getNbOuvrierDispo(), 5);
         
+        // Zone carrière
         area5.placerOuvrier(inventaire, choix5.nbOuvriersChoisie);
         assertEquals(inventaire.getNbOuvrierDispo(), 0);
         area5.recupeRes(listeDesCartes, listeDesBat, inventaire, joueur);
         assertEquals(inventaire.getNbOuvrierDispo(), 5);
         
+        // Zone rivière
         area6.placerOuvrier(inventaire, choix6.nbOuvriersChoisie);
         assertEquals(inventaire.getNbOuvrierDispo(), 0);
         area6.recupeRes(listeDesCartes, listeDesBat, inventaire, joueur);
         assertEquals(inventaire.getNbOuvrierDispo(), 5);
         
-        for (int i = 6; i <= 14; i++) {
-        	areaList[i].placerOuvrier(inventaire, listeChoix[i].nbOuvriersChoisie);
-        	assertEquals(inventaire.getNbOuvrierDispo(), 4);
-        	areaList[i].recupeRes(listeDesCartes, listeDesBat, inventaire, joueur);
-        	assertEquals(inventaire.getNbOuvrierDispo(), 5);
+        // Zone Civilisation et batiment
+        for (int zone = 7; zone <= 14; zone++) {
+        	areaList[zone].placerOuvrier(inventaire, listeChoix[zone].nbOuvriersChoisie);
+            assertEquals(inventaire.getNbOuvrierDispo(), 4);
+            areaList[zone].recupeRes(listeDesCartes, listeDesBat, inventaire, joueur);
+            assertEquals(inventaire.getNbOuvrierDispo(), 5);
         }
+ 
+        //Zone hutte
+        area16.placerOuvrier(inventaire, choix16.nbOuvriersChoisie);
+        assertEquals(inventaire.getNbOuvrierDispo(), 4);
+        area16.recupeRes(listeDesCartes, listeDesBat, inventaire, joueur);
+        assertEquals(inventaire.getNbOuvrier(), 6);
     }
     
     
+    @Test
+    public void gestionRessources() {
+    	//Le joueur IA a une facon intelligente d'utiliser ses outils
+    	inventaire.lesRessources.replace(1, new Ressources(1,"Outil",0));
+    	assertEquals(area2.gestionRessources(inventaire, joueurIA), 0);
+    	
+    	inventaire.lesRessources.replace(1, new Ressources(1,"Outil",1));
+    	assertEquals(area2.gestionRessources(inventaire, joueurIA), 0);
+    	
+    	inventaire.lesRessources.replace(1, new Ressources(1,"Outil",6));
+    	assertEquals(area2.gestionRessources(inventaire, joueurIA), 3);
+    	
+    	inventaire.lesRessources.replace(1, new Ressources(1,"Outil",7));
+    	assertEquals(area2.gestionRessources(inventaire, joueurIA), 3);
+    }
+    
     
     @Test
-    public void throwDice() {
-
-    	for (int zone = 0; zone <= 5; zone++) {
+    public void lancéDeDés() {
+    	for (Zone area : areaList) {
     		for (int i = 1; i < 6; i++) {
-    			assertTrue((6 * i)>= areaList[zone].lancéDeDés(i));
-    			assertTrue((1 * i)<= areaList[zone].lancéDeDés(i));
+    			area.resetListDesDe();
+    			assertTrue((6 * i) >= area.lancéDeDés(i));
+    			assertTrue((1 * i) <= area.lancéDeDés(i));
     		}
     	}
     }
     
+    
+    @Test
+    public void lancerNbDé() {
+    	ArrayList<Integer> listeDesDe;
+    	for (Zone area : areaList) {
+    		for (int i = 0; i < 20; i++) {
+    			listeDesDe = area.lancerNbDé(i);
+    			for (int j : listeDesDe) {
+    				assertTrue(j <= 6 && j >= 0);
+    			}
+    		}
+    	}
+    }
 }
