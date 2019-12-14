@@ -72,7 +72,7 @@ public class BuildingTilesTest {
             assertEquals(inv.getNbBois(),b-2);
             assertEquals(inv.getNbArgile(),a-1);
             assertEquals(zone.getGains(),g+10);
-            assertEquals(zone.getTypeGains()," points sur la piste score avec la carte Batiment ");
+            assertEquals(zone.getTypeGains()," points");
         }
         
         @Test
@@ -88,7 +88,7 @@ public class BuildingTilesTest {
             assertEquals(inv.getNbBois(),b-1);
             assertEquals(inv.getNbArgile(),a-2);
             assertEquals(zone.getGains(),g+11);
-            assertEquals(zone.getTypeGains()," points sur la piste score avec la carte Batiment ");
+            assertEquals(zone.getTypeGains()," points");
         }
         
         @Test
@@ -107,7 +107,7 @@ public class BuildingTilesTest {
             assertEquals(inv.getNbArgile(),a-1);
             assertEquals(inv.getNbPierre(),p-1);
             assertEquals(zone.getGains(),g+12);
-            assertEquals(zone.getTypeGains()," points sur la piste score avec la carte Batiment ");
+            assertEquals(zone.getTypeGains()," points");
         }
         
         @Test
@@ -126,7 +126,7 @@ public class BuildingTilesTest {
             assertEquals(inv.getNbArgile(),a-1);
             assertEquals(inv.getNbOr(),o-1);
             assertEquals(zone.getGains(),g+13);
-            assertEquals(zone.getTypeGains()," points sur la piste score avec la carte Batiment ");
+            assertEquals(zone.getTypeGains()," points");
         }
         
         @Test
@@ -145,7 +145,7 @@ public class BuildingTilesTest {
             assertEquals(inv.getNbPierre(),p-1);
             assertEquals(inv.getNbOr(),o-1);
             assertEquals(zone.getGains(),g+14);
-            assertEquals(zone.getTypeGains()," points sur la piste score avec la carte Batiment ");
+            assertEquals(zone.getTypeGains()," points");
         }
         
         @Test
@@ -164,7 +164,7 @@ public class BuildingTilesTest {
             assertEquals(inv.getNbPierre(),p-1);
             assertEquals(inv.getNbOr(),o-1);
             assertEquals(zone.getGains(),g+15);
-            assertEquals(zone.getTypeGains()," points sur la piste score avec la carte Batiment ");
+            assertEquals(zone.getTypeGains()," points");
         }
         
         @Test
@@ -180,7 +180,7 @@ public class BuildingTilesTest {
             assertEquals(inv.getNbPierre(),p-2);
             assertEquals(inv.getNbOr(),o-1);
             assertEquals(zone.getGains(),g+16);
-            assertEquals(zone.getTypeGains()," points sur la piste score avec la carte Batiment ");
+            assertEquals(zone.getTypeGains()," points");
         }
         
         @Test
