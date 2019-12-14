@@ -3,7 +3,6 @@ package stoneage;
 public class Choix {
 	public int zoneChoisie;
 	public int nbOuvriersChoisie;
-	public int nbOutils;
 	
 	public Choix(int zoneJouer, int nbOuvriersJouer) { //constructeur qui fait :
 		this.zoneChoisie = zoneJouer;               //l'affectation de la zoneChoisie 
