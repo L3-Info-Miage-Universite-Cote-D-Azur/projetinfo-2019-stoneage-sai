@@ -6,403 +6,216 @@ import org.junit.jupiter.api.Disabled;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JoueurBot2Test {
-    ArrayList<Zone> listeZones = new ArrayList<Zone>();
-    Zone zone1, zone2, zone3, zone4, zone5, zone6, zone7, zone8, zone9, zone10, zone11, zone12 ,zone13, zone14;
-    Choix actualChoice ,expectedChoice;
+    ArrayList<Zone> listeZone = new ArrayList<Zone>();
+    Zone zone;
+    Choix choix ,choix2;
     JoueurBot2 joueurBot;
-    
-    Inventaire inventaire,inventaireCopy;
+    Inventaire inventaire;
     CarteCivilisation carte;
     ArrayList<CarteCivilisation> listeDesCartes;
-
+    StoneAge stoneage2,stoneage3,stoneage4;
+    ArrayList<Integer> listeDe,listeDe2,listeDe3,listeDe4,listeDe5,listeDe6;
+    Map<String, Integer> m ;
 
     @BeforeEach
     void setUp(){
-    	
-        zone1 = new Zone(1);
-        zone2 = new Zone(2);
-        zone3 = new Zone(3); //Foret
-        zone4 = new Zone(4); //Glaisiere
-        zone5 = new Zone(5); //Carriere
-        zone6 = new Zone(6); //riviere
-        zone7 = new Zone(7);
-        zone8 = new Zone(8);
-        zone9 = new Zone(9);
-        zone10 = new Zone(10);
-        zone11 = new Zone(11);
-        zone12 = new Zone(12);
-        zone13 = new Zone(13);
-        zone14 = new Zone(14);
-
-        listeZones.add(zone1);
-        listeZones.add(zone2);
-        listeZones.add(zone3);
-        listeZones.add(zone4);
-        listeZones.add(zone5);
-        listeZones.add(zone6);
-        listeZones.add(zone7);
-        listeZones.add(zone8);
-        listeZones.add(zone9);
-        listeZones.add(zone10);
-        listeZones.add(zone11);
-        listeZones.add(zone12);
-        listeZones.add(zone13);
-        listeZones.add(zone14);
-        
-        joueurBot = new JoueurBot2("sebastien",2);
+    	listeZone=new ArrayList<>() ;
+        zone=new Zone(1,1,"fabrication d'outils");
+        listeZone.add(zone);
+        zone=new Zone(2,100,"chasse");
+        listeZone.add(zone);
+        zone=new Zone(3,7,"foret");
+        listeZone.add(zone);
+        zone=new Zone(4,7,"glaisiere");
+        listeZone.add(zone);
+        zone=new Zone(5,7,"carriere");
+        listeZone.add(zone);
+        zone=new Zone(6,7,"riviere");
+        listeZone.add(zone);
+        for (int i = 8; i < 12; i++) {
+            zone=new Zone(i,1,"carte civilisation");
+            listeZone.add(zone);
+        }
+        for (int i = 12; i < 16; i++) {
+            zone=new Zone(i,1,"carte batiments");
+            listeZone.add(zone);
+        }
+        zone=new Zone(16,2,"hutte");
+        listeZone.add(zone);
+        joueurBot = new JoueurBot2("O",1);
         inventaire = new Inventaire();
-        inventaireCopy = new Inventaire();
-        
-        listeDesCartes= new ArrayList<>();
-        //Collections.copy(carte.getAllCards(),listeDesCartes);
-    }
-
-    
-    @Test
-    void placerOuvrierNourritureInsuffisante() {
-        for(int i=0; i< 10 ; i++){
-            inventaire.setNourriture(i);
-            if(i<3){
-                expectedChoice = new Choix(1, 3);
-                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
-                assertEquals(expectedChoice, actualChoice);
-            }
-            else if(i>=5){
-                expectedChoice = new Choix(1, 1);
-                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
-                assertEquals(expectedChoice, actualChoice);
-            }
+        for (int i = 1; i <= 15; i++) {
+            inventaire.listeZonesJouer.add(false);
         }
+        stoneage2=new StoneAge(2,true);
+        stoneage3=new StoneAge(3,true);
+        stoneage4=new StoneAge(4,true);
+        listeDe=new ArrayList<Integer>();
+        listeDe.add(4);
+        listeDe2=new ArrayList<Integer>();
+        listeDe2.add(6);
+        listeDe3=new ArrayList<Integer>();
+        listeDe3.add(5);
+        listeDe4=new ArrayList<Integer>();
+        listeDe4.add(3);
+        listeDe5=new ArrayList<Integer>();
+        listeDe5.add(2);
+        listeDe6=new ArrayList<Integer>();
+        listeDe6.add(100);
+        
+        m = new HashMap<>();
     }
     
     @Test
-    void placerOuvrierNourritureSuffisanteETBoisinsufisant() {
-        inventaire.setNourriture(11);
-        inventaire.setNbBois(5);
-        if(zone2.getNbPlaceZone() >= 2){
-            expectedChoice = new Choix(2, 2);
-            actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
-            assertEquals(expectedChoice, actualChoice);
+    void placerOutilSiPasOutil() {
+    	//si le joueur n'a pas d'outil on teste qu'il retourne bien 0 outil a placer dans les zone qui vont lancer des dé 
+    	int nbRessource=8;
+    	for (int z=1;z<8;z++) {
+    		int nbOutil=joueurBot.placerOutils(0, nbRessource, listeZone.get(z));
+    		assertEquals(nbOutil ,0);
+    	}
+    }
+    
+    @Test
+    void placerOutilSiYaOutil() {
+    	//si le joueur a un nombre de ressource modulo zone pas loin du nombre d'outil on retourne le nombre d'outil manquant a placer dans les zone qui vont lancer des dé 
+    		int nbOutil=joueurBot.placerOutils(1, 8, listeZone.get(2));//zone foret n°3 : donc 8%3=2 , nbOutil doit etre egale a 1 
+    		assertEquals(nbOutil ,1);
+    		nbOutil=joueurBot.placerOutils(4, 8, listeZone.get(2));//zone foret n°3 : donc 8%3=2 , nbOutil doit etre egale a 2 cal le joueur a assez d'outil
+    		assertEquals(nbOutil ,4);
+    		nbOutil=joueurBot.placerOutils(1, 8, listeZone.get(3));//zone Glaissiere n°4 : donc 8%4=0 , nbOutil doit etre egale a 0
+    		assertEquals(nbOutil ,0);
+    		nbOutil=joueurBot.placerOutils(4, 8, listeZone.get(3));//zone Glaissiere n°4 : donc 8%4=0 , nbOutil doit etre egale a 1 car on a 4 outil dispo
+    		assertEquals(nbOutil ,4);
+    	
+    }
+    
+   @Test
+   void cadeauRes(){
+       int a=joueurBot.cadeauRes(listeDe);
+       int b=joueurBot.cadeauRes(listeDe2);
+       int c=joueurBot.cadeauRes(listeDe3);
+       int d=joueurBot.cadeauRes(listeDe4);
+       int e=joueurBot.cadeauRes(listeDe5);
+       int f=joueurBot.cadeauRes(listeDe6);
+       assertEquals(4,a);
+       assertEquals(6,b);
+       assertEquals(5,c);
+       assertEquals(3,d);
+       assertEquals(2,e);
+       assertEquals(1,f);
+   }
+    
+   @Test
+   void choixTypeRes(){
+       int a,b,c,d,e;
+       inventaire.lesRessources.put(3,new Ressources(3,"Bois",7));//>=5
+       a=joueurBot.choixTypeRes(5,inventaire,3,4,5,6);
+       assertEquals(3,a);
+       
+      
+       inventaire.lesRessources.put(4,new Ressources(4,"Argile",7));
+       b=joueurBot.choixTypeRes(5,inventaire,4,5,6);
+       assertEquals(4,b);
+       
+       
+       inventaire.lesRessources.put(5,new Ressources(5,"Pierre",7));
+       c=joueurBot.choixTypeRes(5,inventaire,5,6);
+       assertEquals(5,c);
+       
+      
+       inventaire.lesRessources.put(6,new Ressources(6,"Or",7));
+       d=joueurBot.choixTypeRes(5,inventaire,6);
+       assertEquals(6,d);
+       
+       
+       inventaire.lesRessources.put(3,new Ressources(3,"Bois",7));
+       e=joueurBot.choixTypeRes(5,inventaire,10);
+       assertEquals(-1,e);
+   }
+   
+   @Test
+    void placerOuvrier() {//si il y a 4 joueurs
+        choix=joueurBot.placerOuvriers(listeZone,inventaire);
+        choix2 = new Choix(choix.zoneChoisie,choix.nbOuvriersChoisie);
+        assertEquals(choix, choix2); 
+        for (int i=0;i<10;i++) {
+            choix=joueurBot.placerOuvriers(listeZone,inventaire);
+            Zone zoneChoisie=listeZone.get(choix.zoneChoisie);
+            assertTrue(choix.zoneChoisie>=0); 
+            assertTrue(choix.zoneChoisie<=15);
+             //verifier que la zone choisie est bien dans la liste dans zone
+            assertTrue(choix.nbOuvriersChoisie <=inventaire.getNbOuvrierDispo());
+            assertTrue(choix.nbOuvriersChoisie <=zoneChoisie.getNbPlaceDispo());
+        }  
+    }
+    
+    @Test
+    void placerOuvrier2Joueurs() {
+        //tester si les joueur choisi pas les zones carte 3 ET 4 civilisation et batiment 
+        choix=joueurBot.placerOuvriers(listeZone,inventaire);
+        choix2 = new Choix(choix.zoneChoisie,choix.nbOuvriersChoisie);
+        StoneAge stone=new StoneAge(2,true);
+        assertEquals(choix, choix2); 
+        for (int i=0;i<10;i++) {
+            choix=joueurBot.placerOuvriers(listeZone,inventaire);
+            Zone zoneChoisie=listeZone.get(choix.zoneChoisie);
+            assertTrue(choix.zoneChoisie>=0); 
+            assertTrue(choix.zoneChoisie<=12);
+            assertFalse(choix.zoneChoisie==9||choix.zoneChoisie==10);
+             //verifier que la zone choisie est bien dans la liste dans zone
+            assertTrue(choix.nbOuvriersChoisie <=inventaire.getNbOuvrierDispo());
+            assertTrue(choix.nbOuvriersChoisie <=zoneChoisie.getNbPlaceDispo());
+            /*verifier que le nombre d'ouvrier choisie est inferieur au nombre 
+                 * de place disponnible dans la zone  et qu'il est inferieur au nombre
+                 *  d'ouvrier que le joueur possede */
         }
     }
     @Test
-    void placerOuvrierNourritureSuffisanteEtBoisSuf() {
-        inventaire.setNourriture(11);
-        inventaire.setNbBois(11);
-        if(zone1.getNbPlaceZone() >= 1){
-            expectedChoice = new Choix(0, 1);
-            actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
-            assertEquals(expectedChoice, actualChoice);
-        }
+    void placerOuvrier3Joueurs() { 
+        StoneAge stone=new StoneAge(3,true);
+        for (int i=0;i<10;i++) {
+            choix=joueurBot.placerOuvriers(listeZone,inventaire); //on fait 10 choix differant
+            Zone zoneChoisie=listeZone.get(choix.zoneChoisie);
+            assertTrue(choix.zoneChoisie>=0);
+            assertTrue(choix.zoneChoisie<=13);
+            assertFalse(choix.zoneChoisie==10);
+            //verifier que la zone choisie est bien dans la liste dans zone
+            assertTrue(choix.nbOuvriersChoisie <=inventaire.getNbOuvrierDispo()); 
+            assertTrue(choix.nbOuvriersChoisie <=zoneChoisie.getNbPlaceDispo()); 
+            /*verifier que le nombre d'ouvrier choisie est inferieur au nombre
+        * de place disponnible dans la zone  et qu'il est inferieur au nombre
+        *  d'ouvrier que le joueur possede */        
+        }     
     }
-    // test pour partie a 2
-    @Test
-    void placerOuvrierNourritureSuffisanteETOutilsIndispo() { //premier choix 
-    	StoneAge stoneAge = new StoneAge(2,true);
-        inventaire.setNourriture(11);
-        inventaire.setNbBois(11);
-        zone1.setNbPlaceDispo(0);
-            if (zone13.getNbPlaceDispo()>= 1){
-                expectedChoice = new Choix(12, 1);
-                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
-                assertEquals(expectedChoice, actualChoice);
-            }
-        
-        }
     
-    @Test
-    void placerOuvrierNourritureSuffisanteETOutilsIndispo2() { //deuxieme choix
-        inventaire.setNourriture(11);
-        inventaire.setNbBois(11);
-        zone1.setNbPlaceDispo(0);
-        zone13.setNbPlaceDispo(0);
-            if (zone11.getNbPlaceDispo()>= 1){
-                expectedChoice = new Choix(11, 1);
-                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
-                assertEquals(expectedChoice, actualChoice);
-            }
+    @Test 
+    void NourrirOuv(){
+        //inventaire.setNbRessource(5);
+        inventaire.lesRessources.put(3,new Ressources(3,"Bois",5));
+        inventaire.setNourriture(4);
+        Map<String, Integer> nourrir=joueurBot.NourrirOuv(inventaire,10);
+        m.put("Point de Score", 10);
+        assertEquals(nourrir,m);
         
-        }
-    
-    @Test
-    void placerOuvrierNourritureSuffisanteETOutilsIndispo3() { //troisieme choix
-        inventaire.setNourriture(11);
-        inventaire.setNbBois(11);
-        zone1.setNbPlaceDispo(0);
-        zone13.setNbPlaceDispo(0);
-        zone12.setNbPlaceDispo(0);
-            if (zone8.getNbPlaceDispo()>= 1){
-                expectedChoice = new Choix(8, 1);
-                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
-                assertEquals(expectedChoice, actualChoice);
-            }
+        //inventaire.setNbRessource(6);
+        inventaire.lesRessources.put(3,new Ressources(3,"Bois",6));
+        inventaire.setNourriture(5);
+        Map<String, Integer> nour=joueurBot.NourrirOuv(inventaire,10);
+        m=new HashMap<>();
+        m.put("Nourriture", inventaire.getNourriture());
+        assertEquals(nour,m);
         
-        }
-    
-    @Test
-    void placerOuvrierNourritureSuffisanteETOutilsIndispo4() { //quatrieme choix
-        inventaire.setNourriture(11);
-        inventaire.setNbBois(11);
-        zone1.setNbPlaceDispo(0);
-        zone13.setNbPlaceDispo(0);
-        zone12.setNbPlaceDispo(0);
-        zone9.setNbPlaceDispo(0);
-            if (zone7.getNbPlaceDispo()>= 1){
-                expectedChoice = new Choix(7, 1);
-                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
-                assertEquals(expectedChoice, actualChoice);
-            }
-        
-        }
-    
-    @Test
-    void placerOuvrierNourritureSuffisanteETOutilsIndispo5() { //cinquieme choix
-        inventaire.setNourriture(11);
-        inventaire.setNbBois(11);
-        zone1.setNbPlaceDispo(0);
-        zone13.setNbPlaceDispo(0);
-        zone12.setNbPlaceDispo(0);
-        zone9.setNbPlaceDispo(0);
-        zone8.setNbPlaceDispo(0);
-            if (zone7.getNbPlaceDispo()>= 1){
-                expectedChoice = new Choix(6,1);
-                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
-                assertEquals(expectedChoice, actualChoice);
-                
-            }
-        
-        }
-
-    @Test
-    void placerOuvrierNourritureSuffisanteETOutilsIndispo6() { //sixieme choix
-        inventaire.setNourriture(11);
-        inventaire.setNbBois(11);
-        zone1.setNbPlaceDispo(0);
-        zone13.setNbPlaceDispo(0);
-        zone12.setNbPlaceDispo(0);
-        zone9.setNbPlaceDispo(0);
-        zone8.setNbPlaceDispo(0);
-        zone7.setNbPlaceDispo(0);
-            if (zone3.getNbPlaceDispo()>= 1){
-                expectedChoice = new Choix(3, 5);
-                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
-                assertEquals(expectedChoice, actualChoice);
-            }
-        
-        }
-    
-    @Test
-    void placerOuvrierNourritureSuffisanteETOutilsIndispo7() { //septieme choix
-        inventaire.setNourriture(11);
-        inventaire.setNbBois(11);
-        zone1.setNbPlaceDispo(0);
-        zone13.setNbPlaceDispo(0);
-        zone12.setNbPlaceDispo(0);
-        zone9.setNbPlaceDispo(0);
-        zone8.setNbPlaceDispo(0);
-        zone7.setNbPlaceDispo(0);
-        zone4.setNbPlaceDispo(0);
-            if (zone3.getNbPlaceDispo()>= 1){
-                expectedChoice = new Choix(2, 5);
-                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
-                assertEquals(expectedChoice, actualChoice);
-            }
-        
-        }
-    
-    @Test
-    void placerOuvrierNourritureSuffisanteETOutilsIndispo72() { //8 choix
-        inventaire.setNourriture(11);
-        inventaire.setNbBois(11);
-        zone1.setNbPlaceDispo(0);
-        zone13.setNbPlaceDispo(0);
-        zone12.setNbPlaceDispo(0);
-        zone9.setNbPlaceDispo(0);
-        zone8.setNbPlaceDispo(0);
-        zone7.setNbPlaceDispo(0);
-        zone4.setNbPlaceDispo(0);
-        zone3.setNbPlaceDispo(0);
-            if (zone3.getNbPlaceDispo()>= 1){
-                expectedChoice = new Choix(1, 5);
-                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
-                assertEquals(expectedChoice, actualChoice);
-            }
-        
-        }
-    //test pour partie a 3
-    @Test
-    void placerOuvrierNourritureSuffisanteETOutilsIndispo8() { //premier choix 
-    	StoneAge stoneAge = new StoneAge(3,true);
-        inventaire.setNourriture(11);
-        inventaire.setNbBois(11);
-        zone1.setNbPlaceDispo(0);
-            if (zone13.getNbPlaceDispo()>= 1){
-                expectedChoice = new Choix(13, 1);
-                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
-                assertEquals(expectedChoice, actualChoice);
-            }
-        
-        }
-    @Test
-    void placerOuvrierNourritureSuffisanteETOutilsIndispo9() { //deuxieme choix
-        inventaire.setNourriture(11);
-        inventaire.setNbBois(11);
-        zone1.setNbPlaceDispo(0);
-        zone14.setNbPlaceDispo(0);
-            if (zone11.getNbPlaceDispo()>= 1){
-                expectedChoice = new Choix(12, 1);
-                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
-                assertEquals(expectedChoice, actualChoice);
-            }
-        
-        }
-    
-    @Test
-    void placerOuvrierNourritureSuffisanteETOutilsIndispo10() { //troisieme choix
-        inventaire.setNourriture(11);
-        inventaire.setNbBois(11);
-        zone1.setNbPlaceDispo(0);
-        zone14.setNbPlaceDispo(0);
-        zone13.setNbPlaceDispo(0);
-            if (zone8.getNbPlaceDispo()>= 1){
-                expectedChoice = new Choix(11, 1);
-                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
-                assertEquals(expectedChoice, actualChoice);
-            }
-        
-        }
-    
-    @Test
-    void placerOuvrierNourritureSuffisanteETOutilsIndispo11() { //4 choix
-        inventaire.setNourriture(11);
-        inventaire.setNbBois(11);
-        zone1.setNbPlaceDispo(0);
-        zone14.setNbPlaceDispo(0);
-        zone13.setNbPlaceDispo(0);
-        zone12.setNbPlaceDispo(0);
-            if (zone8.getNbPlaceDispo()>= 1){
-                expectedChoice = new Choix(9, 1);
-                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
-                assertEquals(expectedChoice, actualChoice);
-            }
-        
-        }
-    
-    @Test
-    void placerOuvrierNourritureSuffisanteETOutilsIndispo12() { //5 choix
-        inventaire.setNourriture(11);
-        inventaire.setNbBois(11);
-        zone1.setNbPlaceDispo(0);
-        zone14.setNbPlaceDispo(0);
-        zone13.setNbPlaceDispo(0);
-        zone12.setNbPlaceDispo(0);
-        zone10.setNbPlaceDispo(0);
-            if (zone8.getNbPlaceDispo()>= 1){
-                expectedChoice = new Choix(8, 1);
-                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
-                assertEquals(expectedChoice, actualChoice);
-            }
-        
-        }
-    
-    @Test
-    void placerOuvrierNourritureSuffisanteETOutilsIndispo13() { //6 choix
-        inventaire.setNourriture(11);
-        inventaire.setNbBois(11);
-        zone1.setNbPlaceDispo(0);
-        zone14.setNbPlaceDispo(0);
-        zone13.setNbPlaceDispo(0);
-        zone12.setNbPlaceDispo(0);
-        zone10.setNbPlaceDispo(0);
-        zone9.setNbPlaceDispo(0);
-            if (zone8.getNbPlaceDispo()>= 1){
-                expectedChoice = new Choix(7, 1);
-                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
-                assertEquals(expectedChoice, actualChoice);
-            }
-        
-        }
-    
-    @Test
-    void placerOuvrierNourritureSuffisanteETOutilsIndispo14() { //7 choix
-        inventaire.setNourriture(11);
-        inventaire.setNbBois(11);
-        zone1.setNbPlaceDispo(0);
-        zone14.setNbPlaceDispo(0);
-        zone13.setNbPlaceDispo(0);
-        zone12.setNbPlaceDispo(0);
-        zone10.setNbPlaceDispo(0);
-        zone9.setNbPlaceDispo(0);
-        zone8.setNbPlaceDispo(0);
-            if (zone8.getNbPlaceDispo()>= 1){
-                expectedChoice = new Choix(6, 1);
-                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
-                assertEquals(expectedChoice, actualChoice);
-            }
-        
-        }
-    
-    @Test
-    void placerOuvrierNourritureSuffisanteETOutilsIndispo15() { //8 choix
-        inventaire.setNourriture(11);
-        inventaire.setNbBois(11);
-        zone1.setNbPlaceDispo(0);
-        zone14.setNbPlaceDispo(0);
-        zone13.setNbPlaceDispo(0);
-        zone12.setNbPlaceDispo(0);
-        zone10.setNbPlaceDispo(0);
-        zone9.setNbPlaceDispo(0);
-        zone8.setNbPlaceDispo(0);
-        zone7.setNbPlaceDispo(0);
-            if (zone8.getNbPlaceDispo()>= 1){
-                expectedChoice = new Choix(4, 5);
-                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
-                assertEquals(expectedChoice, actualChoice);
-            }
-        
-        }
-    
-    @Test
-    void placerOuvrierNourritureSuffisanteETOutilsIndispo16() { //9 choix
-        inventaire.setNourriture(11);
-        inventaire.setNbBois(11);
-        zone1.setNbPlaceDispo(0);
-        zone14.setNbPlaceDispo(0);
-        zone13.setNbPlaceDispo(0);
-        zone12.setNbPlaceDispo(0);
-        zone10.setNbPlaceDispo(0);
-        zone9.setNbPlaceDispo(0);
-        zone8.setNbPlaceDispo(0);
-        zone7.setNbPlaceDispo(0);
-            if (zone8.getNbPlaceDispo()>= 1){
-                expectedChoice = new Choix(3, 5);
-                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
-                assertEquals(expectedChoice, actualChoice);
-            }
-        
-        }
-    
-    @Test
-    void placerOuvrierNourritureSuffisanteETOutilsIndispo17() { //10 choix
-        inventaire.setNourriture(11);
-        inventaire.setNbBois(11);
-        zone1.setNbPlaceDispo(0);
-        zone14.setNbPlaceDispo(0);
-        zone13.setNbPlaceDispo(0);
-        zone12.setNbPlaceDispo(0);
-        zone10.setNbPlaceDispo(0);
-        zone9.setNbPlaceDispo(0);
-        zone8.setNbPlaceDispo(0);
-        zone7.setNbPlaceDispo(0);
-        zone4.setNbPlaceDispo(0);
-            if (zone8.getNbPlaceDispo()>= 1){
-                expectedChoice = new Choix(2, 5);
-                actualChoice = joueurBot.placerOuvriers(listeZones, inventaire);
-                assertEquals(expectedChoice, actualChoice);
-            }
-        
-        }
-    
+        inventaire.lesRessources.put(3,new Ressources(3,"Bois",5));
+        inventaire.lesRessources.put(4,new Ressources(4,"Argile",5));
+        inventaire.lesRessources.put(5,new Ressources(5,"Pierre",5));
+        Map<String, Integer> nouro=joueurBot.NourrirOuv(inventaire,10);
+        m.put("Bois",5);
+        m.put("Argile",5);
+        assertEquals(nouro,m);
+    }
 }

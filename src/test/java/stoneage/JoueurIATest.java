@@ -162,7 +162,7 @@ public class JoueurIATest {
             choix=joueurIA.placerOuvriers(listeZone,inventaire);
             Zone zoneChoisie=listeZone.get(choix.zoneChoisie);
             assertTrue(choix.zoneChoisie>=0); 
-            assertTrue(choix.zoneChoisie<=14);
+            assertTrue(choix.zoneChoisie<=15);
              //verifier que la zone choisie est bien dans la liste dans zone
             assertTrue(choix.nbOuvriersChoisie <=inventaire.getNbOuvrierDispo());
             assertTrue(choix.nbOuvriersChoisie <=zoneChoisie.getNbPlaceDispo());
