@@ -128,10 +128,12 @@ public class Inventaire {
 		return lesRessources.get(1).getValeur();
 	}
         
-        public void setNourriture(int nb){
+	public void setNourriture(int nb){
 		lesRessources.put(2,new Ressources(2,"Nourriture",nb));
 	}
-
+	public void addNourriture(int nb){
+		lesRessources.get(2).addvaleur(nb);;
+	}
 	public int getNbOutilsDuTour(){
 		return nbOutilsDutour;
 	}
