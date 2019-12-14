@@ -2,30 +2,31 @@ package stoneage;
 import java.util.ArrayList;
 import java.util.Random;
 /** 
- *Cette Class est les joueurs qui suivent une strategie dans le jeu ,
- * elle permet de faire des choix plus inteligent et eviter les choix
+ * JoueurBot2 est un joueur qui suit une strategie de jeu gagnante.
+ * Cette derniere lui permet de faire des choix plus inteligent et eviter les choix
  * au hazard le plus possible en respenctant les regle du jeu.
  *
  * Pour le choix de la zone:
- *  Dans un premier temps le joueur regarde ses nouriture et si elle sont compriuse entre 5 et 10 ou inferieur a 3
- *  il choisit de placer un ou des ouvrier en zone chasse pour ne pas manquer de nouriture lors du nourrissage des ouvriers
- *  ensuite il previligie la recuperation de bois si celui ci est trop faible et ensuite si il peut il recupere un outil
- *  Apres cela il previligie les carte batiment et ensuite civilisation
- *  sinon il choisit les zones riviere,champ, ...
+ * le joueur regarde s'il a assez de nourriture pour nourrir ses ouvriers a la fin du tour:
+ * Si oui:il choisi les zones suivantes dans cette ordre si elles sont disponibles:
+ * il  va choisir les cartes civilsation 1 et 2 car elles sont les moins cheres
+ * puis la zone foret (car la ressource bois est la moins cher)
+ * puis la zone fabrication d'Outils(pour avoir plus de ressources lors de la recuperation des ouvriers)
+ * puis les batiments 1 2 3 et 4
+ * puis lez zones glaisieres carriere et rivieres dans cet ordre(de la ressource la moins chere a la ressource la plus cher)
+ * Sinon:il places des figurines dans la zone de chasse pour avoir de la nourriture
  *  
  *  Pour le choix de l'outil:
  *   si cela est interressant de placer un outil c'est a dire que si le placement d'un outil lui permet de prendre 
  *   plus de ressource: alors il choisit de placer un outil
+ * 
+ * *Pour le choix de Dé cadeau de carte civilisation :
+ * il choisi le meilleur dé present donc Or> champ > outil > argile ...
+ *
+ * Pour le choix de ressouce pour payer la carte civ :
+ *le joueur regarde tous dabord les ressouce les moins couteuses, Bois, Argile , Pierre..
  *   
- * Pour le choix de Dé cadeau de carte civilisation :
- * 	il choisit le meilleur dé possible donc Or, champ , outil, argile ...
- *   
- * Pour le choix de type de ressource pour payer ses dettes:
- *  il prend les ressources du moin vher au plus cher donc bois, argile, pierre, or.
- *  
- * Pour nourrir ses ouvrier:
- *  il utilise le meme principe que pour payer ses dettes.
- *  sinon il paye en score.
+ * 
  **/
 public class JoueurBot2 implements Joueurs {
 	Random rand = new Random();
@@ -153,14 +154,6 @@ public class JoueurBot2 implements Joueurs {
                     placer.add(8);
                     placer.add(1);
                 }
-                /*else if (listZoneDispo.contains(9) && inv.getNbRessource()>=3) {//carte civ qui coute 3
-                    placer.add(9);
-                    placer.add(1);
-                }
-                else if (listZoneDispo.contains(10) && inv.getNbRessource()>=4) {//carte civ qui coute 4
-                    placer.add(10);
-                    placer.add(1);
-                }*/
                 else if (listZoneDispo.contains(2) && inv.getNbBois()<=4) {//bois
                     placer.add(2);
                     placer.add(rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(2).getNbPlaceDispo()))+1);
@@ -172,10 +165,6 @@ public class JoueurBot2 implements Joueurs {
                 else if (listZoneDispo.contains(0)) {
                     placer.add(0);
                     placer.add(1);
-                }
-                else if (listZoneDispo.contains(15) && inv.getNbOuvrier()<10&& inv.getNbOuvrierDispo()>=2) {//hutte
-                    placer.add(15);
-                    placer.add(2);
                 }
                 else if (listZoneDispo.contains(11)) {//batiment 1
                     placer.add(11);
@@ -211,19 +200,8 @@ public class JoueurBot2 implements Joueurs {
 		}
             }
             else{
-                if (listZoneDispo.contains(1) && listZoneDispo.contains(6)&&inv.getNourriture()<inv.getNbOuvrier()  ) {
-			if (listZoneDispo.contains(1) && inv.getNbOuvrierDispo() >= 3) {
-				placer.add(1);
-				placer.add(3);
-			} else if (listZoneDispo.contains(6)&&(listZoneDispo.contains(0)|| listZoneDispo.contains(15))) {
-				placer.add(6);
-				placer.add(1);
-			}
-		}
-                else{ // au pire des cas si le joueur ne trouve pas de choix
 			placer.add(1);
-			placer.add(rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(1).getNbPlaceDispo()))+1);
-		}
+			placer.add(rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(1).getNbPlaceDispo()))+1);		
             }
             return placer;
         }
