@@ -390,7 +390,7 @@ public class CarteCivilisation {
                     //carte chamane 34 : gagner 2 Chamane  et 1 argile
                     inventaireJoueur.addNbChamane(2);
                     inventaireJoueur.lesRessources.get(4).addvaleur(1);
-                    zone.setGains( 2);
+                    zone.setGains( 1);
                     zone.setTypeGains( inventaireJoueur.lesRessources.get(4).getNom());
 
                 }
