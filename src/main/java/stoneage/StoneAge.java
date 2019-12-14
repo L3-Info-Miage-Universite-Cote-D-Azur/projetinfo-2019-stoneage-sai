@@ -197,7 +197,7 @@ public class StoneAge {
 			}
 	    	int Gagnant=0;
 	    	int ScoreGagnant=0;
-	    	for (int i=0 ; i<=nbJoueurs;i++){
+	    	for (int i=0 ; i<=nbJoueurs;i++){ 
 				int numJ=listeDesJoueurs.get(i).getNum();
 				System.out.println("********* Le  joueur "+ (numJ) +" *********");
 				System.out.println("Nombre d'ouvriers  : " +listeDesInventaires.get(i).getNbOuvrier()+
@@ -213,7 +213,7 @@ public class StoneAge {
 						" | Chamane  : " + listeDesInventaires.get(i).getNbChamane());
 				System.out.println("Niveau agriculture : " +listeDesInventaires.get(i).getScoreChamp() );
 				System.out.println("Nombre de carte Civilisation Verte  : " + listeDesInventaires.get(i).getNbCarteVert());
-				System.out.println("Nombre de carte Civilisation Batiment   : " + listeDesInventaires.get(i).getNbCarteBat());
+				System.out.println("Nombre de carte Batiment   : " + listeDesInventaires.get(i).getNbCarteBat());
 	    		System.out.println("Le Score final  du joueur ** "+ (numJ) +" ** : " +listeDesInventaires.get(i).calcScore() + "\n");
 	                
 	    		if (listeDesInventaires.get(i).calcScore()>ScoreGagnant){
@@ -342,7 +342,7 @@ public class StoneAge {
 			System.out.println(" | Chamane : " + (tabStatistique[i][12]) / 500);
 			System.out.println("Une agriculture de niveau : " + (tabStatistique[i][8]) / 500);
 			System.out.println("Nombre de carte Civilisation Verte " + (tabStatistique[i][13]) / 500);
-			System.out.println("Nombre de carte Civilisation Batiment " + (tabStatistique[i][14]) / 500);
+			System.out.println("Nombre de carte Batiment " + (tabStatistique[i][14]) / 500);
 			System.out.println("Le Score moyen  du joueur ** " + (i+1) + " ** : " + (tabStatistique[i][1]) / 500 + " points");
 			System.out.println("\nAu total le joueur ** " + (i+1) + " ** a remporter : " + tabStatistique[i][0] + " parties sur 500\n");
 		}
