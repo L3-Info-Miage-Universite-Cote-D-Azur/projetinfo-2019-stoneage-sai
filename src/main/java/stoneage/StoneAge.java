@@ -102,7 +102,7 @@ public class StoneAge {
 	 *
 	 * Changement de l'ordre des joueurs
 	 */
-	private void unTour(){
+	public void unTour(){
 		boolean placer=false;
 		boolean recuperer=false;
 
@@ -389,5 +389,37 @@ public class StoneAge {
 	 */
 	public boolean getStat() {
 		return stat;
+	}
+	
+	/**
+	 * Accès au nombre de cartes civilisation restantes.
+	 * @return int
+	 */
+	public int getNbCarteDispo() {
+		return partie.getNbCarteDispo();
+	}
+	
+	/**
+	 * Accès au nombre de cartes batiment restantes.
+	 * @return int
+	 */
+	public int getNbBatiments() {
+		return partie.getNbBatiments();
+	}
+	
+	/**
+	 * Accès a la liste des inventaires.
+	 * @return ArrayList<Inventaire
+	 */
+	public static ArrayList<Inventaire> getListeDesInventaires() {
+		return listeDesInventaires;
+	}
+	
+	/**
+	 * Accès a la liste des joueurs
+	 * @return ArrayList<Joueurs>
+	 */
+	public static ArrayList<Joueurs> getListeDesJoueurs() {
+		return listeDesJoueurs;
 	}
 }
