@@ -1,18 +1,14 @@
 package stoneage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-
-
 public class JoueurTest {
-    ArrayList<Zone> listeZone=new ArrayList<>() ;
-    Zone zone=new Zone();
+    ArrayList<Zone> listeZone;
+    Zone zone;
     Choix choix ,choix2;
     Joueur j;
     Dé de;
@@ -24,7 +20,29 @@ public class JoueurTest {
     ArrayList<BuildingTiles> listeDesBatiments=new ArrayList<>();
     @BeforeEach
     void setUp(){
-        listeZone = zone.getAllZones();
+        listeZone=new ArrayList<>() ;
+        zone=new Zone(1,1,"fabrication d'outils");
+        listeZone.add(zone);
+        zone=new Zone(2,100,"chasse");
+        listeZone.add(zone);
+        zone=new Zone(3,7,"foret");
+        listeZone.add(zone);
+        zone=new Zone(4,7,"glaisiere");
+        listeZone.add(zone);
+        zone=new Zone(5,7,"carriere");
+        listeZone.add(zone);
+        zone=new Zone(6,7,"riviere");
+        listeZone.add(zone);
+        for (int i = 8; i < 12; i++) {
+            zone=new Zone(i,1,"carte civilisation");
+            listeZone.add(zone);
+        }
+        for (int i = 12; i < 16; i++) {
+            zone=new Zone(i,1,"carte batiments");
+            listeZone.add(zone);
+        }
+        zone=new Zone(16,2,"hutte");
+        listeZone.add(zone);
         j = new Joueur("oss",1);
         inventaire = new Inventaire(); 
         listeDesCivilisation=carteCiv.getAllCards(); 
@@ -128,13 +146,13 @@ public class JoueurTest {
     void choixTypeResSiPasDeRes() { //verifier qu'il ne prend pas la carte s'il a pas de ressource suffisante
     	int payement = j.choixTypeRes(1,inventaire,3,4,5,6);
     	assertEquals(payement, -1);
-    	inventaire.setNbBois(3);
+        inventaire.lesRessources.put(3,new Ressources(3,"Bois",3));
     	payement = j.choixTypeRes(4,inventaire,3,4,5,6);
     	assertEquals(payement, -1);
     }
     @Test
     void choixTypeResDispo() { //verifier qu'ilprend la carte s'il a  des ressource suffisante et s'il a envie
-    	inventaire.setNbBois(4);
+        inventaire.lesRessources.put(3,new Ressources(3,"Bois",4));
     	int payement = j.choixTypeRes(3,inventaire,3,4,5,6);   	
     	assertTrue((payement>2&& payement<7)||payement==-1);
     }
@@ -151,11 +169,10 @@ public class JoueurTest {
     	
     	// Si on nourri ressource
 		inventaire.setNourriture(0);
-		inventaire.setNbOr(2);
-		inventaire.setNbBois(2);
-		inventaire.setNbArgile(	1);
-		inventaire.setNbPierre(1);
-		inventaire.setNbRessource(6);
+                inventaire.lesRessources.put(6,new Ressources(6,"Or",2));
+                inventaire.lesRessources.put(3,new Ressources(3,"Bois",2));
+                inventaire.lesRessources.put(4,new Ressources(4,"Argile",1));
+                inventaire.lesRessources.put(5,new Ressources(5,"Pierre",1));
 		choixNourriture = j.NourrirOuv(inventaire,5); // si assez de nourriture 
 		keys=choixNourriture.keySet();
 		assertFalse(keys.contains("Point de Score") );
@@ -167,14 +184,12 @@ public class JoueurTest {
     }
     @Test
     void NourrirOuvSiResInsuffisante() {
-		inventaire.setNbPierre(1);
-		inventaire.setNbRessource(1); // meme s'il ya quelque ressource 
+                inventaire.lesRessources.put(5,new Ressources(5,"Pierre",1));
 		inventaire.setNourriture(0);
 		Map<String, Integer> choixNourriture = j.NourrirOuv(inventaire,5);
 		Set<String> keys=choixNourriture.keySet();
-		assertTrue(keys.contains("Point de Score") );
-		assertFalse(keys.contains("Pierre") );
+		assertTrue(keys.contains("Point de Score"));
+		assertFalse(keys.contains("Pierre"));
 		assertEquals(choixNourriture.get("Point de Score") ,10);
-
     }
 }
