@@ -1,7 +1,7 @@
 package stoneage;
 import java.util.ArrayList;
 import java.util.Random;
-/**
+/** 
  *Cette Class est les joueurs qui suivent une strategie dans le jeu ,
  * elle permet de faire des choix plus inteligent et eviter les choix
  * au hazard le plus possible en respenctant les regle du jeu.
@@ -36,146 +36,9 @@ public class JoueurBot2 implements Joueurs {
 	JoueurBot2(String name,int num){
             this.name=name;
             this.num=num;
-	}
-	public Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv){
-		if ( (inv.getNbZoneJouer() <10 && inv.ouvrierDispo())){
-			if (!inv.listeZonesJouer.get(1) && inv.getNourriture() >= 5 && inv.getNourriture() < 10  && LesZones.get(1).getNbPlaceDispo() > 2 ){//Chasse
-				return new Choix(1, 1);
-			}
-			else if (!inv.listeZonesJouer.get(1) && inv.getNourriture() < 3 && LesZones.get(1).getNbPlaceDispo()>3) {
-				return new Choix(1, 3);
-			}
-			else if (!inv.listeZonesJouer.get(2) && LesZones.get(2).getNbPlaceDispo()>= 2 && inv.getNbBois()<10 && inv.getNbOuvrierDispo() >= 2) {
-				return new Choix(2, 2);
-			}
-			else if (!inv.listeZonesJouer.get(0) && LesZones.get(0).getNbPlaceDispo()>= 1 && inv.getNbOuvrierDispo() >= 1) {//Fabrication outils
-				return new Choix(0, 1);
-			}
-			else if (StoneAge.getNbJoueurTotal()==2){
-				if (inv.getNbZoneJouer() < 10 && inv.ouvrierDispo()){
-					int i=0;
-					int nbOuvChoisie = 1;
-					int[] tabZoneDispo={0,1,2,3,4,5,6,7,8,11,12,15}; // zone 10 et 11 indispo
-					int zoneChoisie = tabZoneDispo[10];
-					while (inv.listeZonesJouer.get(zoneChoisie) || LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).getNbJoueur()>=1){
-						if (i == 0){ zoneChoisie = tabZoneDispo[9];}
-						else if(i == 1){zoneChoisie = tabZoneDispo[0];}
-						else if (i == 2){zoneChoisie = tabZoneDispo[8];}
-						else if (i == 3){zoneChoisie = tabZoneDispo[7];}
-						else if (i == 4){zoneChoisie = tabZoneDispo[6];}
-						else if (i == 5) {
-							if (inv.getNbOuvrierDispo() >= 2) {
-								zoneChoisie = tabZoneDispo[3];
-							}
-							else {
-								zoneChoisie = tabZoneDispo[2];
-							}
-							nbOuvChoisie = inv.getNbOuvrierDispo();
-						}
-						else if(i == 6){
-							zoneChoisie = tabZoneDispo[2];
-							nbOuvChoisie = inv.getNbOuvrierDispo();
-						}
-						else if(i >= 7) {
-							zoneChoisie = 1;
-							nbOuvChoisie = inv.getNbOuvrierDispo();
-							break;
-						}
-						i++;
-					}
-
-					return new Choix(zoneChoisie, nbOuvChoisie);
-				}
-				else{
-					return null;
-				}
-			}
-			else if(StoneAge.getNbJoueurTotal()==3) {
-				if ( (inv.getNbZoneJouer() < 10 &&inv.ouvrierDispo())){
-					int i=0;
-					int nbOuvChoisie = 1;
-					int[] tabZoneDispo={0,1,2,3,4,5,6,7,8,9,11,12,13,15}; // 7,8,9 cartes 11,12,13 batiments
-					int zoneChoisie = tabZoneDispo[12];
-					while (inv.listeZonesJouer.get(zoneChoisie)|| LesZones.get(zoneChoisie).getNbPlaceDispo()==0|| LesZones.get(zoneChoisie).getNbJoueur()>=2){
-						if (i == 0){ zoneChoisie = tabZoneDispo[11];}
-						else if(i == 1){zoneChoisie = tabZoneDispo[10];}
-						else if (i == 2){zoneChoisie = tabZoneDispo[9];}
-						else if (i == 3){zoneChoisie = tabZoneDispo[8];}
-						else if (i == 4){zoneChoisie = tabZoneDispo[7];}
-						else if (i == 5){zoneChoisie = tabZoneDispo[6];}
-						else if (i == 6) {
-							if (inv.getNbOuvrierDispo() >= 2){
-								zoneChoisie = tabZoneDispo[3];
-							}
-							else {zoneChoisie = tabZoneDispo[2];}
-
-							if (LesZones.get(zoneChoisie).getNbPlaceDispo() >= inv.getNbOuvrierDispo()){nbOuvChoisie = inv.getNbOuvrierDispo();}
-							else{nbOuvChoisie = LesZones.get(zoneChoisie).getNbPlaceDispo();}
-						}
-						else if(i == 7){
-							zoneChoisie = tabZoneDispo[2];
-							if (LesZones.get(zoneChoisie).getNbPlaceDispo() >= inv.getNbOuvrierDispo()){nbOuvChoisie = inv.getNbOuvrierDispo();}
-							else{nbOuvChoisie = LesZones.get(zoneChoisie).getNbPlaceDispo();}
-						}
-						else if(i >= 8) {
-							zoneChoisie = 1;
-							nbOuvChoisie = inv.getNbOuvrierDispo();
-							break;
-						}
-						i++;
-					}
-					return new Choix(zoneChoisie, nbOuvChoisie);
-				}
-				else{
-					return null;
-				}
-			}
-
-			else if ((inv.getNbZoneJouer() < 10 && inv.ouvrierDispo())){
-				int i=0;
-				int nbOuvChoisie = 1;
-				int zoneChoisie = 14;
-				while (inv.listeZonesJouer.get(zoneChoisie) || LesZones.get(zoneChoisie).getNbPlaceDispo()==0){
-					if (i <= 7){ zoneChoisie = 13 - i;}
-					else if(i == 8){
-						if (inv.getNbOuvrierDispo() >= 2){zoneChoisie = 3;}
-						else {zoneChoisie = 2;}
-
-						if (LesZones.get(zoneChoisie).getNbPlaceDispo() >= inv.getNbOuvrierDispo()){nbOuvChoisie = inv.getNbOuvrierDispo();}
-						else{nbOuvChoisie = LesZones.get(zoneChoisie).getNbPlaceDispo();}
-					}
-					else if(i == 9){
-						zoneChoisie = 2;
-						if (LesZones.get(zoneChoisie).getNbPlaceDispo() >= inv.getNbOuvrierDispo()){nbOuvChoisie = inv.getNbOuvrierDispo();}
-						else{nbOuvChoisie = LesZones.get(zoneChoisie).getNbPlaceDispo();}
-					}
-					else if(i>=10){
-						zoneChoisie = 1;
-						nbOuvChoisie = inv.getNbOuvrierDispo();
-						break;
-					}
-					i++;
-				}
-				return new Choix(zoneChoisie, nbOuvChoisie);
-			}
-			else{
-				return null;
-			}
-		}
-		return null;
-	}
-	public int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) {
-	    int OutilChoisie ;
-		if ((zoneChoisi.getNiveauZone()-(nbRessources % zoneChoisi.getNiveauZone()))<=nbOutils)
-    	{
-			OutilChoisie =(zoneChoisi.getNiveauZone()-(nbRessources % zoneChoisi.getNiveauZone()));
-    	}
-    	else {
-    	    OutilChoisie = rand.nextInt(nbOutils+1);
-    	}
-    	return OutilChoisie;
-    }
-    public int cadeauRes(ArrayList<Integer> listeDe){
+	}  
+        
+        public int cadeauRes(ArrayList<Integer> listeDe){
 		if (listeDe.contains(4)){return 4;}
 		else if (listeDe.contains(6)){return 6;}
 		else if (listeDe.contains(5)){return 5;}
@@ -183,43 +46,199 @@ public class JoueurBot2 implements Joueurs {
 		else if (listeDe.contains(2)){return 2;}
 		else {return 1;}
 	}
-	public int choixTypeRes(int cout, Inventaire inv, int...typeDispo) {
-	        /* cette methode permet au joueure de choisir la resource qu'il va utiliser pour payer ses dettes */
-	        	ArrayList<Integer> listTypeDispo = new ArrayList(); //transforme le tableau en liste
-	        	for (int i=0 ; i<typeDispo.length; i++) {
-	        		listTypeDispo.add(typeDispo[i]);
-	        	}
-	        	/* le joueur retourne :
-	        	 * -1: s'il ne veut pas prendre la carte
-	        	 * 3: s'il choisi de la payer avec bois
-	        	 * 4:  Argile
-	        	 * 5: Pierre
-	        	 * 6: Or
-	        	 */
-			if (inv.getNbBois()<cout) {
-				// s'il ya pas assez de bois on enleve l'indice de cette zone de la liste
-				listTypeDispo.remove(listTypeDispo.indexOf(3));
+	public int choixTypeRes(int cout,Inventaire inv, int...typeDispo) {
+    	ArrayList<Integer> listTypeDispo = new ArrayList();
+    	for (int i=0 ; i<typeDispo.length; i++) {
+    		listTypeDispo.add(typeDispo[i]);
+    	}
+    	/* le joueur retourne :
+    	 * -1: s'il ne veut pas prendre la carte 
+    	 * 3: s'il choisi de la payer avec bois 
+    	 * 4:  Argile 
+    	 * 5: Pierre 
+    	 * 6: Or 
+    	 */
+		if (inv.getNbBois()>cout && listTypeDispo.contains(3)) {
+			return 3;
+		}
+		if ( inv.getNbArgile()>cout && listTypeDispo.contains(4)) {
+			return 4;
+		}
+		if ( inv.getNbPierre()>cout && listTypeDispo.contains(5)) {
+			return 5;
+		}
+		if ( inv.getNbOr()>cout&&listTypeDispo.contains(6)) {
+
+			return 6 ;
+		}
+		else {
+			return (-1);
+		}
+    }
+        
+
+        
+       public Choix placerOuvriers(ArrayList<Zone> lesZones ,Inventaire inv) {
+    	//*****************Si Jeu entre 2 joueurs******************//
+		if (StoneAge.getNbJoueurTotal() == 2) {
+			ArrayList<Integer> listZoneDispo = new ArrayList<>();
+			for (int i = 0; i < lesZones.size(); i++) {
+				if (lesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && lesZones.get(i).getNbJoueur() == 0 && i != 1 && i != 9 && i != 10 && i != 13 && i != 14) {
+					listZoneDispo.add(i);
+				}
+				if (i == 1 && inv.listeZonesJouer.get(i) != true) {
+					listZoneDispo.add(i);
+				}
 			}
-			if ( inv.getNbArgile()<cout) {
-				listTypeDispo.remove(listTypeDispo.indexOf(4));
+			// le joueur choisi une zone parmis les zones dispo
+			ArrayList<Integer> tabChoix=ouPlacer(listZoneDispo, lesZones, inv);
+			//IA simple qui choisit nombre d'ouvrier qu'elle va poser sur cette zone au hazard
+			//le nombre doit etres inferieur au nombre de place disponnible de la zone et inferieur au nombre d'ouvrier dispo de la zone
+			return new Choix(tabChoix.get(0), tabChoix.get(1));
+		}
+		//*****************Si Jeu entre 3 joueurs******************//
+		else if (StoneAge.getNbJoueurTotal() == 3) {
+			ArrayList<Integer> listZoneDispo = new ArrayList<>();
+			for (int i = 0; i < lesZones.size(); i++) {
+				if (lesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && lesZones.get(i).getNbJoueur() <=1 && i != 1 &&  i != 10  && i != 14) {
+					listZoneDispo.add(i);
+				}
+				if (i == 1 && inv.listeZonesJouer.get(i) != true) {
+					listZoneDispo.add(i);
+				}
 			}
-			if ( inv.getNbPierre()<cout) {
-				listTypeDispo.remove(listTypeDispo.indexOf(5));
+			// le joueur choisi une zone parmis les zones dispo
+			ArrayList<Integer> tabChoix=ouPlacer(listZoneDispo, lesZones, inv);
+			//IA simple qui choisit nombre d'ouvrier qu'elle va poser sur cette zone au hazard
+			//le nombre doit etres inferieur au nombre de place disponnible de la zone et inferieur au nombre d'ouvrier dispo de la zone
+			return new Choix(tabChoix.get(0), tabChoix.get(1));
+		}
+		//*****************Si Jeu entre 4 joueurs******************//
+		else if (StoneAge.getNbJoueurTotal() == 4) {
+			ArrayList<Integer> listZoneDispo = new ArrayList<>();
+			for (int i = 0; i < lesZones.size(); i++) {
+				if (lesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && lesZones.get(i).getNbJoueur() <=2 && i != 1 ) {
+					listZoneDispo.add(i);
+				}
+				if (i == 1 && inv.listeZonesJouer.get(i) != true) {
+					listZoneDispo.add(i);
+				}
 			}
-			if (inv.getNbOr()<cout) {
-				listTypeDispo.remove(listTypeDispo.indexOf(6));
-			}
-			if(listTypeDispo.size()>0&&rand.nextBoolean()) { //le joueur decide de prendre cette carte si il a acces de ressource et si il a envie (true/false)
-				int i=rand.nextInt((listTypeDispo.size()));
-				return listTypeDispo.get(i);
-			}
-			else {
-				return (-1);
-			}
+			// le joueur choisi une zone parmis les zones dispo
+			ArrayList<Integer> tabChoix=ouPlacer(listZoneDispo, lesZones, inv);
+			//IA simple qui choisit nombre d'ouvrier qu'elle va poser sur cette zone au hazard
+			//le nombre doit etres inferieur au nombre de place disponnible de la zone et inferieur au nombre d'ouvrier dispo de la zone
+			return new Choix(tabChoix.get(0), tabChoix.get(1));
+		}
+		else{
+			return null;
+		}
 	}
+        
+        /**
+         * 
+         * @param listZoneDispo
+         * @param lesZones
+         * @param inv
+         * @return 
+         */
+        public ArrayList<Integer> ouPlacer(ArrayList<Integer> listZoneDispo,ArrayList<Zone> lesZones, Inventaire inv ){
+            ArrayList<Integer> placer=new ArrayList<Integer>();
+            if (inv.getNourriture()>=inv.getNbOuvrier()) {
+                if (listZoneDispo.contains(7) && inv.getNbRessource()>=1 ) {//carte civ qui coute 1
+                    placer.add(7);
+                    placer.add(1);
+                }
+                else if (listZoneDispo.contains(8) && inv.getNbRessource()>=2) {//carte civ qui coute 2
+                    placer.add(8);
+                    placer.add(1);
+                }
+                /*else if (listZoneDispo.contains(9) && inv.getNbRessource()>=3) {//carte civ qui coute 3
+                    placer.add(9);
+                    placer.add(1);
+                }
+                else if (listZoneDispo.contains(10) && inv.getNbRessource()>=4) {//carte civ qui coute 4
+                    placer.add(10);
+                    placer.add(1);
+                }*/
+                else if (listZoneDispo.contains(2) && inv.getNbBois()<=4) {//bois
+                    placer.add(2);
+                    placer.add(rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(2).getNbPlaceDispo()))+1);
+                }
+                else if (listZoneDispo.contains(6)) {//champ
+                    placer.add(6);
+                    placer.add(1);
+                }
+                else if (listZoneDispo.contains(0)) {
+                    placer.add(0);
+                    placer.add(1);
+                }
+                else if (listZoneDispo.contains(15) && inv.getNbOuvrier()<10&& inv.getNbOuvrierDispo()>=2) {//hutte
+                    placer.add(15);
+                    placer.add(2);
+                }
+                else if (listZoneDispo.contains(11)) {//batiment 1
+                    placer.add(11);
+                    placer.add(1);
+                }
+                else if (listZoneDispo.contains(12)) {//batiment 2
+                    placer.add(12);
+                    placer.add(1);
+                }
+                else if (listZoneDispo.contains(13)) {//batiment 3
+                    placer.add(13);
+                    placer.add(1);
+                }
+                else if (listZoneDispo.contains(14)) {//batiment 4
+                    placer.add(14);
+                    placer.add(1);
+                }
+                else if (listZoneDispo.contains(3) ){ // argile
+			placer.add(3);
+			placer.add(rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(3).getNbPlaceDispo()))+1);
+		}else if (listZoneDispo.contains(4)){ // PIERRE
+			placer.add(4);
+			placer.add(rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(4).getNbPlaceDispo()))+1);
+		}else if (listZoneDispo.contains(5)){  //OR
+			//le joueur la choisi que s'il a plus de 3 ouvrier dispo pour avoir un max d'Or
+			placer.add(5);
+			placer.add(rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(5).getNbPlaceDispo()))+1);
+		}
+                
+                else{ // au pire des cas si le joueur ne trouve pas de choix
+			placer.add(1);
+			placer.add(rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(1).getNbPlaceDispo()))+1);
+		}
+            }
+            else{
+                if (listZoneDispo.contains(1) && listZoneDispo.contains(6)&&inv.getNourriture()<inv.getNbOuvrier()  ) {
+			if (listZoneDispo.contains(1) && inv.getNbOuvrierDispo() >= 3) {
+				placer.add(1);
+				placer.add(3);
+			} else if (listZoneDispo.contains(6)&&(listZoneDispo.contains(0)|| listZoneDispo.contains(15))) {
+				placer.add(6);
+				placer.add(1);
+			}
+		}
+                else{ // au pire des cas si le joueur ne trouve pas de choix
+			placer.add(1);
+			placer.add(rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(1).getNbPlaceDispo()))+1);
+		}
+            }
+            return placer;
+        }
 
-
-
+        public int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) {
+                int OutilChoisie ;
+		for (int i=5;i>=0;i--){
+			if ((zoneChoisi.getNiveauZone()-(nbRessources % zoneChoisi.getNiveauZone()))+(zoneChoisi.getNiveauZone()*i)<=nbOutils)
+			{
+				OutilChoisie =(zoneChoisi.getNiveauZone()-(nbRessources % zoneChoisi.getNiveauZone()))+(zoneChoisi.getNiveauZone()*i);
+				return OutilChoisie;
+			}
+		}
+		return 0;
+	}
 
 	public int getNum(){
 		return num;
