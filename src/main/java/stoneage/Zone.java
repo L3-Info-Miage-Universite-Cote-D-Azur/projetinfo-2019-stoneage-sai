@@ -1,9 +1,19 @@
 package stoneage;
-
 import java.util.ArrayList;
 /**
- *Une public classe Zone qui contient toute les zone du plateau de jeu
- *parmit eu les carte civilsation et les carte batimet.
+ *Cette classe contient toutes les zones du plateau de jeu.
+ *
+ * @see int#nbOuvriersPlacés
+ *
+ * @see int#niveauZone
+ *
+ * @see #listeDesDe
+ *
+ * @see int#nbPlaceZone
+ *
+ * @see int#nbPlaceDispo
+ *
+ *
  * Cette class gére les placement des ouvrier dans les zone ainsi que les recuperation des ouvrier avec les gains associé aux Zones
  *
  **/
@@ -20,28 +30,84 @@ public class Zone {
 	private String[] TypesGains;
 	private int nbJoueur;
 
+	/**
+	 * Constructeur de la classe Zone
+	 * @param niveau:
+	 *              Entier entre 1 et 16
+	 *              Correspond au niveau de la Zone
+	 * @param nbPlace:
+	 *               Correspond au nombre de places disponible de la zone
+	 * @param nom:
+	 *           Nom de la zone
+	 */
 	public Zone(int niveau, int nbPlace, String nom) {
 		this.niveauZone = niveau;
 		this.nomZone=nom;
 		this.nbPlaceZone=nbPlace;
-		nbPlaceDispo=nbPlaceZone;//au début le nombre de place disponible = au nombre place max de la zone
+		nbPlaceDispo=nbPlaceZone;//au début le nombre de place disponible est égal au nombre place maximum de la zone
 	}
 
+	@Override
 	public String toString(){
 		return nomZone;
 	}
 
-	/*La methode placerOuvrier va permettre de poser un nombre de figurine sur une zone choisi, ainsi le nombre de place
-    dans la zone sera crediter et le nombre d'ouvrier poser sera enregistrer  */
+	/**
+	 * Méthode qui permet de poser des ouvriers sur la zone
+	 * @param inventaireJoueur:
+	 *                        Inventaire du joueur
+	 * @param nbOuvriers:
+	 *                  Entier
+	 *                  Nombre d'ouvrier
+	 *
+	 * Quand on place des ouvriers, on les retire d'abord l'inventaire du joueur.
+	 * Le nombre de place disponible dans la zone est ensuite diminué de nbOuvriers.
+	 * Le nombre de joueur dans la zone augmente aussi de 1.
+	 */
 	public void placerOuvrier(Inventaire inventaireJoueur,int nbOuvriers){
 		if (nbOuvriers>=1 && nbOuvriers <=nbPlaceDispo && nbOuvriers<=inventaireJoueur.getNbOuvrierDispo() ){
-			inventaireJoueur.removeAvailableWorkers(nbOuvriers);//pour placer un nbOuvrier il faut les retirer d'abord de l'inventaire du joueur
+			inventaireJoueur.removeAvailableWorkers(nbOuvriers);
 			nbOuvriersPlacés+=nbOuvriers;
 			nbJoueur++;
-			nbPlaceDispo=nbPlaceDispo-nbOuvriers; //le nombre de place disponnible dans la zone diminue
-			//le nombre d'ouvrier placer dans la zone augmente
+			nbPlaceDispo=nbPlaceDispo-nbOuvriers;
 		}
 	}
+
+	/**
+	 *	Lancement de plusieurs dés
+	 * @param nbDe:
+	 *            Entier
+	 *            Nombre de dés que l'on va lancer.
+	 * @return : Une liste de nbDe dé.
+	 * 			Chaque dé a une valeur entière comprise entre 1 et 6.
+	 *
+	 */
+	public ArrayList<Integer> lancerNbDé(int nbDe){
+		ArrayList<Integer> lancement4De=new ArrayList<>();
+		for (int i =0; i<nbDe; i++){
+			lancement4De.add(dé.Lancer());
+		}
+		return lancement4De;
+	}
+
+	/**
+	 * Valeur de tous les dés lancés.
+	 * @param nbOuvriersPlacés :
+	 *                         Entier
+	 *                         Nombre d'ouvriers placés sur la zone
+	 * @return Un entier qui correspond à la somme des valeurs de tous les dés lancés.
+	 */
+	public int lancéDeDés(int nbOuvriersPlacés){
+		int sommeDés=0;
+		int valeurde;
+		for (int i = 0; i < nbOuvriersPlacés; i++) {
+			valeurde=dé.Lancer();
+			listeDesDe.add(valeurde);
+			sommeDés+=valeurde;
+		}
+		return sommeDés ;
+	}
+	
 	public void setTabTypeGains(int index,String val){
 		this.TypesGains[index]=val;
 	}
@@ -71,41 +137,19 @@ public class Zone {
 	}
 	public void setNbPlaceDispo(int nbPlaceDispo) {
 		this.nbPlaceDispo=nbPlaceDispo;
-	}// le nombre de place disponible par zone
-
+	}
 	public int getGains(){
 		return gains;
 	}
 	public String getTypeGains(){
 		return  TypeGains;
 	}
-	public ArrayList<Integer> lancerNbDé(int nbDe){
-		//cette methode retourne une liste de de taille donné qui contient des nombre entre 1 et 6
-		ArrayList<Integer> lancement4De=new ArrayList<>();
-		for (int i =0; i<nbDe; i++){
-			lancement4De.add(dé.Lancer());
-		}
-		return lancement4De;
-	}
-	public int lancéDeDés(int nbOuvriersPlacés){
-		int sommeDés=0;
-		int valeurde;
-		for (int i = 0; i < nbOuvriersPlacés; i++) {
-			valeurde=dé.Lancer();
-			listeDesDe.add(valeurde);
-			sommeDés+=valeurde;
-		}
-		return sommeDés ;
-	}
 	public ArrayList<Integer> getListeDe(){
 		return listeDesDe;
-	} //Methode qui retourne une liste qui contient les dés lancer a chaque lance de Dé
-
+	}
 	public void resetListDesDe(){
 		listeDesDe=new ArrayList<>();
 	}
-
-
 	public int gestionRessources(Inventaire inventaireJoueur, Joueurs J){
 		inventaireJoueur.resetNbOutilsDuTour();
 		int nbRessources= this.lancéDeDés(inventaireJoueur.listeOuvriersPlaces.get(this.niveauZone-1));
@@ -123,10 +167,6 @@ public class Zone {
 		inventaireJoueur.setNbOutilsDuTour(inventaireJoueur.getNbOutilsDuTour()-outilChoisie);
 		return nbRessources;
 	}
-
-
-
-
 	public void recupeRes(ArrayList<CarteCivilisation> listeDesCartes,ArrayList<BuildingTiles> listeDesBatiments,Inventaire inventaireJoueur, Joueurs J) {
 		resetListDesDe(); // vider la liste qui contient les dés du joueur precedent ou bien du meme joueur avec une zone precedente
 		int nbRessources = gestionRessources(inventaireJoueur, J);
