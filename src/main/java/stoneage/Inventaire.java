@@ -127,9 +127,9 @@ public class Inventaire {
 	public int getNbOutils(){
 		return lesRessources.get(1).getValeur();
 	}
-
-	public void setNourriture(int nb){
-		lesRessources.get(2).addvaleur(nb);
+        
+        public void setNourriture(int nb){
+		lesRessources.put(2,new Ressources(2,"Nourriture",nb));
 	}
 
 	public int getNbOutilsDuTour(){
