@@ -25,7 +25,7 @@ $ mvn exec:java@500 -Dexec.args="argument"
 <img src="https://user-images.githubusercontent.com/42892662/70865975-f91ef380-1f63-11ea-9e86-c99bc669b339.gif" alt="Example d'excution 500 parties" width="600px">
 </p>        
 
-*L'argument entré est un nombre entre 2 et 4, il correspend au nombre des joueurs.*
+*L'argument entré est un nombre entre 2 et 4, il correspond au nombre de joueurs.*
 
 ### [Itération 1](https://github.com/L3-Info-Miage-Universite-Cote-D-Azur/projetinfo-2019-stoneage-sai/milestone/1) : 
 Lancement d'une partie (un tour) avec :
@@ -62,9 +62,9 @@ Un nombre de dé est jeté en fonction du nombre de figurines placées sur les z
 -----------------------------------------------
 
 ### [Itération 3](https://github.com/L3-Info-Miage-Universite-Cote-D-Azur/projetinfo-2019-stoneage-sai/milestone/3)
-Lancement d'une partie entres 4 joueurs en ajoutant :
+Lancement d'une partie entre 4 joueurs en ajoutant :
 - [X] Une zone Chasse (gains Nourriture= résultat dés /2)
-- [X] Ajouter un 3 nouveau joueurs parmis les quelles deux joueurs IA avec chacun une manière de jouer différente.
+- [X] Ajouter un 3 nouveaux joueurs parmi lesquelles deux joueurs IA avec chacun une manière de jouer différente.
 - [X] Une zone Fabrication d'outils
 - [X] Les Tuiles Outils 
 - [X] Nourrir les figurines en fin de tour
@@ -82,13 +82,13 @@ A la fin du tour, les figurines de chaque joueur sont nourries avec la nourritur
 Lancement d'une partie entre 4 joueurs en ajoutant :
 - [X] Zone Agriculture (piste score et le champ)
 - [X] Les cartes civilisations (carte jaune)
-- [X] Condition de fin de partie : lorsqu'il reste moins de cartes civilisation que le nombre des joueurs
+- [X] Condition de fin de partie : lorsqu'il reste moins de cartes civilisation que le nombre de joueurs
 
 #### Démo de jeu :
 * Début de la partie : les joueurs (IA) posent leurs figurines sur les zones et les cartes qu'ils choisissent.
 * Fin du tour : Lorsque les joueurs ont posé toutes leurs figurines. Ils récupèrent les gains. 
-Les cartes civilisation et tuile bâtiment sont gardé pour la fin de la partie pour chaque joueur.
-* Fin de partie : lorsqu'il reste moins de cartes civilisation que le nombre des joueurs. On a un gagnant et on affiche les scores de chaque joueur.
+Les cartes civilisation et tuiles bâtiment sont gardées pour la fin de la partie pour chaque joueur.
+* Fin de partie : lorsqu'il reste moins de cartes civilisation que le nombre de joueurs. On a un gagnant et on affiche les scores de chaque joueur.
 #### Date prévue : 
 *Le Vendredi 22 Novembre*
 
@@ -98,20 +98,20 @@ Les cartes civilisation et tuile bâtiment sont gardé pour la fin de la partie 
 Lancement d'une partie entre 4 joueurs en ajoutant :
 - [X] Le reste des cartes civilisations 
 - [X] Quelqes Tuiles Bâtiments 
-- [X] Condition de fin de partie : lorsqu'il reste moins de piles tuiles bâtiment et de cartes civilisation que le nombre des joueurs
+- [X] Condition de fin de partie : lorsqu'il reste moins de tuiles bâtiment et de cartes civilisation que le nombre de joueurs
 #### Démo de jeu :
 * La partie débute et à chaque tour on voit l’avancement des joueurs et leurs gains. Le joueur peut aussi poser ses ouvriers sur les cartes Tuiles Bâtiments.
-* Fin de partie : lorsqu'il reste moins de cartes civilisation et de  tuiles bâtiment que le nombre des joueurs.
+* Fin de partie : lorsqu'il reste moins de cartes civilisation et de tuiles bâtiment que le nombre de joueurs.
 On a un gagnant et on affiche les scores de chaque joueur.
 #### Date prévue : 
 *Le Vendredi 29 Novembre*
 
 ----------------------------------------------- 
 ### [Itération 6](https://github.com/L3-Info-Miage-Universite-Cote-D-Azur/projetinfo-2019-stoneage-sai/milestone/6)
-- [X] Developper le code permettant de lancer 500 parties 
+- [X] Développer le code permettant de lancer 500 parties 
 - [X] Statistique
 
-Lancement d'une partie entres 4 joueurs en ajoutant :
+Lancement d'une partie entre 4 joueurs en ajoutant :
 - [X] Zone Hutte
 - [X] Toutes les Tuiles Bâtiments 
 - [X] Plus de figurines si le joueur pose deux figurines sur la zone hutte dans un tour (jusqu'à 10 max)
@@ -119,17 +119,17 @@ Lancement d'une partie entres 4 joueurs en ajoutant :
 
 #### Démo de jeu:
 * La partie débute et à chaque tour on voit l’avancement des joueurs et leurs gains. Le joueur peut aussi poser deux ouvriers sur la zone hutte pour avoir un nouvel ouvrier en fin de tour.
-* Fin de partie : lorsqu'il reste moins de cartes civilisation et de  tuiles bâtiment que le nombre des joueurs.
+* Fin de partie : lorsqu'il reste moins de cartes civilisation et de tuiles bâtiment que le nombre de joueurs.
 On a un gagnant et on affiche les scores de chaque joueur.
 #### Date prévue : 
 *Le Vendredi 06 Décembre*
 
 
 ### [Itération 7](https://github.com/L3-Info-Miage-Universite-Cote-D-Azur/projetinfo-2019-stoneage-sai/milestone/7)
-- [X] Régler les derniers Bug. 
+- [X] Régler les derniers bugs. 
 
 #### Démo de jeu:
-* On observe les joueurs qui commence une partie entre bots. 
+* On observe les joueurs qui commencent une partie entre bots. 
 * On a un gagnant en fin de partie et les scores finaux.
 #### Date prévue : 
 *Le Dimanche 15 Décembre*
