@@ -95,8 +95,15 @@ public class Partie {
         			if (!stat) System.out.println(ConsoleColors.RED+"\nLe joueur  " + joueur.getNum() + " a gagné un "+choix.getTabTypeGains()[0]+" et un "+choix.getTabTypeGains()[1]+"  avec sa carte civilisation, il reprend ses ouvriers. "+ConsoleColors.RESET);
                         }
         		else if (choix.getGains()>=0){
-        			if (!stat) System.out.println(ConsoleColors.RED+"\nLe joueur " + joueur.getNum() + " a gagné  "+choix.getGains() +" " +choix.getTypeGains()+ ", il reprend ses ouvriers de la zone "+choix  + "."+ConsoleColors.RESET );
-                    if (choix.getNiveauZone()==12 ||choix.getNiveauZone()==13 ||choix.getNiveauZone()==14 ||choix.getNiveauZone()==15){
+                    if (choix.getNiveauZone()>=2 && choix.getNiveauZone()<=6) {
+                        if (!stat) System.out.println(ConsoleColors.RED+"Le joueur " + joueur.getNum() + " a choisit d'utilisé : "+ choix.getNbOutil()+" outil ."+ConsoleColors.RESET );
+                        if (!stat) System.out.println(ConsoleColors.RED+"Il a gagné  "+choix.getGains() +" " +choix.getTypeGains()+ ", il reprend ses ouvriers de la zone "+choix  + "."+ConsoleColors.RESET );
+                    }
+                    else {
+                        if (!stat) System.out.println(ConsoleColors.RED+"\nLe joueur " + joueur.getNum() + " a gagné  "+choix.getGains() +" " +choix.getTypeGains()+ ", il reprend ses ouvriers de la zone "+choix  + "."+ConsoleColors.RESET );
+
+                    }
+        			if (choix.getNiveauZone()==12 ||choix.getNiveauZone()==13 ||choix.getNiveauZone()==14 ||choix.getNiveauZone()==15){
                         String chaine="Elle a couté :";
                         for (String c:joueur.lesResCouter.keySet()) {
                             chaine+= joueur.lesResCouter.get(c)+" "+c+" ||";
@@ -106,6 +113,7 @@ public class Partie {
                 }
         	}
         }
+        inv.resetNbOutilsDuTour();
         inv.resetAvailableWorkers();
     }
 

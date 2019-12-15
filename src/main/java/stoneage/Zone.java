@@ -32,6 +32,7 @@ public class Zone {
 	private String TypeGains;
 	private String[] TypesGains;
 	private int nbJoueur;
+	private int nbOutil;
 
 	/**
 	 * Constructeur de la classe Zone
@@ -110,7 +111,9 @@ public class Zone {
 		}
 		return sommeDés ;
 	}
-
+	public int getNbOutil() {
+		return nbOutil;
+	}
 	public void setTabTypeGains(int index,String val){
 		this.TypesGains[index]=val;
 	}
@@ -163,7 +166,6 @@ public class Zone {
 	 * @return Le nombre de ressources gagnées(gain final)
 	 */
 	public int gestionRessources(Inventaire inventaireJoueur, Joueurs J){
-		inventaireJoueur.resetNbOutilsDuTour();
 		int nbRessources= this.lancéDeDés(inventaireJoueur.listeOuvriersPlaces.get(this.niveauZone-1));
 		int nbOutilsDuJoueur=inventaireJoueur.getNbOutilsDuTour();
 		int outilChoisie;
@@ -174,6 +176,7 @@ public class Zone {
 		else {
 			outilChoisie=0;
 		}
+		this.nbOutil=outilChoisie;
 		nbRessources=nbRessources +outilChoisie;
 		nbRessources=nbRessources / this.niveauZone;
 		inventaireJoueur.setNbOutilsDuTour(inventaireJoueur.getNbOutilsDuTour()-outilChoisie);
@@ -192,6 +195,7 @@ public class Zone {
 	 *         Joueur courant
 	 */
 	public void recupeRes(ArrayList<CarteCivilisation> listeDesCartes,ArrayList<BuildingTiles> listeDesBatiments,Inventaire inventaireJoueur, Joueurs J) {
+		this.nbOutil=0;
 		resetListDesDe(); // vider la liste qui contient les dés du joueur precedent ou bien du meme joueur avec une zone precedente
 		int nbRessources = gestionRessources(inventaireJoueur, J);
 		//recuperer les ressources gagner
