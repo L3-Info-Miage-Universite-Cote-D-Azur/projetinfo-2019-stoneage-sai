@@ -26,4 +26,4 @@ Changement des ressources donc changement des zones de même et aussi changement
 
 - Modification de CarteCivilisation donc modification de ses tests:
 
-Tests pour le nouvelle façon de créer l'objet CarteCivilisation et test pour récuperer les ressources d'une carte civilisation pour chaque cas possible.
+Tests pour la nouvelle façon de créer l'objet CarteCivilisation et test pour récuperer les ressources d'une carte civilisation pour chaque cas possible.
