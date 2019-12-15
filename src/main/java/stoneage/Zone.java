@@ -4,18 +4,15 @@ import java.util.ArrayList;
  *Cette classe contient toutes les zones du plateau de jeu.
  *
  * @see int#nbOuvriersPlacés
- *
+ *		Nombre d'ouvriers placés dans la zone.
  * @see int#niveauZone
- *
+ *		Le niveau de la zone.
  * @see #listeDesDe
- *
+ *		Liste d'entiers de 1 à 6 représentant des dés à 6 faces.
  * @see int#nbPlaceZone
- *
+ *		Le nombre de places de la zone.
  * @see int#nbPlaceDispo
- *
- *
- * Cette class gére les placement des ouvrier dans les zone ainsi que les recuperation des ouvrier avec les gains associé aux Zones
- *
+ *		Le nombre de place encore disponible dans la zone.
  **/
 public class Zone {
 	private String nomZone;
@@ -107,7 +104,7 @@ public class Zone {
 		}
 		return sommeDés ;
 	}
-	
+
 	public void setTabTypeGains(int index,String val){
 		this.TypesGains[index]=val;
 	}
