@@ -13,10 +13,18 @@
 ```shell
 $ mvn exec:java -Dexec.args="argument"
 ```
+<p align="center">
+<img src="https://user-images.githubusercontent.com/42892662/70867079-8b79c400-1f71-11ea-9b73-3e67b8cd08ca.gif" alt="Example d'excution 1 partie  " width="600px">
+</p>
+
 > Pour lancer 500 parties avec les statistiques: 
 ```shell
 $ mvn exec:java@500 -Dexec.args="argument"
 ```
+<p align="center">
+<img src="https://user-images.githubusercontent.com/42892662/70865975-f91ef380-1f63-11ea-9e86-c99bc669b339.gif" alt="Example d'excution 500 parties" width="600px">
+</p>        
+
 *L'argument entré est un nombre entre 2 et 4, il correspend au nombre des joueurs.*
 
 ### [Itération 1](https://github.com/L3-Info-Miage-Universite-Cote-D-Azur/projetinfo-2019-stoneage-sai/milestone/1) : 
