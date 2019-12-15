@@ -181,11 +181,15 @@ public class Zone {
 	}
 
 	/**
-	 * Méthode qui
-	 * @param listeDesCartes
-	 * @param listeDesBatiments
-	 * @param inventaireJoueur
-	 * @param J
+	 * Méthode qui distribue les gains au joueurs, lui rend ses ouvrier, et libère la place dans la zone.
+	 * @param listeDesCartes:
+	 *                      Liste de toutes les cartes.
+	 * @param listeDesBatiments:
+	 *                         Liste de tous les bâtiments.
+	 * @param inventaireJoueur:
+	 *                        Inventaire du joueur
+	 * @param J;
+	 *         Joueur courant
 	 */
 	public void recupeRes(ArrayList<CarteCivilisation> listeDesCartes,ArrayList<BuildingTiles> listeDesBatiments,Inventaire inventaireJoueur, Joueurs J) {
 		resetListDesDe(); // vider la liste qui contient les dés du joueur precedent ou bien du meme joueur avec une zone precedente
