@@ -47,7 +47,8 @@ public class JoueurIA implements Joueurs {
 		//  il retoune 0 OUTILS par ce que ça ne servira a rien  de perdre ses outil alors qu'il ne va rien gagner au retour
 		return 0;
 	}
-	/*La methode cadeauRes va permettre au joueur de choisir la resouce cadeau de la carte civilisation */
+	/**
+	La methode cadeauRes va permettre au joueur de choisir la resouce cadeau de la carte civilisation */
 	public int cadeauRes(ArrayList<Integer> listeDe ){
 		if (listeDe.contains(4)){ //s'il il y a un dé Or parmis les dé il le choisi en 1er
 			return 4;
@@ -68,7 +69,8 @@ public class JoueurIA implements Joueurs {
 			return 1;
 		}
 	}
-	/**La  methode choixTypesRes permet au joueure de choisir la resource qu'il va utiliser pour payer ses dettes **/
+	/**
+	 * La  methode choixTypesRes permet au joueure de choisir la resource qu'il va utiliser pour payer ses dettes **/
 	public int choixTypeRes(int cout,Inventaire inv, int...typeDispo) {
     	ArrayList<Integer> listTypeDispo = new ArrayList(); //transforme le tableau en liste
     	for (int i=0 ; i<typeDispo.length; i++) {
@@ -158,11 +160,12 @@ public class JoueurIA implements Joueurs {
 			return null;
 		}
 	}
-	/*La strategie du joueurIA est tout d'abord de surveiller le nombre de nourriture qu'il possede pour pas avoir de score negatif
-	* ensuite il essaie d'avoir le nombre  maximal d'ouvriers
-	* apres il va choisire les carte civilsation 1 /2 (les moins chere )
-	* sinon  il choisi la zone fabrication d'outil, le champ, foret, carriere...
-	* Cette methode retourne un tableau qui contient une zone et un nombre d'ouvrier que le joeuur va placer sur cette Zone*/
+	/**
+	 * La strategie du joueurIA est tout d'abord de surveiller le nombre de nourriture qu'il possede pour pas avoir de score negatif
+	 * ensuite il essaie d'avoir le nombre  maximal d'ouvriers
+	 * apres il va choisire les carte civilsation 1 /2 (les moins chere )
+	 * sinon  il choisi la zone fabrication d'outil, le champ, foret, carriere...
+	 * Cette methode retourne un tableau qui contient une zone et un nombre d'ouvrier que le joeuur va placer sur cette Zone*/
     private int[] choixInteligent( ArrayList<Integer> listZoneDispo,ArrayList<Zone> lesZones, Inventaire inv ){
     	int choixInt[]={0,0};
 		if (listZoneDispo.contains(1) && listZoneDispo.contains(6)&&inv.getNourriture()<inv.getNbOuvrier()  ) {

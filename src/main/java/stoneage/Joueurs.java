@@ -10,6 +10,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+/**
+ * Interface Joueurs
+ * Définit les méthodes par défaut que les joueurs vont utiliser.
+ * Définit ce que chaque joueur a comme méthode:
+ *      @see #cadeauRes(ArrayList)
+ *      @see #choixTypeRes(int, Inventaire, int...)
+ *      @see #placerOutils(int, int, Zone)
+ *      @see #placerOuvriers(ArrayList, Inventaire)
+ *      @see #getNum()
+ */
 public interface Joueurs {
 	Random rand = new Random();
 	int cadeauRes(ArrayList<Integer> listeDe );
@@ -17,9 +27,19 @@ public interface Joueurs {
 	int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) ;
 	Choix placerOuvriers(ArrayList<Zone> LesZones ,Inventaire inv);
 	int getNum();
-	public Map<String ,Integer> lesResCouter = new HashMap<>();
-	
-	 default  ArrayList<Integer> payBuildingWith(Inventaire inv,int cout,int types){
+	Map<String ,Integer> lesResCouter = new HashMap<>();
+
+    /**
+     * Méthode pour payer un bâtiment avec des ressources.
+     * @param inv:
+     *           Inventaire du joueur
+     * @param cout:
+     *            Coût du bâtiment
+     * @param types:
+     *             Types de ressources pour payer le bâtiment
+     * @return La liste des ressources utilisées en quantité (int)
+     */
+	default ArrayList<Integer> payBuildingWith(Inventaire inv,int cout,int types){
         ArrayList<Integer> res= new ArrayList();//res=[Or,Pierre,Argile,Bois]
         if (cout==5) {
             if (types==4) {//le joueur choisit de payer par Or,Pierre,Argile,Bois par ce que ca rapporte plus de points de score comme ca 
@@ -276,8 +296,14 @@ public interface Joueurs {
         }
         return res;
     }
-        
-        default public ArrayList<Integer>payBuilding17(Inventaire inv){
+
+    /**
+     * Méthode pour payer les 3 bâtiments où le nomre de ressources est minimum 1 et maximum 7
+     * @param inv:
+     *           Inventaire du joueur
+     * @return La liste des ressources utilisées en quantité (int)
+     */
+    default ArrayList<Integer> payBuilding17(Inventaire inv){
             ArrayList<Integer> res=new ArrayList();
             int nbRes=7;
             if (inv.getNbRessource()>=nbRes) {
@@ -335,11 +361,11 @@ public interface Joueurs {
             return res;
         }
 
-	/** La methode NourrirOuv va permettre au joueur de nourrir ses ouvriers,
-	 *  il va d'abbord payer avec ses nourriture sinon bois , argile , pierre ..
-	 *  mais s'il a pas aassez de nourriture ou de ressouce son score sera diminuer,
-	 *  le joueur peut choisir entre donner des ressouces ou avoir -10 dans son score**/
-	default  Map<String, Integer> NourrirOuv(Inventaire inv,  int nm) {
+	/** Méthode qui permet au joueur de nourrir ses ouvriers.
+	 *  Il va d'abord payer avec ses nourritures, sinon en bois, en argile, en pierre ou en or.
+	 *  S'il n'a pas assez de nourritures et de ressources son score diminue.
+	 *  le joueur peut choisir entre donner des ressouces ou perdre 10 point dans son score**/
+	default Map<String, Integer> NourrirOuv(Inventaire inv,  int nm) {
 		Map<String, Integer> choixNourriture = new HashMap<>();
 		int choixJ = rand.nextInt(2); // choix du joueur si oui paye avec ressource sinon paye avec score
 		if (inv.getNbRessource()+ inv.getNourriture() < nm){
@@ -379,8 +405,11 @@ public interface Joueurs {
 		return choixNourriture;
 	}
 
-
-	default  boolean payerBatiment() {//le joueur choisi au hasard s'il prend la carte ou pas
+    /**
+     * Méthode pour savoir si un joueur prend la carte bâtiment ou non.
+     * @return boolean true s'il la prend, false sinon
+     */
+	default boolean payerBatiment() {//le joueur choisi au hasard s'il prend la carte ou pas
 		int a = rand.nextInt(2);
 		if (a == 0) {
 			return true;
@@ -388,54 +417,70 @@ public interface Joueurs {
 			return false;
 		}
 	}
-	default public ArrayList<Integer> pouvoirZone(ArrayList<Zone> LesZones, Inventaire inv ){
-			ArrayList<Integer> listZoneDispo = new ArrayList<>();
-			//*****************Si Jeu entre 2 joueurs******************//
-			if (StoneAge.getNbJoueurTotal() == 2) {
-				for (int i = 0; i < LesZones.size(); i++) {
-					if (LesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && LesZones.get(i).getNbJoueur() == 0 && i != 15 && i != 1 && i != 9 && i != 10 && i != 13 && i != 14) {
-						listZoneDispo.add(i);
-					}
-					if (i == 1 && inv.listeZonesJouer.get(i) != true) {
-						listZoneDispo.add(i);
-					}
-					if (i == 15 && inv.getNbOuvrierDispo() >= 2 && inv.getNbOuvrier() < 10 && inv.listeZonesJouer.get(i) != true && LesZones.get(i).getNbPlaceDispo() != 0) {
-						listZoneDispo.add(i);
-					}
-				}
-			}
-			//*****************Si Jeu entre 3 joueurs******************//
-			else if (StoneAge.getNbJoueurTotal() == 3) {
-				for (int i = 0; i < LesZones.size(); i++) {
-					if (LesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && LesZones.get(i).getNbJoueur() <= 3 && i != 1 && i != 10 && i != 14) {
-						listZoneDispo.add(i);
-					}
-					if (i == 1 && inv.listeZonesJouer.get(i) != true) {
-						listZoneDispo.add(i);
-					}
-					if (i == 15 && inv.getNbOuvrierDispo() >= 2 && inv.listeZonesJouer.get(i) != true && LesZones.get(i).getNbPlaceDispo() != 0) {
-						listZoneDispo.add(i);
-					}
-				}
-			}
-			else if (StoneAge.getNbJoueurTotal() == 4) {
-				for (int i = 0; i < LesZones.size(); i++) {
-					if (LesZones.get(i).getNbPlaceDispo() != 0 && inv.listeZonesJouer.get(i) != true && i != 15 && LesZones.get(i).getNbJoueur() <= 2 && i != 1) {
-						listZoneDispo.add(i);
-					}
-					if (i == 1 && inv.listeZonesJouer.get(i) != true) {
-						listZoneDispo.add(i);
-					}
-					if (i == 15 && inv.getNbOuvrierDispo() >= 2 && inv.listeZonesJouer.get(i) != true && LesZones.get(i).getNbPlaceDispo() != 0) {
-						listZoneDispo.add(i);
-					}
-				}
-			}
-			return listZoneDispo;
 
-		}
-    default  ArrayList<Integer>payBuilding14and18(Inventaire inv, int nbRes){
-	    //methode qui permet au joueur de payer 2 carte batiment
+    /**
+     * Méthode qui permet de savoir quelles zones sont encore disponibles à jouer.
+     * @param LesZones:
+     *                Liste des toutes les zones
+     * @param inv:
+     *           Inventaire du joueur
+     * @return Liste des zones encore disponibles pour jouer dessus.
+     */
+	default ArrayList<Integer> pouvoirZone(ArrayList<Zone> LesZones, Inventaire inv ){
+	    ArrayList<Integer> listZoneDispo = new ArrayList<>();
+	    //*****************Si Jeu entre 2 joueurs******************//
+        if (StoneAge.getNbJoueurTotal() == 2) {
+            for (int i = 0; i < LesZones.size(); i++) {
+                if (LesZones.get(i).getNbPlaceDispo() != 0 && !inv.listeZonesJouer.get(i) && LesZones.get(i).getNbJoueur() == 0 && i != 15 && i != 1 && i != 9 && i != 10 && i != 13 && i != 14) {
+                    listZoneDispo.add(i);
+                }
+                if (i == 1 && !inv.listeZonesJouer.get(i)) {
+                    listZoneDispo.add(i);
+                }
+                if (i == 15 && inv.getNbOuvrierDispo() >= 2 && inv.getNbOuvrier() < 10 && !inv.listeZonesJouer.get(i) && LesZones.get(i).getNbPlaceDispo() != 0) {
+                    listZoneDispo.add(i);
+                }
+            }
+        }
+        //*****************Si Jeu entre 3 joueurs******************//
+        else if (StoneAge.getNbJoueurTotal() == 3) {
+            for (int i = 0; i < LesZones.size(); i++) {
+                if (LesZones.get(i).getNbPlaceDispo() != 0 && !inv.listeZonesJouer.get(i) && LesZones.get(i).getNbJoueur() <= 3 && i != 1 && i != 10 && i != 14) {
+                    listZoneDispo.add(i);
+                }
+                if (i == 1 && !inv.listeZonesJouer.get(i)) {
+                    listZoneDispo.add(i);
+                }
+                if (i == 15 && inv.getNbOuvrierDispo() >= 2 && !inv.listeZonesJouer.get(i) && LesZones.get(i).getNbPlaceDispo() != 0) {
+                    listZoneDispo.add(i);
+                }
+            }
+        }
+        else if (StoneAge.getNbJoueurTotal() == 4) {
+            for (int i = 0; i < LesZones.size(); i++) {
+                if (LesZones.get(i).getNbPlaceDispo() != 0 && !inv.listeZonesJouer.get(i) && i != 15 && LesZones.get(i).getNbJoueur() <= 2 && i != 1) {
+                    listZoneDispo.add(i);
+                }
+                if (i == 1 && !inv.listeZonesJouer.get(i)) {
+                    listZoneDispo.add(i);
+                }
+                if (i == 15 && inv.getNbOuvrierDispo() >= 2 && !inv.listeZonesJouer.get(i) && LesZones.get(i).getNbPlaceDispo() != 0) {
+                    listZoneDispo.add(i);
+                }
+            }
+        }
+        return listZoneDispo;
+	}
+
+    /**
+     * Méthode pour payer 2 cartes bâtiment
+     * @param inv:
+     *           Inventaire du joueur
+     * @param nbRes:
+     *             Nombre de ressources
+     * @return une liste de 4 entiers correspondant au nombre de ressources mise pour payer les cartes.
+     */
+    default ArrayList<Integer>payBuilding14and18(Inventaire inv, int nbRes){
         ArrayList<Integer> res = new ArrayList();
         if (inv.getNbOr()+ inv.getNbPierre()  + inv.getNbArgile()>= nbRes) {
             int nbResMise1 = Math.min(nbRes, inv.getNbOr());
@@ -480,6 +525,13 @@ public interface Joueurs {
         return res;
     }
 
+    /**
+     * Méthode qui permet d'enlever les ressources de l'inventaire du joueur.
+     * @param inv:
+     *           Inventaire du joueur.
+     * @param res:
+     *           Liste des ressources disponibles (quantité)
+     */
     default void resolution(Inventaire inv,ArrayList<Integer> res){
         lesResCouter.clear();
         inv.setScore(inv.getScore()+res.get(0)*6+res.get(1)*5+res.get(2)*4+res.get(3)*3);

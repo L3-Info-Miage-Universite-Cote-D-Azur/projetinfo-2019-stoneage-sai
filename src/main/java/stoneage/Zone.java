@@ -13,6 +13,12 @@ import java.util.ArrayList;
  *		Le nombre de places de la zone.
  * @see int#nbPlaceDispo
  *		Le nombre de place encore disponible dans la zone.
+ * @see int#gains
+ * 		Le noombre des gains du joueur.
+ * @see #TypeGains
+ * 		Le nom du gains
+ * @see int#nbJoueur
+ * 		Le nombre de joueur sur la zone.
  **/
 public class Zone {
 	private String nomZone;
@@ -22,8 +28,8 @@ public class Zone {
 	private  Dé dé= new Dé();
 	private int nbPlaceZone ;
 	private int nbPlaceDispo;
-	private int gains; //le nombre des gains du joueur
-	private String TypeGains; //le nom du gain par exemple bois...
+	private int gains;
+	private String TypeGains;
 	private String[] TypesGains;
 	private int nbJoueur;
 
@@ -147,6 +153,15 @@ public class Zone {
 	public void resetListDesDe(){
 		listeDesDe=new ArrayList<>();
 	}
+
+	/**
+	 * Méthode qui renvoie le nombre de ressources gagnées avec l'utilisation d'outils ou non.
+	 * @param inventaireJoueur:
+	 *                        Inventaire du Joueur
+	 * @param J:
+	 *         Joueur courant
+	 * @return Le nombre de ressources gagnées(gain final)
+	 */
 	public int gestionRessources(Inventaire inventaireJoueur, Joueurs J){
 		inventaireJoueur.resetNbOutilsDuTour();
 		int nbRessources= this.lancéDeDés(inventaireJoueur.listeOuvriersPlaces.get(this.niveauZone-1));
@@ -164,6 +179,14 @@ public class Zone {
 		inventaireJoueur.setNbOutilsDuTour(inventaireJoueur.getNbOutilsDuTour()-outilChoisie);
 		return nbRessources;
 	}
+
+	/**
+	 * Méthode qui
+	 * @param listeDesCartes
+	 * @param listeDesBatiments
+	 * @param inventaireJoueur
+	 * @param J
+	 */
 	public void recupeRes(ArrayList<CarteCivilisation> listeDesCartes,ArrayList<BuildingTiles> listeDesBatiments,Inventaire inventaireJoueur, Joueurs J) {
 		resetListDesDe(); // vider la liste qui contient les dés du joueur precedent ou bien du meme joueur avec une zone precedente
 		int nbRessources = gestionRessources(inventaireJoueur, J);

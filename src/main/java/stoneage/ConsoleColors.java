@@ -1,9 +1,4 @@
 package stoneage;
-/**
- *
- * @author Ossama
- */
-
 /*
 Utilisation:dans un print au debut ajouter ConsoleColors.couleurchoisie 
 et ajouter ConsoleColors.reset a la fin sinon l'effet de changement de couleurs reste.

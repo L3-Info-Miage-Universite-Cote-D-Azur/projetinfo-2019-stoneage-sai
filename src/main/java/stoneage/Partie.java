@@ -5,10 +5,29 @@ import java.util.Map;
 
 
 /**
- *Cette Class gere le  tour qui va etres lancer par la class StoneAge(moteur du jeu),
- * elles va permettre de demander aux joueurs de choisire et poser leur ouvrier dans les zones qu'ils veulent
- *  elle va aussi redestribuer les gains et afficher le deroulement des tours
- * elle contient aussi les carte batiment et les carte civilisation qui vont etre enlever a chaque utilisation
+ *  Cette clase représente le déroulé d'une partie.
+ *  Elle gère le tour qui va être lancé par la classe StoneAge (moteur du jeu).
+ *  @see StoneAge
+ *
+ *  Permet de demander aux joueurs de choisir et poser leur ouvrier dans les zones qu'ils veulent.
+ *  @see #phasePlacement(Inventaire, Joueurs)
+ *
+ *  Permet de récuperer les ressources et ouvriers.
+ *  @see #phaseAction(Inventaire, Joueurs)
+ *
+ *  Nourrit les ouvriers
+ *  @see #phaseNourrir(Inventaire, Joueurs)
+ *
+ *  Contient les cartes bâtiment et civilisation(enlevées à chaque utilisation):
+ *  @see #listeDesBatiments
+ *  @see #listeDesCivilisation
+ *
+ *  @see #plateau
+ *  Correspond au plateau:
+ *      @see Plateau
+ *
+ * @see boolean#stat
+ *      Si on veut des statistiques true, false sinon.
  *
  **/
 public class Partie {
@@ -19,6 +38,11 @@ public class Partie {
     private ArrayList<BuildingTiles> listeDesBatiments;
     static boolean stat;
 
+    /**
+     * Constructeur de la classe Partie
+     * @param statistique:
+     *                   Pour savoir si on veut les statistique  ou la partie en détail.
+     */
     public Partie(boolean statistique){
         listeDesCivilisation=new ArrayList<CarteCivilisation>();
         listeDesCivilisation=carte.getAllCards();
@@ -35,6 +59,13 @@ public class Partie {
         return plateau;
     }
 
+    /**
+     * Méthode qui permet de récuperer les ouvriers et ressources d'un joueur.
+     * @param inv:
+     *           Inventaire du joueur.
+     * @param joueur:
+     *              Joueur qui doit reprendre des ouvriers et ressources gagnées.
+     */
     protected void phaseAction( Inventaire  inv,Joueurs joueur) {
         for(int i =0;i<16;i++){
             if (inv.listeZonesJouer.get(i)==true){
@@ -66,7 +97,7 @@ public class Partie {
         		else if (choix.getGains()>=0){
         			if (!stat) System.out.println(ConsoleColors.RED+"\nLe joueur " + joueur.getNum() + " a gagner  "+choix.getGains() +" " +choix.getTypeGains()+ ", il reprend ses ouvriers de la zone "+choix  + "."+ConsoleColors.RESET );
                     if (choix.getNiveauZone()==12 ||choix.getNiveauZone()==13 ||choix.getNiveauZone()==14 ||choix.getNiveauZone()==15){
-                        String chaine="Elle a couter :";
+                        String chaine="Elle a coute :";
                         for (String c:joueur.lesResCouter.keySet()) {
                             chaine+= joueur.lesResCouter.get(c)+" "+c+" ||";
                         }
@@ -77,6 +108,14 @@ public class Partie {
         }
         inv.resetAvailableWorkers();
     }
+
+    /**
+     * Méthode qui permet de placer des ouvriers sur une zone.
+     * @param inv:
+     *           Inventaire du joueur.
+     * @param joueur:
+     *              Joueur qui doit reprendre des ouvriers et ressources gagnées.
+     */
     protected void phasePlacement( Inventaire  inv, Joueurs joueur){
         Choix choix = joueur.placerOuvriers( plateau,inv);
         inv.listeZonesJouer.set(choix.zoneChoisie,true); //la zone choisie est utliser donc devient true dans l'inventaire du joueur
@@ -84,21 +123,26 @@ public class Partie {
         plateau.get(choix.zoneChoisie).placerOuvrier(inv, choix.nbOuvriersChoisie);
         if (!stat) System.out.println(ConsoleColors.BLUE+"Le joueur " + joueur.getNum() + " a choisi la zone "+plateau.get(choix.zoneChoisie)+" pour y placer "+choix.nbOuvriersChoisie+" ouvrier(s)"+ConsoleColors.RESET);
     }
-
     public  int getNbCarteDispo() {
         return (listeDesCivilisation).size();
-    }// cette methode va retourner le nombre des carte civilisation  disponnible
+    }
     public  int getNbBatiments() {
         return (listeDesBatiments).size();
-    }// cette methode va retourner le nombre des carte batiment  disponnible
+    }
 
-
+    /**
+     * Méthode pour nourrir les ouvriers
+     * @param inv:
+     *           Inventaire du joueur.
+     * @param joueur:
+     *              Joueur qui doit reprendre des ouvriers et ressources gagnées.
+     */
     protected void phaseNourrir(Inventaire  inv, Joueurs joueur) {
         inv.addNourriture( inv.getScoreChamp());
-        //chaque joueur prend une valeur de jetons nourriture egale a la valeur de son marqeur sur la piste agriculture
+        //chaque joueur prend une valeur de jetons nourriture egale a la valeur de son marqueur sur la piste agriculture
         if (!stat) System.out.println(ConsoleColors.GREEN + "Le joueur " + joueur.getNum() + " a " + inv.getNourriture() + " nourritures et " + inv.getNbRessource() + " ressources." + ConsoleColors.RESET);
         int nm = inv.getNbOuvrierDispo() - inv.getNourriture();//nourriture qui manque
-        if (nm <= 0) {//cas ou la nourriture du joueur est suffisante pour nourrie ses figurines
+        if (nm <= 0) {//cas ou la nourriture du joueur est suffisante pour nourrir ses figurines
             inv.addNourriture(-inv.getNbOuvrierDispo());
             if (!stat) System.out.println(ConsoleColors.GREEN + "Le joueur " + joueur.getNum() + " va nourrir ses ouvriers avec la nourritue qu'il possede." + ConsoleColors.RESET);
 
@@ -124,6 +168,19 @@ public class Partie {
         }
     }
 
+    /**
+     * Méthode qui permet à chaque joueur de récuperer une ressource parmi celles disponibles d'une carte civilisation.
+     * @param zone:
+     *            Zone où le joueur se trouve
+     * @param listeDesInventaires:
+     *                           Liste de l'inventaire de chaque joueur.
+     * @param listeDesJoueurs:
+     *                       Liste de tous les joueurs.
+     * @param J:
+     *         Le Joueur qui est en train d'utiliser cette méthode
+     * @param invJ:
+     *            L'inventaire du joueur J.
+     */
     public static void demanderCadeau( Zone zone, ArrayList<Inventaire> listeDesInventaires ,ArrayList<Joueurs> listeDesJoueurs,Joueurs J,Inventaire invJ ){
         ArrayList<Integer> listeDe=zone.lancerNbDé(4); //lancer 4 dé pour les carte civilisation qui demande cette option
         int choixCad;
@@ -134,8 +191,6 @@ public class Partie {
                 listeIndJoueurs.add(listeDesJoueurs.indexOf(listeDesJoueurs.get(j)));
             }
         }// une liste qui contient l'indice des joueur en commencant par le joueur qui a choisi la carte
-        /*cette methode va permetre a chaque joueur de
-        recuperer une resource parmis les dispo (carte civilisation)*/
         if (!stat) System.out.println(ConsoleColors.RED+"\nLe joueur " + J.getNum()+ " partage sa carte civilisation avec les autre joueurs:"+ConsoleColors.RESET);
 
         for( int i : listeIndJoueurs ) {

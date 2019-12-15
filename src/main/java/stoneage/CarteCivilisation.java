@@ -106,6 +106,16 @@ public class CarteCivilisation {
         allCards.add(new CarteCivilisation(1,34));
         allCards.add(new CarteCivilisation(1,35));
     }
+
+    /**
+     * Méthode qui permet de récuperer le résultat de la carte civilisation
+     * @param inventaireJoueur:
+     *                        Inventaire du joueur.
+     * @param zone:
+     *            Zone où se trouve le joueur
+     * @param J:
+     *         Joueur courant
+     */
     public void recupResCarteCiv(Inventaire inventaireJoueur,Zone zone,Joueurs J){
         if (this.getFondDeCarte() == 0) {
             //cartes vertes
@@ -118,10 +128,10 @@ public class CarteCivilisation {
                     inventaireJoueur.lesRessources.get(2).addvaleur(7);
                     zone.setGains( 7);
                     zone.setTypeGains( inventaireJoueur.lesRessources.get(2).getNom());
-                    //la carte 0 permet au joueur de gagner 7 nourriture
+                    //la carte 0 permet au joueur de gagner 7 nourritures
                 } else {
                     // Carte poterie 1
-                    //lancement de 4 dé avec une methode dans joeur pour que les joueur choisi quelle ressource il veut
+                    //lancement de 4 dé avec une methode dans jouer pour que le joueur choisisse la ressource qu'il veut.
                     Partie.demanderCadeau(zone,StoneAge.listeDesInventaires, StoneAge.listeDesJoueurs, J, inventaireJoueur);
                     zone.setGains( -2);
                 }
@@ -147,7 +157,7 @@ public class CarteCivilisation {
                 //Ecriture
                 inventaireJoueur.addTypeCarteCivVerte(3);
                 if (this.getNumeroCarte() == 4) {
-                    // carte Ecriture 4 : c'est une carte civilisation qui sert que pour calcile Score final
+                    // carte Ecriture 4 : c'est une carte civilisation qui sert que pour calcule Score final
                     inventaireJoueur.addNbcarteCiv();
                     zone.setGains( 1);
                     zone.setTypeGains( " Carte Civilisation");

@@ -113,6 +113,15 @@ public class BuildingTiles {
         return cards;
     }
 
+    /**
+     * Méthode qui permet de récuperer le résultat de la carte bâtiment
+     * @param inventaireJoueur:
+     *                        Inventaire du joueur
+     * @param zone:
+     *            Zone où se trouve le joueur
+     * @param J:
+     *         Joueur courant
+     */
     public void recupResCarteBat(Inventaire inventaireJoueur,Zone zone,Joueurs J) {
         if (this.getCardScore() == 0) {   //une seule carte +10 points et coute 2b+1a
             if (inventaireJoueur.lesRessources.get(3).getValeur() >= 2 && inventaireJoueur.lesRessources.get(4).getValeur() >= 1 ) {

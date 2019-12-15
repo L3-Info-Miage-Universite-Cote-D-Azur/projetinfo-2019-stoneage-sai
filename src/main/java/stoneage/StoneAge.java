@@ -1,6 +1,7 @@
 package stoneage;
 import java.util.ArrayList;
 import java.util.Collections;
+
 /**
  * Cette classe est le moteur du jeu.
  * Elle gère:
@@ -23,8 +24,8 @@ public class StoneAge {
 	Partie partie = new Partie(true); // Le nombre de joueur choisit est 4. Le nombre de joueur minimal est 1
 	private final JoueurIA joueurIA = new JoueurIA("O",1);
 	private final JoueurBot2 joueurBot = new JoueurBot2("S",2);
-	static  ArrayList<Joueurs> listeDesJoueurs =new ArrayList<>(); // Une liste qui va contenir tous les joueurs de la partie.
-	static  ArrayList<Inventaire> listeDesInventaires=new ArrayList<>() ; // Une liste qui va contenir tous les inventaires de la partie.
+	static ArrayList<Joueurs> listeDesJoueurs =new ArrayList<>(); // Une liste qui va contenir tous les joueurs de la partie.
+	static ArrayList<Inventaire> listeDesInventaires=new ArrayList<>() ; // Une liste qui va contenir tous les inventaires de la partie.
 	private int nbJoueurs;  // A part le joueur IA
 	private static int nbJoueurTotal;
 	public Zone zone;

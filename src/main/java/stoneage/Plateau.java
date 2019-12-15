@@ -1,14 +1,19 @@
 package stoneage;
-
-
 import java.util.ArrayList;
 
+/**
+ * Cette classe représente le plateau de jeu.
+ * Elle contient toutes les zones de jeu.
+ * @see #lesZones
+ * @see Zone
+ */
 public class Plateau {
     public ArrayList<Zone> lesZones = new ArrayList();
 
-    public Plateau() {
-    }
-
+    /**
+     * Méthode qui ajoute toutes les zones à une liste.
+     * @return une liste de toutes les zones.
+     */
     public ArrayList<Zone> addAllZones() {
         this.lesZones.add(new Zone(1, 1, "Fabrication d'Outils"));
         this.lesZones.add(new Zone(2, 100, "Chasse"));
