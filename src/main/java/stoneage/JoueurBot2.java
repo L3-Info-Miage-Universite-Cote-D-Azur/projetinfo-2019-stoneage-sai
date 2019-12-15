@@ -145,8 +145,8 @@ public class JoueurBot2 implements Joueurs {
 				placer.add(1);
 			}
 			else if (listZoneDispo.contains(2) && inv.getNbBois()<=4) {//bois
-                	// placer.add(2);
-                    placer.add(rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(2).getNbPlaceDispo()))+1);
+				 placer.add(2);
+                 placer.add(rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(2).getNbPlaceDispo()))+1);
             }
 			else if (listZoneDispo.contains(6)) {//champ
 				placer.add(6);
