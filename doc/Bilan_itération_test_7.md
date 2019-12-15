@@ -20,10 +20,10 @@ Changement des ressources donc changement des zones de même et aussi changement
 
 ------------------------------------------------------------------------------------------------------
 
--Ce changement pour zone incite donc un changement aussi des modifications pour les tests de Inventaire, de BuildingTiles, de StoneAge et aussi de Partie.
+- Ce changement pour zone incite donc un changement aussi des modifications pour les tests de Inventaire, de BuildingTiles, de StoneAge et aussi de Partie.
 
 --------------------------------------------------------------------------------------------------------
 
--Modification de CarteCivilisation donc modification de ses tests:
+- Modification de CarteCivilisation donc modification de ses tests:
 
 Tests pour le nouvelle façon de créer l'objet CarteCivilisation et test pour récuperer les ressources d'une carte civilisation pour chaque cas possible.
