@@ -34,6 +34,6 @@ public class Choix {
 	}
 	@Override
 	public String toString(){
-             return "nbOuvriersChoisie="+nbOuvriersChoisie+"  Indice de la zone Choisie="+(zoneChoisie+1);
+             return "nbOuvriersChoisis="+nbOuvriersChoisie+"  Indice de la zone Choisie="+(zoneChoisie+1);
          }
 }

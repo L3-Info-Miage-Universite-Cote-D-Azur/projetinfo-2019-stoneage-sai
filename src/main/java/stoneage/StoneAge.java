@@ -70,17 +70,17 @@ public class StoneAge {
 	public void jouer(int p){
 		if (!stat || p == 0) {
 	        System.out.println("***************** Debut de la Partie *****************\n");
-	        System.out.println("Joueur 1 : JoueurIA, un joueur intelligent qui utilise une strategie de jeu gagante.");
-	        System.out.println("Joueur 2 : JoueurBot2, un joueur intelligent qui utilise une seconde strategie de jeu gagante. Elle est differente du celle du JoueurIA.");
+	        System.out.println("Joueur 1 : JoueurIA, un joueur intelligent qui utilise une stratégie de jeu gagante.");
+	        System.out.println("Joueur 2 : JoueurBot2, un joueur intelligent qui utilise une seconde stratégie de jeu gagante. Elle est différente du celle du JoueurIA.");
 	        for (int i=3 ; i<=nbJoueurs+1;i++){
-	            System.out.println("Joueur "+(i)+" : JoueurNormal, un joueur normal qui fait des choix au hazard pour toutes les methodes.");
+	            System.out.println("Joueur "+(i)+" : JoueurNormal, un joueur normal qui fait des choix au hazard pour toutes les méthodes.");
 	        } 
 		}
 
         int nbDeTour=1;
         while (partie.getNbCarteDispo()>=(nbJoueurTotal) && nbDeTour<50 && partie.getNbBatiments()>=(nbJoueurTotal) ){
         	// Nombre de partie au max est 50 sinon le jeu s'arrete lorsqu'il ya plus de carte Civ
-            if (!stat) System.out.println("\n**** Debut du Tour N° "+ (nbDeTour) +" ****");
+            if (!stat) System.out.println("\n**** Début du Tour N° "+ (nbDeTour) +" ****");
             unTour();
             if (!stat) System.out.println("**** Fin du Tour N° "+ (nbDeTour) +" ****\n");
             nbDeTour++;
@@ -208,14 +208,14 @@ public class StoneAge {
 						" | Or  : " +listeDesInventaires.get(i).getNbOr() +
 						" | Outil  : " +listeDesInventaires.get(i).getNbOutils() +
 						" | Nourriture  : " +listeDesInventaires.get(i).getNourriture());
-				System.out.println("Nombre de carte Civilisation Constructeur : " + listeDesInventaires.get(i).getNbConstructeur() +
+				System.out.println("Nombre de cartes Civilisation Constructeur : " + listeDesInventaires.get(i).getNbConstructeur() +
 						" | Fabricant  : " + listeDesInventaires.get(i).getNbFabricant() +
 						" | Paysan  : " + listeDesInventaires.get(i).getNbPaysan() +
 						" | Chamane  : " + listeDesInventaires.get(i).getNbChamane());
 				System.out.println("Niveau agriculture : " +listeDesInventaires.get(i).getScoreChamp() );
-				System.out.println("Nombre de carte Civilisation Verte  : " + listeDesInventaires.get(i).getNbCarteVert());
-				System.out.println("Nombre de carte Batiment   : " + listeDesInventaires.get(i).getNbCarteBat());
-	    		System.out.println("Le Score final  du joueur ** "+ (numJ) +" ** : " +listeDesInventaires.get(i).calcScore() + "\n");
+				System.out.println("Nombre de cartes Civilisation Verte  : " + listeDesInventaires.get(i).getNbCarteVert());
+				System.out.println("Nombre de cartes Batiment   : " + listeDesInventaires.get(i).getNbCarteBat());
+	    		System.out.println("Le Score final du joueur ** "+ (numJ) +" ** : " +listeDesInventaires.get(i).calcScore() + "\n");
 	                
 	    		if (listeDesInventaires.get(i).calcScore()>ScoreGagnant){
 	    			Gagnant=numJ; //si le score du joueur corant est le plus elever alors on change les deux variables.
@@ -231,7 +231,7 @@ public class StoneAge {
 	    		}
 	    	}
 	    	if (nbScoreEgaux==nbJoueurs+1) {
-				System.out.println("Les joueurs ont des scores egaux! Il n'y a pas de gagnant.");// nous permet de savoir si les 4 joueurs ont des score egaux
+				System.out.println("Les joueurs ont des scores égaux! Il n'y a pas de gagnant.");// nous permet de savoir si les 4 joueurs ont des score egaux
 	    	} 
 	    	else if (nbScoreEgaux==3) {
                  System.out.println("Les joueurs ** " +(joueurGagnant.get(0))+" ** et ** "+(joueurGagnant.get(1))+" ** et ** "+(joueurGagnant.get(2))+" ** gagnent.");
@@ -243,7 +243,7 @@ public class StoneAge {
 	    		System.out.println("Le joueur *** "+Gagnant+" *** remporte la partie avec : " + ScoreGagnant + " Points");
 	    	}  
 	    	else {
-	    		System.out.println("Le score des joueurs est negatif! Ils ont tous perdu. ");
+	    		System.out.println("Le score des joueurs est négatif! Ils ont tous perdu. ");
 
 	    	}
 	 }
@@ -342,10 +342,10 @@ public class StoneAge {
 			System.out.print(" | Paysan : " + (tabStatistique[i][11]) / 500);
 			System.out.println(" | Chamane : " + (tabStatistique[i][12]) / 500);
 			System.out.println("Une agriculture de niveau : " + (tabStatistique[i][8]) / 500);
-			System.out.println("Nombre de carte Civilisation Verte " + (tabStatistique[i][13]) / 500);
-			System.out.println("Nombre de carte Batiment " + (tabStatistique[i][14]) / 500);
-			System.out.println("Le Score moyen  du joueur ** " + (i+1) + " ** : " + (tabStatistique[i][1]) / 500 + " points");
-			System.out.println("\nAu total le joueur ** " + (i+1) + " ** a remporter : " + tabStatistique[i][0] + " parties sur 500\n");
+			System.out.println("Nombre de cartes Civilisation Verte " + (tabStatistique[i][13]) / 500);
+			System.out.println("Nombre de cartes Batiment " + (tabStatistique[i][14]) / 500);
+			System.out.println("Le Score moyen du joueur ** " + (i+1) + " ** : " + (tabStatistique[i][1]) / 500 + " points");
+			System.out.println("\nAu total le joueur ** " + (i+1) + " ** a remporté : " + tabStatistique[i][0] + " parties sur 500\n");
 		}
 	}
 

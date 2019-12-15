@@ -2,22 +2,24 @@ package stoneage;
 import java.util.ArrayList;
 
 /**
- *Cette Class est les joueursIA qui suivent une strategie dans le jeu ,
- * elle permet de faire des choix plus inteligent et eviter les choix
+ *Cette Classe représente les joueursIA qui suivent une strategie dans le jeu.
+ * elle permet de faire des choix plus intelligent et éviter les choix
  * au hazard le plus possible en respenctant les regle du jeu.
  *
  * Pour le choix de Zone :
- * strategie du joueurIA est tout d'abord de surveiller le nombre de nourriture qu'il possede pour pas avoir de score negatif
+ * stratégie du joueurIA est tout d'abord de surveiller le nombre de nourriture qu'il possède pour ne pas avoir de score négatif
  * ensuite il essaie d'avoir le nombre  maximal d'ouvriers
- * apres il va choisire les carte civilsation 1 /2 (les moins chere )
- * sinon  il choisi la zone fabrication d'outil, le champ, foret, carriere...
+ * apres il va choisir les carte civilsation 1 /2 (les moins chere )
+ * sinon il choisit la zone fabrication d'outil, le champ, foret, carriere...
  *
  *Pour le choix de Dé cadeau de carte civilisation :
- * il choisie le mielleur dé present donc Or> champ > outil > argile ...
+ * il choisit le meilleur dé present donc Or> champ > outil > argile ...
  *
- * Pour le choix de ressouce pour payer la carte civ :
- *le joueur regarde tous dabors les ressouce les moin couteuse, Bois, Argile , Pierre..
+ * Pour le choix de ressources pour payer la carte civ :
+ *le joueur regarde d'abord les ressources les moin chère: Bois, Argile, Pierre..
  *
+ * @see Joueurs
+ * 	Pour les méthodes
 **/
 public class JoueurIA implements Joueurs {
 	private String name;

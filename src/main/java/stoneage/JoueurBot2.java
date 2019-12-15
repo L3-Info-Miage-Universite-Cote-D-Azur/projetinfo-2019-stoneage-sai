@@ -3,30 +3,31 @@ import java.util.ArrayList;
 import java.util.Random;
 /** 
  * JoueurBot2 est un joueur qui suit une strategie de jeu gagnante.
- * Cette derniere lui permet de faire des choix plus inteligent et eviter les choix
- * au hazard le plus possible en respenctant les regle du jeu.
+ * Cette derniere lui permet de faire des choix plus intelligent et éviter les choix
+ * au hazard le plus possible en respectant les règles du jeu.
  *
  * Pour le choix de la zone:
- * le joueur regarde s'il a assez de nourriture pour nourrir ses ouvriers a la fin du tour:
- * Si oui:il choisi les zones suivantes dans cette ordre si elles sont disponibles:
- * il  va choisir les cartes civilsation 1 et 2 car elles sont les moins cheres
- * puis la zone foret (car la ressource bois est la moins cher)
- * puis la zone fabrication d'Outils(pour avoir plus de ressources lors de la recuperation des ouvriers)
+ * le joueur regarde s'il a assez de nourriture pour nourrir ses ouvriers à la fin du tour:
+ * Si oui:il choisit les zones suivantes dans cette ordre si elles sont disponibles:
+ * il  va choisir les cartes civilsation 1 et 2 car elles sont les moins chères
+ * puis la zone forêt (car la ressource bois est la moins cher)
+ * puis la zone fabrication d'Outils(pour avoir plus de ressources lors de la récupération des ouvriers)
  * puis les batiments 1 2 3 et 4
  * puis lez zones glaisieres carriere et rivieres dans cet ordre(de la ressource la moins chere a la ressource la plus cher)
- * Sinon:il places des figurines dans la zone de chasse pour avoir de la nourriture
+ * Sinon:il place des figurines dans la zone de chasse pour avoir de la nourriture
  *  
  *  Pour le choix de l'outil:
- *   si cela est interressant de placer un outil c'est a dire que si le placement d'un outil lui permet de prendre 
+ *   si cela est interressant de placer un outil c'est-à-dire que si le placement d'un outil lui permet de prendre
  *   plus de ressource: alors il choisit de placer un outil
  * 
- * *Pour le choix de Dé cadeau de carte civilisation :
- * il choisi le meilleur dé present donc Or> champ > outil > argile ...
+ * Pour le choix de Dé cadeau de carte civilisation :
+ * il choisit le meilleur dé présent donc Or> champ > outil > argile ...
  *
- * Pour le choix de ressouce pour payer la carte civ :
- *le joueur regarde tous dabord les ressouce les moins couteuses, Bois, Argile , Pierre..
+ * Pour le choix de ressource pour payer la carte civ :
+ * le joueur regarde d'abord les ressources les moins chères: Bois, Argile, Pierre..
  *   
- * 
+ * @see Joueurs
+ * 	Pour les méthodes
  **/
 public class JoueurBot2 implements Joueurs {
 	Random rand = new Random();
@@ -39,7 +40,7 @@ public class JoueurBot2 implements Joueurs {
             this.num=num;
 	}  
         
-        public int cadeauRes(ArrayList<Integer> listeDe){
+	public int cadeauRes(ArrayList<Integer> listeDe){
 		if (listeDe.contains(4)){return 4;}
 		else if (listeDe.contains(6)){return 6;}
 		else if (listeDe.contains(5)){return 5;}
@@ -76,10 +77,7 @@ public class JoueurBot2 implements Joueurs {
 			return (-1);
 		}
     }
-        
-
-        
-       public Choix placerOuvriers(ArrayList<Zone> lesZones ,Inventaire inv) {
+    public Choix placerOuvriers(ArrayList<Zone> lesZones ,Inventaire inv) {
     	//*****************Si Jeu entre 2 joueurs******************//
 		if (StoneAge.getNbJoueurTotal() == 2) {
 			ArrayList<Integer> listZoneDispo = new ArrayList<>();
@@ -135,78 +133,70 @@ public class JoueurBot2 implements Joueurs {
 			return null;
 		}
 	}
-        
-        /**
-         * 
-         * @param listZoneDispo
-         * @param lesZones
-         * @param inv
-         * @return 
-         */
-        public ArrayList<Integer> ouPlacer(ArrayList<Integer> listZoneDispo,ArrayList<Zone> lesZones, Inventaire inv ){
-            ArrayList<Integer> placer=new ArrayList<Integer>();
-            if (inv.getNourriture()>=inv.getNbOuvrier()) {
-                if (listZoneDispo.contains(7) && inv.getNbRessource()>=1 ) {//carte civ qui coute 1
-                    placer.add(7);
-                    placer.add(1);
-                }
-                else if (listZoneDispo.contains(8) && inv.getNbRessource()>=2) {//carte civ qui coute 2
-                    placer.add(8);
-                    placer.add(1);
-                }
-                else if (listZoneDispo.contains(2) && inv.getNbBois()<=4) {//bois
-                    placer.add(2);
+	public ArrayList<Integer> ouPlacer(ArrayList<Integer> listZoneDispo,ArrayList<Zone> lesZones, Inventaire inv ){
+		ArrayList<Integer> placer=new ArrayList<Integer>();
+		if (inv.getNourriture()>=inv.getNbOuvrier()) {
+			if (listZoneDispo.contains(7) && inv.getNbRessource()>=1 ) {//carte civ qui coute 1
+				placer.add(7);
+				placer.add(1);
+			}
+			else if (listZoneDispo.contains(8) && inv.getNbRessource()>=2) {//carte civ qui coute 2
+				placer.add(8);
+				placer.add(1);
+			}
+			else if (listZoneDispo.contains(2) && inv.getNbBois()<=4) {//bois
+                	// placer.add(2);
                     placer.add(rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(2).getNbPlaceDispo()))+1);
-                }
-                else if (listZoneDispo.contains(6)) {//champ
-                    placer.add(6);
-                    placer.add(1);
-                }
-                else if (listZoneDispo.contains(0)) {
-                    placer.add(0);
-                    placer.add(1);
-                }
-                else if (listZoneDispo.contains(11)) {//batiment 1
-                    placer.add(11);
-                    placer.add(1);
-                }
-                else if (listZoneDispo.contains(12)) {//batiment 2
-                    placer.add(12);
-                    placer.add(1);
-                }
-                else if (listZoneDispo.contains(13)) {//batiment 3
+            }
+			else if (listZoneDispo.contains(6)) {//champ
+				placer.add(6);
+            	placer.add(1);
+            }
+			else if (listZoneDispo.contains(0)) {
+               placer.add(0);
+               placer.add(1);
+			}
+			else if (listZoneDispo.contains(11)) {//batiment 1
+				placer.add(11);
+				placer.add(1);
+			}
+			else if (listZoneDispo.contains(12)) {//batiment 2
+				placer.add(12);
+				placer.add(1);
+			}
+			else if (listZoneDispo.contains(13)) {//batiment 3
                     placer.add(13);
                     placer.add(1);
-                }
-                else if (listZoneDispo.contains(14)) {//batiment 4
-                    placer.add(14);
-                    placer.add(1);
-                }
-                else if (listZoneDispo.contains(3) ){ // argile
-			placer.add(3);
-			placer.add(rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(3).getNbPlaceDispo()))+1);
-		}else if (listZoneDispo.contains(4)){ // PIERRE
-			placer.add(4);
-			placer.add(rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(4).getNbPlaceDispo()))+1);
-		}else if (listZoneDispo.contains(5)){  //OR
-			//le joueur la choisi que s'il a plus de 3 ouvrier dispo pour avoir un max d'Or
-			placer.add(5);
-			placer.add(rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(5).getNbPlaceDispo()))+1);
+			}
+			else if (listZoneDispo.contains(14)) {//batiment 4
+				placer.add(14);
+				placer.add(1);
+			}
+			else if (listZoneDispo.contains(3) ){ // argile
+				placer.add(3);
+				placer.add(rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(3).getNbPlaceDispo()))+1);
+			}
+			else if (listZoneDispo.contains(4)){ // PIERRE
+				placer.add(4);
+				placer.add(rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(4).getNbPlaceDispo()))+1);
+			}
+			else if (listZoneDispo.contains(5)){  //OR
+				//le joueur la choisi que s'il a plus de 3 ouvrier dispo pour avoir un max d'Or
+				placer.add(5);
+				placer.add(rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(5).getNbPlaceDispo()))+1);
+			}
+			else{ // au pire des cas si le joueur ne trouve pas de choix
+				placer.add(1);
+				placer.add(rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(1).getNbPlaceDispo()))+1);
+			}
 		}
-                
-                else{ // au pire des cas si le joueur ne trouve pas de choix
-			placer.add(1);
-			placer.add(rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(1).getNbPlaceDispo()))+1);
-		}
-            }
-            else{
+		else{
 			placer.add(1);
 			placer.add(rand.nextInt(Math.min(inv.getNbOuvrierDispo(),lesZones.get(1).getNbPlaceDispo()))+1);		
-            }
-            return placer;
-        }
-
-        public int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) {
+		}
+		return placer;
+	}
+	public int placerOutils(int nbOutils,int nbRessources, Zone zoneChoisi) {
                 int OutilChoisie ;
 		for (int i=5;i>=0;i--){
 			if ((zoneChoisi.getNiveauZone()-(nbRessources % zoneChoisi.getNiveauZone()))+(zoneChoisi.getNiveauZone()*i)<=nbOutils)
@@ -217,7 +207,6 @@ public class JoueurBot2 implements Joueurs {
 		}
 		return 0;
 	}
-
 	public int getNum(){
 		return num;
 	}
