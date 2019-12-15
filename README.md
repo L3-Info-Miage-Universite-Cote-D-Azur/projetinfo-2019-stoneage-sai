@@ -27,6 +27,13 @@ $ mvn exec:java@500 -Dexec.args="argument"
 
 *L'argument entré est un nombre entre 2 et 4, il correspond au nombre de joueurs.*
 
+> Lancement sans arguments:
+```shell
+$ mvn exec:java@500
+$ mvn exec:java 
+``` 
+*Le nombre de joueur est par défaut 4.*
+
 ### [Itération 1](https://github.com/L3-Info-Miage-Universite-Cote-D-Azur/projetinfo-2019-stoneage-sai/milestone/1) : 
 Lancement d'une partie (un tour) avec :
 - [X] Une zone Foret (gains Bois= résultat dés /3)
