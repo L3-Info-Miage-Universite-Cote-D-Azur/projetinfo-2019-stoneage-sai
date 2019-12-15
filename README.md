@@ -27,7 +27,7 @@ $ mvn exec:java@500 -Dexec.args="argument"
 
 *L'argument entré est un nombre entre 2 et 4, il correspond au nombre de joueurs.*
 
-> Lancement sans arguments:
+> Lancement sans argument:
 ```shell
 $ mvn exec:java@500
 $ mvn exec:java 
