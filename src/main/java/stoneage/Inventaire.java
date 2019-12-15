@@ -213,7 +213,7 @@ public class Inventaire {
 		lesRessources.put(2,new Ressources(2,"Nourriture",nb));
 	}
 	public void addNourriture(int nb){
-		lesRessources.get(2).addvaleur(nb);;
+		lesRessources.get(2).addvaleur(nb);
 	}
 	public int getNbOutilsDuTour(){
 		return nbOutilsDutour;

@@ -2,7 +2,6 @@
 package stoneage;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -44,7 +43,8 @@ public class PartieTest {
 	
 	@Test
 	public void testPhasePlacement() {
-		inv.lesRessources.replace(2, new Ressources(2,"Nourriture",0));    //On initialise le nombre de nourriture a 0 dans l'inventaire du joueur
+		
+		inv.setNourriture(0);    //On initialise le nombre de nourriture a 0 dans l'inventaire du joueur
 		partie.phasePlacement(inv, joueurBot2); //Comme le JoueurBot2 n'a pas de nourriture il doit jouer la zone chasse
 		assertTrue(inv.listeZonesJouer.get(1)); //"listeZonesJouer.get(1)" est la zone chasse
 		
