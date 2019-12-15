@@ -1,6 +1,12 @@
  projetinfo-2019-stoneage-sai created by GitHub Classroom
 -----------------------------------------------
+
+
 # STONE AGE
+ 
+<p align="center">
+<img src="https://user-images.githubusercontent.com/42892662/70863562-ce27a600-1f49-11ea-9cfc-06c9f345d261.png" alt="Example of uploading image to GitHub's " width="400px">
+</p>
 
 ## Pour Executer Stone Age :
 > Pour lancer une seul partie: 
