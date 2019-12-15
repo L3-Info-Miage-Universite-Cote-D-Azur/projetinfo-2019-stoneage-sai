@@ -2,6 +2,17 @@
 -----------------------------------------------
 # STONE AGE
 
+## Pour Executer Stone Age :
+> Pour lancer une seul partie: 
+```shell
+$ mvn exec:java -Dexec.args="argument"
+```
+> Pour lancer 500 parties avec les statistiques: 
+```shell
+$ mvn exec:java@500 -Dexec.args="argument"
+```
+*L'argument entré est un nombre entre 2 et 4, il correspend au nombre des joueurs.*
+
 ### [Itération 1](https://github.com/L3-Info-Miage-Universite-Cote-D-Azur/projetinfo-2019-stoneage-sai/milestone/1) : 
 Lancement d'une partie (un tour) avec :
 - [X] Une zone Foret (gains Bois= résultat dés /3)
