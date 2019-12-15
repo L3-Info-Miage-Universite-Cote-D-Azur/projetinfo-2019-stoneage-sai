@@ -124,7 +124,7 @@ On a un gagnant et on affiche les scores de chaque joueur.
 * On observe les joueurs qui commence une partie entre bots. 
 * On a un gagnant en fin de partie et les scores finaux.
 #### Date prévue : 
-*Le Vendredi 13 Décembre*
+*Le Dimanche 15 Décembre*
 
 
 
