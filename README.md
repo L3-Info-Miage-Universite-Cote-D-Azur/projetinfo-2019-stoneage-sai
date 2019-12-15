@@ -1,6 +1,23 @@
  projetinfo-2019-stoneage-sai created by GitHub Classroom
 -----------------------------------------------
+
+
 # STONE AGE
+ 
+<p align="center">
+<img src="https://user-images.githubusercontent.com/42892662/70863562-ce27a600-1f49-11ea-9cfc-06c9f345d261.png" alt="Example of uploading image to GitHub's " width="400px">
+</p>
+
+## Pour Executer Stone Age :
+> Pour lancer une seul partie: 
+```shell
+$ mvn exec:java -Dexec.args="argument"
+```
+> Pour lancer 500 parties avec les statistiques: 
+```shell
+$ mvn exec:java@500 -Dexec.args="argument"
+```
+*L'argument entré est un nombre entre 2 et 4, il correspend au nombre des joueurs.*
 
 ### [Itération 1](https://github.com/L3-Info-Miage-Universite-Cote-D-Azur/projetinfo-2019-stoneage-sai/milestone/1) : 
 Lancement d'une partie (un tour) avec :
@@ -107,7 +124,7 @@ On a un gagnant et on affiche les scores de chaque joueur.
 * On observe les joueurs qui commence une partie entre bots. 
 * On a un gagnant en fin de partie et les scores finaux.
 #### Date prévue : 
-*Le Vendredi 13 Décembre*
+*Le Dimanche 15 Décembre*
 
 
 
